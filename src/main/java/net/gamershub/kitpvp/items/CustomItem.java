@@ -114,7 +114,7 @@ public abstract class CustomItem implements Listener {
             if (abilities.hasNext()) lore.add(Component.empty());
         }
 
-        if ( !lore.isEmpty() && PlainTextComponentSerializer.plainText().serialize(lore.get(lore.size() - 1)).isEmpty()) {
+        if (!lore.isEmpty() && PlainTextComponentSerializer.plainText().serialize(lore.get(lore.size() - 1)).isEmpty()) {
             lore.remove(lore.size() - 1);
         }
 
