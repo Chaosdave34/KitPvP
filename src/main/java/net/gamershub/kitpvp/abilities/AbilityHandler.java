@@ -2,6 +2,7 @@ package net.gamershub.kitpvp.abilities;
 
 import net.gamershub.kitpvp.KitPvpPlugin;
 import net.gamershub.kitpvp.abilities.impl.FireballAbility;
+import net.gamershub.kitpvp.abilities.impl.LightningAbillity;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -20,9 +21,10 @@ public class AbilityHandler implements Listener {
     public HashMap<Integer, Ability> abilities = new HashMap<>();
 
     public static Ability FIREBALL;
-
+    public static Ability LIGHTNING;
     public AbilityHandler() {
         FIREBALL = registerAbility(new FireballAbility());
+        LIGHTNING = registerAbility(new LightningAbillity());
     }
 
     public Ability registerAbility(Ability ability) {
