@@ -1,0 +1,24 @@
+name: $name
+version: $version
+main: net.gamershub.kitpvp.KitPvpPlugin
+description: $description
+load: POSTWORLD
+authors:
+  - Chaosdave34, Muawag, palul
+api-version: "$apiVersion"
+commands:
+  testnpc:
+    description: Test fakeplayer
+    usage: /<command>
+    permission: kitpvp.testnpc
+  testinv:
+    description: Test inventory
+    usage: /<command>
+    permission: kitpvp.testinv
+  loop:
+    description: Loop command
+    usage: /<command> <amount> <period> <command>
+    permission: kitpvp.loop
+  custom_item:
+    description: Give yourself a custom item
+    usage: /<command> <item_id> <amount>
