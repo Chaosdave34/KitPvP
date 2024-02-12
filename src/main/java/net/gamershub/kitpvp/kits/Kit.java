@@ -12,9 +12,11 @@ import org.bukkit.inventory.PlayerInventory;
 
 @Getter
 public class Kit implements Listener {
+    private final String id;
     private final String name;
 
-    public Kit(String name) {
+    public Kit(String id, String name) {
+        this.id = id;
         this.name = name;
     }
 
@@ -33,7 +35,7 @@ public class Kit implements Listener {
 
     public void apply(Player p) {
         ExtendedPlayer extendedPlayer = KitPvpPlugin.INSTANCE.getExtendedPlayer(p);
-        extendedPlayer.setSelectedKit(this);
+        extendedPlayer.setSelectedKit(id);
 
         AttributeInstance maxHealth = p.getAttribute(Attribute.GENERIC_MAX_HEALTH);
         if (maxHealth != null) maxHealth.setBaseValue(getMaxHealth());

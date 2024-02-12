@@ -1,5 +1,6 @@
 package net.gamershub.kitpvp.kits;
 
+import lombok.Getter;
 import net.gamershub.kitpvp.ExtendedPlayer;
 import net.gamershub.kitpvp.KitPvpPlugin;
 import net.gamershub.kitpvp.Utils;
@@ -8,7 +9,13 @@ import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.entity.Player;
 
+import java.util.HashMap;
+import java.util.Map;
+
+@Getter
 public class KitHandler {
+    private final Map<String, Kit> kits = new HashMap<>();
+
     public static Kit TEST;
 
     public KitHandler() {
@@ -16,6 +23,7 @@ public class KitHandler {
     }
 
     private Kit createKit(Kit kit) {
+        kits.put(kit.getId(), kit);
         Utils.registerEvents(kit);
         return kit;
     }

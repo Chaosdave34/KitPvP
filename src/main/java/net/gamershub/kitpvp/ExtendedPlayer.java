@@ -10,13 +10,17 @@ import java.util.UUID;
 @Getter
 @Setter
 public class ExtendedPlayer {
-    private final UUID uuid;
+    private transient final UUID uuid;
     private GameState gameState;
-    private Kit selectedKit;
+    private String selectedKit;
 
     public ExtendedPlayer(Player p) {
         uuid = p.getUniqueId();
         gameState = GameState.LOBBY;
+    }
+
+    public Kit getSelectedKit() {
+        return selectedKit == null ? null : KitPvpPlugin.INSTANCE.getKitHandler().getKits().get(selectedKit);
     }
 
     public enum GameState {

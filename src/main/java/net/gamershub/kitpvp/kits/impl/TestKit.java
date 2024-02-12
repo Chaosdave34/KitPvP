@@ -6,7 +6,7 @@ import org.bukkit.inventory.ItemStack;
 
 public class TestKit extends Kit {
     public TestKit() {
-        super("Test Kit");
+        super("test_kit","Test Kit");
     }
 
     @Override
