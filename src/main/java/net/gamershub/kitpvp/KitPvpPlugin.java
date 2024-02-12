@@ -62,9 +62,6 @@ public final class KitPvpPlugin extends JavaPlugin {
         pluginManager.registerEvents(abilityHandler, this);
 
         // Registering Commands
-        getCommand("testnpc").setExecutor(new TestNPCCommand());
-        getCommand("testinv").setExecutor(new TestInventoryCommand());
-
         getCommand("loop").setExecutor(new LoopCommand());
         getCommand("loop").setTabCompleter(new LoopTabCompleter());
 
