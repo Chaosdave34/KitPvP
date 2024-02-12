@@ -14,6 +14,8 @@ public class JoinQuitListener implements Listener {
     public void onJoin(PlayerJoinEvent e) {
         Player p = e.getPlayer();
 
+        KitPvpPlugin.INSTANCE.createExtendedPlayer(p);
+
         Component message = Component.text(p.getName() + " hat den Server betreten!", NamedTextColor.GOLD);
         e.joinMessage(message);
 
@@ -28,6 +30,8 @@ public class JoinQuitListener implements Listener {
     @EventHandler
     public void onQuit(PlayerQuitEvent e) {
         Player p = e.getPlayer();
+
+        KitPvpPlugin.INSTANCE.removeExtendedPlayer(p);
 
         Component message = Component.text(p.getName() + " hat den Server verlassen!", NamedTextColor.GOLD);
         e.quitMessage(message);

@@ -7,23 +7,34 @@ import net.gamershub.kitpvp.enchantments.EnchantmentHandler;
 import net.gamershub.kitpvp.fakeplayer.FakePlayerHandler;
 import net.gamershub.kitpvp.gui.GuiHandler;
 import net.gamershub.kitpvp.items.CustomItemHandler;
+import net.gamershub.kitpvp.kits.KitHandler;
 import net.gamershub.kitpvp.listener.JoinQuitListener;
 import org.bukkit.GameRule;
 import org.bukkit.World;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 
 @Getter
 public final class KitPvpPlugin extends JavaPlugin {
     public static KitPvpPlugin INSTANCE;
+
+    private final Map<UUID, ExtendedPlayer> extendedPlayers = new HashMap<>();
+
     private PacketReader packetReader;
     private FakePlayerHandler fakePlayerHandler;
     private GuiHandler guiHandler;
     private EnchantmentHandler enchantmentHandler;
     private AbilityHandler abilityHandler;
     private CustomItemHandler customItemHandler;
+    private KitHandler kitHandler;
 
+    @SuppressWarnings("DataFlowIssue")
     @Override
     public void onEnable() {
         INSTANCE = this;
@@ -34,6 +45,7 @@ public final class KitPvpPlugin extends JavaPlugin {
         enchantmentHandler = new EnchantmentHandler();
         abilityHandler = new AbilityHandler();
         customItemHandler = new CustomItemHandler();
+        kitHandler = new KitHandler();
 
         // Setup world
         World overworld = getServer().getWorld("world");
@@ -62,6 +74,19 @@ public final class KitPvpPlugin extends JavaPlugin {
         KitPvpPlugin.INSTANCE.getLogger().info("Added " + enchantmentHandler.getBukkitEnchantments().size() + " custom Enchantments!");
         KitPvpPlugin.INSTANCE.getLogger().info("Added " + KitPvpPlugin.INSTANCE.getCustomItemHandler().ID_MAP.size() + " custom Items!");
 
+    }
+
+    public ExtendedPlayer getExtendedPlayer(Player p) {
+        return extendedPlayers.get(p.getUniqueId());
+    }
+
+    public void createExtendedPlayer(Player p) {
+        ExtendedPlayer extendedPlayer = new ExtendedPlayer(p);
+        extendedPlayers.put(p.getUniqueId(), extendedPlayer);
+    }
+
+    public void removeExtendedPlayer(Player p) {
+        extendedPlayers.remove(p.getUniqueId());
     }
 
     @SuppressWarnings("RedundantMethodOverride")

@@ -1,6 +1,7 @@
 package net.gamershub.kitpvp.items;
 
 import net.gamershub.kitpvp.KitPvpPlugin;
+import net.gamershub.kitpvp.Utils;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -22,7 +23,7 @@ public class CustomItemHandler {
     }
 
     private CustomItem createItem(CustomItem item) {
-        KitPvpPlugin.INSTANCE.getServer().getPluginManager().registerEvents(item, KitPvpPlugin.INSTANCE);
+        Utils.registerEvents(item);
         return ID_MAP.put(item.id, item);
     }
 

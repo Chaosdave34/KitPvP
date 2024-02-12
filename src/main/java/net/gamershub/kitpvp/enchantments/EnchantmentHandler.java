@@ -2,10 +2,10 @@ package net.gamershub.kitpvp.enchantments;
 
 import lombok.Getter;
 import net.gamershub.kitpvp.KitPvpPlugin;
+import net.gamershub.kitpvp.Utils;
 import net.gamershub.kitpvp.enchantments.impl.FreezeEnchantment;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
-import org.bukkit.Bukkit;
 import org.bukkit.craftbukkit.v1_20_R3.enchantments.CraftEnchantment;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.event.EventHandler;
@@ -53,7 +53,7 @@ public class EnchantmentHandler implements Listener {
 
     public Enchantment registerEnchantment(CustomEnchantment customEnchantment) {
         Registry.register(BuiltInRegistries.ENCHANTMENT, customEnchantment.name, customEnchantment);
-        KitPvpPlugin.INSTANCE.getServer().getPluginManager().registerEvents(customEnchantment, KitPvpPlugin.INSTANCE);
+        Utils.registerEvents(customEnchantment);
 
         Enchantment bukkitEnchantment = CraftEnchantment.minecraftToBukkit(customEnchantment);
         bukkitEnchantments.add(bukkitEnchantment);

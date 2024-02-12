@@ -103,8 +103,11 @@ public class FakePlayerHandler {
         ClientboundAddEntityPacket addNpcPacket = new ClientboundAddEntityPacket(npc);
         connection.send(addNpcPacket);
 
-        ClientboundSetEntityDataPacket entityDataPacket = new ClientboundSetEntityDataPacket(npc.getId(), npc.getEntityData().getNonDefaultValues());
-        connection.send(entityDataPacket);
+        List<SynchedEntityData.DataValue<?>> nonDefaultValues = npc.getEntityData().getNonDefaultValues();
+        if (nonDefaultValues != null) {
+            ClientboundSetEntityDataPacket entityDataPacket = new ClientboundSetEntityDataPacket(npc.getId(), nonDefaultValues);
+            connection.send(entityDataPacket);
+        }
 
         List<Pair<net.minecraft.world.entity.EquipmentSlot, net.minecraft.world.item.ItemStack>> equipment = new ArrayList<>();
         for (Map.Entry<EquipmentSlot, ItemStack> entry : fakePlayer.getEquipment().entrySet()) {
