@@ -14,6 +14,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 import org.jetbrains.annotations.NotNull;
@@ -63,6 +64,7 @@ public class ThunderstormAbility extends Ability {
                     Location targetLocation = location.clone().add(iterator.next());
                     location.getWorld().spawnEntity(targetLocation, EntityType.LIGHTNING, CreatureSpawnEvent.SpawnReason.CUSTOM, (entity) -> {
                         ((LightningStrike) entity).setCausingPlayer(e.getPlayer());
+                        entity.setMetadata("ability", new FixedMetadataValue(KitPvpPlugin.INSTANCE, id));
                     });
                 } else this.cancel();
             }
@@ -74,9 +76,14 @@ public class ThunderstormAbility extends Ability {
     @EventHandler
     public void onLightningImpact(EntityDamageByEntityEvent e) {
         if (e.getEntity() instanceof Player p && e.getDamager() instanceof LightningStrike lightningStrike) {
-            if (p.equals(lightningStrike.getCausingPlayer())) {
-                e.setCancelled(true);
+            if (lightningStrike.hasMetadata("ability")) {
+                if (id.equals(lightningStrike.getMetadata("ability").get(0).value())) {
+                    if (p.equals(lightningStrike.getCausingPlayer())) {
+                        e.setCancelled(true);
+                    }
+                }
             }
+
         }
     }
 }
