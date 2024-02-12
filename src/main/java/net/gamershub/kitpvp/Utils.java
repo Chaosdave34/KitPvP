@@ -22,7 +22,6 @@ public class Utils {
 
             field.setAccessible(false);
         } catch (NoSuchFieldException | IllegalAccessException e) {
-            System.out.println(e.getMessage());
             KitPvpPlugin.INSTANCE.getLogger().warning("Error while getting private field.");
         }
         return result;
