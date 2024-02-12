@@ -45,7 +45,7 @@ public abstract class Gui {
     }
 
     protected void setItem(int slot, Material material, Component name, boolean hideAttributes) {
-        if (slot > 0 && slot < rows * 9) {
+        if (slot >= 0 && slot < rows * 9) {
             ItemStack itemStack = new ItemStack(material);
             ItemMeta itemMeta = itemStack.getItemMeta();
             itemMeta.displayName(name);
@@ -74,7 +74,9 @@ public abstract class Gui {
     }
 
     public void onInventoryClick(InventoryClickEvent e) {
-        if (inventoryClickHandlers.containsKey(e.getSlot())) {
+        if (e.getClickedInventory() == null) return;
+
+        if (inventoryClickHandlers.containsKey(e.getRawSlot())) {
             try {
                 inventoryClickHandlers.get(e.getSlot()).invoke(this, e);
             } catch (IllegalAccessException | InvocationTargetException ex) {
