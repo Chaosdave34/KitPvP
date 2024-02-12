@@ -14,3 +14,6 @@ commands:
   custom_item:
     description: Give yourself a custom item
     usage: /<command> <item_id> <amount>
+  test_kit:
+    description: Select a kit (for testing purpose)
+    usage: /<command> <kit_name>

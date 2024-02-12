@@ -24,8 +24,11 @@ public class KitHandler {
         ExtendedPlayer extendedPlayer = KitPvpPlugin.INSTANCE.getExtendedPlayer(p);
         extendedPlayer.setSelectedKit(null);
 
-        resetAttribute(p, Attribute.GENERIC_MAX_HEALTH);
-        resetAttribute(p, Attribute.GENERIC_MOVEMENT_SPEED);
+        AttributeInstance maxHealth = p.getAttribute(Attribute.GENERIC_MAX_HEALTH);
+        if (maxHealth != null) maxHealth.setBaseValue(20);
+
+        AttributeInstance movementSpeed = p.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED);
+        if (movementSpeed != null) movementSpeed.setBaseValue(0.1);
 
         p.getInventory().clear();
     }

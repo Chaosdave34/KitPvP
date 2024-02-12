@@ -1,6 +1,6 @@
 package net.gamershub.kitpvp.gui;
 
-import net.gamershub.kitpvp.gui.impl.TestGui;
+import net.gamershub.kitpvp.gui.impl.KitTestGui;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -12,10 +12,10 @@ import java.util.*;
 public class GuiHandler implements Listener {
     private final Map<UUID, Gui> openGuis = new HashMap<>();
 
-    public static Gui TEST;
+    public static Gui KIT_TEST;
 
     public GuiHandler() {
-        TEST = new TestGui();
+        KIT_TEST = new KitTestGui();
     }
 
     public void openGui(Player p, Gui gui) {
