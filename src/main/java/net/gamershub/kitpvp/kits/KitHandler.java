@@ -30,7 +30,7 @@ public class KitHandler {
 
     public void clearKit(Player p) {
         ExtendedPlayer extendedPlayer = KitPvpPlugin.INSTANCE.getExtendedPlayer(p);
-        extendedPlayer.setSelectedKit(null);
+        extendedPlayer.setSelectedKitId(null);
 
         AttributeInstance maxHealth = p.getAttribute(Attribute.GENERIC_MAX_HEALTH);
         if (maxHealth != null) maxHealth.setBaseValue(20);

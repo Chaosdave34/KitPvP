@@ -35,7 +35,7 @@ public class Kit implements Listener {
 
     public void apply(Player p) {
         ExtendedPlayer extendedPlayer = KitPvpPlugin.INSTANCE.getExtendedPlayer(p);
-        extendedPlayer.setSelectedKit(id);
+        extendedPlayer.setSelectedKitId(id);
 
         AttributeInstance maxHealth = p.getAttribute(Attribute.GENERIC_MAX_HEALTH);
         if (maxHealth != null) maxHealth.setBaseValue(getMaxHealth());

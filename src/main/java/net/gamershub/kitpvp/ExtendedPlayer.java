@@ -10,9 +10,9 @@ import java.util.UUID;
 @Getter
 @Setter
 public class ExtendedPlayer {
-    private transient final UUID uuid;
+    private final UUID uuid;
     private GameState gameState;
-    private String selectedKit;
+    private String selectedKitId;
 
     public ExtendedPlayer(Player p) {
         uuid = p.getUniqueId();
@@ -20,7 +20,7 @@ public class ExtendedPlayer {
     }
 
     public Kit getSelectedKit() {
-        return selectedKit == null ? null : KitPvpPlugin.INSTANCE.getKitHandler().getKits().get(selectedKit);
+        return selectedKitId == null ? null : KitPvpPlugin.INSTANCE.getKitHandler().getKits().get(selectedKitId);
     }
 
     public enum GameState {

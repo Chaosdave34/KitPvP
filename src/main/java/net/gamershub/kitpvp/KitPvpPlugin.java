@@ -15,6 +15,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -74,6 +75,9 @@ public final class KitPvpPlugin extends JavaPlugin {
         KitPvpPlugin.INSTANCE.getLogger().info("Added " + enchantmentHandler.getBukkitEnchantments().size() + " custom Enchantments!");
         KitPvpPlugin.INSTANCE.getLogger().info("Added " + KitPvpPlugin.INSTANCE.getCustomItemHandler().ID_MAP.size() + " custom Items!");
 
+        // Create data folder
+        getDataFolder().mkdir();
+        new File(getDataFolder(), "player_data").mkdir();
     }
 
     public ExtendedPlayer getExtendedPlayer(Player p) {
@@ -81,11 +85,18 @@ public final class KitPvpPlugin extends JavaPlugin {
     }
 
     public void createExtendedPlayer(Player p) {
-        ExtendedPlayer extendedPlayer = new ExtendedPlayer(p);
+        ExtendedPlayer extendedPlayer = Utils.readObjectFromFile(new File(getDataFolder(), "player_data/" + p.getUniqueId() + ".json"), ExtendedPlayer.class);
+        if (extendedPlayer == null) {
+            extendedPlayer = new ExtendedPlayer(p);
+        }
         extendedPlayers.put(p.getUniqueId(), extendedPlayer);
     }
 
     public void removeExtendedPlayer(Player p) {
+        ExtendedPlayer extendedPlayer = getExtendedPlayer(p);
+
+        Utils.writeObjectToFile(new File(getDataFolder(), "player_data/" + p.getUniqueId() + ".json"), extendedPlayer);
+
         extendedPlayers.remove(p.getUniqueId());
     }
 
