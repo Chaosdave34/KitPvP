@@ -29,7 +29,7 @@ public class LightningWand extends CustomItem{
 
   @Override
   public @NotNull List<Ability> getAbilities() {
-    return List.of(AbilityHandler.LIGHTNING);
+    return List.of(AbilityHandler.LIGHTNING, AbilityHandler.THUNDERSTORM);
   }
 }
 

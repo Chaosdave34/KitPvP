@@ -16,7 +16,7 @@ import java.util.List;
 
 public class LightningAbility extends Ability {
     public LightningAbility() {
-        super(2, "Lightning", AbilityType.RIGHT_CLICK, 3);
+        super("lightning","Lightning", AbilityType.RIGHT_CLICK, 3);
     }
 
     @Override

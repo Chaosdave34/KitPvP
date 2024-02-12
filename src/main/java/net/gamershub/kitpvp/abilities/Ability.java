@@ -1,7 +1,9 @@
 package net.gamershub.kitpvp.abilities;
 
 import lombok.Getter;
+import lombok.Setter;
 import net.gamershub.kitpvp.KitPvpPlugin;
+import net.gamershub.kitpvp.StringArrayPersistentDataType;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.GameMode;
@@ -11,7 +13,6 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataContainer;
-import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.NotNull;
 
@@ -20,14 +21,15 @@ import java.util.*;
 
 @Getter
 public abstract class Ability {
-    protected int id;
+    @Setter
+    protected String id;
     protected AbilityType type;
     protected String name;
     protected long cooldown;
 
     protected Map<UUID, Long> playerCooldown = new HashMap<>();
 
-    public Ability(int id, String name, AbilityType type, long cooldown) {
+    public Ability(String id, String name, AbilityType type, long cooldown) {
         this.id = id;
         this.name = name;
         this.type = type;
@@ -37,24 +39,23 @@ public abstract class Ability {
     @NotNull
     public abstract List<Component> getDescription();
 
-    public ItemStack apply(ItemStack itemStack) {
+    public void apply(ItemStack itemStack) {
         ItemMeta itemMeta = itemStack.getItemMeta();
         PersistentDataContainer container = itemMeta.getPersistentDataContainer();
         NamespacedKey key = new NamespacedKey(KitPvpPlugin.INSTANCE, "abilities");
 
         if (container.has(key)) {
-            int[] current_abilities = container.get(key, PersistentDataType.INTEGER_ARRAY);
-            if (current_abilities == null) return itemStack;
-            int[] new_abilities = new int[current_abilities.length + 1];
+            String[] current_abilities = container.get(key, new StringArrayPersistentDataType());
+            if (current_abilities == null) return;
+            String[] new_abilities = Arrays.copyOf(current_abilities, current_abilities.length + 1);
             new_abilities[current_abilities.length] = id;
-            container.set(key, PersistentDataType.INTEGER_ARRAY, new_abilities);
+
+            container.set(key, new StringArrayPersistentDataType(), new_abilities);
         } else {
-            container.set(key, PersistentDataType.INTEGER_ARRAY, new int[]{id});
+            container.set(key, new StringArrayPersistentDataType(), new String[]{id});
         }
 
         itemStack.setItemMeta(itemMeta);
-
-        return itemStack;
     }
 
     public void handleAbility(PlayerInteractEvent e) {

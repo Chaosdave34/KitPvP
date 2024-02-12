@@ -18,7 +18,7 @@ import java.util.List;
 public class FireballAbility extends Ability {
 
     public FireballAbility() {
-        super(1, "Fireball", AbilityType.RIGHT_CLICK, 3);
+        super("fireball","Fireball", AbilityType.RIGHT_CLICK, 3);
     }
 
     @Override
@@ -32,9 +32,7 @@ public class FireballAbility extends Ability {
     public boolean onAbility(PlayerInteractEvent e) {
         Player p = e.getPlayer();
         Location loc = p.getEyeLocation();
-        p.getWorld().spawnEntity(loc.add(loc.getDirection().normalize()), EntityType.FIREBALL, CreatureSpawnEvent.SpawnReason.CUSTOM, (entity) -> {
-            entity.setVelocity(p.getLocation().getDirection().multiply(0.5));
-        });
+        p.getWorld().spawnEntity(loc.add(loc.getDirection().normalize()), EntityType.FIREBALL, CreatureSpawnEvent.SpawnReason.CUSTOM, (entity) -> entity.setVelocity(p.getLocation().getDirection().multiply(0.5)));
         return true;
     }
 }
