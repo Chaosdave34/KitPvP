@@ -29,11 +29,12 @@ public class FireballAbility extends Ability {
     }
 
     @Override
-    public void onAbility(PlayerInteractEvent e) {
+    public boolean onAbility(PlayerInteractEvent e) {
         Player p = e.getPlayer();
         Location loc = p.getEyeLocation();
         p.getWorld().spawnEntity(loc.add(loc.getDirection().normalize()), EntityType.FIREBALL, CreatureSpawnEvent.SpawnReason.CUSTOM, (entity) -> {
             entity.setVelocity(p.getLocation().getDirection().multiply(0.5));
         });
+        return true;
     }
 }

@@ -9,7 +9,7 @@ public class CustomItems {
     public static Map<String, CustomItem> ID_MAP = new HashMap<>();
 
     public static CustomItem FIREBALL = createItem(new FireballWand());
-    public static CustomItem LIGHTING_WAND = createItem(new LightingWand());
+    public static CustomItem LIGHTNING_WAND = createItem(new LightningWand());
 
     private static CustomItem createItem(CustomItem item) {
         KitPvpPlugin.INSTANCE.getServer().getPluginManager().registerEvents(item, KitPvpPlugin.INSTANCE);

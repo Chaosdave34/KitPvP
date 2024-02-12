@@ -64,29 +64,32 @@ public abstract class Ability {
         if (playerCooldown.containsKey(p.getUniqueId())) {
             p.sendMessage(Component.text("This ability is on cooldown for " + playerCooldown.get(p.getUniqueId()) + "s.", NamedTextColor.RED));
         } else {
-            playerCooldown.put(p.getUniqueId(), cooldown);
+            boolean success = onAbility(e);
 
-            new BukkitRunnable() {
-                @Override
-                public void run() {
-                    long current_cooldown = playerCooldown.get(p.getUniqueId());
-                    current_cooldown--;
-                    playerCooldown.put(p.getUniqueId(), current_cooldown);
-                    if (current_cooldown == 0) {
-                        playerCooldown.remove(p.getUniqueId());
+            if (success) {
 
-                        Component availableMessage = Component.text("Ability ", NamedTextColor.GREEN)
-                                .append(Component.text(name, NamedTextColor.GOLD))
-                                .append(Component.text(" is now available.", NamedTextColor.GREEN));
-                        p.sendMessage(availableMessage);
-                        this.cancel();
+                playerCooldown.put(p.getUniqueId(), cooldown);
+
+                new BukkitRunnable() {
+                    @Override
+                    public void run() {
+                        long current_cooldown = playerCooldown.get(p.getUniqueId());
+                        current_cooldown--;
+                        playerCooldown.put(p.getUniqueId(), current_cooldown);
+                        if (current_cooldown == 0) {
+                            playerCooldown.remove(p.getUniqueId());
+
+                            Component availableMessage = Component.text("Ability ", NamedTextColor.GREEN)
+                                    .append(Component.text(name, NamedTextColor.GOLD))
+                                    .append(Component.text(" is now available.", NamedTextColor.GREEN));
+                            p.sendMessage(availableMessage);
+                            this.cancel();
+                        }
                     }
-                }
-            }.runTaskTimer(KitPvpPlugin.INSTANCE, 20, 20);
-
-            onAbility(e);
+                }.runTaskTimer(KitPvpPlugin.INSTANCE, 20, 20);
+            }
         }
     }
 
-    public abstract void onAbility(PlayerInteractEvent e);
+    public abstract boolean onAbility(PlayerInteractEvent e);
 }
