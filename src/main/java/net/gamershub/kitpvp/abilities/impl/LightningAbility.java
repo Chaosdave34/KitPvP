@@ -24,7 +24,7 @@ public class LightningAbility extends Ability {
         List<Component> description = new ArrayList<>();
         description.add(Component.text("Strikes a lightning bold", NamedTextColor.GRAY).decoration(TextDecoration.ITALIC, false));
         description.add(Component.text("at the Enemy you are looking at", NamedTextColor.GRAY).decoration(TextDecoration.ITALIC, false));
-        description.add(Component.text("in a Radius of 10 blocks.", NamedTextColor.GRAY).decoration(TextDecoration.ITALIC, false));
+        description.add(Component.text("in a 10 block radius.", NamedTextColor.GRAY).decoration(TextDecoration.ITALIC, false));
         return description;
     }
 

@@ -28,7 +28,7 @@ public class ThunderstormAbility extends Ability {
     public @NotNull List<Component> getDescription() {
         List<Component> description = new ArrayList<>();
         description.add(Component.text("Summons Lightning around you", NamedTextColor.GRAY).decoration(TextDecoration.ITALIC, false));
-        description.add(Component.text("in a 5 block radius", NamedTextColor.GRAY).decoration(TextDecoration.ITALIC, false));
+        description.add(Component.text("in a 5 block radius.", NamedTextColor.GRAY).decoration(TextDecoration.ITALIC, false));
         return description;
     }
 
