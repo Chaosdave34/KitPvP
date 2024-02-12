@@ -6,7 +6,7 @@ import net.gamershub.kitpvp.commands.*;
 import net.gamershub.kitpvp.enchantments.EnchantmentHandler;
 import net.gamershub.kitpvp.fakeplayer.FakePlayerHandler;
 import net.gamershub.kitpvp.gui.GuiHandler;
-import net.gamershub.kitpvp.items.CustomItems;
+import net.gamershub.kitpvp.items.CustomItemHandler;
 import net.gamershub.kitpvp.listener.JoinQuitListener;
 import org.bukkit.GameRule;
 import org.bukkit.World;
@@ -22,6 +22,7 @@ public final class KitPvpPlugin extends JavaPlugin {
     private GuiHandler guiHandler;
     private EnchantmentHandler enchantmentHandler;
     private AbilityHandler abilityHandler;
+    private CustomItemHandler customItemHandler;
 
     @Override
     public void onEnable() {
@@ -32,6 +33,7 @@ public final class KitPvpPlugin extends JavaPlugin {
         guiHandler = new GuiHandler();
         enchantmentHandler = new EnchantmentHandler();
         abilityHandler = new AbilityHandler();
+        customItemHandler = new CustomItemHandler();
 
         // Setup world
         World overworld = getServer().getWorld("world");
@@ -58,7 +60,7 @@ public final class KitPvpPlugin extends JavaPlugin {
         getCommand("custom_item").setTabCompleter(new CustomItemTabCompleter());
 
         KitPvpPlugin.INSTANCE.getLogger().info("Added " + enchantmentHandler.getBukkitEnchantments().size() + " custom Enchantments!");
-        KitPvpPlugin.INSTANCE.getLogger().info("Added " + CustomItems.ID_MAP.size() + " custom Items!");
+        KitPvpPlugin.INSTANCE.getLogger().info("Added " + KitPvpPlugin.INSTANCE.getCustomItemHandler().ID_MAP.size() + " custom Items!");
 
     }
 

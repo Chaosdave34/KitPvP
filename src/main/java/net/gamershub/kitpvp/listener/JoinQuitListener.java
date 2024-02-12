@@ -19,6 +19,8 @@ public class JoinQuitListener implements Listener {
 
         KitPvpPlugin.INSTANCE.getPacketReader().inject(p);
 
+        KitPvpPlugin.INSTANCE.getCustomItemHandler().updateCustomItems(p);
+
         // NPC
         KitPvpPlugin.INSTANCE.getFakePlayerHandler().spawnFakePlayers(p);
     }

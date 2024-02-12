@@ -1,18 +1,14 @@
 package net.gamershub.kitpvp.items;
 
-import net.gamershub.kitpvp.KitPvpPlugin;
 import net.gamershub.kitpvp.abilities.Ability;
 import net.gamershub.kitpvp.abilities.AbilityHandler;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.persistence.PersistentDataContainer;
-import org.bukkit.persistence.PersistentDataType;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -45,14 +41,10 @@ public class FireballWand extends CustomItem {
     public void onFireChargeUse(PlayerInteractEvent e) {
         if (e.getAction() == Action.RIGHT_CLICK_BLOCK) {
             if (e.getItem() == null) return;
-            PersistentDataContainer container = e.getItem().getItemMeta().getPersistentDataContainer();
-            NamespacedKey key = new NamespacedKey(KitPvpPlugin.INSTANCE, "id");
-            if (container.has(key)) {
-                if (id.equals(container.get(key, PersistentDataType.STRING))) {
-                    e.setCancelled(true);
-                }
+            if (id.equals(CustomItemHandler.getCustomItemId(e.getItem()))) {
+                e.setCancelled(true);
             }
         }
     }
-
 }
+

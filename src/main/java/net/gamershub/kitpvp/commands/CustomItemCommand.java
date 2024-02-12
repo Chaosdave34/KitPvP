@@ -1,7 +1,7 @@
 package net.gamershub.kitpvp.commands;
 
+import net.gamershub.kitpvp.KitPvpPlugin;
 import net.gamershub.kitpvp.items.CustomItem;
-import net.gamershub.kitpvp.items.CustomItems;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -23,8 +23,8 @@ public class CustomItemCommand implements CommandExecutor {
                 }
             }
 
-            if (CustomItems.ID_MAP.containsKey(args[0])) {
-                CustomItem customItem = CustomItems.ID_MAP.get(args[0]);
+            if (KitPvpPlugin.INSTANCE.getCustomItemHandler().ID_MAP.containsKey(args[0])) {
+                CustomItem customItem = KitPvpPlugin.INSTANCE.getCustomItemHandler().ID_MAP.get(args[0]);
                 p.getInventory().addItem(customItem.build(amount));
                 return true;
             }
