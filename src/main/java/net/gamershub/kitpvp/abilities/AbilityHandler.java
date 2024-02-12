@@ -2,6 +2,7 @@ package net.gamershub.kitpvp.abilities;
 
 import net.gamershub.kitpvp.KitPvpPlugin;
 import net.gamershub.kitpvp.StringArrayPersistentDataType;
+import net.gamershub.kitpvp.Utils;
 import net.gamershub.kitpvp.abilities.impl.FireballAbility;
 import net.gamershub.kitpvp.abilities.impl.LightningAbility;
 import net.gamershub.kitpvp.abilities.impl.ThunderstormAbility;
@@ -32,6 +33,7 @@ public class AbilityHandler implements Listener {
     }
 
     public Ability registerAbility(Ability ability) {
+        Utils.registerEvents(ability);
 
         if (!abilities.containsKey(ability.getId())) {
             abilities.put(ability.getId(), ability);

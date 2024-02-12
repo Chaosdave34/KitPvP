@@ -8,6 +8,11 @@ import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Location;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.LightningStrike;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.entity.CreatureSpawnEvent;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
@@ -36,7 +41,7 @@ public class ThunderstormAbility extends Ability {
     public boolean onAbility(PlayerInteractEvent e) {
         Location location = e.getPlayer().getLocation();
 
-        int[] offsets_values = new int[]{-4, -2, 0, 2, 4};
+        int[] offsets_values = new int[]{-5, -3, 0, 3, 5};
 
         List<Vector> offsets = new ArrayList<>();
 
@@ -56,11 +61,22 @@ public class ThunderstormAbility extends Ability {
             public void run() {
                 if (iterator.hasNext()) {
                     Location targetLocation = location.clone().add(iterator.next());
-                    location.getWorld().spawnEntity(targetLocation, EntityType.LIGHTNING);
+                    location.getWorld().spawnEntity(targetLocation, EntityType.LIGHTNING, CreatureSpawnEvent.SpawnReason.CUSTOM, (entity) -> {
+                        ((LightningStrike) entity).setCausingPlayer(e.getPlayer());
+                    });
                 } else this.cancel();
             }
         }.runTaskTimer(KitPvpPlugin.INSTANCE, 0, 2);
 
         return true;
+    }
+
+    @EventHandler
+    public void onLightningImpact(EntityDamageByEntityEvent e) {
+        if (e.getEntity() instanceof Player p && e.getDamager() instanceof LightningStrike lightningStrike) {
+            if (p.equals(lightningStrike.getCausingPlayer())) {
+                e.setCancelled(true);
+            }
+        }
     }
 }
