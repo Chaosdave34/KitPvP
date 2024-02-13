@@ -11,12 +11,12 @@ import java.util.UUID;
 @Setter
 public class ExtendedPlayer {
     private final UUID uuid;
-    private GameState gameState;
+    private transient GameState gameState;
     private String selectedKitId;
 
     public ExtendedPlayer(Player p) {
         uuid = p.getUniqueId();
-        gameState = GameState.LOBBY;
+        gameState = GameState.SPAWN;
     }
 
     public Kit getSelectedKit() {
@@ -24,7 +24,7 @@ public class ExtendedPlayer {
     }
 
     public enum GameState {
-        LOBBY,
+        SPAWN,
         IN_GAME
     }
 }

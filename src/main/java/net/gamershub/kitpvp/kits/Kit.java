@@ -32,7 +32,7 @@ public class Kit implements Listener {
         return new ItemStack[0];
     }
 
-
+    // Todo: Fix movement speed base modification resetting on player re-login
     public void apply(Player p) {
         ExtendedPlayer extendedPlayer = KitPvpPlugin.INSTANCE.getExtendedPlayer(p);
         extendedPlayer.setSelectedKitId(id);

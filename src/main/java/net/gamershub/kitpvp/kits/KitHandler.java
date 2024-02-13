@@ -40,9 +40,4 @@ public class KitHandler {
 
         p.getInventory().clear();
     }
-
-    private void resetAttribute(Player p, Attribute attribute) {
-        AttributeInstance instance = p.getAttribute(attribute);
-        if (instance != null) instance.setBaseValue(instance.getDefaultValue());
-    }
 }

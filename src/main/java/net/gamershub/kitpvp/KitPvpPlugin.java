@@ -9,6 +9,7 @@ import net.gamershub.kitpvp.gui.GuiHandler;
 import net.gamershub.kitpvp.items.CustomItemHandler;
 import net.gamershub.kitpvp.kits.KitHandler;
 import net.gamershub.kitpvp.listener.JoinQuitListener;
+import net.gamershub.kitpvp.listener.SpawnListener;
 import org.bukkit.GameRule;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
@@ -58,6 +59,7 @@ public final class KitPvpPlugin extends JavaPlugin {
         // Registering Listener
         PluginManager pluginManager = getServer().getPluginManager();
         pluginManager.registerEvents(new JoinQuitListener(), this);
+        pluginManager.registerEvents(new SpawnListener(), this);
         pluginManager.registerEvents(guiHandler, this);
         pluginManager.registerEvents(enchantmentHandler, this);
         pluginManager.registerEvents(abilityHandler, this);
@@ -89,6 +91,8 @@ public final class KitPvpPlugin extends JavaPlugin {
         if (extendedPlayer == null) {
             extendedPlayer = new ExtendedPlayer(p);
         }
+
+        extendedPlayer.setGameState(ExtendedPlayer.GameState.SPAWN);
         extendedPlayers.put(p.getUniqueId(), extendedPlayer);
     }
 
