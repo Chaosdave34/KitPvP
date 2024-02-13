@@ -8,6 +8,7 @@ import net.gamershub.kitpvp.fakeplayer.FakePlayerHandler;
 import net.gamershub.kitpvp.gui.GuiHandler;
 import net.gamershub.kitpvp.items.CustomItemHandler;
 import net.gamershub.kitpvp.kits.KitHandler;
+import net.gamershub.kitpvp.listener.GameListener;
 import net.gamershub.kitpvp.listener.JoinQuitListener;
 import net.gamershub.kitpvp.listener.SpawnListener;
 import org.bukkit.GameRule;
@@ -61,6 +62,7 @@ public final class KitPvpPlugin extends JavaPlugin {
         PluginManager pluginManager = getServer().getPluginManager();
         pluginManager.registerEvents(new JoinQuitListener(), this);
         pluginManager.registerEvents(new SpawnListener(), this);
+        pluginManager.registerEvents(new GameListener(), this);
         pluginManager.registerEvents(guiHandler, this);
         pluginManager.registerEvents(enchantmentHandler, this);
         pluginManager.registerEvents(abilityHandler, this);
@@ -71,9 +73,6 @@ public final class KitPvpPlugin extends JavaPlugin {
 
         getCommand("custom_item").setExecutor(new CustomItemCommand());
         getCommand("custom_item").setTabCompleter(new CustomItemTabCompleter());
-
-        getCommand("test_kit").setExecutor(new TestKitCommand());
-        getCommand("test_kit").setTabCompleter(new EmptyTabCompleter());
 
         getCommand("generate_spawn").setExecutor(new GenerateSpawnCommand());
         getCommand("generate_spawn").setTabCompleter(new EmptyTabCompleter());

@@ -7,7 +7,6 @@ import io.netty.channel.embedded.EmbeddedChannel;
 import net.gamershub.kitpvp.KitPvpPlugin;
 import net.gamershub.kitpvp.Utils;
 import net.gamershub.kitpvp.fakeplayer.impl.KitSelectorFakePlayer;
-import net.gamershub.kitpvp.fakeplayer.impl.TestFakePlayer;
 import net.gamershub.kitpvp.kits.KitHandler;
 import net.minecraft.network.Connection;
 import net.minecraft.network.ConnectionProtocol;
@@ -47,12 +46,9 @@ import java.util.UUID;
 public class FakePlayerHandler {
     List<FakePlayer> fakePlayers = new ArrayList<>();
 
-    public static FakePlayer TEST;
-
     public static FakePlayer TEST_KIT;
 
     public FakePlayerHandler() {
-        TEST = createFakePlayer(new TestFakePlayer());
         TEST_KIT = createFakePlayer(new KitSelectorFakePlayer(KitHandler.TEST, new Location(Bukkit.getWorld("world"), 10.5, 100, 0.5, 90, 0)));
     }
 

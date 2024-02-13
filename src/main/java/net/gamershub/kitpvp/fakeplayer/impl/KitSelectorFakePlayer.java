@@ -25,7 +25,7 @@ public class KitSelectorFakePlayer extends FakePlayer {
     @Override
     public void onAttack(Player p) {
         if (KitPvpPlugin.INSTANCE.getExtendedPlayer(p).getSelectedKit() == kit) {
-            p.sendMessage(Component.text("You have already selected this kit!"));
+            p.sendMessage(Component.text("You have already selected this kit!", NamedTextColor.GRAY));
         } else {
 
             kit.apply(p);
