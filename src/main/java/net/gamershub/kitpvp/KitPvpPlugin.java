@@ -74,6 +74,12 @@ public final class KitPvpPlugin extends JavaPlugin {
         getCommand("test_kit").setExecutor(new TestKitCommand());
         getCommand("test_kit").setTabCompleter(new EmptyTabCompleter());
 
+        getCommand("generate_spawn").setExecutor(new GenerateSpawnCommand());
+        getCommand("generate_spawn").setTabCompleter(new EmptyTabCompleter());
+
+        getCommand("set_game_state").setExecutor(new SetGameStateCommand());
+        getCommand("set_game_state").setTabCompleter(new SetGameStateTabCompleter());
+
         KitPvpPlugin.INSTANCE.getLogger().info("Added " + enchantmentHandler.getBukkitEnchantments().size() + " custom Enchantments!");
         KitPvpPlugin.INSTANCE.getLogger().info("Added " + KitPvpPlugin.INSTANCE.getCustomItemHandler().ID_MAP.size() + " custom Items!");
 
