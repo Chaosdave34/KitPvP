@@ -3,6 +3,8 @@ package net.gamershub.kitpvp.listener;
 import net.gamershub.kitpvp.KitPvpPlugin;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -14,13 +16,13 @@ public class JoinQuitListener implements Listener {
     public void onJoin(PlayerJoinEvent e) {
         Player p = e.getPlayer();
 
-        KitPvpPlugin.INSTANCE.createExtendedPlayer(p);
-
         Component message = Component.text(p.getName() + " hat den Server betreten!", NamedTextColor.GOLD);
         e.joinMessage(message);
 
-        KitPvpPlugin.INSTANCE.getPacketReader().inject(p);
+        p.teleport(new Location(Bukkit.getWorld("world"), 0.5, 100.5, -8.5, 0, 0));
 
+        KitPvpPlugin.INSTANCE.createExtendedPlayer(p);
+        KitPvpPlugin.INSTANCE.getPacketReader().inject(p);
         KitPvpPlugin.INSTANCE.getCustomItemHandler().updateCustomItems(p);
 
         // NPC
