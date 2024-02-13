@@ -1,6 +1,7 @@
 package net.gamershub.kitpvp.commands;
 
 import net.gamershub.kitpvp.KitPvpPlugin;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.block.structure.Mirror;
@@ -30,6 +31,8 @@ public class GenerateSpawnCommand implements CommandExecutor {
                     Structure structure = structureManager.loadStructure(structureFile);
 
                     structure.place(new Location(Bukkit.getWorld("world"), -12, 98, -12), false, StructureRotation.NONE, Mirror.NONE, 0, 1, new Random());
+
+                    p.sendMessage(Component.text("Generated spawn centered at coordinates 0, 100, 0."));
                     return true;
                 }
             } catch (IOException ignored) {

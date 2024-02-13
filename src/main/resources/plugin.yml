@@ -18,7 +18,7 @@ commands:
     description: Select a kit (for testing purpose)
     usage: /<command> <kit_name>
   generate_spawn:
-    description: Generates the spawn centered at 0, 100, 0
+    description: Generates the spawn centered at coordinates 0, 100, 0
     usage: /<command>
   set_game_state:
     description: Sets your game state

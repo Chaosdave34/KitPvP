@@ -2,6 +2,7 @@ package net.gamershub.kitpvp.commands;
 
 import net.gamershub.kitpvp.ExtendedPlayer;
 import net.gamershub.kitpvp.KitPvpPlugin;
+import net.kyori.adventure.text.Component;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -18,6 +19,8 @@ public class SetGameStateCommand implements CommandExecutor {
                 if (Arrays.stream(ExtendedPlayer.GameState.values()).map(ExtendedPlayer.GameState::name).toList().contains(args[0].toUpperCase())) {
                     ExtendedPlayer.GameState gameState = ExtendedPlayer.GameState.valueOf(args[0].toUpperCase());
                     KitPvpPlugin.INSTANCE.getExtendedPlayer(p).setGameState(gameState);
+
+                    p.sendMessage(Component.text("Set your game state to " + args[0] + "."));
                     return true;
                 }
             }

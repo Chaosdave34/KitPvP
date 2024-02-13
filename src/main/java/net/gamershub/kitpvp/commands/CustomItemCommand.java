@@ -2,10 +2,12 @@ package net.gamershub.kitpvp.commands;
 
 import net.gamershub.kitpvp.KitPvpPlugin;
 import net.gamershub.kitpvp.items.CustomItem;
+import net.kyori.adventure.text.Component;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
 public class CustomItemCommand implements CommandExecutor {
@@ -25,7 +27,12 @@ public class CustomItemCommand implements CommandExecutor {
 
             if (KitPvpPlugin.INSTANCE.getCustomItemHandler().ID_MAP.containsKey(args[0])) {
                 CustomItem customItem = KitPvpPlugin.INSTANCE.getCustomItemHandler().ID_MAP.get(args[0]);
-                p.getInventory().addItem(customItem.build(amount));
+                ItemStack item = customItem.build(amount);
+                p.getInventory().addItem(item);
+
+                p.sendMessage(Component.text("Gave you " + amount + " ")
+                        .append(customItem.getName())
+                        .append(Component.text(".")));
                 return true;
             }
         }
