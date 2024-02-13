@@ -1,5 +1,6 @@
 package net.gamershub.kitpvp.abilities;
 
+import net.gamershub.kitpvp.ExtendedPlayer;
 import net.gamershub.kitpvp.KitPvpPlugin;
 import net.gamershub.kitpvp.StringArrayPersistentDataType;
 import net.gamershub.kitpvp.Utils;
@@ -68,6 +69,8 @@ public class AbilityHandler implements Listener {
     @EventHandler
     public void onInteract(PlayerInteractEvent e) {
         if (e.getItem() == null) return;
+
+        if (KitPvpPlugin.INSTANCE.getExtendedPlayer(e.getPlayer()).getGameState() == ExtendedPlayer.GameState.SPAWN) return;
 
         PersistentDataContainer container = e.getItem().getItemMeta().getPersistentDataContainer();
         NamespacedKey key = new NamespacedKey(KitPvpPlugin.INSTANCE, "abilities");

@@ -23,3 +23,6 @@ commands:
   set_game_state:
     description: Sets your game state
     usage: /<command> <game_state>
+  spawn:
+    description: Teleports you back to the spawn
+    usage: /<command>
