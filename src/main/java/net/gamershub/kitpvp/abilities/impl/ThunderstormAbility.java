@@ -49,7 +49,7 @@ public class ThunderstormAbility extends Ability {
         for (int x : offsets_values) {
             for (int z : offsets_values) {
                 if (x == 0 && z == 0) continue;
-                offsets.add(new Vector(x, 0, z));
+                offsets.add(new Vector(x, -1, z));
             }
         }
 

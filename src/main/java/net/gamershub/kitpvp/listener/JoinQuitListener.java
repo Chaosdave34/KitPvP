@@ -16,7 +16,7 @@ public class JoinQuitListener implements Listener {
     public void onJoin(PlayerJoinEvent e) {
         Player p = e.getPlayer();
 
-        Component message = Component.text(p.getName() + " has joined the Server!", NamedTextColor.GOLD);
+        Component message = Component.text(p.getName() + " has joined the server!", NamedTextColor.GOLD);
         e.joinMessage(message);
 
         p.teleport(new Location(Bukkit.getWorld("world"), 0.5, 100.5, -8.5, 0, 0));
@@ -35,7 +35,7 @@ public class JoinQuitListener implements Listener {
 
         KitPvpPlugin.INSTANCE.removeExtendedPlayer(p);
 
-        Component message = Component.text(p.getName() + " has left the Server!", NamedTextColor.GOLD);
+        Component message = Component.text(p.getName() + " has left the server!", NamedTextColor.GOLD);
         e.quitMessage(message);
 
         KitPvpPlugin.INSTANCE.getPacketReader().uninject(p);

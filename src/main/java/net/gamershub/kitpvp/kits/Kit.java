@@ -28,8 +28,8 @@ public class Kit implements Listener {
         return 0.1;
     }
 
-    protected ItemStack[] getArmorContents() {
-        return new ItemStack[0];
+    public ItemStack[] getArmorContents() {
+        return new ItemStack[4];
     }
 
     // Todo: Fix movement speed base modification resetting on player re-login

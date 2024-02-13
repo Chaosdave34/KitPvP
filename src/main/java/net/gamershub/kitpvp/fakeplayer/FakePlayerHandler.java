@@ -6,7 +6,9 @@ import com.mojang.datafixers.util.Pair;
 import io.netty.channel.embedded.EmbeddedChannel;
 import net.gamershub.kitpvp.KitPvpPlugin;
 import net.gamershub.kitpvp.Utils;
+import net.gamershub.kitpvp.fakeplayer.impl.KitSelectorFakePlayer;
 import net.gamershub.kitpvp.fakeplayer.impl.TestFakePlayer;
+import net.gamershub.kitpvp.kits.KitHandler;
 import net.minecraft.network.Connection;
 import net.minecraft.network.ConnectionProtocol;
 import net.minecraft.network.protocol.PacketFlow;
@@ -24,6 +26,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.player.ChatVisiblity;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.craftbukkit.v1_20_R3.CraftEquipmentSlot;
 import org.bukkit.craftbukkit.v1_20_R3.CraftServer;
 import org.bukkit.craftbukkit.v1_20_R3.CraftWorld;
@@ -46,8 +49,11 @@ public class FakePlayerHandler {
 
     public static FakePlayer TEST;
 
+    public static FakePlayer TEST_KIT;
+
     public FakePlayerHandler() {
         TEST = createFakePlayer(new TestFakePlayer());
+        TEST_KIT = createFakePlayer(new KitSelectorFakePlayer(KitHandler.TEST, new Location(Bukkit.getWorld("world"), 10.5, 100, 0.5, 90, 0)));
     }
 
     public FakePlayer createFakePlayer(FakePlayer fakePlayer) {

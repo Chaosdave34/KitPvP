@@ -20,7 +20,7 @@ public class TestKit extends Kit {
     }
 
     @Override
-    protected ItemStack[] getArmorContents() {
+    public ItemStack[] getArmorContents() {
         return new ItemStack[]{new ItemStack(Material.IRON_BOOTS),
                 new ItemStack(Material.IRON_LEGGINGS),
                 new ItemStack(Material.IRON_CHESTPLATE),

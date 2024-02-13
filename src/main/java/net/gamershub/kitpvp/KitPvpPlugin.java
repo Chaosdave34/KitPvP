@@ -42,12 +42,13 @@ public final class KitPvpPlugin extends JavaPlugin {
         INSTANCE = this;
 
         packetReader = new PacketReader();
+        kitHandler = new KitHandler();
         fakePlayerHandler = new FakePlayerHandler();
         guiHandler = new GuiHandler();
         enchantmentHandler = new EnchantmentHandler();
         abilityHandler = new AbilityHandler();
         customItemHandler = new CustomItemHandler();
-        kitHandler = new KitHandler();
+
 
         // Setup world
         World overworld = getServer().getWorld("world");
