@@ -25,6 +25,7 @@ public class ExtendedPlayer {
 
     public enum GameState {
         SPAWN,
-        IN_GAME
+        IN_GAME,
+        DEBUG
     }
 }

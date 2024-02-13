@@ -11,6 +11,7 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LightningStrike;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.block.BlockIgniteEvent;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -84,6 +85,17 @@ public class ThunderstormAbility extends Ability {
                 }
             }
 
+        }
+    }
+
+    @EventHandler
+    public void onSetFire(BlockIgniteEvent e) {
+        if (e.getIgnitingEntity() instanceof LightningStrike lightningStrike) {
+            if (lightningStrike.hasMetadata("ability")) {
+                if (id.equals(lightningStrike.getMetadata("ability").get(0).value())) {
+                    e.setCancelled(true);
+                }
+            }
         }
     }
 }

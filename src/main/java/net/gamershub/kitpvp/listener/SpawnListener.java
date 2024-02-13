@@ -12,6 +12,7 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.entity.ProjectileLaunchEvent;
+import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.util.Vector;
@@ -38,8 +39,7 @@ public class SpawnListener implements Listener {
     @EventHandler
     public void onProjectileLaunch(ProjectileLaunchEvent e) {
         if (e.getEntity().getShooter() instanceof Player p) {
-            ExtendedPlayer extendedPlayer = KitPvpPlugin.INSTANCE.getExtendedPlayer(p);
-            if (extendedPlayer.getGameState() == ExtendedPlayer.GameState.SPAWN) {
+                if (KitPvpPlugin.INSTANCE.getExtendedPlayer(p).getGameState() == ExtendedPlayer.GameState.SPAWN) {
                 e.setCancelled(true);
             }
         }
@@ -48,8 +48,7 @@ public class SpawnListener implements Listener {
     @EventHandler
     public void onBowShot(EntityShootBowEvent e) {
         if (e.getEntity() instanceof Player p) {
-            ExtendedPlayer extendedPlayer = KitPvpPlugin.INSTANCE.getExtendedPlayer(p);
-            if (extendedPlayer.getGameState() == ExtendedPlayer.GameState.SPAWN) {
+            if (KitPvpPlugin.INSTANCE.getExtendedPlayer(p).getGameState() == ExtendedPlayer.GameState.SPAWN) {
                 e.setCancelled(true);
             }
         }
@@ -58,8 +57,7 @@ public class SpawnListener implements Listener {
     @EventHandler
     public void onBlockBreak(BlockBreakEvent e) {
         Player p = e.getPlayer();
-        ExtendedPlayer extendedPlayer = KitPvpPlugin.INSTANCE.getExtendedPlayer(p);
-        if (extendedPlayer.getGameState() == ExtendedPlayer.GameState.SPAWN) {
+        if (KitPvpPlugin.INSTANCE.getExtendedPlayer(p).getGameState() == ExtendedPlayer.GameState.SPAWN) {
             e.setCancelled(true);
         }
     }
@@ -67,8 +65,7 @@ public class SpawnListener implements Listener {
     @EventHandler
     public void onBlockPlace(BlockPlaceEvent e) {
         Player p = e.getPlayer();
-        ExtendedPlayer extendedPlayer = KitPvpPlugin.INSTANCE.getExtendedPlayer(p);
-        if (extendedPlayer.getGameState() == ExtendedPlayer.GameState.SPAWN) {
+        if (KitPvpPlugin.INSTANCE.getExtendedPlayer(p).getGameState() == ExtendedPlayer.GameState.SPAWN) {
             e.setCancelled(true);
         }
     }
@@ -76,8 +73,7 @@ public class SpawnListener implements Listener {
     @EventHandler
     public void onConsumeItem(PlayerItemConsumeEvent e) {
         Player p = e.getPlayer();
-        ExtendedPlayer extendedPlayer = KitPvpPlugin.INSTANCE.getExtendedPlayer(p);
-        if (extendedPlayer.getGameState() == ExtendedPlayer.GameState.SPAWN) {
+        if (KitPvpPlugin.INSTANCE.getExtendedPlayer(p).getGameState() == ExtendedPlayer.GameState.SPAWN) {
             e.setCancelled(true);
         }
     }
@@ -85,8 +81,15 @@ public class SpawnListener implements Listener {
     @EventHandler
     public void onFoodLevelChance(FoodLevelChangeEvent e) {
         Player p = (Player) e.getEntity();
-        ExtendedPlayer extendedPlayer = KitPvpPlugin.INSTANCE.getExtendedPlayer(p);
-        if (extendedPlayer.getGameState() == ExtendedPlayer.GameState.SPAWN) {
+        if (KitPvpPlugin.INSTANCE.getExtendedPlayer(p).getGameState() == ExtendedPlayer.GameState.SPAWN) {
+            e.setCancelled(true);
+        }
+    }
+
+    @EventHandler
+    public void onDrop(PlayerDropItemEvent e) {
+        Player p = e.getPlayer();
+        if (KitPvpPlugin.INSTANCE.getExtendedPlayer(p).getGameState() == ExtendedPlayer.GameState.SPAWN) {
             e.setCancelled(true);
         }
     }
@@ -98,7 +101,7 @@ public class SpawnListener implements Listener {
 
         if (extendedPlayer.getGameState() == ExtendedPlayer.GameState.SPAWN) {
             // Launchpad
-            if (p.getLocation().add(0, -1, 0).getBlock().getType() == Material.SLIME_BLOCK) {
+            if (p.getLocation().subtract(0, 1, 0).getBlock().getType() == Material.SLIME_BLOCK) {
                 Vector launchVector = p.getLocation().toVector().normalize();
                 launchVector.multiply(5);
                 launchVector.setY(0.5);
