@@ -2,13 +2,9 @@ package net.gamershub.kitpvp.listener;
 
 import net.gamershub.kitpvp.ExtendedPlayer;
 import net.gamershub.kitpvp.KitPvpPlugin;
-import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.attribute.Attribute;
-import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.block.Block;
 import org.bukkit.entity.FallingBlock;
 import org.bukkit.entity.Player;
@@ -17,10 +13,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityChangeBlockEvent;
-import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.metadata.FixedMetadataValue;
-import org.bukkit.potion.PotionEffect;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 
@@ -29,35 +23,6 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class GameListener implements Listener {
-
-    @EventHandler
-    public void onDeath(PlayerDeathEvent e) {
-        Player p = e.getPlayer();
-        ExtendedPlayer extendedPlayer = KitPvpPlugin.INSTANCE.getExtendedPlayer(p);
-
-        if (extendedPlayer.getGameState() == ExtendedPlayer.GameState.IN_GAME) {
-
-            Location spawn = new Location(Bukkit.getWorld("world"), 0.5, 100.5, -8.5, 0, 0);
-            Bukkit.getScheduler().runTaskLater(KitPvpPlugin.INSTANCE, () -> p.teleport(spawn), 1);
-
-            extendedPlayer.setGameState(ExtendedPlayer.GameState.SPAWN);
-
-            p.setFireTicks(0);
-
-            AttributeInstance maxHealth = p.getAttribute(Attribute.GENERIC_MAX_HEALTH);
-            if (maxHealth != null) p.setHealth(maxHealth.getValue());
-
-            for (PotionEffect effect : p.getActivePotionEffects()) {
-                p.removePotionEffect(effect.getType());
-            }
-
-            Bukkit.broadcast(Component.text("☠ ", NamedTextColor.RED)
-                    .append(Component.text(p.getName() + " died.", NamedTextColor.GRAY)));
-
-            e.setCancelled(true);
-        }
-    }
-
     private final Map<Location, Long> blocksToRemove = new ConcurrentHashMap<>();
     private BukkitTask blockRemoverTask;
 

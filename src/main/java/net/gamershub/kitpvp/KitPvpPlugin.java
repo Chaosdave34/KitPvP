@@ -9,6 +9,7 @@ import net.gamershub.kitpvp.gui.GuiHandler;
 import net.gamershub.kitpvp.items.CustomItemHandler;
 import net.gamershub.kitpvp.kits.KitHandler;
 import net.gamershub.kitpvp.listener.GameListener;
+import net.gamershub.kitpvp.listener.GamePlayerDeathListener;
 import net.gamershub.kitpvp.listener.JoinQuitListener;
 import net.gamershub.kitpvp.listener.SpawnListener;
 import org.bukkit.GameRule;
@@ -63,6 +64,7 @@ public final class KitPvpPlugin extends JavaPlugin {
         pluginManager.registerEvents(new JoinQuitListener(), this);
         pluginManager.registerEvents(new SpawnListener(), this);
         pluginManager.registerEvents(new GameListener(), this);
+        pluginManager.registerEvents(new GamePlayerDeathListener(), this);
         pluginManager.registerEvents(guiHandler, this);
         pluginManager.registerEvents(enchantmentHandler, this);
         pluginManager.registerEvents(abilityHandler, this);
