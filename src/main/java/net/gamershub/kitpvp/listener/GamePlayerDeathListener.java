@@ -2,18 +2,23 @@ package net.gamershub.kitpvp.listener;
 
 import net.gamershub.kitpvp.ExtendedPlayer;
 import net.gamershub.kitpvp.KitPvpPlugin;
+import net.gamershub.kitpvp.Utils;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.entity.*;
+import org.bukkit.OfflinePlayer;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.Fireball;
+import org.bukkit.entity.LightningStrike;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
-import org.bukkit.potion.PotionEffect;
+
+import java.util.UUID;
 
 public class GamePlayerDeathListener implements Listener {
     @EventHandler
@@ -23,21 +28,11 @@ public class GamePlayerDeathListener implements Listener {
 
         if (extendedPlayer.getGameState() == ExtendedPlayer.GameState.IN_GAME) {
 
-            Location spawn = new Location(Bukkit.getWorld("world"), 0.5, 100.5, -8.5, 0, 0);
-            Bukkit.getScheduler().runTaskLater(KitPvpPlugin.INSTANCE, () -> p.teleport(spawn), 1);
+            Bukkit.getScheduler().runTaskLater(KitPvpPlugin.INSTANCE, () -> Utils.spawnPlayer(p), 1);
 
             extendedPlayer.setGameState(ExtendedPlayer.GameState.SPAWN);
 
-            p.setFireTicks(0);
-
-            p.setHealth(e.getReviveHealth());
-
-            for (PotionEffect effect : p.getActivePotionEffects()) {
-                p.removePotionEffect(effect.getType());
-            }
-
             e.setCancelled(true);
-
 
             // Death Messages
             String name = p.getName();
@@ -52,8 +47,13 @@ public class GamePlayerDeathListener implements Listener {
                     if (damager instanceof LightningStrike lightningStrike) {
                         if (lightningStrike.getCausingPlayer() != null) {
                             message = name + " was killed by " + lightningStrike.getCausingPlayer().getName() + " with lightning";
-                        } else {
-                            message = name + " was struck by lightning";
+                        }
+                    }
+                    // Fireball
+                    if (damager instanceof Fireball fireball) {
+                        if (fireball.hasMetadata("shot_by_player")) {
+                            OfflinePlayer shooter = Bukkit.getOfflinePlayer((UUID) fireball.getMetadata("shot_by_player").get(0).value());
+                            message = name + " was blown up by " + shooter.getName();
                         }
                     }
                 }

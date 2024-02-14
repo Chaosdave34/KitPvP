@@ -2,6 +2,7 @@ package net.gamershub.kitpvp.commands;
 
 import net.gamershub.kitpvp.ExtendedPlayer;
 import net.gamershub.kitpvp.KitPvpPlugin;
+import net.gamershub.kitpvp.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
@@ -16,6 +17,7 @@ public class SpawnCommand implements CommandExecutor {
         if (sender instanceof Player p) {
             p.teleport(new Location(Bukkit.getWorld("world"), 0.5, 100.5, -8.5, 0, 0));
             KitPvpPlugin.INSTANCE.getExtendedPlayer(p).setGameState(ExtendedPlayer.GameState.SPAWN);
+            Utils.spawnPlayer(p);
             return true;
         }
         return false;
