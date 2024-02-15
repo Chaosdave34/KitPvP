@@ -8,8 +8,11 @@ import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Location;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Fireball;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.CreatureSpawnEvent;
+import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.jetbrains.annotations.NotNull;
@@ -40,5 +43,16 @@ public class FireballAbility extends Ability {
             entity.setMetadata("shot_by_player", new FixedMetadataValue(KitPvpPlugin.INSTANCE, p.getUniqueId()));
         });
         return true;
+    }
+
+    @EventHandler
+    public void onExplosion(EntityExplodeEvent e) {
+        if (e.getEntity() instanceof Fireball fireball) {
+            if (fireball.hasMetadata("ability")) {
+                if (id.equals(fireball.getMetadata("ability").get(0).value())) {
+                    e.blockList().removeIf(block -> !block.hasMetadata("placed_by_player"));
+                }
+            }
+        }
     }
 }

@@ -59,7 +59,6 @@ public class LightningAbility extends Ability {
                     }
                 }
             }
-
         }
     }
 }
