@@ -3,12 +3,19 @@ package net.gamershub.kitpvp;
 import lombok.Getter;
 import lombok.Setter;
 import net.gamershub.kitpvp.kits.Kit;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
+import org.bukkit.scoreboard.Criteria;
+import org.bukkit.scoreboard.DisplaySlot;
+import org.bukkit.scoreboard.Objective;
+import org.bukkit.scoreboard.Scoreboard;
 
 import java.util.UUID;
 
@@ -16,8 +23,11 @@ import java.util.UUID;
 @Setter
 public class ExtendedPlayer {
     private final UUID uuid;
-    private transient GameState gameState;
     private String selectedKitId;
+
+    private transient GameState gameState;
+    private transient int killStreak;
+    private transient Scoreboard scoreboard;
 
     public ExtendedPlayer(Player p) {
         uuid = p.getUniqueId();
@@ -49,6 +59,28 @@ public class ExtendedPlayer {
         }
 
         gameState = GameState.SPAWN;
+
+        scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
+        Objective objective = scoreboard.registerNewObjective("default", Criteria.DUMMY, Component.text("KitPvP", NamedTextColor.YELLOW, TextDecoration.BOLD));
+        objective.setDisplaySlot(DisplaySlot.SIDEBAR);
+        p.setScoreboard(scoreboard);
+
+        updateScoreboardLines();
+    }
+
+    public void updateScoreboardLines() {
+        Player p = Bukkit.getPlayer(uuid);
+        if (p == null) return;
+
+        Objective objective = scoreboard.getObjective("default");
+        if (objective == null) return;
+
+        scoreboard.resetScores("*");
+
+        objective.getScore("test1").setScore(3);
+        objective.getScore("test2").setScore(2);
+        objective.getScore("test3").setScore(1);
+        objective.getScore("test4").setScore(0);
     }
 
     public enum GameState {
