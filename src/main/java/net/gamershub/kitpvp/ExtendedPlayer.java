@@ -60,12 +60,14 @@ public class ExtendedPlayer {
 
         gameState = GameState.SPAWN;
 
-        scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
-        Objective objective = scoreboard.registerNewObjective("default", Criteria.DUMMY, Component.text("KitPvP", NamedTextColor.YELLOW, TextDecoration.BOLD));
-        objective.setDisplaySlot(DisplaySlot.SIDEBAR);
-        p.setScoreboard(scoreboard);
+        if (scoreboard == null) {
+            scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
+            Objective objective = scoreboard.registerNewObjective("default", Criteria.DUMMY, Component.text("KitPvP", NamedTextColor.YELLOW, TextDecoration.BOLD));
+            objective.setDisplaySlot(DisplaySlot.SIDEBAR);
+            p.setScoreboard(scoreboard);
 
-        updateScoreboardLines();
+            updateScoreboardLines();
+        }
     }
 
     public void updateScoreboardLines() {
