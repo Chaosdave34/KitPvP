@@ -1,7 +1,6 @@
 package net.gamershub.kitpvp.listener;
 
 import net.gamershub.kitpvp.KitPvpPlugin;
-import net.gamershub.kitpvp.Utils;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.entity.Player;
@@ -25,7 +24,8 @@ public class JoinQuitListener implements Listener {
         // NPC
         KitPvpPlugin.INSTANCE.getFakePlayerHandler().spawnFakePlayers(p);
 
-        Utils.spawnPlayer(p);
+        // Spawn
+        KitPvpPlugin.INSTANCE.getExtendedPlayer(p).spawnPlayer();
     }
 
     @EventHandler

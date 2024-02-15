@@ -2,7 +2,6 @@ package net.gamershub.kitpvp.listener;
 
 import net.gamershub.kitpvp.ExtendedPlayer;
 import net.gamershub.kitpvp.KitPvpPlugin;
-import net.gamershub.kitpvp.Utils;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
@@ -28,9 +27,7 @@ public class GamePlayerDeathListener implements Listener {
 
         if (extendedPlayer.getGameState() == ExtendedPlayer.GameState.IN_GAME) {
 
-            Bukkit.getScheduler().runTaskLater(KitPvpPlugin.INSTANCE, () -> Utils.spawnPlayer(p), 1);
-
-            extendedPlayer.setGameState(ExtendedPlayer.GameState.SPAWN);
+            Bukkit.getScheduler().runTaskLater(KitPvpPlugin.INSTANCE, extendedPlayer::spawnPlayer, 1);
 
             e.setCancelled(true);
 

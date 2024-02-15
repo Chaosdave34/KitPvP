@@ -103,7 +103,6 @@ public final class KitPvpPlugin extends JavaPlugin {
             extendedPlayer = new ExtendedPlayer(p);
         }
 
-        extendedPlayer.setGameState(ExtendedPlayer.GameState.SPAWN);
         extendedPlayers.put(p.getUniqueId(), extendedPlayer);
     }
 

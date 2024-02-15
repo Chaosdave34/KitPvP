@@ -5,13 +5,9 @@ import net.minecraft.network.protocol.Packet;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.network.ServerGamePacketListenerImpl;
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.attribute.Attribute;
-import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.craftbukkit.v1_20_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
-import org.bukkit.potion.PotionEffect;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.*;
@@ -82,24 +78,6 @@ public class Utils {
         } catch (IOException e) {
             KitPvpPlugin.INSTANCE.getLogger().warning("Error while reading object from file! " + e.getMessage());
             return null;
-        }
-    }
-
-    public static void spawnPlayer(Player p) {
-        p.teleport(new Location(Bukkit.getWorld("world"), 0.5, 100.5, -8.5, 0, 0));
-
-        AttributeInstance maxHealth = p.getAttribute(Attribute.GENERIC_MAX_HEALTH);
-        if (maxHealth != null)
-            p.setHealth(maxHealth.getValue());
-
-        p.setFoodLevel(20);
-        p.setSaturation(5);
-        p.setExhaustion(0);
-
-        p.setFireTicks(0);
-
-        for (PotionEffect effect : p.getActivePotionEffects()) {
-            p.removePotionEffect(effect.getType());
         }
     }
 }
