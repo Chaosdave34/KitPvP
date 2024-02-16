@@ -3,6 +3,7 @@ package net.gamershub.kitpvp.listener;
 import net.gamershub.kitpvp.KitPvpPlugin;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -26,6 +27,8 @@ public class JoinQuitListener implements Listener {
 
         // Spawn
         KitPvpPlugin.INSTANCE.getExtendedPlayer(p).spawnPlayer();
+
+        p.sendPlayerListHeader(Component.text("KitPvP", NamedTextColor.YELLOW, TextDecoration.BOLD));
     }
 
     @EventHandler

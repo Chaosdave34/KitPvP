@@ -51,7 +51,6 @@ public final class KitPvpPlugin extends JavaPlugin {
         abilityHandler = new AbilityHandler();
         customItemHandler = new CustomItemHandler();
 
-
         // Setup world
         World overworld = getServer().getWorld("world");
         if (overworld != null) {
@@ -84,9 +83,6 @@ public final class KitPvpPlugin extends JavaPlugin {
 
         getCommand("spawn").setExecutor(new SpawnCommand());
         getCommand("spawn").setTabCompleter(new EmptyTabCompleter());
-
-        KitPvpPlugin.INSTANCE.getLogger().info("Added " + enchantmentHandler.getBukkitEnchantments().size() + " custom Enchantments!");
-        KitPvpPlugin.INSTANCE.getLogger().info("Added " + KitPvpPlugin.INSTANCE.getCustomItemHandler().ID_MAP.size() + " custom Items!");
 
         // Create data folder
         getDataFolder().mkdir();

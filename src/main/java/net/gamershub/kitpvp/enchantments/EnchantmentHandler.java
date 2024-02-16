@@ -34,15 +34,21 @@ public class EnchantmentHandler implements Listener {
     private void enableRegistering() {
         KitPvpPlugin.INSTANCE.getLogger().info("Enabling custom enchantment registering.");
         try {
-            Field unregisteredIntrusiveHolders = BuiltInRegistries.ENCHANTMENT.getClass().getDeclaredField("unregisteredIntrusiveHolders");
-            unregisteredIntrusiveHolders.setAccessible(true);
-            unregisteredIntrusiveHolders.set(BuiltInRegistries.ENCHANTMENT, new IdentityHashMap<>());
-            unregisteredIntrusiveHolders.setAccessible(false);
-
-            Field frozen = BuiltInRegistries.ENCHANTMENT.getClass().getDeclaredField("frozen");
-            frozen.setAccessible(true);
-            frozen.set(BuiltInRegistries.ENCHANTMENT, false);
-        } catch (NoSuchFieldException | IllegalAccessException e) {
+            for (Field field : BuiltInRegistries.ENCHANTMENT.getClass().getDeclaredFields()) {
+                // private Map<T, Holder.Reference<T>> unregisteredIntrusiveHolders
+                if (field.getName().equals("unregisteredIntrusiveHolders") || field.getName().equals("m")) {
+                    field.setAccessible(true);
+                    field.set(BuiltInRegistries.ENCHANTMENT, new IdentityHashMap<>());
+                    field.setAccessible(false);
+                }
+                // private boolean frozen
+                else if  (field.getName().equals("frozen") || field.getName().equals("l")) {
+                    field.setAccessible(true);
+                    field.set(BuiltInRegistries.ENCHANTMENT, false);
+                    field.setAccessible(false);
+                }
+            }
+        } catch (IllegalAccessException e) {
             KitPvpPlugin.INSTANCE.getLogger().warning("Error while enabling custom enchantment registering.");
         }
     }

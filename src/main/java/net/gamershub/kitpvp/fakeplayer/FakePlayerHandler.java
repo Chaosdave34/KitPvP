@@ -35,8 +35,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.net.InetSocketAddress;
 import java.util.ArrayList;
 import java.util.List;
@@ -133,25 +131,14 @@ public class FakePlayerHandler {
             if (packet.isAttack()) {
                 fakePlayer.onAttack(p);
             } else {
-                Object action = Utils.getPrivateField(packet, "action");
-                try {
-                    Method getType = action.getClass().getDeclaredMethod("getType");
-                    getType.setAccessible(true);
-                    Object response = getType.invoke(action);
-                    String actionType = response.toString();
-                    getType.setAccessible(false);
+                Object action = Utils.getPrivateFieldValue(packet, "action", "b");
+                String actionType = Utils.getPrivateMethodReturn(action, "getType", "a").toString();
+                InteractionHand hand = (InteractionHand) Utils.getPrivateFieldValue(action, "hand", "a");
 
-                    InteractionHand hand = (InteractionHand) Utils.getPrivateField(action, "hand");
-
-                    if (actionType.equals("INTERACT")) {
-                        fakePlayer.onInteract(p, hand);
-                    }
-
-                } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
-                    KitPvpPlugin.INSTANCE.getLogger().warning("Error while trying to get type of interaction in ServerboundInteractionPacket");
+                if (actionType.equals("INTERACT")) {
+                    fakePlayer.onInteract(p, hand);
                 }
             }
-
         }
     }
 
