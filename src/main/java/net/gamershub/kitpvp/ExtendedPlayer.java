@@ -26,8 +26,11 @@ public class ExtendedPlayer {
     private String selectedKitId;
 
     private transient GameState gameState;
-    private transient int killStreak;
     private transient Scoreboard scoreboard;
+
+    private transient int killSteak;
+    private int totalKills;
+    private int totalDeaths;
 
     public ExtendedPlayer(Player p) {
         uuid = p.getUniqueId();
@@ -83,6 +86,18 @@ public class ExtendedPlayer {
         objective.getScore("test2").setScore(2);
         objective.getScore("test3").setScore(1);
         objective.getScore("test4").setScore(0);
+    }
+
+    public void incrementKillStreak() {
+        killSteak++;
+    }
+
+    public void incrementTotalKills() {
+        totalKills++;
+    }
+
+    public void incrementTotalDeaths() {
+        totalDeaths++;
     }
 
     public enum GameState {

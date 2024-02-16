@@ -27,6 +27,8 @@ public class GamePlayerDeathListener implements Listener {
 
         if (extendedPlayer.getGameState() == ExtendedPlayer.GameState.IN_GAME) {
 
+            extendedPlayer.incrementTotalDeaths();
+
             Bukkit.getScheduler().runTaskLater(KitPvpPlugin.INSTANCE, extendedPlayer::spawnPlayer, 1);
 
             e.setCancelled(true);

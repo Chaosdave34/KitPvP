@@ -13,6 +13,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityChangeBlockEvent;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerBucketEmptyEvent;
 import org.bukkit.event.player.PlayerBucketFillEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
@@ -109,7 +111,7 @@ public class GameListener implements Listener {
 
             blocksToRemove.put(block.getLocation(), System.currentTimeMillis());
 
-           startBlockRemover();
+            startBlockRemover();
         }
     }
 
@@ -129,6 +131,19 @@ public class GameListener implements Listener {
         Player p = e.getPlayer();
         if (KitPvpPlugin.INSTANCE.getExtendedPlayer(p).getGameState() == ExtendedPlayer.GameState.IN_GAME) {
             e.setCancelled(true);
+        }
+    }
+
+    @EventHandler
+    public void onKill(PlayerDeathEvent e) {
+        if (e.getEntity().getLastDamageCause() instanceof EntityDamageByEntityEvent damageByEntityEvent) {
+            if (damageByEntityEvent.getDamager() instanceof Player p) {
+                ExtendedPlayer extendedPlayer = KitPvpPlugin.INSTANCE.getExtendedPlayer(p);
+                if (extendedPlayer.getGameState() == ExtendedPlayer.GameState.IN_GAME) {
+                    extendedPlayer.incrementKillStreak();
+                    extendedPlayer.incrementTotalKills();
+                }
+            }
         }
     }
 }
