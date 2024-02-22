@@ -6,10 +6,15 @@ import net.gamershub.kitpvp.kits.Kit;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.decoration.ArmorStand;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeInstance;
+import org.bukkit.craftbukkit.v1_20_R3.CraftServer;
+import org.bukkit.craftbukkit.v1_20_R3.entity.CraftEntity;
+import org.bukkit.craftbukkit.v1_20_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.scoreboard.Criteria;
@@ -82,10 +87,13 @@ public class ExtendedPlayer {
 
         scoreboard.resetScores("*");
 
-        objective.getScore("test1").setScore(3);
-        objective.getScore("test2").setScore(2);
-        objective.getScore("test3").setScore(1);
-        objective.getScore("test4").setScore(0);
+        ArmorStand line1 =  new ArmorStand(EntityType.ARMOR_STAND, ((CraftPlayer) p).getHandle().level());
+        line1.setCustomName(net.minecraft.network.chat.Component.literal("Kill Streak: " + killSteak).withColor(1));
+
+        objective.getScore(" ").setScore(4);
+        objective.getScoreFor(CraftEntity.getEntity((CraftServer) Bukkit.getServer(), line1)).setScore(3);
+        objective.getScore("").setScore(2);
+        objective.getScore("Status: " + gameState.name()).setScore(1);
     }
 
     public void incrementKillStreak() {

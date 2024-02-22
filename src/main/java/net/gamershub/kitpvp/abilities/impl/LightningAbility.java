@@ -1,6 +1,7 @@
 package net.gamershub.kitpvp.abilities.impl;
 
 import net.gamershub.kitpvp.KitPvpPlugin;
+import net.gamershub.kitpvp.Utils;
 import net.gamershub.kitpvp.abilities.Ability;
 import net.gamershub.kitpvp.abilities.AbilityType;
 import net.kyori.adventure.text.Component;
@@ -37,11 +38,12 @@ public class LightningAbility extends Ability {
 
     @Override
     public boolean onAbility(PlayerInteractEvent e) {
-        Entity target = e.getPlayer().getTargetEntity(10);
+        Player p = e.getPlayer();
+        Entity target = Utils.getTargetEntity(p, 10, Player.class, false);
         if (target != null) {
             Location targetLocation = target.getLocation();
             targetLocation.getWorld().spawnEntity(targetLocation, EntityType.LIGHTNING, CreatureSpawnEvent.SpawnReason.CUSTOM, (entity) -> {
-                ((LightningStrike) entity).setCausingPlayer(e.getPlayer());
+                ((LightningStrike) entity).setCausingPlayer(p);
                 entity.setMetadata("ability", new FixedMetadataValue(KitPvpPlugin.INSTANCE, id));
             });
             return true;
