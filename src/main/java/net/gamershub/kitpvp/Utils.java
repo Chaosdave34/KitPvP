@@ -103,7 +103,6 @@ public class Utils {
 
             bufferedReader.close();
             inputStreamReader.close();
-            ;
             fileInputStream.close();
 
             return new Gson().fromJson(stringBuilder.toString(), clazz);
@@ -123,7 +122,7 @@ public class Utils {
             T target = type.cast(entity);
 
             // Check if blocks
-            if (!ignoreBlocks && !p.hasLineOfSight(p)) return null;
+            if (!ignoreBlocks && !p.hasLineOfSight(target)) return null;
 
             // Check for radius
             if (target.getLocation().subtract(p.getLocation()).toVector().length() > radius) return null;
@@ -132,14 +131,22 @@ public class Utils {
             Vector playerLookVector = p.getEyeLocation().getDirection();
             Vector targetLocationVector = target.getLocation().subtract(p.getLocation()).toVector();
 
-            p.sendMessage(String.valueOf(playerLookVector.angle(targetLocationVector.multiply(-1))));
 
-            if (playerLookVector.angle(targetLocationVector.multiply(-1)) < 0.1) {
+            if (playerLookVector.angle(targetLocationVector) < 0.1) {
                 return target;
             }
-
-
         }
         return null;
+    }
+
+    public static int binomialCoefficient(int n, int k) {
+        if (k > n - k)
+            k = n - k;
+
+        int b = 1;
+        for (int i = 1, m = n; i <= k; i++, m--)
+            b = b * m / i;
+
+        return b;
     }
 }

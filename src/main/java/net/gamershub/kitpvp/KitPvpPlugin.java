@@ -10,7 +10,7 @@ import net.gamershub.kitpvp.items.CustomItemHandler;
 import net.gamershub.kitpvp.kits.KitHandler;
 import net.gamershub.kitpvp.listener.GameListener;
 import net.gamershub.kitpvp.listener.GamePlayerDeathListener;
-import net.gamershub.kitpvp.listener.JoinQuitListener;
+import net.gamershub.kitpvp.listener.UtilityListener;
 import net.gamershub.kitpvp.listener.SpawnListener;
 import org.bukkit.GameRule;
 import org.bukkit.World;
@@ -60,7 +60,7 @@ public final class KitPvpPlugin extends JavaPlugin {
 
         // Registering Listener
         PluginManager pluginManager = getServer().getPluginManager();
-        pluginManager.registerEvents(new JoinQuitListener(), this);
+        pluginManager.registerEvents(new UtilityListener(), this);
         pluginManager.registerEvents(new SpawnListener(), this);
         pluginManager.registerEvents(new GameListener(), this);
         pluginManager.registerEvents(new GamePlayerDeathListener(), this);
@@ -83,6 +83,9 @@ public final class KitPvpPlugin extends JavaPlugin {
 
         getCommand("spawn").setExecutor(new SpawnCommand());
         getCommand("spawn").setTabCompleter(new EmptyTabCompleter());
+
+        getCommand("add_experience").setExecutor(new AddExperienceCommand());
+        getCommand("add_experience").setTabCompleter(new AddExperienceTabCompleter());
 
         // Create data folder
         getDataFolder().mkdir();

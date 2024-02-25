@@ -14,7 +14,7 @@ public class CustomItemCommand implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (sender instanceof Player p) {
-            if (args.length > 2) return false;
+            if (args.length > 2 || args.length < 1) return false;
 
             int amount = 1;
             if (args.length == 2) {

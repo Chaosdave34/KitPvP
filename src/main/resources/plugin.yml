@@ -23,3 +23,6 @@ commands:
   spawn:
     description: Teleports you back to the spawn
     usage: /<command>
+  add_experience:
+    description: Adds experience to the player
+    usage: /<command> <player> <amount>

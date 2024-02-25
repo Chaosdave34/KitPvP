@@ -142,6 +142,9 @@ public class GameListener implements Listener {
                 if (extendedPlayer.getGameState() == ExtendedPlayer.GameState.IN_GAME) {
                     extendedPlayer.incrementKillStreak();
                     extendedPlayer.incrementTotalKills();
+
+                    extendedPlayer.addExperiencePoints(10 + ((int) (KitPvpPlugin.INSTANCE.getExtendedPlayer(e.getPlayer()).getExperiencePoints() * 0.5)));
+
                 }
             }
         }

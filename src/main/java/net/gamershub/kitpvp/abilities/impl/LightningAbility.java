@@ -8,10 +8,7 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Location;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.LightningStrike;
-import org.bukkit.entity.Player;
+import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -39,7 +36,7 @@ public class LightningAbility extends Ability {
     @Override
     public boolean onAbility(PlayerInteractEvent e) {
         Player p = e.getPlayer();
-        Entity target = Utils.getTargetEntity(p, 10, Player.class, false);
+        Entity target = Utils.getTargetEntity(p, 10, IronGolem.class, false);
         if (target != null) {
             Location targetLocation = target.getLocation();
             targetLocation.getWorld().spawnEntity(targetLocation, EntityType.LIGHTNING, CreatureSpawnEvent.SpawnReason.CUSTOM, (entity) -> {
