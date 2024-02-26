@@ -2,6 +2,7 @@ package net.gamershub.kitpvp;
 
 import lombok.Getter;
 import lombok.Setter;
+import net.gamershub.kitpvp.events.PlayerSpawnEvent;
 import net.gamershub.kitpvp.kits.Kit;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -45,7 +46,11 @@ public class ExtendedPlayer {
 
     public void setGameState(GameState gameState) {
         this.gameState = gameState;
+        updateScoreboardLines();
+    }
 
+    public void setSelectedKitId(String id) {
+        selectedKitId = id;
         updateScoreboardLines();
     }
 
@@ -83,6 +88,8 @@ public class ExtendedPlayer {
         }
 
         updateScoreboardLines();
+
+        new PlayerSpawnEvent(p).callEvent();
     }
 
     public void updateDisplayName() {
@@ -104,9 +111,11 @@ public class ExtendedPlayer {
 
         scoreboard.getEntries().forEach((entry) -> scoreboard.resetScores(entry));
 
-        objective.getScore("Level: " + getLevel()).setScore(5);
-        objective.getScore("Missing XP: " + getMissingExperience()).setScore(4);
-        objective.getScore("  ").setScore(3);
+        objective.getScore("Level: " + getLevel()).setScore(6);
+        objective.getScore("Missing XP: " + getMissingExperience()).setScore(5);
+        objective.getScore("  ").setScore(4);
+        String kitName = getSelectedKit() == null ? "None" : getSelectedKit().getName();
+        objective.getScore("Kit: " + kitName).setScore(3);
         objective.getScore("Kill Streak: " + killSteak).setScore(2);
         objective.getScore("   ").setScore(1);
         objective.getScore("Status: " + gameState.displayName).setScore(0);

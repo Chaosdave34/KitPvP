@@ -54,6 +54,10 @@ public class FakePlayerHandler implements Listener {
     public static FakePlayer PROVOKER_KIT;
     public static FakePlayer ARCHER_KIT;
     public static FakePlayer CROSSBOW_KIT;
+    public static FakePlayer RUNNER_KIT;
+    public static FakePlayer TRAPPER_KIT;
+    public static FakePlayer MAGICIAN_KIT;
+    public static FakePlayer VAMPIRE_KIT;
 
     public FakePlayerHandler() {
         World world = Bukkit.getWorld("world");
@@ -61,8 +65,14 @@ public class FakePlayerHandler implements Listener {
         ZEUS_KIT = createFakePlayer(new KitSelectorFakePlayer(KitHandler.ZEUS, new Location(world, 10.5, 100, 2.5, 90, 0)));
         TANK_KIT = createFakePlayer(new KitSelectorFakePlayer(KitHandler.TANK, new Location(world, 10.5, 100, 4.5, 90, 0)));
         PROVOKER_KIT = createFakePlayer(new KitSelectorFakePlayer(KitHandler.PROVOKER, new Location(world, 10.5, 100, 6.5, 90, 0)));
-        ARCHER_KIT = createFakePlayer(new KitSelectorFakePlayer(KitHandler.ARCHER, new Location(world, 10.5, 100, -2.5, 90, 0)));
-        CROSSBOW_KIT = createFakePlayer(new KitSelectorFakePlayer(KitHandler.CROSSBOW, new Location(world, 10.5, 100, -4.5, 90, 0)));
+        ARCHER_KIT = createFakePlayer(new KitSelectorFakePlayer(KitHandler.ARCHER, new Location(world, 10.5, 100, -1.5, 90, 0)));
+        CROSSBOW_KIT = createFakePlayer(new KitSelectorFakePlayer(KitHandler.CROSSBOW, new Location(world, 10.5, 100, -3.5, 90, 0)));
+        RUNNER_KIT = createFakePlayer(new KitSelectorFakePlayer(KitHandler.RUNNER, new Location(world, 10.5, 100, -5.5, 90, 0)));
+
+
+        TRAPPER_KIT = createFakePlayer(new KitSelectorFakePlayer(KitHandler.TRAPPER, new Location(world, 9.5, 100, -4.5, 90, 0)));
+        MAGICIAN_KIT = createFakePlayer(new KitSelectorFakePlayer(KitHandler.MAGICIAN, new Location(world, 9.5, 100, -2.5, 90, 0)));
+        VAMPIRE_KIT = createFakePlayer(new KitSelectorFakePlayer(KitHandler.VAMPIRE, new Location(world, 9.5, 100, -0.5, 90, 0)));
     }
 
     public FakePlayer createFakePlayer(FakePlayer fakePlayer) {
@@ -173,10 +183,10 @@ public class FakePlayerHandler implements Listener {
         Utils.sendPacketToOnlinePlayers(teleportEntityPacket);
     }
 
-    public void move(FakePlayer fakePlayer, short deltax, short deltay, short deltaZ) {
+    public void move(FakePlayer fakePlayer, short deltaX, short deltaY, short deltaZ) {
         fakePlayer.serverPlayer.setPos(fakePlayer.getPosition().x(), fakePlayer.getPosition().y(), fakePlayer.getPosition().z());
 
-        ClientboundMoveEntityPacket moveEntityPacket = new ClientboundMoveEntityPacket.Pos(fakePlayer.serverPlayer.getId(), deltax, deltay, deltaZ, false);
+        ClientboundMoveEntityPacket moveEntityPacket = new ClientboundMoveEntityPacket.Pos(fakePlayer.serverPlayer.getId(), deltaX, deltaY, deltaZ, false);
         Utils.sendPacketToOnlinePlayers(moveEntityPacket);
     }
 

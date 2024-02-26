@@ -1,5 +1,6 @@
 package net.gamershub.kitpvp.listener;
 
+import io.papermc.paper.event.entity.EntityLoadCrossbowEvent;
 import net.gamershub.kitpvp.ExtendedPlayer;
 import net.gamershub.kitpvp.KitPvpPlugin;
 import org.bukkit.Material;
@@ -105,6 +106,15 @@ public class SpawnListener implements Listener {
         Player p = e.getPlayer();
         if (KitPvpPlugin.INSTANCE.getExtendedPlayer(p).getGameState() == ExtendedPlayer.GameState.SPAWN) {
             e.setCancelled(true);
+        }
+    }
+
+    @EventHandler
+    public void onLoadCrossbow(EntityLoadCrossbowEvent e) {
+        if (e.getEntity() instanceof Player p) {
+            if (KitPvpPlugin.INSTANCE.getExtendedPlayer(p).getGameState() == ExtendedPlayer.GameState.SPAWN) {
+                e.setCancelled(true);
+            }
         }
     }
 

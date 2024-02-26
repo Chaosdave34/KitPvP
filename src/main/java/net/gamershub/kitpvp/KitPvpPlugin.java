@@ -10,8 +10,8 @@ import net.gamershub.kitpvp.items.CustomItemHandler;
 import net.gamershub.kitpvp.kits.KitHandler;
 import net.gamershub.kitpvp.listener.GameListener;
 import net.gamershub.kitpvp.listener.GamePlayerDeathListener;
-import net.gamershub.kitpvp.listener.UtilityListener;
 import net.gamershub.kitpvp.listener.SpawnListener;
+import net.gamershub.kitpvp.listener.UtilityListener;
 import org.bukkit.GameRule;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
@@ -30,26 +30,24 @@ public final class KitPvpPlugin extends JavaPlugin {
 
     private final Map<UUID, ExtendedPlayer> extendedPlayers = new HashMap<>();
 
-    private PacketReader packetReader;
-    private FakePlayerHandler fakePlayerHandler;
     private GuiHandler guiHandler;
     private EnchantmentHandler enchantmentHandler;
     private AbilityHandler abilityHandler;
     private CustomItemHandler customItemHandler;
     private KitHandler kitHandler;
+    private FakePlayerHandler fakePlayerHandler;
 
     @SuppressWarnings("DataFlowIssue")
     @Override
     public void onEnable() {
         INSTANCE = this;
 
-        packetReader = new PacketReader();
-        kitHandler = new KitHandler();
-        fakePlayerHandler = new FakePlayerHandler();
         guiHandler = new GuiHandler();
         enchantmentHandler = new EnchantmentHandler();
         abilityHandler = new AbilityHandler();
         customItemHandler = new CustomItemHandler();
+        kitHandler = new KitHandler();
+        fakePlayerHandler = new FakePlayerHandler();
 
         // Setup world
         World overworld = getServer().getWorld("world");
@@ -67,6 +65,7 @@ public final class KitPvpPlugin extends JavaPlugin {
         pluginManager.registerEvents(guiHandler, this);
         pluginManager.registerEvents(enchantmentHandler, this);
         pluginManager.registerEvents(abilityHandler, this);
+        pluginManager.registerEvents(fakePlayerHandler, this);
 
         // Registering Commands
         getCommand("loop").setExecutor(new LoopCommand());

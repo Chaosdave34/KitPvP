@@ -4,9 +4,7 @@ import net.gamershub.kitpvp.ExtendedPlayer;
 import net.gamershub.kitpvp.KitPvpPlugin;
 import net.gamershub.kitpvp.StringArrayPersistentDataType;
 import net.gamershub.kitpvp.Utils;
-import net.gamershub.kitpvp.abilities.impl.FireballAbility;
-import net.gamershub.kitpvp.abilities.impl.LightningAbility;
-import net.gamershub.kitpvp.abilities.impl.ThunderstormAbility;
+import net.gamershub.kitpvp.abilities.impl.*;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -26,11 +24,19 @@ public class AbilityHandler implements Listener {
     public static Ability FIREBALL;
     public static Ability LIGHTNING;
     public static Ability THUNDERSTORM;
+    public static Ability HAUNT;
+    public static Ability LEVITATE;
+    public static Ability DEBUFF;
+    public static Ability BAT_MORPH;
 
     public AbilityHandler() {
         FIREBALL = registerAbility(new FireballAbility());
         LIGHTNING = registerAbility(new LightningAbility());
         THUNDERSTORM = registerAbility(new ThunderstormAbility());
+        HAUNT = registerAbility(new HauntAbility());
+        LEVITATE = registerAbility(new LevitateAbility());
+        DEBUFF = registerAbility(new DebuffAbility());
+        BAT_MORPH = registerAbility(new BatMorhpAbility());
     }
 
     public Ability registerAbility(Ability ability) {

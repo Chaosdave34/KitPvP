@@ -20,9 +20,9 @@ import org.jetbrains.annotations.NotNull;
 import java.util.*;
 
 public abstract class CustomItem implements Listener {
-    Material material;
-    String id;
-    boolean stackable;
+    protected Material material;
+    protected String id;
+    protected boolean stackable;
 
     public CustomItem(Material material, String id, boolean stackable) {
         this.material = material;

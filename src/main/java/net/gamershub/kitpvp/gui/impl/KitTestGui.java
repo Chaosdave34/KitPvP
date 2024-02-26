@@ -16,15 +16,15 @@ public class KitTestGui extends Gui {
     public KitTestGui() {
         super(1, Component.text("Test Kits", NamedTextColor.RED, TextDecoration.BOLD));
 
-        setItem(0, Material.WOODEN_SWORD, Component.text("Test Kit").decoration(TextDecoration.ITALIC, false), true);
+        setItem(0, Material.WOODEN_SWORD, Component.text("Classic Kit").decoration(TextDecoration.ITALIC, false), true);
         setItem(8, Material.BARRIER, Component.text("RESET").decoration(TextDecoration.ITALIC, false), true);
     }
 
     @InventoryClickHandler(slot = 0)
-    public void onTestKitButton(InventoryClickEvent e) {
+    public void onClassicKitButton(InventoryClickEvent e) {
         Player p = (Player) e.getWhoClicked();
 
-        KitHandler.TEST.apply(p);
+        KitHandler.CLASSIC.apply(p);
         p.sendMessage(Component.text("Selected Test Kit!"));
         e.setCancelled(true);
         Bukkit.getScheduler().runTaskLater(KitPvpPlugin.INSTANCE, () -> p.closeInventory(), 1);

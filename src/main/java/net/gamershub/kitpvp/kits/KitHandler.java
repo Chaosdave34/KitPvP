@@ -4,7 +4,7 @@ import lombok.Getter;
 import net.gamershub.kitpvp.ExtendedPlayer;
 import net.gamershub.kitpvp.KitPvpPlugin;
 import net.gamershub.kitpvp.Utils;
-import net.gamershub.kitpvp.kits.impl.TestKit;
+import net.gamershub.kitpvp.kits.impl.*;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.entity.Player;
@@ -16,10 +16,28 @@ import java.util.Map;
 public class KitHandler {
     private final Map<String, Kit> kits = new HashMap<>();
 
-    public static Kit TEST;
+    public static Kit CLASSIC;
+    public static Kit ZEUS;
+    public static Kit TANK;
+    public static Kit PROVOKER;
+    public static Kit ARCHER;
+    public static Kit CROSSBOW;
+    public static Kit RUNNER;
+    public static Kit TRAPPER;
+    public static Kit MAGICIAN;
+    public static Kit VAMPIRE;
 
     public KitHandler() {
-        TEST = createKit(new TestKit());
+        CLASSIC = createKit(new ClassicKit());
+        ZEUS = createKit(new ZeusKit());
+        TANK = createKit(new TankKit());
+        PROVOKER = createKit(new ProvokerKit());
+        ARCHER = createKit(new ArcherKit());
+        CROSSBOW = createKit(new CrossbowKit());
+        RUNNER = createKit(new RunnerKit());
+        TRAPPER = createKit(new TrapperKit());
+        MAGICIAN = createKit(new MagicianKit());
+        VAMPIRE = createKit(new VampireKit());
     }
 
     private Kit createKit(Kit kit) {

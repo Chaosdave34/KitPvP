@@ -16,10 +16,13 @@ public class KitSelectorFakePlayer extends FakePlayer {
         super(kit.getName(), location, location.getYaw(), location.getPitch(), true);
         this.kit = kit;
 
-        equipment.put(EquipmentSlot.FEET, kit.getArmorContents()[0]);
-        equipment.put(EquipmentSlot.LEGS, kit.getArmorContents()[1]);
-        equipment.put(EquipmentSlot.CHEST, kit.getArmorContents()[2]);
-        equipment.put(EquipmentSlot.HEAD, kit.getArmorContents()[3]);
+        equipment.put(EquipmentSlot.HEAD, kit.getHeadContent());
+        equipment.put(EquipmentSlot.CHEST, kit.getChestContent());
+        equipment.put(EquipmentSlot.LEGS, kit.getLegsContent());
+        equipment.put(EquipmentSlot.FEET, kit.getFeetContent());
+        equipment.put(EquipmentSlot.HAND, kit.getInventoryContent()[0]);
+        equipment.put(EquipmentSlot.OFF_HAND, kit.getOffhandContent());
+
     }
 
     @Override
@@ -30,7 +33,7 @@ public class KitSelectorFakePlayer extends FakePlayer {
 
             kit.apply(p);
 
-            p.sendMessage(Component.text("You have selected ", NamedTextColor.GRAY)
+            p.sendMessage(Component.text("You have selected the Kit ", NamedTextColor.GRAY)
                     .append(Component.text(kit.getName(), NamedTextColor.GREEN))
                     .append(Component.text(".", NamedTextColor.GRAY)));
         }
