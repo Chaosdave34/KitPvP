@@ -43,7 +43,7 @@ public abstract class FakePlayer {
     public void onAttack(Player p) {
     }
 
-    public void onInteract(Player p, InteractionHand hand) {
+    public void onInteract(Player p, EquipmentSlot hand) {
     }
 
     protected void updatePose(Pose pose) {

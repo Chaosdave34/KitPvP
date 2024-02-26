@@ -22,7 +22,6 @@ public class UtilityListener implements Listener {
         e.joinMessage(message);
 
         KitPvpPlugin.INSTANCE.createExtendedPlayer(p);
-        KitPvpPlugin.INSTANCE.getPacketReader().inject(p);
         KitPvpPlugin.INSTANCE.getCustomItemHandler().updateCustomItems(p);
 
         ExtendedPlayer extendedPlayer = KitPvpPlugin.INSTANCE.getExtendedPlayer(p);
@@ -45,8 +44,6 @@ public class UtilityListener implements Listener {
 
         Component message = Component.text(p.getName() + " left!", NamedTextColor.DARK_GRAY);
         e.quitMessage(message);
-
-        KitPvpPlugin.INSTANCE.getPacketReader().uninject(p);
     }
 
     @EventHandler

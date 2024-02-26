@@ -1,5 +1,6 @@
 package net.gamershub.kitpvp.fakeplayer;
 
+import com.destroystokyo.paper.event.player.PlayerUseUnknownEntityEvent;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
 import com.mojang.datafixers.util.Pair;
@@ -26,12 +27,15 @@ import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.player.ChatVisiblity;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.craftbukkit.v1_20_R3.CraftEquipmentSlot;
 import org.bukkit.craftbukkit.v1_20_R3.CraftServer;
 import org.bukkit.craftbukkit.v1_20_R3.CraftWorld;
 import org.bukkit.craftbukkit.v1_20_R3.entity.CraftPlayer;
 import org.bukkit.craftbukkit.v1_20_R3.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 
@@ -41,13 +45,24 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-public class FakePlayerHandler {
+public class FakePlayerHandler implements Listener {
     List<FakePlayer> fakePlayers = new ArrayList<>();
 
-    public static FakePlayer TEST_KIT;
+    public static FakePlayer CLASSIC_KIT;
+    public static FakePlayer ZEUS_KIT;
+    public static FakePlayer TANK_KIT;
+    public static FakePlayer PROVOKER_KIT;
+    public static FakePlayer ARCHER_KIT;
+    public static FakePlayer CROSSBOW_KIT;
 
     public FakePlayerHandler() {
-        TEST_KIT = createFakePlayer(new KitSelectorFakePlayer(KitHandler.TEST, new Location(Bukkit.getWorld("world"), 10.5, 100, 0.5, 90, 0)));
+        World world = Bukkit.getWorld("world");
+        CLASSIC_KIT = createFakePlayer(new KitSelectorFakePlayer(KitHandler.CLASSIC, new Location(world, 10.5, 100, 0.5, 90, 0)));
+        ZEUS_KIT = createFakePlayer(new KitSelectorFakePlayer(KitHandler.ZEUS, new Location(world, 10.5, 100, 2.5, 90, 0)));
+        TANK_KIT = createFakePlayer(new KitSelectorFakePlayer(KitHandler.TANK, new Location(world, 10.5, 100, 4.5, 90, 0)));
+        PROVOKER_KIT = createFakePlayer(new KitSelectorFakePlayer(KitHandler.PROVOKER, new Location(world, 10.5, 100, 6.5, 90, 0)));
+        ARCHER_KIT = createFakePlayer(new KitSelectorFakePlayer(KitHandler.ARCHER, new Location(world, 10.5, 100, -2.5, 90, 0)));
+        CROSSBOW_KIT = createFakePlayer(new KitSelectorFakePlayer(KitHandler.CROSSBOW, new Location(world, 10.5, 100, -4.5, 90, 0)));
     }
 
     public FakePlayer createFakePlayer(FakePlayer fakePlayer) {
@@ -124,23 +139,20 @@ public class FakePlayerHandler {
         return null;
     }
 
-    public void onPlayerInteractPacket(Player p, ServerboundInteractPacket packet) {
-        FakePlayer fakePlayer = getFakePlayerByID(packet.getEntityId());
+    @EventHandler
+    public void onPlayerInteract(PlayerUseUnknownEntityEvent e) {
+        Player p = e.getPlayer();
+        FakePlayer fakePlayer = getFakePlayerByID(e.getEntityId());
         if (fakePlayer != null) {
 
-            if (packet.isAttack()) {
+            if (e.isAttack()) {
                 fakePlayer.onAttack(p);
             } else {
-                Object action = Utils.getPrivateFieldValue(packet, "action", "b");
-                String actionType = Utils.getPrivateMethodReturn(action, "getType", "a").toString();
-                InteractionHand hand = (InteractionHand) Utils.getPrivateFieldValue(action, "hand", "a");
-
-                if (actionType.equals("INTERACT")) {
-                    fakePlayer.onInteract(p, hand);
-                }
+                fakePlayer.onInteract(p, e.getHand());
             }
         }
     }
+
 
     private void updateEntityMetadata(FakePlayer fakePlayer, SynchedEntityData.DataValue<?> dataValue) {
         ClientboundSetEntityDataPacket entityDataPacket = new ClientboundSetEntityDataPacket(fakePlayer.serverPlayer.getId(), List.of(dataValue));
