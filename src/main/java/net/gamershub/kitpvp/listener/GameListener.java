@@ -14,6 +14,7 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityChangeBlockEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerBucketEmptyEvent;
 import org.bukkit.event.player.PlayerBucketFillEvent;
@@ -129,6 +130,14 @@ public class GameListener implements Listener {
     @EventHandler
     public void onDrop(PlayerDropItemEvent e) {
         Player p = e.getPlayer();
+        if (KitPvpPlugin.INSTANCE.getExtendedPlayer(p).getGameState() == ExtendedPlayer.GameState.IN_GAME) {
+            e.setCancelled(true);
+        }
+    }
+
+    @EventHandler
+    public void onFoodLevelChance(FoodLevelChangeEvent e) {
+        Player p = (Player) e.getEntity();
         if (KitPvpPlugin.INSTANCE.getExtendedPlayer(p).getGameState() == ExtendedPlayer.GameState.IN_GAME) {
             e.setCancelled(true);
         }
