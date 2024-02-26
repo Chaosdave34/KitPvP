@@ -87,6 +87,9 @@ public final class KitPvpPlugin extends JavaPlugin {
         getCommand("add_experience").setExecutor(new AddExperienceCommand());
         getCommand("add_experience").setTabCompleter(new AddExperienceTabCompleter());
 
+        getCommand("test_companion").setExecutor(new TestCompanionCommand());
+        getCommand("test_companion").setTabCompleter(new EmptyTabCompleter());
+
         // Create data folder
         getDataFolder().mkdir();
         new File(getDataFolder(), "player_data").mkdir();

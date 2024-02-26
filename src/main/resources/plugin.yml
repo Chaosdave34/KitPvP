@@ -26,3 +26,6 @@ commands:
   add_experience:
     description: Adds experience to the player
     usage: /<command> <player> <amount>
+  test_companion:
+    description: Test companions
+    usage: /<command>
