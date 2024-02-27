@@ -12,6 +12,7 @@ import net.gamershub.kitpvp.listener.GameListener;
 import net.gamershub.kitpvp.listener.GamePlayerDeathListener;
 import net.gamershub.kitpvp.listener.SpawnListener;
 import net.gamershub.kitpvp.listener.UtilityListener;
+import org.bukkit.Bukkit;
 import org.bukkit.GameRule;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
@@ -55,6 +56,8 @@ public final class KitPvpPlugin extends JavaPlugin {
             overworld.setGameRule(GameRule.KEEP_INVENTORY, true);
             overworld.setGameRule(GameRule.DO_MOB_SPAWNING, false);
         }
+
+        Bukkit.clearRecipes();
 
         // Registering Listener
         PluginManager pluginManager = getServer().getPluginManager();

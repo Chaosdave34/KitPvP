@@ -7,7 +7,7 @@ import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 
-public class DevilKit extends Kit {
+public class DevilKit extends Kit { // Add special ability
     public DevilKit() {
         super("devil", "Devil");
     }
