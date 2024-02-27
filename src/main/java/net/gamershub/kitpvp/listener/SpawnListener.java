@@ -24,21 +24,28 @@ public class SpawnListener implements Listener {
             if (extendedPlayer.getGameState() == ExtendedPlayer.GameState.SPAWN) {
                 // Kill Command
                 if (e.getCause() == EntityDamageEvent.DamageCause.KILL) return;
-
-                // Fall Damage -> enter game
-                if (e.getCause() == EntityDamageEvent.DamageCause.FALL && p.getLocation().getY() < 90) {
-                    extendedPlayer.setGameState(ExtendedPlayer.GameState.IN_GAME);
-                }
-
                 e.setCancelled(true);
             }
         }
     }
 
     @EventHandler
+    public void onEnterGameEvent(PlayerMoveEvent e) {
+        Player p = e.getPlayer();
+        ExtendedPlayer extendedPlayer = KitPvpPlugin.INSTANCE.getExtendedPlayer(p);
+        if (extendedPlayer.getGameState() == ExtendedPlayer.GameState.SPAWN) {
+            if (e.getTo().clone().subtract(0, 1, 0).getBlock().getType() != Material.AIR && e.getTo().getY() <= 90) {
+                extendedPlayer.setGameState(ExtendedPlayer.GameState.IN_GAME);
+                p.setFallDistance(0f);
+            }
+        }
+
+    }
+
+    @EventHandler
     public void onProjectileLaunch(ProjectileLaunchEvent e) {
         if (e.getEntity().getShooter() instanceof Player p) {
-                if (KitPvpPlugin.INSTANCE.getExtendedPlayer(p).getGameState() == ExtendedPlayer.GameState.SPAWN) {
+            if (KitPvpPlugin.INSTANCE.getExtendedPlayer(p).getGameState() == ExtendedPlayer.GameState.SPAWN) {
                 e.setCancelled(true);
             }
         }
