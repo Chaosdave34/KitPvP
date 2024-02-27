@@ -2,6 +2,8 @@ package net.gamershub.kitpvp.enchantments.impl;
 
 import net.gamershub.kitpvp.enchantments.CustomEnchantment;
 import net.gamershub.kitpvp.enchantments.EnchantmentHandler;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.enchantment.EnchantmentCategory;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -13,7 +15,7 @@ import org.bukkit.potion.PotionEffectType;
 
 public class FreezeEnchantment extends CustomEnchantment {
     public FreezeEnchantment() {
-        super("freeze", 3, "Freeze");
+        super("freeze", 3, "Freeze", EnchantmentCategory.WEAPON, EquipmentSlot.MAINHAND);
     }
 
     @EventHandler

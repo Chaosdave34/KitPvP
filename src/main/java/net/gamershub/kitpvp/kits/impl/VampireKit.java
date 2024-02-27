@@ -45,10 +45,9 @@ public class VampireKit extends Kit {
     }
 
     @Override
-    public ItemStack[] getInventoryContent() { // TODO: make wand actually do something
+    public ItemStack[] getInventoryContent() { // TODO: make sword actually do something
         return new ItemStack[]{
-                new ItemStack(Material.DIAMOND_SWORD),
-                CustomItemHandler.VAMPIRE_WAND.build(1),
+                CustomItemHandler.VAMPIRE_SWORD.build(1),
                 new ItemStack(Material.RED_NETHER_BRICKS, 64),
         };
     }

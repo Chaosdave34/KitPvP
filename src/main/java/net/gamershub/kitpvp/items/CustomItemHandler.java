@@ -19,14 +19,14 @@ public class CustomItemHandler {
     public static CustomItem LIGHTNING_WAND;
     public static CustomItem HAUNT_WAND;
     public static CustomItem MAGIC_WAND;
-    public static CustomItem VAMPIRE_WAND;
+    public static CustomItem VAMPIRE_SWORD;
 
     public CustomItemHandler() {
         FIREBALL = createItem(new FireballWand());
         LIGHTNING_WAND = createItem(new LightningWand());
         HAUNT_WAND = createItem(new HauntWand());
         MAGIC_WAND = createItem(new MagicWand());
-        VAMPIRE_WAND = createItem(new VampireWand());
+        VAMPIRE_SWORD = createItem(new VampireSword());
     }
 
     private CustomItem createItem(CustomItem item) {
