@@ -12,6 +12,7 @@ import net.gamershub.kitpvp.listener.GameListener;
 import net.gamershub.kitpvp.listener.GamePlayerDeathListener;
 import net.gamershub.kitpvp.listener.SpawnListener;
 import net.gamershub.kitpvp.listener.UtilityListener;
+import net.gamershub.kitpvp.textdisplay.TextDisplayHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.GameRule;
 import org.bukkit.World;
@@ -37,6 +38,7 @@ public final class KitPvpPlugin extends JavaPlugin {
     private CustomItemHandler customItemHandler;
     private KitHandler kitHandler;
     private FakePlayerHandler fakePlayerHandler;
+    private TextDisplayHandler textDisplayHandler;
 
     @SuppressWarnings("DataFlowIssue")
     @Override
@@ -49,6 +51,7 @@ public final class KitPvpPlugin extends JavaPlugin {
         customItemHandler = new CustomItemHandler();
         kitHandler = new KitHandler();
         fakePlayerHandler = new FakePlayerHandler();
+        textDisplayHandler = new TextDisplayHandler();
 
         // Setup world
         World overworld = getServer().getWorld("world");

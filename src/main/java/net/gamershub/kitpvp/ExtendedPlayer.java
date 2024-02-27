@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import net.gamershub.kitpvp.events.PlayerSpawnEvent;
 import net.gamershub.kitpvp.kits.Kit;
+import net.gamershub.kitpvp.textdisplay.TextDisplayHandler;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
@@ -34,6 +35,7 @@ public class ExtendedPlayer {
     private transient Entity morph;
 
     private transient int killSteak;
+    private int highestKillStreak;
     private int totalKills;
     private int totalDeaths;
 
@@ -128,15 +130,22 @@ public class ExtendedPlayer {
         if (killSteak % 5 == 0)
             Bukkit.broadcast(getPlayer().displayName().append(Component.text(" has reached a kill streak of " + killSteak / 5)));
 
+        if (killSteak > highestKillStreak) {
+            highestKillStreak = killSteak;
+            KitPvpPlugin.INSTANCE.getTextDisplayHandler().updateTextDisplay(getPlayer(), TextDisplayHandler.PERSONAL_STATISTICS);
+        }
+
         updateScoreboardLines();
     }
 
     public void incrementTotalKills() {
         totalKills++;
+        KitPvpPlugin.INSTANCE.getTextDisplayHandler().updateTextDisplay(getPlayer(), TextDisplayHandler.PERSONAL_STATISTICS);
     }
 
     public void incrementTotalDeaths() {
         totalDeaths++;
+        KitPvpPlugin.INSTANCE.getTextDisplayHandler().updateTextDisplay(getPlayer(), TextDisplayHandler.PERSONAL_STATISTICS);
     }
 
     public void addExperiencePoints(int amount) {

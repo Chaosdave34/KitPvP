@@ -29,6 +29,9 @@ public class UtilityListener implements Listener {
         // NPC
         KitPvpPlugin.INSTANCE.getFakePlayerHandler().spawnFakePlayers(p);
 
+        // TextDisplay
+        KitPvpPlugin.INSTANCE.getTextDisplayHandler().spawnTextDisplays(p);
+
         // Spawn
         extendedPlayer.spawnPlayer();
         extendedPlayer.updateDisplayName();
