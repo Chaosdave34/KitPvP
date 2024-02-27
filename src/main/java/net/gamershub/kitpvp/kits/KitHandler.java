@@ -26,6 +26,10 @@ public class KitHandler {
     public static Kit TRAPPER;
     public static Kit MAGICIAN;
     public static Kit VAMPIRE;
+    public static Kit CREEPER;
+    public static Kit ENDERMAN;
+    public static Kit POSEIDON;
+    public static Kit DEVIL;
 
     public KitHandler() {
         CLASSIC = createKit(new ClassicKit());
@@ -38,6 +42,10 @@ public class KitHandler {
         TRAPPER = createKit(new TrapperKit());
         MAGICIAN = createKit(new MagicianKit());
         VAMPIRE = createKit(new VampireKit());
+        CREEPER = createKit(new CreeperKit());
+        ENDERMAN = createKit(new EndermanKit());
+        POSEIDON = createKit(new PoseidonKit());
+        DEVIL = createKit(new DevilKit());
     }
 
     private Kit createKit(Kit kit) {

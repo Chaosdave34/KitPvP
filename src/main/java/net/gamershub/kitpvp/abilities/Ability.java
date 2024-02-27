@@ -10,7 +10,6 @@ import org.bukkit.GameMode;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataContainer;
@@ -59,14 +58,13 @@ public abstract class Ability implements Listener {
         itemStack.setItemMeta(itemMeta);
     }
 
-    public void handleAbility(PlayerInteractEvent e) {
-        Player p = e.getPlayer();
+    public void handleAbility(Player p) {
         if (p.getGameMode() == GameMode.SPECTATOR) return;
 
         if (playerCooldown.containsKey(p.getUniqueId())) {
             p.sendMessage(Component.text("This ability is on cooldown for " + playerCooldown.get(p.getUniqueId()) + "s.", NamedTextColor.RED));
         } else {
-            boolean success = onAbility(e);
+            boolean success = onAbility(p);
 
             if (success) {
 
@@ -93,5 +91,5 @@ public abstract class Ability implements Listener {
         }
     }
 
-    public abstract boolean onAbility(PlayerInteractEvent e);
+    public abstract boolean onAbility(Player p);
 }

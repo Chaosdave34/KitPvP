@@ -15,7 +15,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.EntityExplodeEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.util.Vector;
 import org.jetbrains.annotations.NotNull;
@@ -33,9 +32,8 @@ public class NukeAbility extends Ability { // Todo: add particles on travel
     }
 
     @Override
-    public boolean onAbility(PlayerInteractEvent e) {
-        Player p = e.getPlayer();
-        Location location = e.getPlayer().getLocation();
+    public boolean onAbility(Player p) {
+        Location location = p.getLocation();
 
         p.getWorld().spawnParticle(Particle.DRAGON_BREATH, location, 1500, 0, 70, 0, 0);
 

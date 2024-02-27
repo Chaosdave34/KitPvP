@@ -23,6 +23,10 @@ public class CustomItemHandler {
     public static CustomItem NUKE;
     public static CustomItem SPOOK_SWORD;
     public static CustomItem TRAP_WAND;
+    public static CustomItem CREEPER_LEGGINGS;
+    public static CustomItem ENDER_SWORD;
+    public static CustomItem POSEIDONS_TRIDENT;
+    public static CustomItem DEVILS_SWORD;
 
     public CustomItemHandler() {
         FIREBALL = createItem(new FireballWand());
@@ -33,6 +37,10 @@ public class CustomItemHandler {
         NUKE = createItem(new NukeItem());
         SPOOK_SWORD = createItem(new SpookSword());
         TRAP_WAND = createItem(new TrapWand());
+        CREEPER_LEGGINGS = createItem(new CreeperLeggings());
+        ENDER_SWORD = createItem(new EnderSword());
+        POSEIDONS_TRIDENT = createItem(new PoseidonsTrident());
+        DEVILS_SWORD = createItem(new DevilsSword());
     }
 
     private CustomItem createItem(CustomItem item) {

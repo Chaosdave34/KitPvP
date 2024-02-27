@@ -6,26 +6,24 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.entity.Player;
-import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public class LevitateAbility extends Ability {
-    public LevitateAbility() {
-        super("levitate", "Levitate", AbilityType.RIGHT_CLICK, 25);
+public class StormAbility extends Ability {
+    public StormAbility() {
+        super("storm", "Storm", AbilityType.RIGHT_CLICK, 120);
     }
-
 
     @Override
     public @NotNull List<Component> getDescription() {
-        return List.of(Component.text("Rise into the air!", NamedTextColor.GRAY).decoration(TextDecoration.ITALIC, false));
+        return List.of(Component.text("Gather a storm for 30 seconds.", NamedTextColor.GRAY).decoration(TextDecoration.ITALIC, false));
     }
 
     @Override
     public boolean onAbility(Player p) {
-        p.addPotionEffect(new PotionEffect(PotionEffectType.LEVITATION, 100, 10));
+        p.getWorld().setThundering(true);
+        p.getWorld().setThunderDuration(600);
         return true;
     }
 }

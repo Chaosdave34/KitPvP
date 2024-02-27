@@ -14,7 +14,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.BlockIgniteEvent;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
@@ -40,8 +39,8 @@ public class ThunderstormAbility extends Ability {
     }
 
     @Override
-    public boolean onAbility(PlayerInteractEvent e) {
-        Location location = e.getPlayer().getLocation();
+    public boolean onAbility(Player p) {
+        Location location = p.getLocation();
 
         int[] offsets_values = new int[]{-5, -3, 0, 3, 5};
 
@@ -64,7 +63,7 @@ public class ThunderstormAbility extends Ability {
                 if (iterator.hasNext()) {
                     Location targetLocation = location.clone().add(iterator.next());
                     location.getWorld().spawnEntity(targetLocation, EntityType.LIGHTNING, CreatureSpawnEvent.SpawnReason.CUSTOM, (entity) -> {
-                        ((LightningStrike) entity).setCausingPlayer(e.getPlayer());
+                        ((LightningStrike) entity).setCausingPlayer(p);
                         entity.setMetadata("ability", new FixedMetadataValue(KitPvpPlugin.INSTANCE, id));
                     });
                 } else this.cancel();

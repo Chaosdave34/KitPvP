@@ -9,7 +9,6 @@ import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.jetbrains.annotations.NotNull;
@@ -32,8 +31,7 @@ public class HauntAbility extends Ability {
     }
 
     @Override
-    public boolean onAbility(PlayerInteractEvent e) {
-        Player p = e.getPlayer();
+    public boolean onAbility(Player p) {
         p.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 100, 10));
         p.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 100,1));
         p.addScoreboardTag("haunt_ability");

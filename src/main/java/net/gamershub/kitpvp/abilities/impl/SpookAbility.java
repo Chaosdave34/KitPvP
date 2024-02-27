@@ -12,7 +12,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
-import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
@@ -28,13 +27,12 @@ public class SpookAbility extends Ability {
         return List.of(
                 Component.text("Places a pumpkin on the", NamedTextColor.GRAY).decoration(TextDecoration.ITALIC, false),
                 Component.text("player you are looking at", NamedTextColor.GRAY).decoration(TextDecoration.ITALIC, false),
-                Component.text("in a 10 block radius.", NamedTextColor.GRAY).decoration(TextDecoration.ITALIC, false)
+                Component.text("in a 20 block radius.", NamedTextColor.GRAY).decoration(TextDecoration.ITALIC, false)
         );
     }
 
     @Override
-    public boolean onAbility(PlayerInteractEvent e) {
-        Player p = e.getPlayer();
+    public boolean onAbility(Player p) {
         Player target = Utils.getTargetEntity(p, 20, Player.class, true);
         if (target != null) {
 

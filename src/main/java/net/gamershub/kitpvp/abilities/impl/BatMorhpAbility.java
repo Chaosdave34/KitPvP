@@ -9,7 +9,7 @@ import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.EntityType;
-import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -26,8 +26,8 @@ public class BatMorhpAbility extends Ability {
     }
 
     @Override
-    public boolean onAbility(PlayerInteractEvent e) {
-        ExtendedPlayer extendedPlayer = KitPvpPlugin.INSTANCE.getExtendedPlayer(e.getPlayer());
+    public boolean onAbility(Player p) {
+        ExtendedPlayer extendedPlayer = KitPvpPlugin.INSTANCE.getExtendedPlayer(p);
         extendedPlayer.morph(EntityType.BAT);
 
         Bukkit.getScheduler().runTaskLater(KitPvpPlugin.INSTANCE, extendedPlayer::unmorph, 200);

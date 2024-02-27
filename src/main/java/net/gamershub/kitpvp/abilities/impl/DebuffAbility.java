@@ -7,7 +7,6 @@ import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
-import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.potion.PotionEffectType;
 import org.jetbrains.annotations.NotNull;
 
@@ -25,13 +24,12 @@ public class DebuffAbility extends Ability {
         List<Component> description = new ArrayList<>();
         description.add(Component.text("Applies slowness, nausea, blindness", NamedTextColor.GRAY).decoration(TextDecoration.ITALIC, false));
         description.add(Component.text("and weakness to all players in a", NamedTextColor.GRAY).decoration(TextDecoration.ITALIC, false));
-        description.add(Component.text("10 block radius.", NamedTextColor.GRAY).decoration(TextDecoration.ITALIC, false));
+        description.add(Component.text("4 block radius.", NamedTextColor.GRAY).decoration(TextDecoration.ITALIC, false));
         return description;
     }
 
     @Override
-    public boolean onAbility(PlayerInteractEvent e) {
-        Player p = e.getPlayer();
+    public boolean onAbility(Player p) {
         for (Entity entity : p.getNearbyEntities(4, 4, 4)) {
             if (entity instanceof Player player) {
                 player.addPotionEffect(PotionEffectType.SLOW.createEffect(100, 1));

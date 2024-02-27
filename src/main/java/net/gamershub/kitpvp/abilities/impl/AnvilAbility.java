@@ -10,7 +10,6 @@ import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import org.bukkit.event.player.PlayerInteractEvent;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -30,9 +29,8 @@ public class AnvilAbility extends Ability {
     }
 
     @Override
-    public boolean onAbility(PlayerInteractEvent e) {
-        Player p = e.getPlayer();
-        Player target = Utils.getTargetEntity(p, 20, Player.class, true);
+    public boolean onAbility(Player p) {
+        Player target = Utils.getTargetEntity(p, 10, Player.class, true);
         if (target != null) {
 
             if (KitPvpPlugin.INSTANCE.getExtendedPlayer(target).getGameState() == ExtendedPlayer.GameState.SPAWN)

@@ -58,6 +58,10 @@ public class FakePlayerHandler implements Listener {
     public static FakePlayer TRAPPER_KIT;
     public static FakePlayer MAGICIAN_KIT;
     public static FakePlayer VAMPIRE_KIT;
+    public static FakePlayer CREEPER_KIT;
+    public static FakePlayer ENDERMAN_KIT;
+    public static FakePlayer POSEIDON_KIT;
+    public static FakePlayer DEVIL_KIT;
 
     public FakePlayerHandler() {
         World world = Bukkit.getWorld("world");
@@ -73,6 +77,10 @@ public class FakePlayerHandler implements Listener {
         TRAPPER_KIT = createFakePlayer(new KitSelectorFakePlayer(KitHandler.TRAPPER, new Location(world, 9.5, 100, -4.5, 90, 0)));
         MAGICIAN_KIT = createFakePlayer(new KitSelectorFakePlayer(KitHandler.MAGICIAN, new Location(world, 9.5, 100, -2.5, 90, 0)));
         VAMPIRE_KIT = createFakePlayer(new KitSelectorFakePlayer(KitHandler.VAMPIRE, new Location(world, 9.5, 100, -0.5, 90, 0)));
+        CREEPER_KIT = createFakePlayer(new KitSelectorFakePlayer(KitHandler.CREEPER, new Location(world, 9.5, 100, 1.5, 90, 0)));
+        ENDERMAN_KIT = createFakePlayer(new KitSelectorFakePlayer(KitHandler.ENDERMAN, new Location(world, 9.5, 100, 3.5, 90, 0)));
+        POSEIDON_KIT = createFakePlayer(new KitSelectorFakePlayer(KitHandler.POSEIDON, new Location(world, 9.5, 100, 5.5, 90, 0)));
+        DEVIL_KIT = createFakePlayer(new KitSelectorFakePlayer(KitHandler.DEVIL, new Location(world, 9.5, 100, 7.5, 90, 0)));
     }
 
     public FakePlayer createFakePlayer(FakePlayer fakePlayer) {

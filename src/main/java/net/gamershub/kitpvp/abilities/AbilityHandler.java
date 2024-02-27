@@ -10,6 +10,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerToggleSneakEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataContainer;
 
@@ -32,6 +33,9 @@ public class AbilityHandler implements Listener {
     public static Ability SPOOK;
     public static Ability ANVIL;
     public static Ability TRAP;
+    public static Ability EXPLODE;
+    public static Ability ENDER_ATTACK;
+    public static Ability STORM;
 
     public AbilityHandler() {
         FIREBALL = registerAbility(new FireballAbility());
@@ -45,6 +49,9 @@ public class AbilityHandler implements Listener {
         SPOOK = registerAbility(new SpookAbility());
         ANVIL = registerAbility(new AnvilAbility());
         TRAP = registerAbility(new TrapAbility());
+        EXPLODE = registerAbility(new ExplodeAbility());
+        ENDER_ATTACK = registerAbility(new EnderAttackAbility());
+        STORM = registerAbility(new StormAbility());
     }
 
     public Ability registerAbility(Ability ability) {
@@ -82,9 +89,11 @@ public class AbilityHandler implements Listener {
 
     @EventHandler
     public void onInteract(PlayerInteractEvent e) {
+        Player p = e.getPlayer();
         if (e.getItem() == null) return;
 
-        if (KitPvpPlugin.INSTANCE.getExtendedPlayer(e.getPlayer()).getGameState() == ExtendedPlayer.GameState.SPAWN) return;
+        if (KitPvpPlugin.INSTANCE.getExtendedPlayer(p).getGameState() == ExtendedPlayer.GameState.SPAWN)
+            return;
 
         PersistentDataContainer container = e.getItem().getItemMeta().getPersistentDataContainer();
         NamespacedKey key = new NamespacedKey(KitPvpPlugin.INSTANCE, "abilities");
@@ -95,21 +104,48 @@ public class AbilityHandler implements Listener {
             for (String id : abilities) {
                 if (this.abilities.containsKey(id)) {
                     Ability ability = this.abilities.get(id);
-                    Player p = e.getPlayer();
 
                     switch (ability.getType()) {
                         case RIGHT_CLICK -> {
-                            if (e.getAction().isRightClick()) ability.handleAbility(e);
+                            if (e.getAction().isRightClick()) ability.handleAbility(p);
                         }
                         case LEFT_CLICK -> {
-                            if (e.getAction().isLeftClick()) ability.handleAbility(e);
+                            if (e.getAction().isLeftClick()) ability.handleAbility(p);
                         }
                         case SNEAK_RIGHT_CLICK -> {
-                            if (e.getAction().isRightClick() && p.isSneaking()) ability.handleAbility(e);
+                            if (e.getAction().isRightClick() && p.isSneaking()) ability.handleAbility(p);
                         }
                         case SNEAK_LEFT_CLICK -> {
-                            if (e.getAction().isLeftClick() && p.isSneaking()) ability.handleAbility(e);
+                            if (e.getAction().isLeftClick() && p.isSneaking()) ability.handleAbility(p);
                         }
+                    }
+                }
+            }
+        }
+    }
+
+    @EventHandler
+    public void onSneak(PlayerToggleSneakEvent e) {
+        Player p = e.getPlayer();
+
+        if (!e.isSneaking()) return;
+
+        if (KitPvpPlugin.INSTANCE.getExtendedPlayer(p).getGameState() == ExtendedPlayer.GameState.SPAWN) return;
+
+        for (ItemStack armorContent : p.getInventory().getArmorContents()) {
+            if (armorContent == null) continue;
+
+            PersistentDataContainer container = armorContent.getItemMeta().getPersistentDataContainer();
+            NamespacedKey key = new NamespacedKey(KitPvpPlugin.INSTANCE, "abilities");
+            if (container.has(key)) {
+                String[] abilities = container.get(key, new StringArrayPersistentDataType());
+                if (abilities == null) return;
+                for (String id : abilities) {
+                    if (this.abilities.containsKey(id)) {
+                        Ability ability = this.abilities.get(id);
+
+                        if (ability.getType() == AbilityType.SNEAK) ability.handleAbility(p);
+
                     }
                 }
             }
