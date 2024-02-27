@@ -61,6 +61,11 @@ public class GameListener implements Listener {
 
             if (e.getBlock().getType() == Material.FIRE) return;
 
+            if (e.getBlock().getLocation().getY() > 90) {
+                e.setCancelled(true);
+                return;
+            }
+
             block.setMetadata("placed_by_player", new FixedMetadataValue(KitPvpPlugin.INSTANCE, true));
 
             blocksToRemove.put(block.getLocation(), System.currentTimeMillis());
