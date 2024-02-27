@@ -58,7 +58,7 @@ public class MagicianKit extends Kit {
                 CustomItemHandler.MAGIC_WAND.build(1),
                 new ItemStack(Material.BOOK),
                 new ItemStack(Material.GOLDEN_APPLE, 3),
-                new ItemStack(Material.COBBLESTONE, 64),
+                new ItemStack(Material.GILDED_BLACKSTONE, 64),
                 new ItemStack(Material.WATER_BUCKET),
         };
     }

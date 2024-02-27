@@ -44,7 +44,6 @@ public class DevilKit extends Kit {
         ItemStack leatherBoots = new ItemStack(Material.LEATHER_BOOTS);
         leatherBoots.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2);
         leatherBoots.addUnsafeEnchantment(Enchantment.PROTECTION_FIRE, 4);
-        leatherBoots.addEnchantment(Enchantment.FROST_WALKER, 2);
         setLeatherArmorColor(leatherBoots, Color.RED);
         return leatherBoots;
     }
@@ -60,7 +59,7 @@ public class DevilKit extends Kit {
                 bow,
                 new ItemStack(Material.ARROW),
                 new ItemStack(Material.GOLDEN_APPLE, 3),
-                new ItemStack(Material.MAGMA_BLOCK, 64),
+                new ItemStack(Material.NETHERRACK, 64),
                 new ItemStack(Material.WATER_BUCKET),
         };
     }

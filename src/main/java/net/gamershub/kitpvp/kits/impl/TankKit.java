@@ -58,7 +58,7 @@ public class TankKit extends Kit {
         return new ItemStack[]{
                 new ItemStack(Material.IRON_AXE),
                 new ItemStack(Material.GOLDEN_APPLE, 3),
-                new ItemStack(Material.COBBLESTONE, 64),
+                new ItemStack(Material.COBBLED_DEEPSLATE, 64),
                 new ItemStack(Material.WATER_BUCKET),
         };
     }

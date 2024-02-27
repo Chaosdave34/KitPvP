@@ -53,7 +53,7 @@ public class EndermanKit extends Kit {
         return new ItemStack[]{
                 CustomItemHandler.ENDER_SWORD.build(1),
                 new ItemStack(Material.GOLDEN_APPLE, 3),
-                new ItemStack(Material.COBBLESTONE, 64),
+                new ItemStack(Material.END_STONE, 64),
         };
     }
 }
