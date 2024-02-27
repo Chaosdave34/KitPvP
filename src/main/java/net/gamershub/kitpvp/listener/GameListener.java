@@ -1,25 +1,21 @@
 package net.gamershub.kitpvp.listener;
 
+import io.papermc.paper.event.entity.EntityMoveEvent;
 import net.gamershub.kitpvp.ExtendedPlayer;
 import net.gamershub.kitpvp.KitPvpPlugin;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.FallingBlock;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
-import org.bukkit.event.entity.EntityChangeBlockEvent;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.entity.FoodLevelChangeEvent;
-import org.bukkit.event.entity.PlayerDeathEvent;
-import org.bukkit.event.player.PlayerBucketEmptyEvent;
-import org.bukkit.event.player.PlayerBucketFillEvent;
-import org.bukkit.event.player.PlayerDropItemEvent;
-import org.bukkit.event.player.PlayerItemDamageEvent;
+import org.bukkit.event.entity.*;
+import org.bukkit.event.player.*;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
@@ -165,6 +161,30 @@ public class GameListener implements Listener {
         Player p = e.getPlayer();
         if (KitPvpPlugin.INSTANCE.getExtendedPlayer(p).getGameState() == ExtendedPlayer.GameState.IN_GAME) {
             e.setCancelled(true);
+        }
+    }
+
+
+    @EventHandler
+    public void onDismountMorph(EntityDismountEvent e) {
+        if (e.getEntity() instanceof Player p) {
+            ExtendedPlayer extendedPlayer = KitPvpPlugin.INSTANCE.getExtendedPlayer(p);
+            if (extendedPlayer.getGameState() == ExtendedPlayer.GameState.IN_GAME) {
+                if (p.getUniqueId().equals(extendedPlayer.getUuid())) {
+                    if (extendedPlayer.getMorph() == null) return;
+                    extendedPlayer.unmorph();
+                }
+            }
+        }
+    }
+
+    @EventHandler
+    public void onMorphMove(EntityMoveEvent e) {
+        Entity morph = e.getEntity();
+        if (morph.hasMetadata("morph")) {
+            Player p = (Player) morph.getPassengers().get(0);
+
+            morph.setVelocity(p.getEyeLocation().getDirection().multiply(0.5));
         }
     }
 }

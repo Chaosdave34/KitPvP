@@ -9,7 +9,7 @@ import org.bukkit.inventory.ItemStack;
 
 public class VampireKit extends Kit {
     public VampireKit() {
-        super("vampire", "Vampire (WIP)");
+        super("vampire", "Vampire");
     }
 
     @Override
@@ -45,7 +45,7 @@ public class VampireKit extends Kit {
     }
 
     @Override
-    public ItemStack[] getInventoryContent() { // TODO: make sword actually do something
+    public ItemStack[] getInventoryContent() {
         return new ItemStack[]{
                 CustomItemHandler.VAMPIRE_SWORD.build(1),
                 new ItemStack(Material.RED_NETHER_BRICKS, 64),

@@ -8,10 +8,15 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeInstance;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
+import org.bukkit.event.entity.CreatureSpawnEvent;
+import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.scoreboard.Criteria;
 import org.bukkit.scoreboard.DisplaySlot;
@@ -28,6 +33,8 @@ public class ExtendedPlayer {
 
     private transient GameState gameState;
     private transient Scoreboard scoreboard;
+
+    private transient Entity morph;
 
     private transient int killSteak;
     private int totalKills;
@@ -61,6 +68,8 @@ public class ExtendedPlayer {
     public void spawnPlayer() {
         Player p = getPlayer();
         if (p == null) return;
+
+        unmorph();
 
         p.teleport(new Location(Bukkit.getWorld("world"), 0.5, 100.5, -8.5, 0, 0));
 
@@ -173,6 +182,26 @@ public class ExtendedPlayer {
         if (level == 2) return 20;
         level -= 1;
         return level * 20 + (Utils.binomialCoefficient(level, 2) * 5);
+    }
+
+    public void morph(EntityType entityType) {
+        Player p = getPlayer();
+        p.setGameMode(GameMode.SPECTATOR);
+        this.morph = p.getWorld().spawnEntity(p.getLocation(), entityType, CreatureSpawnEvent.SpawnReason.CUSTOM,(entity) -> {
+            entity.setMetadata("morph", new FixedMetadataValue(KitPvpPlugin.INSTANCE, p.getUniqueId()));
+            entity.addPassenger(p);
+            entity.setInvulnerable(true);
+        });
+    }
+
+    public void unmorph() {
+        Player p = getPlayer();
+        if (this.morph != null) {
+            p.setGameMode(GameMode.SURVIVAL);
+            morph.removePassenger(p);
+            morph.remove();
+            this.morph = null;
+        }
     }
 
     public enum GameState {

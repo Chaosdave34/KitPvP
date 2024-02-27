@@ -40,6 +40,7 @@ public class UtilityListener implements Listener {
     public void onQuit(PlayerQuitEvent e) {
         Player p = e.getPlayer();
 
+        KitPvpPlugin.INSTANCE.getExtendedPlayer(p).unmorph();
         KitPvpPlugin.INSTANCE.removeExtendedPlayer(p);
 
         Component message = Component.text(p.getName() + " left!", NamedTextColor.DARK_GRAY);

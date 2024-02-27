@@ -1,10 +1,14 @@
 package net.gamershub.kitpvp.abilities.impl;
 
+import net.gamershub.kitpvp.ExtendedPlayer;
+import net.gamershub.kitpvp.KitPvpPlugin;
 import net.gamershub.kitpvp.abilities.Ability;
 import net.gamershub.kitpvp.abilities.AbilityType;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
+import org.bukkit.Bukkit;
+import org.bukkit.entity.EntityType;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.jetbrains.annotations.NotNull;
 
@@ -23,7 +27,11 @@ public class BatMorhpAbility extends Ability {
 
     @Override
     public boolean onAbility(PlayerInteractEvent e) {
-        e.getPlayer().sendMessage(Component.text("This ability is not yet implemented!"));
-        return false;
+        ExtendedPlayer extendedPlayer = KitPvpPlugin.INSTANCE.getExtendedPlayer(e.getPlayer());
+        extendedPlayer.morph(EntityType.BAT);
+
+        Bukkit.getScheduler().runTaskLater(KitPvpPlugin.INSTANCE, extendedPlayer::unmorph, 200);
+
+        return true;
     }
 }
