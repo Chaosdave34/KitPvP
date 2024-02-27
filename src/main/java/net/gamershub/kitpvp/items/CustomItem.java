@@ -9,7 +9,11 @@ import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
+import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -23,18 +27,29 @@ public abstract class CustomItem implements Listener {
     protected Material material;
     protected String id;
     protected boolean stackable;
+    protected boolean preventPlacingAndUsing;
 
     public CustomItem(Material material, String id, boolean stackable) {
         this.material = material;
         this.id = id;
         this.stackable = stackable;
+        this.preventPlacingAndUsing = false;
+    }
+
+    public CustomItem(Material material, String id, boolean stackable, boolean preventPlacingAndUsing) {
+        this.material = material;
+        this.id = id;
+        this.stackable = stackable;
+        this.preventPlacingAndUsing = preventPlacingAndUsing;
     }
 
     @NotNull
     public abstract Component getName();
 
     @NotNull
-    public abstract List<Component> getDescription();
+    public List<Component> getDescription() {
+        return Collections.emptyList();
+    }
 
     @NotNull
     public List<Ability> getAbilities() {
@@ -122,6 +137,23 @@ public abstract class CustomItem implements Listener {
     }
 
     protected void additionalModifications(ItemStack itemStack) {
+    }
+
+    @EventHandler
+    public void onBlockPlace(BlockPlaceEvent e) {
+        if (preventPlacingAndUsing && id.equals(CustomItemHandler.getCustomItemId(e.getItemInHand()))) {
+            e.setCancelled(true);
+        }
+    }
+
+    @EventHandler
+    public void onUse(PlayerInteractEvent e) {
+        if (e.getItem() == null) return;
+        if (preventPlacingAndUsing && id.equals(CustomItemHandler.getCustomItemId(e.getItem()))) {
+            if (e.getAction() == Action.LEFT_CLICK_BLOCK || e.getAction() == Action.RIGHT_CLICK_BLOCK) {
+                e.setCancelled(true);
+            }
+        }
     }
 
 

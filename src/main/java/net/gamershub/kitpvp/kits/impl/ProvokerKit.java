@@ -1,5 +1,6 @@
 package net.gamershub.kitpvp.kits.impl;
 
+import net.gamershub.kitpvp.items.CustomItemHandler;
 import net.gamershub.kitpvp.kits.Kit;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -7,7 +8,7 @@ import org.bukkit.inventory.ItemStack;
 
 public class ProvokerKit extends Kit {
     public ProvokerKit() {
-        super("provoker", "Provoker (WIP)");
+        super("provoker", "Provoker");
     }
 
     @Override
@@ -45,15 +46,13 @@ public class ProvokerKit extends Kit {
 
     @Override
     public ItemStack[] getInventoryContent() {
-        ItemStack diamondSword = new ItemStack(Material.DIAMOND_SWORD);
-        diamondSword.addEnchantment(Enchantment.DAMAGE_ALL, 5);
-
         ItemStack knockBackStick = new ItemStack(Material.STICK);
         knockBackStick.addUnsafeEnchantment(Enchantment.KNOCKBACK, 5);
 
-        return new ItemStack[]{ // Todo: Rocket Item
-                diamondSword,
+        return new ItemStack[]{
+                CustomItemHandler.SPOOK_SWORD.build(1),
                 knockBackStick,
+                CustomItemHandler.NUKE.build(1),
                 new ItemStack(Material.COBBLESTONE, 64),
                 new ItemStack(Material.WATER_BUCKET),
         };

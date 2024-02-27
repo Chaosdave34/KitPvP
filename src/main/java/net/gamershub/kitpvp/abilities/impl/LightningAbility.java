@@ -1,5 +1,6 @@
 package net.gamershub.kitpvp.abilities.impl;
 
+import net.gamershub.kitpvp.ExtendedPlayer;
 import net.gamershub.kitpvp.KitPvpPlugin;
 import net.gamershub.kitpvp.Utils;
 import net.gamershub.kitpvp.abilities.Ability;
@@ -36,8 +37,13 @@ public class LightningAbility extends Ability {
     @Override
     public boolean onAbility(PlayerInteractEvent e) {
         Player p = e.getPlayer();
-        Entity target = Utils.getTargetEntity(p, 10, IronGolem.class, false);
+        Entity target = Utils.getTargetEntity(p, 10, Entity.class, false);
         if (target != null) {
+            if (target instanceof Player player) {
+                if (KitPvpPlugin.INSTANCE.getExtendedPlayer(player).getGameState() == ExtendedPlayer.GameState.SPAWN)
+                    return false;
+            }
+
             Location targetLocation = target.getLocation();
             targetLocation.getWorld().spawnEntity(targetLocation, EntityType.LIGHTNING, CreatureSpawnEvent.SpawnReason.CUSTOM, (entity) -> {
                 ((LightningStrike) entity).setCausingPlayer(p);

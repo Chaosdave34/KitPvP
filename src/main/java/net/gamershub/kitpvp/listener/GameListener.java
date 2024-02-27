@@ -79,6 +79,7 @@ public class GameListener implements Listener {
                 blocksToRemove.remove(e.getBlock().getLocation());
                 e.setCancelled(true);
             }
+            if (e.getBlock().getType() == Material.COBWEB) e.setDropItems(false);
         }
     }
 

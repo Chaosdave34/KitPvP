@@ -10,14 +10,11 @@ import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
-import org.bukkit.attribute.Attribute;
-import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.metadata.FixedMetadataValue;
-import org.bukkit.potion.PotionEffect;
 import org.bukkit.scoreboard.Criteria;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
@@ -73,21 +70,12 @@ public class ExtendedPlayer {
 
         p.teleport(new Location(Bukkit.getWorld("world"), 0.5, 100.5, -8.5, 0, 0));
 
-        AttributeInstance maxHealth = p.getAttribute(Attribute.GENERIC_MAX_HEALTH);
-        if (maxHealth != null) p.setHealth(maxHealth.getValue());
-
-        AttributeInstance movementSpeed = p.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED);
-        if (movementSpeed != null) movementSpeed.setBaseValue(getSelectedKit().getMovementSpeed());
-
         p.setFoodLevel(20);
         p.setSaturation(5);
         p.setExhaustion(0);
 
         p.setFireTicks(0);
-
-        for (PotionEffect effect : p.getActivePotionEffects()) {
-            p.removePotionEffect(effect.getType());
-        }
+        p.setFreezeTicks(0);
 
         gameState = GameState.SPAWN;
 
@@ -99,6 +87,8 @@ public class ExtendedPlayer {
         }
 
         updateScoreboardLines();
+
+        getSelectedKit().apply(p);
 
         new PlayerSpawnEvent(p).callEvent();
     }
@@ -196,11 +186,11 @@ public class ExtendedPlayer {
 
     public void unmorph() {
         Player p = getPlayer();
-        if (this.morph != null) {
+        if (morph != null) {
             p.setGameMode(GameMode.SURVIVAL);
             morph.removePassenger(p);
             morph.remove();
-            this.morph = null;
+            morph = null;
         }
     }
 

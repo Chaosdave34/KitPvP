@@ -3,14 +3,10 @@ package net.gamershub.kitpvp.items.impl;
 import net.gamershub.kitpvp.abilities.Ability;
 import net.gamershub.kitpvp.abilities.AbilityHandler;
 import net.gamershub.kitpvp.items.CustomItem;
-import net.gamershub.kitpvp.items.CustomItemHandler;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.block.Action;
-import org.bukkit.event.player.PlayerInteractEvent;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -18,7 +14,7 @@ import java.util.List;
 
 public class FireballWand extends CustomItem {
     public FireballWand() {
-        super(Material.FIRE_CHARGE, "fireball_wand", false);
+        super(Material.FIRE_CHARGE, "fireball_wand", false, true);
     }
 
     @Override
@@ -37,16 +33,6 @@ public class FireballWand extends CustomItem {
     @Override
     public @NotNull List<Ability> getAbilities() {
         return List.of(AbilityHandler.FIREBALL);
-    }
-
-    @EventHandler
-    public void onFireChargeUse(PlayerInteractEvent e) {
-        if (e.getAction() == Action.RIGHT_CLICK_BLOCK) {
-            if (e.getItem() == null) return;
-            if (id.equals(CustomItemHandler.getCustomItemId(e.getItem()))) {
-                e.setCancelled(true);
-            }
-        }
     }
 }
 

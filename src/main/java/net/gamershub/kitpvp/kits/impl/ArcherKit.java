@@ -1,12 +1,16 @@
 package net.gamershub.kitpvp.kits.impl;
 
+import com.mojang.datafixers.util.Pair;
 import net.gamershub.kitpvp.kits.Kit;
 import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.potion.PotionEffectType;
 
-public class ArcherKit extends Kit { // Todo: add jump boost 2
+import java.util.List;
+
+public class ArcherKit extends Kit {
     public ArcherKit() {
         super("archer", "Archer");
     }
@@ -52,5 +56,10 @@ public class ArcherKit extends Kit { // Todo: add jump boost 2
                 new ItemStack(Material.COBBLESTONE, 64),
                 new ItemStack(Material.WATER_BUCKET),
         };
+    }
+
+    @Override
+    public List<Pair<PotionEffectType, Integer>> getPotionEffects() {
+        return List.of(Pair.of(PotionEffectType.JUMP, 2));
     }
 }

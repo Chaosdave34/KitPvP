@@ -28,6 +28,10 @@ public class AbilityHandler implements Listener {
     public static Ability LEVITATE;
     public static Ability DEBUFF;
     public static Ability BAT_MORPH;
+    public static Ability NUKE;
+    public static Ability SPOOK;
+    public static Ability ANVIL;
+    public static Ability TRAP;
 
     public AbilityHandler() {
         FIREBALL = registerAbility(new FireballAbility());
@@ -37,6 +41,10 @@ public class AbilityHandler implements Listener {
         LEVITATE = registerAbility(new LevitateAbility());
         DEBUFF = registerAbility(new DebuffAbility());
         BAT_MORPH = registerAbility(new BatMorhpAbility());
+        NUKE = registerAbility(new NukeAbility());
+        SPOOK = registerAbility(new SpookAbility());
+        ANVIL = registerAbility(new AnvilAbility());
+        TRAP = registerAbility(new TrapAbility());
     }
 
     public Ability registerAbility(Ability ability) {

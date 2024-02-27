@@ -20,6 +20,9 @@ public class CustomItemHandler {
     public static CustomItem HAUNT_WAND;
     public static CustomItem MAGIC_WAND;
     public static CustomItem VAMPIRE_SWORD;
+    public static CustomItem NUKE;
+    public static CustomItem SPOOK_SWORD;
+    public static CustomItem TRAP_WAND;
 
     public CustomItemHandler() {
         FIREBALL = createItem(new FireballWand());
@@ -27,6 +30,9 @@ public class CustomItemHandler {
         HAUNT_WAND = createItem(new HauntWand());
         MAGIC_WAND = createItem(new MagicWand());
         VAMPIRE_SWORD = createItem(new VampireSword());
+        NUKE = createItem(new NukeItem());
+        SPOOK_SWORD = createItem(new SpookSword());
+        TRAP_WAND = createItem(new TrapWand());
     }
 
     private CustomItem createItem(CustomItem item) {

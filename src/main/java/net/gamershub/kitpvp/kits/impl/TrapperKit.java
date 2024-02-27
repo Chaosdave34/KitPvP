@@ -1,5 +1,6 @@
 package net.gamershub.kitpvp.kits.impl;
 
+import net.gamershub.kitpvp.items.CustomItemHandler;
 import net.gamershub.kitpvp.kits.Kit;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -7,7 +8,7 @@ import org.bukkit.inventory.ItemStack;
 
 public class TrapperKit extends Kit {
     public TrapperKit() {
-        super("trapper", "Trapper (WIP)");
+        super("trapper", "Trapper");
     }
 
     @Override
@@ -37,9 +38,9 @@ public class TrapperKit extends Kit {
         stoneSword.addEnchantment(Enchantment.DAMAGE_ALL, 2);
 
 
-        return new ItemStack[]{ //Todo: Add anvil and obsidian trap abilities
+        return new ItemStack[]{
                 stoneSword,
-
+                CustomItemHandler.TRAP_WAND.build(1),
                 new ItemStack(Material.COBWEB, 32),
                 new ItemStack(Material.COBBLESTONE, 64),
                 new ItemStack(Material.WATER_BUCKET),
