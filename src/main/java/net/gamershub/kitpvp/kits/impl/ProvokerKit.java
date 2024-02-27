@@ -11,7 +11,7 @@ public class ProvokerKit extends Kit {
     }
 
     @Override
-    protected double getMovementSpeed() {
+    public double getMovementSpeed() {
         return 0.3;
     }
 

@@ -22,11 +22,11 @@ public class Kit implements Listener {
         this.name = name;
     }
 
-    protected double getMaxHealth() {
+    public double getMaxHealth() {
         return 20;
     }
 
-    protected double getMovementSpeed() {
+    public double getMovementSpeed() {
         return 0.1;
     }
 
@@ -54,7 +54,6 @@ public class Kit implements Listener {
         return new ItemStack[]{};
     }
 
-    // Todo: Fix movement speed base modification resetting on player re-login
     public void apply(Player p) {
         ExtendedPlayer extendedPlayer = KitPvpPlugin.INSTANCE.getExtendedPlayer(p);
         extendedPlayer.setSelectedKitId(id);

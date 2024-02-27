@@ -11,12 +11,12 @@ public class TankKit extends Kit {
     }
 
     @Override
-    protected double getMaxHealth() {
+    public double getMaxHealth() {
         return 40;
     }
 
     @Override
-    protected double getMovementSpeed() {
+    public double getMovementSpeed() {
         return 0.05;
     }
 

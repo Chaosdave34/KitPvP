@@ -6,7 +6,7 @@ import org.bukkit.inventory.ItemStack;
 
 public class ZeusKit extends Kit {
     public ZeusKit() {
-        super("zeus", "Zeus");
+        super("zeus", "Zeus (WIP)");
     }
 
     @Override

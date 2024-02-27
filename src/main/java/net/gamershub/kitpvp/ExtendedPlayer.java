@@ -65,8 +65,10 @@ public class ExtendedPlayer {
         p.teleport(new Location(Bukkit.getWorld("world"), 0.5, 100.5, -8.5, 0, 0));
 
         AttributeInstance maxHealth = p.getAttribute(Attribute.GENERIC_MAX_HEALTH);
-        if (maxHealth != null)
-            p.setHealth(maxHealth.getValue());
+        if (maxHealth != null) p.setHealth(maxHealth.getValue());
+
+        AttributeInstance movementSpeed = p.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED);
+        if (movementSpeed != null) movementSpeed.setBaseValue(getSelectedKit().getMovementSpeed());
 
         p.setFoodLevel(20);
         p.setSaturation(5);
