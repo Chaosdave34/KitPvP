@@ -7,6 +7,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.block.data.Waterlogged;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.FallingBlock;
 import org.bukkit.entity.Player;
@@ -46,7 +47,11 @@ public class GameListener implements Listener {
                     while (iterator.hasNext()) {
                         Map.Entry<Location, Long> entry = iterator.next();
                         if (currentTime - entry.getValue() >= 30 * 1000) {
-                            entry.getKey().getBlock().setType(Material.AIR);
+                            Block block = entry.getKey().getBlock();
+                            if (block instanceof Waterlogged)
+                                ((Waterlogged) block).setWaterlogged(false);
+                            else
+                                block.setType(Material.AIR);
                             iterator.remove();
                         }
                     }
@@ -113,6 +118,11 @@ public class GameListener implements Listener {
         Player p = e.getPlayer();
         if (KitPvpPlugin.INSTANCE.getExtendedPlayer(p).getGameState() == ExtendedPlayer.GameState.IN_GAME) {
             Block block = e.getBlock();
+
+            if (e.getBlock().getLocation().getY() > 90) {
+                e.setCancelled(true);
+                return;
+            }
 
             block.setMetadata("placed_by_player", new FixedMetadataValue(KitPvpPlugin.INSTANCE, true));
 
