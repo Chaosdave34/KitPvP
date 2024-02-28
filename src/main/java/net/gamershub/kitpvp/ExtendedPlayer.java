@@ -47,6 +47,13 @@ public class ExtendedPlayer {
     public ExtendedPlayer(Player p) {
         uuid = p.getUniqueId();
         gameState = GameState.SPAWN;
+
+        if (scoreboard == null) {
+            scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
+            Objective objective = scoreboard.registerNewObjective("default", Criteria.DUMMY, Component.text("KitPvP", NamedTextColor.YELLOW, TextDecoration.BOLD));
+            objective.setDisplaySlot(DisplaySlot.SIDEBAR);
+            p.setScoreboard(scoreboard);
+        }
     }
 
     public Player getPlayer() {
@@ -131,7 +138,7 @@ public class ExtendedPlayer {
         killSteak++;
 
         if (killSteak % 5 == 0)
-            Bukkit.broadcast(getPlayer().displayName().append(Component.text(" has reached a kill streak of " + killSteak / 5)));
+            Bukkit.broadcast(getPlayer().displayName().append(Component.text(" has reached a kill streak of " + killSteak)));
 
         if (killSteak > highestKillStreak) {
             highestKillStreak = killSteak;

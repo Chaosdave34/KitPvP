@@ -61,9 +61,12 @@ public class CrossbowKit extends Kit {
 
     @Override
     public ItemStack[] getInventoryContent() {
+        ItemStack crossbow = new ItemStack(Material.CROSSBOW);
+        setCustomModelData(crossbow, 1);
+
         return new ItemStack[]{
+                crossbow,
                 new ItemStack(Material.STONE_SWORD),
-                new ItemStack(Material.CROSSBOW),
                 new ItemStack(Material.WATER_BUCKET),
         };
     }

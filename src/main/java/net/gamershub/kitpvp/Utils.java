@@ -132,7 +132,7 @@ public class Utils {
             Vector targetLocationVector = target.getLocation().subtract(p.getLocation()).toVector();
 
 
-            if (playerLookVector.angle(targetLocationVector) < 0.1) {
+            if (playerLookVector.angle(targetLocationVector) < 0.2) {
                 return target;
             }
         }

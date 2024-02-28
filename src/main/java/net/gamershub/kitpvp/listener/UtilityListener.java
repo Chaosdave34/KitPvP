@@ -13,6 +13,9 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
+import java.util.HexFormat;
+import java.util.UUID;
+
 public class UtilityListener implements Listener {
     @EventHandler
     public void onJoin(PlayerJoinEvent e) {
@@ -20,6 +23,8 @@ public class UtilityListener implements Listener {
 
         Component message = Component.text(p.getName() + " joined the party!", NamedTextColor.DARK_GRAY);
         e.joinMessage(message);
+
+        p.addResourcePack(UUID.randomUUID(), "https://vmd74965.contaboserver.net:8000/kitpvp.zip", HexFormat.of().parseHex("3cdfb428af81c083af7f23dfd387ee8b539a3c8a"), "FETT", true);
 
         KitPvpPlugin.INSTANCE.createExtendedPlayer(p);
         KitPvpPlugin.INSTANCE.getCustomItemHandler().updateCustomItems(p);

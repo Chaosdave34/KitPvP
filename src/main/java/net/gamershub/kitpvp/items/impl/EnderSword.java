@@ -30,5 +30,6 @@ public class EnderSword extends CustomItem {
     @Override
     protected void additionalModifications(ItemStack itemStack) {
         itemStack.addEnchantment(Enchantment.DAMAGE_ALL, 3);
+        setCustomModelData(itemStack, 1);
     }
 }

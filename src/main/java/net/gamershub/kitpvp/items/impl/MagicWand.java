@@ -38,5 +38,6 @@ public class MagicWand extends CustomItem {
     @Override
     protected void additionalModifications(ItemStack itemStack) {
         itemStack.addUnsafeEnchantment(Enchantment.KNOCKBACK, 8);
+        setCustomModelData(itemStack, 1);
     }
 }

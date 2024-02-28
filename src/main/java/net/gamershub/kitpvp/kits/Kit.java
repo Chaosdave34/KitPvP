@@ -11,6 +11,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -103,5 +104,11 @@ public class Kit implements Listener {
         LeatherArmorMeta leatherArmorMeta = (LeatherArmorMeta) leatherArmor.getItemMeta();
         leatherArmorMeta.setColor(color);
         leatherArmor.setItemMeta(leatherArmorMeta);
+    }
+
+    protected void setCustomModelData(ItemStack itemStack, Integer customModelData) {
+        ItemMeta itemMeta = itemStack.getItemMeta();
+        itemMeta.setCustomModelData(customModelData);
+        itemStack.setItemMeta(itemMeta);
     }
 }

@@ -46,8 +46,11 @@ public class ArcherKit extends Kit {
         bow.addEnchantment(Enchantment.ARROW_DAMAGE, 3);
         bow.addEnchantment(Enchantment.ARROW_KNOCKBACK, 2);
 
+        ItemStack stoneSword = new ItemStack(Material.STONE_SWORD);
+        setCustomModelData(stoneSword, 2);
+
         return new ItemStack[]{
-                new ItemStack(Material.STONE_SWORD),
+                stoneSword,
                 bow,
                 new ItemStack(Material.ARROW),
                 new ItemStack(Material.WATER_BUCKET),

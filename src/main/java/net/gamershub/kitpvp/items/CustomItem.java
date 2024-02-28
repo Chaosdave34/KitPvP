@@ -156,5 +156,11 @@ public abstract class CustomItem implements Listener {
         }
     }
 
+    protected void setCustomModelData(ItemStack itemStack, Integer customModelData) {
+        ItemMeta itemMeta = itemStack.getItemMeta();
+        itemMeta.setCustomModelData(customModelData);
+        itemStack.setItemMeta(itemMeta);
+    }
+
 
 }

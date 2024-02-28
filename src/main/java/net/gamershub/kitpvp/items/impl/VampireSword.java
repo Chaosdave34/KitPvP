@@ -32,5 +32,6 @@ public class VampireSword extends CustomItem {
     @Override
     protected void additionalModifications(ItemStack itemStack) {
         itemStack.addEnchantment(EnchantmentHandler.LIFE_STEAL, 4);
+        setCustomModelData(itemStack, 1);
     }
 }

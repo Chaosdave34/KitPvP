@@ -21,5 +21,6 @@ public class DevilsSword extends CustomItem {
     @Override
     protected void additionalModifications(ItemStack itemStack) {
         itemStack.addUnsafeEnchantment(Enchantment.FIRE_ASPECT, 3);
+        setCustomModelData(itemStack, 1);
     }
 }

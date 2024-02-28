@@ -55,6 +55,9 @@ public class TankKit extends Kit {
 
     @Override
     public ItemStack[] getInventoryContent() {
+        ItemStack ironAxe = new ItemStack(Material.IRON_AXE);
+        setCustomModelData(ironAxe, 1);
+
         return new ItemStack[]{
                 new ItemStack(Material.IRON_AXE),
                 new ItemStack(Material.WATER_BUCKET),

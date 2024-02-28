@@ -53,6 +53,7 @@ public class DevilKit extends Kit { // Add special ability
         ItemStack bow = new ItemStack(Material.BOW);
         bow.addEnchantment(Enchantment.ARROW_INFINITE, 1);
         bow.addEnchantment(Enchantment.ARROW_FIRE, 1);
+        setCustomModelData(bow, 1);
 
         return new ItemStack[]{
                 CustomItemHandler.DEVILS_SWORD.build(1),

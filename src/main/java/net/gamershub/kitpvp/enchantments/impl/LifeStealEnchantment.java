@@ -1,6 +1,7 @@
 package net.gamershub.kitpvp.enchantments.impl;
 
 import net.gamershub.kitpvp.enchantments.CustomEnchantment;
+import net.gamershub.kitpvp.enchantments.EnchantmentHandler;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.enchantment.EnchantmentCategory;
 import org.bukkit.attribute.Attribute;
@@ -17,15 +18,19 @@ public class LifeStealEnchantment extends CustomEnchantment {
     @EventHandler
     public void onDamage(EntityDamageByEntityEvent e) {
         if (e.getDamager() instanceof Player damager) {
-            AttributeInstance maxHealth = damager.getAttribute(Attribute.GENERIC_MAX_HEALTH);
-            if (maxHealth == null) return;
-            double maxHealthValue = maxHealth.getValue();
+            if (damager.getInventory().getItemInMainHand().containsEnchantment(EnchantmentHandler.LIFE_STEAL)) {
 
-            double currentHealth = damager.getHealth();
 
-            double heal = e.getDamage() * maxLevel * 0.1;
+                AttributeInstance maxHealth = damager.getAttribute(Attribute.GENERIC_MAX_HEALTH);
+                if (maxHealth == null) return;
+                double maxHealthValue = maxHealth.getValue();
 
-            damager.setHealth(Math.min(currentHealth + heal, maxHealthValue));
+                double currentHealth = damager.getHealth();
+
+                double heal = e.getDamage() * maxLevel * 0.1;
+
+                damager.setHealth(Math.min(currentHealth + heal, maxHealthValue));
+            }
         }
     }
 }
