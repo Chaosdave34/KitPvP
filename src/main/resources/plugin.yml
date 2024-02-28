@@ -34,3 +34,20 @@ commands:
     description: Test companions
     usage: /<command>
     permission: kitpvp.test_companion
+permissions:
+  bukkit.command.version:
+    default: op
+  bukkit.command.plugins:
+    default: op
+  bukkit.command.help:
+    default: op
+  minecraft.command.msg:
+    default: op
+  minecraft.command.teammsg:
+    default: op
+  minecraft.command.me:
+    default: op
+  minecraft.command.trigger:
+    default: op
+  minecraft.command.help:
+    default: op
