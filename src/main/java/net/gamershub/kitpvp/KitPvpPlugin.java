@@ -32,6 +32,9 @@ public final class KitPvpPlugin extends JavaPlugin {
 
     private final Map<UUID, ExtendedPlayer> extendedPlayers = new HashMap<>();
 
+    private final Map<UUID, Integer> highestKillstreaks = new HashMap<>();
+    private final Map<UUID, Integer> highestLevels = new HashMap<>();
+
     private GuiHandler guiHandler;
     private EnchantmentHandler enchantmentHandler;
     private AbilityHandler abilityHandler;

@@ -21,6 +21,9 @@ import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Scoreboard;
 
+import java.util.Collections;
+import java.util.Map;
+import java.util.Objects;
 import java.util.UUID;
 
 @Getter
@@ -133,6 +136,26 @@ public class ExtendedPlayer {
         if (killSteak > highestKillStreak) {
             highestKillStreak = killSteak;
             KitPvpPlugin.INSTANCE.getTextDisplayHandler().updateTextDisplay(getPlayer(), TextDisplayHandler.PERSONAL_STATISTICS);
+
+            Map<UUID, Integer> highestKillstreaks = KitPvpPlugin.INSTANCE.getHighestKillstreaks();
+
+
+            if (highestKillstreaks.size() < 5 || getLevel() > Collections.min(highestKillstreaks.values())) {
+
+                if (highestKillstreaks.size() == 5 && !highestKillstreaks.containsKey(uuid)) {
+                    for (UUID key : highestKillstreaks.keySet()) {
+                        if (Objects.equals(highestKillstreaks.get(key), Collections.min(highestKillstreaks.values()))) {
+                            highestKillstreaks.remove(key);
+                            break;
+                        }
+                    }
+                }
+
+                highestKillstreaks.put(uuid, getLevel());
+
+                KitPvpPlugin.INSTANCE.getTextDisplayHandler().updateTextDisplayForAll(TextDisplayHandler.HIGHEST_KILLSTREAKS);
+
+            }
         }
 
         updateScoreboardLines();
@@ -157,6 +180,26 @@ public class ExtendedPlayer {
         if (getLevel() > oldLevel) {
             updateDisplayName();
             getPlayer().sendMessage(Component.text("You have reached Level " + getLevel() + "."));
+
+            Map<UUID, Integer> highestLevels = KitPvpPlugin.INSTANCE.getHighestLevels();
+
+
+            if (highestLevels.size() < 5 || getLevel() > Collections.min(highestLevels.values())) {
+
+                if (highestLevels.size() == 5 && !highestLevels.containsKey(uuid)) {
+                    for (UUID key : highestLevels.keySet()) {
+                        if (Objects.equals(highestLevels.get(key), Collections.min(highestLevels.values()))) {
+                            highestLevels.remove(key);
+                            break;
+                        }
+                    }
+                }
+
+                highestLevels.put(uuid, getLevel());
+
+                KitPvpPlugin.INSTANCE.getTextDisplayHandler().updateTextDisplayForAll(TextDisplayHandler.HIGHEST_LEVELS);
+
+            }
         }
     }
 
@@ -186,7 +229,7 @@ public class ExtendedPlayer {
     public void morph(EntityType entityType) {
         Player p = getPlayer();
         p.setGameMode(GameMode.SPECTATOR);
-        this.morph = p.getWorld().spawnEntity(p.getLocation(), entityType, CreatureSpawnEvent.SpawnReason.CUSTOM,(entity) -> {
+        this.morph = p.getWorld().spawnEntity(p.getLocation(), entityType, CreatureSpawnEvent.SpawnReason.CUSTOM, (entity) -> {
             entity.setMetadata("morph", new FixedMetadataValue(KitPvpPlugin.INSTANCE, p.getUniqueId()));
             entity.addPassenger(p);
             entity.setInvulnerable(true);
@@ -210,6 +253,8 @@ public class ExtendedPlayer {
 
         private final String displayName;
 
-        GameState(String name) {this.displayName = name;}
+        GameState(String name) {
+            this.displayName = name;
+        }
     }
 }

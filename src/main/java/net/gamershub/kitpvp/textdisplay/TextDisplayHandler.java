@@ -1,8 +1,6 @@
 package net.gamershub.kitpvp.textdisplay;
 
-import net.gamershub.kitpvp.textdisplay.impl.HighestKillstreaksTextDisplay;
-import net.gamershub.kitpvp.textdisplay.impl.JumpTextDisplay;
-import net.gamershub.kitpvp.textdisplay.impl.PersonalStatisticsDisplay;
+import net.gamershub.kitpvp.textdisplay.impl.*;
 import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
 import net.minecraft.network.protocol.game.ClientboundSetEntityDataPacket;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -10,6 +8,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.network.ServerGamePacketListenerImpl;
 import net.minecraft.world.entity.decoration.ArmorStand;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.craftbukkit.v1_20_R3.CraftWorld;
 import org.bukkit.craftbukkit.v1_20_R3.entity.CraftPlayer;
@@ -23,19 +22,23 @@ public class TextDisplayHandler {
 
     public static TextDisplay JUMP;
     public static TextDisplay PERSONAL_STATISTICS;
+    public static TextDisplay INFO;
     public static TextDisplay HIGHEST_KILLSTREAKS;
+    public static TextDisplay HIGHEST_LEVELS;
 
     public TextDisplayHandler() {
         JUMP = createTextDisplay(new JumpTextDisplay());
         PERSONAL_STATISTICS = createTextDisplay(new PersonalStatisticsDisplay());
+        INFO = createTextDisplay(new InfoTextDisplay());
         HIGHEST_KILLSTREAKS = createTextDisplay(new HighestKillstreaksTextDisplay());
+        HIGHEST_LEVELS = createTextDisplay(new HighestLevelsTextDisplay());
     }
 
     private TextDisplay createTextDisplay(TextDisplay textDisplay) {
         Location position = textDisplay.getPosition();
         ServerLevel level = ((CraftWorld) position.getWorld()).getHandle();
 
-        for (int i = 0; i< textDisplay.getLineCount(); i++) {
+        for (int i = 0; i < textDisplay.getLineCount(); i++) {
             ArmorStand armorStand = new ArmorStand(level, position.x(), position.y() + i * -0.3, position.z());
             armorStand.setSmall(true);
             armorStand.setInvisible(true);
@@ -71,6 +74,10 @@ public class TextDisplayHandler {
                 }
             }
         }
+    }
+
+    public void updateTextDisplayForAll(TextDisplay textDisplay) {
+        Bukkit.getOnlinePlayers().forEach((player) -> updateTextDisplay(player, textDisplay));
     }
 
     public void updateTextDisplay(Player p, TextDisplay textDisplay) {

@@ -14,14 +14,14 @@ import java.util.List;
 
 public class PersonalStatisticsDisplay extends TextDisplay {
     public PersonalStatisticsDisplay() {
-        super(new Location(Bukkit.getWorld("world"), -3.5, 101, -9.5), 5);
+        super(new Location(Bukkit.getWorld("world"), -3.5, 101.5, -9.5), 5);
     }
 
     @Override
     public @NotNull List<Component> getLines(Player p) {
         ExtendedPlayer extendedPlayer = KitPvpPlugin.INSTANCE.getExtendedPlayer(p);
         return List.of(
-                Component.literal("Personal Statistics").withStyle(ChatFormatting.BOLD, ChatFormatting.GOLD),
+                Component.literal("Personal Statistics:").withStyle(ChatFormatting.BOLD, ChatFormatting.GOLD),
                 Component.literal("Highest Killstreak: " + extendedPlayer.getHighestKillStreak()),
                 Component.literal("Kills: " + extendedPlayer.getTotalKills()),
                 Component.literal("Deaths: " + extendedPlayer.getTotalDeaths()),

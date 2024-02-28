@@ -3,7 +3,7 @@ package net.gamershub.kitpvp.abilities;
 import lombok.Getter;
 import lombok.Setter;
 import net.gamershub.kitpvp.KitPvpPlugin;
-import net.gamershub.kitpvp.StringArrayPersistentDataType;
+import net.gamershub.kitpvp.persistentdatatype.StringArrayPersistentDataType;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.GameMode;

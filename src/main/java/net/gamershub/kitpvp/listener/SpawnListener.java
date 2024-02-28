@@ -140,4 +140,16 @@ public class SpawnListener implements Listener {
             }
         }
     }
+
+    @EventHandler
+    public void onInteract(PlayerInteractEvent e) {
+        Player p = e.getPlayer();
+        ExtendedPlayer extendedPlayer = KitPvpPlugin.INSTANCE.getExtendedPlayer(p);
+        if (extendedPlayer.getGameState() == ExtendedPlayer.GameState.SPAWN) {
+            if (e.getMaterial() == Material.TRIDENT)
+                e.setCancelled(true);
+        }
+    }
+
+
 }

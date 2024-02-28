@@ -2,7 +2,7 @@ package net.gamershub.kitpvp.abilities;
 
 import net.gamershub.kitpvp.ExtendedPlayer;
 import net.gamershub.kitpvp.KitPvpPlugin;
-import net.gamershub.kitpvp.StringArrayPersistentDataType;
+import net.gamershub.kitpvp.persistentdatatype.StringArrayPersistentDataType;
 import net.gamershub.kitpvp.Utils;
 import net.gamershub.kitpvp.abilities.impl.*;
 import org.bukkit.NamespacedKey;

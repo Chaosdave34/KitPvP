@@ -11,17 +11,17 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 
-public class HighestKillstreaksTextDisplay extends TextDisplay {
-    public HighestKillstreaksTextDisplay() {
-        super(new Location(Bukkit.getWorld("world"), 4.5, 101.5, 10.5), 6);
+public class HighestLevelsTextDisplay extends TextDisplay {
+    public HighestLevelsTextDisplay() {
+        super(new Location(Bukkit.getWorld("world"), -3.5, 101.5, 10.5), 6);
     }
 
     @Override
     public @NotNull List<Component> getLines(Player p) {
         List<Component> lines = new ArrayList<>();
-        lines.add(Component.literal("Highest Killstreaks:").withStyle(ChatFormatting.BOLD, ChatFormatting.GOLD));
+        lines.add(Component.literal("Highest Levels:").withStyle(ChatFormatting.BOLD, ChatFormatting.GOLD));
 
-        Set<Map.Entry<UUID, Integer>> entrySet = KitPvpPlugin.INSTANCE.getHighestKillstreaks().entrySet();
+        Set<Map.Entry<UUID, Integer>> entrySet = KitPvpPlugin.INSTANCE.getHighestLevels().entrySet();
 
         int i = 1;
         for (Map.Entry<UUID, Integer> entry : entrySet.stream().sorted((v1, v2) -> Integer.compare(v2.getValue(), v1.getValue())).toList()) {
