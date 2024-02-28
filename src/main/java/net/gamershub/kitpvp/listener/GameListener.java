@@ -162,13 +162,19 @@ public class GameListener implements Listener {
     @EventHandler
     public void onKill(PlayerDeathEvent e) {
         if (e.getEntity().getLastDamageCause() instanceof EntityDamageByEntityEvent damageByEntityEvent) {
-            if (damageByEntityEvent.getDamager() instanceof Player p) {
-                ExtendedPlayer extendedPlayer = KitPvpPlugin.INSTANCE.getExtendedPlayer(p);
-                if (extendedPlayer.getGameState() == ExtendedPlayer.GameState.IN_GAME) {
-                    extendedPlayer.incrementKillStreak();
-                    extendedPlayer.incrementTotalKills();
+            if (damageByEntityEvent.getDamager() instanceof Player damager) {
+                ExtendedPlayer extendedDamager = KitPvpPlugin.INSTANCE.getExtendedPlayer(damager);
+                if (extendedDamager.getGameState() == ExtendedPlayer.GameState.IN_GAME) {
+                    extendedDamager.incrementKillStreak();
+                    extendedDamager.incrementTotalKills();
 
-                    extendedPlayer.addExperiencePoints(10 + ((int) (KitPvpPlugin.INSTANCE.getExtendedPlayer(e.getPlayer()).getExperiencePoints() * 0.5)));
+                    ExtendedPlayer extendedTarget = KitPvpPlugin.INSTANCE.getExtendedPlayer(e.getPlayer());
+
+                    int xpReward = 10 + (int) (extendedTarget.getExperiencePoints() * 0.25);
+
+                    extendedDamager.addExperiencePoints(xpReward);
+
+                    damager.getInventory().addItem(extendedDamager.getSelectedKit().getKillRewards());
 
                 }
             }

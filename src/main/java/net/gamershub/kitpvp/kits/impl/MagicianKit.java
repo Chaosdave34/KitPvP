@@ -57,9 +57,15 @@ public class MagicianKit extends Kit {
         return new ItemStack[]{
                 CustomItemHandler.MAGIC_WAND.build(1),
                 new ItemStack(Material.BOOK),
-                new ItemStack(Material.GOLDEN_APPLE, 3),
-                new ItemStack(Material.GILDED_BLACKSTONE, 64),
                 new ItemStack(Material.WATER_BUCKET),
+        };
+    }
+
+    @Override
+    public ItemStack[] getKillRewards() {
+        return new ItemStack[]{
+                new ItemStack(Material.GOLDEN_APPLE),
+                new ItemStack(Material.GILDED_BLACKSTONE, 32),
         };
     }
 

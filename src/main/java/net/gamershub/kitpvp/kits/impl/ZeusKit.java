@@ -50,8 +50,15 @@ public class ZeusKit extends Kit {
                 new ItemStack(Material.DIAMOND_SWORD),
                 CustomItemHandler.LIGHTNING_WAND.build(1),
                 new ItemStack(Material.ENCHANTED_GOLDEN_APPLE),
-                new ItemStack(Material.GOLD_BLOCK, 64),
                 new ItemStack(Material.WATER_BUCKET),
+        };
+    }
+
+    @Override
+    public ItemStack[] getKillRewards() {
+        return new ItemStack[]{
+                new ItemStack(Material.GOLDEN_APPLE),
+                new ItemStack(Material.GOLD_BLOCK, 32),
         };
     }
 }

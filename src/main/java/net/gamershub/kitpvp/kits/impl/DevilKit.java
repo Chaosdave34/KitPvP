@@ -58,9 +58,15 @@ public class DevilKit extends Kit { // Add special ability
                 CustomItemHandler.DEVILS_SWORD.build(1),
                 bow,
                 new ItemStack(Material.ARROW),
-                new ItemStack(Material.GOLDEN_APPLE, 3),
-                new ItemStack(Material.NETHERRACK, 64),
                 new ItemStack(Material.WATER_BUCKET),
+        };
+    }
+
+    @Override
+    public ItemStack[] getKillRewards() {
+        return new ItemStack[]{
+                new ItemStack(Material.GOLDEN_APPLE),
+                new ItemStack(Material.NETHERRACK, 32),
         };
     }
 }

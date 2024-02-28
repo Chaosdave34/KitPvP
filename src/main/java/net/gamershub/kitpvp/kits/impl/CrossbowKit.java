@@ -64,9 +64,15 @@ public class CrossbowKit extends Kit {
         return new ItemStack[]{
                 new ItemStack(Material.STONE_SWORD),
                 new ItemStack(Material.CROSSBOW),
-                new ItemStack(Material.GOLDEN_APPLE, 3),
-                new ItemStack(Material.COBBLESTONE, 64),
                 new ItemStack(Material.WATER_BUCKET),
+        };
+    }
+
+    @Override
+    public ItemStack[] getKillRewards() {
+        return new ItemStack[]{
+                new ItemStack(Material.GOLDEN_APPLE),
+                new ItemStack(Material.COBBLESTONE, 32),
         };
     }
 }

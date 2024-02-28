@@ -48,8 +48,14 @@ public class CreeperKit extends Kit {
         return new ItemStack[]{
                 new ItemStack(Material.IRON_SWORD),
                 CustomItemHandler.FIREBALL.build(1),
-                new ItemStack(Material.GOLDEN_APPLE, 1),
-                new ItemStack(Material.COBBLESTONE, 64),
+        };
+    }
+
+    @Override
+    public ItemStack[] getKillRewards() {
+        return new ItemStack[]{
+                new ItemStack(Material.GOLDEN_APPLE),
+                new ItemStack(Material.COBBLESTONE, 32),
         };
     }
 }

@@ -52,8 +52,14 @@ public class EndermanKit extends Kit {
     public ItemStack[] getInventoryContent() {
         return new ItemStack[]{
                 CustomItemHandler.ENDER_SWORD.build(1),
-                new ItemStack(Material.GOLDEN_APPLE, 3),
-                new ItemStack(Material.END_STONE, 64),
+        };
+    }
+
+    @Override
+    public ItemStack[] getKillRewards() {
+        return new ItemStack[]{
+                new ItemStack(Material.GOLDEN_APPLE),
+                new ItemStack(Material.END_STONE, 32),
         };
     }
 }

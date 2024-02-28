@@ -53,8 +53,15 @@ public class ProvokerKit extends Kit {
                 CustomItemHandler.SPOOK_SWORD.build(1),
                 knockBackStick,
                 CustomItemHandler.NUKE.build(1),
-                new ItemStack(Material.COBBLESTONE, 64),
                 new ItemStack(Material.WATER_BUCKET),
+        };
+    }
+
+    @Override
+    public ItemStack[] getKillRewards() {
+        return new ItemStack[]{
+                new ItemStack(Material.GOLDEN_APPLE),
+                new ItemStack(Material.COBBLESTONE, 32),
         };
     }
 

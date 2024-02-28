@@ -60,6 +60,11 @@ public class Kit implements Listener {
         return new ItemStack[]{};
     }
 
+
+    public ItemStack[] getKillRewards() {
+        return new ItemStack[]{};
+    }
+
     public List<Pair<PotionEffectType, Integer>> getPotionEffects() {
         return Collections.emptyList();
     }
@@ -83,6 +88,7 @@ public class Kit implements Listener {
         inv.setLeggings(getLegsContent());
         inv.setBoots(getFeetContent());
         inv.setItemInOffHand(getOffhandContent());
+        inv.addItem(getKillRewards());
 
         for (PotionEffect effect : p.getActivePotionEffects()) {
             p.removePotionEffect(effect.getType());

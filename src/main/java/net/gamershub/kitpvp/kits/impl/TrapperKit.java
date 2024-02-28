@@ -41,9 +41,15 @@ public class TrapperKit extends Kit {
         return new ItemStack[]{
                 stoneSword,
                 CustomItemHandler.TRAP_WAND.build(1),
-                new ItemStack(Material.COBWEB, 32),
-                new ItemStack(Material.COBBLESTONE, 64),
                 new ItemStack(Material.WATER_BUCKET),
+        };
+    }
+
+    @Override
+    public ItemStack[] getKillRewards() {
+        return new ItemStack[]{
+                new ItemStack(Material.COBWEB, 8),
+                new ItemStack(Material.COBBLESTONE, 32),
         };
     }
 }

@@ -35,9 +35,15 @@ public class RunnerKit extends Kit {
         return new ItemStack[]{
                 new ItemStack(Material.IRON_SWORD),
                 CustomItemHandler.HAUNT_WAND.build(1),
-                new ItemStack(Material.COBBLESTONE, 64),
                 new ItemStack(Material.WATER_BUCKET),
         };
+    }
 
+    @Override
+    public ItemStack[] getKillRewards() {
+        return new ItemStack[]{
+                new ItemStack(Material.GOLDEN_APPLE),
+                new ItemStack(Material.COBBLESTONE, 32),
+        };
     }
 }

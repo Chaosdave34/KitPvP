@@ -54,9 +54,15 @@ public class PoseidonKit extends Kit {
         return new ItemStack[]{
                 CustomItemHandler.POSEIDONS_TRIDENT.build(1),
                 riptideTrident,
-                new ItemStack(Material.GOLDEN_APPLE, 3),
-                new ItemStack(Material.PRISMARINE, 64),
                 new ItemStack(Material.WATER_BUCKET),
         };
     }
+    @Override
+    public ItemStack[] getKillRewards() {
+        return new ItemStack[]{
+                new ItemStack(Material.GOLDEN_APPLE),
+                new ItemStack(Material.PRISMARINE, 32),
+        };
+    }
+
 }

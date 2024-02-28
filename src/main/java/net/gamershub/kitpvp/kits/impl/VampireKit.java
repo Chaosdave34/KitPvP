@@ -48,7 +48,14 @@ public class VampireKit extends Kit {
     public ItemStack[] getInventoryContent() {
         return new ItemStack[]{
                 CustomItemHandler.VAMPIRE_SWORD.build(1),
-                new ItemStack(Material.RED_NETHER_BRICKS, 64),
+        };
+    }
+
+    @Override
+    public ItemStack[] getKillRewards() {
+        return new ItemStack[]{
+                new ItemStack(Material.GOLDEN_APPLE),
+                new ItemStack(Material.RED_NETHER_BRICKS, 32),
         };
     }
 }
