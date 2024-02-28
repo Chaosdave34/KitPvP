@@ -23,7 +23,7 @@ public class EnderAttackAbility extends Ability {
     @Override
     public @NotNull List<Component> getDescription() {
         return List.of(
-                Component.text("Teleports you to the player", NamedTextColor.GRAY).decoration(TextDecoration.ITALIC, false),
+                Component.text("Teleports you behind the player", NamedTextColor.GRAY).decoration(TextDecoration.ITALIC, false),
                 Component.text("you are looking at in a 20", NamedTextColor.GRAY).decoration(TextDecoration.ITALIC, false),
                 Component.text("block radius. Gain speed and ", NamedTextColor.GRAY).decoration(TextDecoration.ITALIC, false),
                 Component.text("strength for 5 seconds", NamedTextColor.GRAY).decoration(TextDecoration.ITALIC, false)
@@ -38,7 +38,8 @@ public class EnderAttackAbility extends Ability {
             if (KitPvpPlugin.INSTANCE.getExtendedPlayer(target).getGameState() == ExtendedPlayer.GameState.SPAWN)
                 return false;
 
-            p.teleport(target.getLocation());
+            p.teleport(target.getLocation().subtract(target.getLocation().getDirection()));
+
             p.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 5, 1));
             p.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 5, 1));
 
