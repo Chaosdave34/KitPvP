@@ -7,6 +7,12 @@ authors:
   - Chaosdave34, Muawag, palul
 api-version: "$apiVersion"
 commands:
+  spawn:
+    description: Teleports you back to the spawn
+    usage: /<command>
+  msg:
+    description: Send a player a message
+    usage: /<command> <player> <message>
   loop:
     description: Loop command
     usage: /<command> <amount> <period> <command>
@@ -23,9 +29,6 @@ commands:
     description: Sets your game state
     usage: /<command> <game_state>
     permission: kitpvp.set_game_state
-  spawn:
-    description: Teleports you back to the spawn
-    usage: /<command>
   add_experience:
     description: Adds experience to the player
     usage: /<command> <player> <amount>

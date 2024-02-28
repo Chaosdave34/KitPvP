@@ -77,6 +77,12 @@ public final class KitPvpPlugin extends JavaPlugin {
         pluginManager.registerEvents(fakePlayerHandler, this);
 
         // Registering Commands
+        getCommand("spawn").setExecutor(new SpawnCommand());
+        getCommand("spawn").setTabCompleter(new EmptyTabCompleter());
+
+        getCommand("msg").setExecutor(new MessageCommand());
+        getCommand("msg").setTabCompleter(new PlayerTabCompleter());
+
         getCommand("loop").setExecutor(new LoopCommand());
         getCommand("loop").setTabCompleter(new LoopTabCompleter());
 
@@ -89,11 +95,8 @@ public final class KitPvpPlugin extends JavaPlugin {
         getCommand("set_game_state").setExecutor(new SetGameStateCommand());
         getCommand("set_game_state").setTabCompleter(new SetGameStateTabCompleter());
 
-        getCommand("spawn").setExecutor(new SpawnCommand());
-        getCommand("spawn").setTabCompleter(new EmptyTabCompleter());
-
         getCommand("add_experience").setExecutor(new AddExperienceCommand());
-        getCommand("add_experience").setTabCompleter(new AddExperienceTabCompleter());
+        getCommand("add_experience").setTabCompleter(new PlayerTabCompleter());
 
         getCommand("test_companion").setExecutor(new TestCompanionCommand());
         getCommand("test_companion").setTabCompleter(new EmptyTabCompleter());
