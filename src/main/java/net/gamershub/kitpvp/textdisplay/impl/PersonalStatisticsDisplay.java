@@ -20,7 +20,7 @@ public class PersonalStatisticsDisplay extends TextDisplay {
     @Override
     public @NotNull List<Component> getLines(Player p) {
         ExtendedPlayer extendedPlayer = KitPvpPlugin.INSTANCE.getExtendedPlayer(p);
-        double killDeathRation = -1;
+        double killDeathRation = extendedPlayer.getTotalDeaths() == 0 ? extendedPlayer.getTotalKills() : (double) extendedPlayer.getTotalKills() / extendedPlayer.getTotalDeaths();
         return List.of(
                 Component.literal("Personal Statistics:").withStyle(ChatFormatting.BOLD, ChatFormatting.GOLD),
                 Component.literal("Highest Killstreak: " + extendedPlayer.getHighestKillStreak()),

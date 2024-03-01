@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import net.gamershub.kitpvp.events.PlayerSpawnEvent;
 import net.gamershub.kitpvp.kits.Kit;
+import net.gamershub.kitpvp.kits.KitHandler;
 import net.gamershub.kitpvp.textdisplay.TextDisplayHandler;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -47,13 +48,6 @@ public class ExtendedPlayer {
     public ExtendedPlayer(Player p) {
         uuid = p.getUniqueId();
         gameState = GameState.SPAWN;
-
-        if (scoreboard == null) {
-            scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
-            Objective objective = scoreboard.registerNewObjective("default", Criteria.DUMMY, Component.text("KitPvP", NamedTextColor.YELLOW, TextDecoration.BOLD));
-            objective.setDisplaySlot(DisplaySlot.SIDEBAR);
-            p.setScoreboard(scoreboard);
-        }
     }
 
     public Player getPlayer() {
@@ -99,6 +93,8 @@ public class ExtendedPlayer {
         }
 
         updateScoreboardLines();
+
+        if (getSelectedKit() == null) setSelectedKitId(KitHandler.CLASSIC.getId());
 
         getSelectedKit().apply(p);
 
