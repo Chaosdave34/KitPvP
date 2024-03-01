@@ -17,6 +17,7 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.metadata.FixedMetadataValue;
+import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scoreboard.Criteria;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
@@ -35,6 +36,7 @@ public class ExtendedPlayer {
 
     private transient GameState gameState;
     private transient Scoreboard scoreboard;
+    private transient int combatCooldown;
 
     private transient Entity morph;
 
@@ -127,7 +129,7 @@ public class ExtendedPlayer {
         objective.getScore("Kit: " + kitName).setScore(3);
         objective.getScore("Kill Streak: " + killSteak).setScore(2);
         objective.getScore("   ").setScore(1);
-        objective.getScore("Status: " + gameState.displayName).setScore(0);
+        objective.getScore("Status: " + (combatCooldown > 0 ? "Combat" : getGameState().displayName)).setScore(0);
     }
 
     public void incrementKillStreak() {
@@ -247,6 +249,27 @@ public class ExtendedPlayer {
             morph.remove();
             morph = null;
         }
+    }
+
+    public void enterCombat() {
+        if (combatCooldown == 0) {
+            combatCooldown = 5;
+            updateScoreboardLines();
+
+            new BukkitRunnable() {
+                @Override
+                public void run() {
+                    combatCooldown--;
+
+                    if (combatCooldown == 0) {
+                        this.cancel();
+                        updateScoreboardLines();
+                    }
+                }
+            }.runTaskTimer(KitPvpPlugin.INSTANCE, 0, 20);
+        }
+
+        combatCooldown = 5;
     }
 
     public enum GameState {

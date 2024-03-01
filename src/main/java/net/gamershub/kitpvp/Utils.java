@@ -1,6 +1,7 @@
 package net.gamershub.kitpvp;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.network.ServerGamePacketListenerImpl;
@@ -17,7 +18,10 @@ import java.io.*;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 public class Utils {
 
@@ -148,5 +152,46 @@ public class Utils {
             b = b * m / i;
 
         return b;
+    }
+
+    public static void saveHighscore(String name, Map<UUID, Integer> highscores) {
+        Gson gson = new Gson();
+        try {
+
+            FileOutputStream outputStream = new FileOutputStream(new File(KitPvpPlugin.INSTANCE.getDataFolder(), name));
+
+            outputStream.write(gson.toJson(highscores).getBytes());
+
+            outputStream.flush();
+            outputStream.close();
+        } catch (IOException e) {
+            KitPvpPlugin.INSTANCE.getLogger().warning("Error while writing high scores to file! " + e.getMessage());
+        }
+    }
+
+    public static Map<UUID, Integer> loadHighescore(String name) {
+        try {
+            FileInputStream fileInputStream = new FileInputStream(new File(KitPvpPlugin.INSTANCE.getDataFolder(), name));
+            InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
+            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+
+            StringBuilder stringBuilder = new StringBuilder();
+            String line;
+
+            while ((line = bufferedReader.readLine()) != null) {
+                stringBuilder.append(line);
+            }
+
+            bufferedReader.close();
+            inputStreamReader.close();
+            fileInputStream.close();
+
+            return new Gson().fromJson(stringBuilder.toString(), new TypeToken<Map<UUID, Integer>>(){});
+
+
+        } catch (IOException e) {
+            KitPvpPlugin.INSTANCE.getLogger().warning("Error while reading high scores from file! " + e.getMessage());
+        }
+        return Collections.emptyMap();
     }
 }

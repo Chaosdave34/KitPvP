@@ -209,7 +209,29 @@ public class GameListener implements Listener {
         if (morph.hasMetadata("morph")) {
             Player p = (Player) morph.getPassengers().get(0);
 
-            morph.setVelocity(p.getEyeLocation().getDirection().multiply(0.5));
+            if (KitPvpPlugin.INSTANCE.getExtendedPlayer(p).getGameState() == ExtendedPlayer.GameState.IN_GAME) {
+                morph.setVelocity(p.getEyeLocation().getDirection().multiply(0.5));
+            }
+        }
+    }
+
+    @EventHandler
+    public void onDamage(EntityDamageEvent e) {
+        if (e.getEntity() instanceof Player p) {
+            ExtendedPlayer extendedPlayer = KitPvpPlugin.INSTANCE.getExtendedPlayer(p);
+            if (extendedPlayer.getGameState() == ExtendedPlayer.GameState.IN_GAME) {
+                extendedPlayer.enterCombat();
+            }
+        }
+    }
+
+    @EventHandler
+    public void onDealDamage(EntityDamageByEntityEvent e) {
+        if (e.getDamager() instanceof Player damager) {
+            ExtendedPlayer extendedPlayer = KitPvpPlugin.INSTANCE.getExtendedPlayer(damager);
+            if (extendedPlayer.getGameState() == ExtendedPlayer.GameState.IN_GAME) {
+                extendedPlayer.enterCombat();
+            }
         }
     }
 }

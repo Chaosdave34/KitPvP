@@ -104,6 +104,10 @@ public final class KitPvpPlugin extends JavaPlugin {
         // Create data folder
         getDataFolder().mkdir();
         new File(getDataFolder(), "player_data").mkdir();
+
+        // load high scores
+        highestLevels.putAll(Utils.loadHighescore("highestLevels"));
+        highestKillstreaks.putAll(Utils.loadHighescore("highestKillstreaks"));
     }
 
     public ExtendedPlayer getExtendedPlayer(Player p) {
@@ -127,9 +131,10 @@ public final class KitPvpPlugin extends JavaPlugin {
         extendedPlayers.remove(p.getUniqueId());
     }
 
-    @SuppressWarnings("RedundantMethodOverride")
     @Override
     public void onDisable() {
+        Utils.saveHighscore("highestLevels", highestLevels);
+        Utils.saveHighscore("highestKillstreaks", highestKillstreaks);
     }
 
 }
