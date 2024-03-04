@@ -102,13 +102,16 @@ public class GameListener implements Listener {
             Block block = e.getBlock();
 
             if (fallingBlock.hasMetadata("placed_by_player")) {
-                Bukkit.getLogger().info("found block stopped to fall");
                 block.setMetadata("placed_by_player", new FixedMetadataValue(KitPvpPlugin.INSTANCE, true));
                 blocksToRemove.put(block.getLocation(), System.currentTimeMillis());
             } else if (block.hasMetadata("placed_by_player")) {
-                Bukkit.getLogger().info("found block starting to fall");
                 fallingBlock.setMetadata("placed_by_player", new FixedMetadataValue(KitPvpPlugin.INSTANCE, true));
                 blocksToRemove.remove(block.getLocation());
+            }
+
+            if (fallingBlock.getBlockData().getMaterial() == Material.ANVIL) {
+                block.setMetadata("placed_by_player", new FixedMetadataValue(KitPvpPlugin.INSTANCE, true));
+                blocksToRemove.put(block.getLocation(), System.currentTimeMillis());
             }
         }
     }
