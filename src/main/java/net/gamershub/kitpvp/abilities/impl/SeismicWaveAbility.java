@@ -5,6 +5,8 @@ import net.gamershub.kitpvp.Utils;
 import net.gamershub.kitpvp.abilities.Ability;
 import net.gamershub.kitpvp.abilities.AbilityType;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.BlockDisplay;
@@ -29,8 +31,8 @@ public class SeismicWaveAbility extends Ability {
     @Override
     public @NotNull List<Component> getDescription() {
         return List.of(
-                Component.text("Create a seismic wave that damages"),
-                Component.text("players and knocks them away.")
+                Component.text("Create a seismic wave that damages", NamedTextColor.GRAY).decoration(TextDecoration.ITALIC, false),
+                Component.text("players and knocks them away.", NamedTextColor.GRAY).decoration(TextDecoration.ITALIC, false)
         );
     }
 
