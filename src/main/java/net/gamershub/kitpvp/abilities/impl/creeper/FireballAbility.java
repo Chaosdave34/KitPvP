@@ -1,4 +1,4 @@
-package net.gamershub.kitpvp.abilities.impl;
+package net.gamershub.kitpvp.abilities.impl.creeper;
 
 import net.gamershub.kitpvp.KitPvpPlugin;
 import net.gamershub.kitpvp.abilities.Ability;
@@ -22,7 +22,7 @@ import java.util.List;
 public class FireballAbility extends Ability {
 
     public FireballAbility() {
-        super("fireball", "Fireball", AbilityType.RIGHT_CLICK, 3);
+        super("fireball", "Fireball", AbilityType.RIGHT_CLICK, 10);
     }
 
     @Override
@@ -36,7 +36,8 @@ public class FireballAbility extends Ability {
     public boolean onAbility(Player p) {
         Location loc = p.getEyeLocation();
         p.getWorld().spawnEntity(loc.add(loc.getDirection().normalize()), EntityType.FIREBALL, CreatureSpawnEvent.SpawnReason.CUSTOM, (entity) -> {
-            ((Fireball) entity).setDirection(p.getLocation().getDirection().multiply(0.5));
+            ((Fireball) entity).setDirection(p.getLocation().getDirection().multiply(1.5));
+            ((Fireball) entity).setYield(2);
             entity.setMetadata("ability", new FixedMetadataValue(KitPvpPlugin.INSTANCE, id));
             entity.setMetadata("shot_by_player", new FixedMetadataValue(KitPvpPlugin.INSTANCE, p.getUniqueId()));
         });

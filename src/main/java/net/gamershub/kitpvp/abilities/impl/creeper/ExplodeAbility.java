@@ -1,4 +1,4 @@
-package net.gamershub.kitpvp.abilities.impl;
+package net.gamershub.kitpvp.abilities.impl.creeper;
 
 import net.gamershub.kitpvp.KitPvpPlugin;
 import net.gamershub.kitpvp.persistentdatatype.StringArrayPersistentDataType;
@@ -19,7 +19,7 @@ import java.util.List;
 
 public class ExplodeAbility extends Ability {
     public ExplodeAbility() {
-        super("explode", "Explode", AbilityType.SNEAK, 10);
+        super("explode", "Explode", AbilityType.SNEAK, 25);
     }
 
     @Override
