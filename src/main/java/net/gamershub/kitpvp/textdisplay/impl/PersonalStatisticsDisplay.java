@@ -26,7 +26,7 @@ public class PersonalStatisticsDisplay extends TextDisplay {
                 Component.literal("Highest Killstreak: " + extendedPlayer.getHighestKillStreak()),
                 Component.literal("Kills: " + extendedPlayer.getTotalKills()),
                 Component.literal("Deaths: " + extendedPlayer.getTotalDeaths()),
-                Component.literal("K/D: " + Math.round(killDeathRation * 100) / 100)
+                Component.literal("K/D: " + (Math.round(killDeathRation * 100) / 100))
         );
     }
 }
