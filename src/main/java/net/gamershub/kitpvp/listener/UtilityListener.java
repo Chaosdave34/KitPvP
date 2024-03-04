@@ -4,6 +4,7 @@ import io.papermc.paper.event.player.AsyncChatEvent;
 import net.gamershub.kitpvp.ExtendedPlayer;
 import net.gamershub.kitpvp.KitPvpPlugin;
 import net.gamershub.kitpvp.Utils;
+import net.gamershub.kitpvp.textdisplay.TextDisplayHandler;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
@@ -44,6 +45,17 @@ public class UtilityListener implements Listener {
         extendedPlayer.spawnPlayer();
         extendedPlayer.updateDisplayName();
 
+        // Highscores
+        if (KitPvpPlugin.INSTANCE.getHighestKillstreaks().size() < 5) {
+            KitPvpPlugin.INSTANCE.getHighestKillstreaks().put(p.getUniqueId(), extendedPlayer.getHighestKillStreak());
+            KitPvpPlugin.INSTANCE.getTextDisplayHandler().updateTextDisplayForAll(TextDisplayHandler.HIGHEST_KILLSTREAKS);
+        }
+        if (KitPvpPlugin.INSTANCE.getHighestLevels().size() < 5) {
+            KitPvpPlugin.INSTANCE.getHighestLevels().put(p.getUniqueId(), extendedPlayer.getLevel());
+            KitPvpPlugin.INSTANCE.getTextDisplayHandler().updateTextDisplayForAll(TextDisplayHandler.HIGHEST_LEVELS);
+        }
+
+
         p.sendPlayerListHeader(Component.text("KitPvP", NamedTextColor.YELLOW, TextDecoration.BOLD));
     }
 
@@ -73,7 +85,7 @@ public class UtilityListener implements Listener {
     @EventHandler
     public void onGameSave(WorldSaveEvent e) {
         if (e.getWorld().getName().equals("world")) {
-           KitPvpPlugin.INSTANCE.saveHighscores();
+            KitPvpPlugin.INSTANCE.saveHighscores();
 
             for (Player p : Bukkit.getOnlinePlayers()) {
                 ExtendedPlayer extendedPlayer = KitPvpPlugin.INSTANCE.getExtendedPlayer(p);

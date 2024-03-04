@@ -171,7 +171,10 @@ public class Utils {
             inputStreamReader.close();
             fileInputStream.close();
 
-            return new Gson().fromJson(stringBuilder.toString(), new TypeToken<Map<UUID, Integer>>(){});
+            Map<UUID, Integer> highscore = new Gson().fromJson(stringBuilder.toString(), new TypeToken<Map<UUID, Integer>>() {
+            });
+
+            return highscore == null ? Collections.emptyMap() : highscore;
 
 
         } catch (IOException e) {
