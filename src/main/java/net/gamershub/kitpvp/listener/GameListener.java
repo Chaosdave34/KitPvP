@@ -173,7 +173,7 @@ public class GameListener implements Listener {
 
                     ExtendedPlayer extendedTarget = KitPvpPlugin.INSTANCE.getExtendedPlayer(e.getPlayer());
 
-                    int xpReward = 10 + (int) (extendedTarget.getExperiencePoints() * 0.25);
+                    int xpReward = 10 + (int) (extendedTarget.getLevel() * 0.25);
 
                     extendedDamager.addExperiencePoints(xpReward);
 
