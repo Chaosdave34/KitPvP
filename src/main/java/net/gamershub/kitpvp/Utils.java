@@ -154,21 +154,6 @@ public class Utils {
         return b;
     }
 
-    public static void saveHighscore(String name, Map<UUID, Integer> highscores) {
-        Gson gson = new Gson();
-        try {
-
-            FileOutputStream outputStream = new FileOutputStream(new File(KitPvpPlugin.INSTANCE.getDataFolder(), name));
-
-            outputStream.write(gson.toJson(highscores).getBytes());
-
-            outputStream.flush();
-            outputStream.close();
-        } catch (IOException e) {
-            KitPvpPlugin.INSTANCE.getLogger().warning("Error while writing high scores to file! " + e.getMessage());
-        }
-    }
-
     public static Map<UUID, Integer> loadHighescore(String name) {
         try {
             FileInputStream fileInputStream = new FileInputStream(new File(KitPvpPlugin.INSTANCE.getDataFolder(), name));

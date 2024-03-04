@@ -133,8 +133,13 @@ public final class KitPvpPlugin extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        Utils.saveHighscore("highestLevels", highestLevels);
-        Utils.saveHighscore("highestKillstreaks", highestKillstreaks);
+        saveHighscores();
+    }
+
+
+    public void saveHighscores () {
+        Utils.writeObjectToFile(new File(getDataFolder(), "highestLevels"), highestLevels);
+        Utils.writeObjectToFile(new File(getDataFolder(), "highestKillstreaks"), highestKillstreaks);
     }
 
 }

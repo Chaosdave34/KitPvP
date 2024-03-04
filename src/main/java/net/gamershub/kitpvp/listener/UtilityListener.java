@@ -3,6 +3,7 @@ package net.gamershub.kitpvp.listener;
 import io.papermc.paper.event.player.AsyncChatEvent;
 import net.gamershub.kitpvp.ExtendedPlayer;
 import net.gamershub.kitpvp.KitPvpPlugin;
+import net.gamershub.kitpvp.Utils;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
@@ -12,7 +13,9 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.world.WorldSaveEvent;
 
+import java.io.File;
 import java.util.HexFormat;
 import java.util.UUID;
 
@@ -65,6 +68,17 @@ public class UtilityListener implements Listener {
                 .append(e.message());
 
         Bukkit.broadcast(message);
+    }
 
+    @EventHandler
+    public void onGameSave(WorldSaveEvent e) {
+        if (e.getWorld().getName().equals("world")) {
+           KitPvpPlugin.INSTANCE.saveHighscores();
+
+            for (Player p : Bukkit.getOnlinePlayers()) {
+                ExtendedPlayer extendedPlayer = KitPvpPlugin.INSTANCE.getExtendedPlayer(p);
+                Utils.writeObjectToFile(new File(KitPvpPlugin.INSTANCE.getDataFolder(), "player_data/" + p.getUniqueId() + ".json"), extendedPlayer);
+            }
+        }
     }
 }
