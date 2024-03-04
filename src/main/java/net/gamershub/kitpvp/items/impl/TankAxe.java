@@ -11,14 +11,14 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public class TankSword extends CustomItem {
-    public TankSword() {
-        super(Material.IRON_AXE, "tank_sword", false);
+public class TankAxe extends CustomItem {
+    public TankAxe() {
+        super(Material.IRON_AXE, "tank_axe", false);
     }
 
     @Override
     public @NotNull Component getName() {
-        return Component.text("Tank Sword").decoration(TextDecoration.ITALIC, false);
+        return Component.text("Tank Axe").decoration(TextDecoration.ITALIC, false);
     }
 
     @Override
