@@ -25,7 +25,12 @@ public class LevitateAbility extends Ability {
 
     @Override
     public boolean onAbility(Player p) {
-        p.addPotionEffect(new PotionEffect(PotionEffectType.LEVITATION, 100, 10));
+        p.getNearbyEntities(10, 10, 10).forEach(entity -> {
+            if (entity instanceof Player target) {
+                target.addPotionEffect(new PotionEffect(PotionEffectType.LEVITATION, 100, 10));
+            }
+        });
+
         return true;
     }
 }

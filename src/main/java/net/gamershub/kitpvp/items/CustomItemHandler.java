@@ -42,7 +42,7 @@ public class CustomItemHandler {
         ENDER_SWORD = createItem(new EnderSword());
         POSEIDONS_TRIDENT = createItem(new PoseidonsTrident());
         DEVILS_SWORD = createItem(new DevilsSword());
-        TANK_SWORD = createItem(new TankSword());
+        TANK_SWORD = createItem(new TankAxe());
     }
 
     private CustomItem createItem(CustomItem item) {
