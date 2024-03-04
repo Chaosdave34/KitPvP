@@ -19,7 +19,6 @@ import org.joml.Quaternionf;
 import org.joml.Vector3f;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class SeismicWaveAbility extends Ability {
@@ -29,7 +28,10 @@ public class SeismicWaveAbility extends Ability {
 
     @Override
     public @NotNull List<Component> getDescription() {
-        return Collections.emptyList();
+        return List.of(
+                Component.text("Create a seismic wave that damages"),
+                Component.text("players and knocks them away.")
+        );
     }
 
     @Override
