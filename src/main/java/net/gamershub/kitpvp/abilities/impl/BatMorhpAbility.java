@@ -8,6 +8,7 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
@@ -30,7 +31,10 @@ public class BatMorhpAbility extends Ability {
         ExtendedPlayer extendedPlayer = KitPvpPlugin.INSTANCE.getExtendedPlayer(p);
         extendedPlayer.morph(EntityType.BAT);
 
-        Bukkit.getScheduler().runTaskLater(KitPvpPlugin.INSTANCE, extendedPlayer::unmorph, 200);
+        Bukkit.getScheduler().runTaskLater(KitPvpPlugin.INSTANCE, () -> {
+            Entity vehicle = p.getVehicle();
+            if (vehicle != null) vehicle.removePassenger(p);
+        }, 200);
 
         return true;
     }
