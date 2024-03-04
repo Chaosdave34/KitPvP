@@ -1,9 +1,9 @@
 package net.gamershub.kitpvp.abilities.impl;
 
 import net.gamershub.kitpvp.KitPvpPlugin;
-import net.gamershub.kitpvp.persistentdatatype.StringArrayPersistentDataType;
 import net.gamershub.kitpvp.abilities.Ability;
 import net.gamershub.kitpvp.abilities.AbilityType;
+import net.gamershub.kitpvp.persistentdatatype.StringArrayPersistentDataType;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
@@ -29,7 +29,7 @@ public class ExplodeAbility extends Ability {
 
     @Override
     public boolean onAbility(Player p) {
-        p.getLocation().createExplosion(p, 5, false);
+        p.getLocation().createExplosion(p, 3, false);
         return true;
     }
 
