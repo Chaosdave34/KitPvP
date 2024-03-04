@@ -123,13 +123,13 @@ public class ExtendedPlayer {
         scoreboard.getEntries().forEach((entry) -> scoreboard.resetScores(entry));
 
         objective.getScore("Level: " + getLevel()).setScore(6);
-        objective.getScore("Missing XP: " + getMissingExperience()).setScore(5);
+        objective.getScore("Missing XP: §b" + getMissingExperience()).setScore(5);
         objective.getScore("  ").setScore(4);
         String kitName = getSelectedKit() == null ? "None" : getSelectedKit().getName();
         objective.getScore("Kit: " + kitName).setScore(3);
         objective.getScore("Kill Streak: " + killSteak).setScore(2);
         objective.getScore("   ").setScore(1);
-        objective.getScore("Status: " + (combatCooldown > 0 ? "Combat" : getGameState().displayName)).setScore(0);
+        objective.getScore("Status: " + (combatCooldown > 0 ? "§cFighting" : getGameState().displayName)).setScore(0);
     }
 
     public void incrementKillStreak() {
@@ -273,9 +273,9 @@ public class ExtendedPlayer {
     }
 
     public enum GameState {
-        SPAWN("Idle"),
-        IN_GAME("Active"),
-        DEBUG("Debug");
+        SPAWN("§aIdle"),
+        IN_GAME("§eActive"),
+        DEBUG("§0Debug");
 
         private final String displayName;
 
