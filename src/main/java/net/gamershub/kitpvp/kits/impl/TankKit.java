@@ -1,5 +1,6 @@
 package net.gamershub.kitpvp.kits.impl;
 
+import net.gamershub.kitpvp.items.CustomItemHandler;
 import net.gamershub.kitpvp.kits.Kit;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -55,11 +56,8 @@ public class TankKit extends Kit {
 
     @Override
     public ItemStack[] getInventoryContent() {
-        ItemStack ironAxe = new ItemStack(Material.IRON_AXE);
-        setCustomModelData(ironAxe, 1);
-
         return new ItemStack[]{
-                new ItemStack(Material.IRON_AXE),
+                CustomItemHandler.TANK_SWORD.build(1),
                 new ItemStack(Material.WATER_BUCKET),
         };
     }

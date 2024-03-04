@@ -36,6 +36,7 @@ public class AbilityHandler implements Listener {
     public static Ability EXPLODE;
     public static Ability ENDER_ATTACK;
     public static Ability STORM;
+    public static Ability SEISMIC_WAVE;
 
     public AbilityHandler() {
         FIREBALL = registerAbility(new FireballAbility());
@@ -52,6 +53,7 @@ public class AbilityHandler implements Listener {
         EXPLODE = registerAbility(new ExplodeAbility());
         ENDER_ATTACK = registerAbility(new EnderAttackAbility());
         STORM = registerAbility(new StormAbility());
+        SEISMIC_WAVE = registerAbility(new SeismicWaveAbility());
     }
 
     public Ability registerAbility(Ability ability) {

@@ -6,6 +6,7 @@ import net.minecraft.network.protocol.Packet;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.network.ServerGamePacketListenerImpl;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.craftbukkit.v1_20_R3.entity.CraftPlayer;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -18,10 +19,7 @@ import java.io.*;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 public class Utils {
 
@@ -181,5 +179,48 @@ public class Utils {
             KitPvpPlugin.INSTANCE.getLogger().warning("Error while reading high scores from file! " + e.getMessage());
         }
         return Collections.emptyMap();
+    }
+
+    public static List<Location> generateSphere(Location centerBlock, int radius, boolean hollow) {
+        List<Location> sphereBlocks = new ArrayList<>();
+
+        int bx = centerBlock.getBlockX();
+        int by = centerBlock.getBlockY();
+        int bz = centerBlock.getBlockZ();
+
+        for (int x = bx - radius; x <= bx + radius; x++) {
+            for (int y = by - radius; y <= by + radius; y++) {
+                for (int z = bz - radius; z <= bz + radius; z++) {
+                    double distance = ((bx - x) * (bx - x) + ((bz - z) * (bz - z)) + ((by - y) * (by - y)));
+
+                    if (distance < radius * radius && !(hollow && distance < ((radius - 1) * (radius - 1)))) {
+                        Location l = new Location(centerBlock.getWorld(), x, y, z);
+                        sphereBlocks.add(l);
+                    }
+                }
+            }
+        }
+
+        return sphereBlocks;
+    }
+
+    public static List<Location> generateCircle(Location centerBlock, int radius, boolean hollow) {
+        List<Location> circleBlocks = new ArrayList<>();
+
+        int bx = centerBlock.getBlockX();
+        int bz = centerBlock.getBlockZ();
+
+        for (int x = bx - radius; x <= bx + radius; x++) {
+            for (int z = bz - radius; z <= bz + radius; z++) {
+                double distance = ((bx - x) * (bx - x) + ((bz - z) * (bz - z)));
+
+                if (distance < radius * radius && !(hollow && distance < ((radius - 1) * (radius - 1)))) {
+                    Location l = new Location(centerBlock.getWorld(), x, centerBlock.getBlockY(), z);
+                    circleBlocks.add(l);
+                }
+
+            }
+        }
+        return circleBlocks;
     }
 }
