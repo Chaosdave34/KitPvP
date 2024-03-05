@@ -31,10 +31,12 @@ public class FireballAbility extends Ability {
     public boolean onAbility(Player p) {
         Location loc = p.getEyeLocation();
         p.getWorld().spawnEntity(loc.add(loc.getDirection().normalize()), EntityType.FIREBALL, CreatureSpawnEvent.SpawnReason.CUSTOM, (entity) -> {
-            ((Fireball) entity).setDirection(p.getLocation().getDirection().multiply(1.5));
-            ((Fireball) entity).setYield(2);
-            entity.setMetadata("ability", new FixedMetadataValue(KitPvpPlugin.INSTANCE, id));
-            entity.setMetadata("shot_by_player", new FixedMetadataValue(KitPvpPlugin.INSTANCE, p.getUniqueId()));
+            Fireball fireball = (Fireball) entity;
+            fireball.setDirection(p.getLocation().getDirection().multiply(1.5));
+            fireball.setYield(2);
+            fireball.setShooter(p);
+            fireball.setMetadata("ability", new FixedMetadataValue(KitPvpPlugin.INSTANCE, id));
+            fireball.setMetadata("shot_by_player", new FixedMetadataValue(KitPvpPlugin.INSTANCE, p.getUniqueId()));
         });
         return true;
     }

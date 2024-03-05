@@ -37,10 +37,11 @@ public class NukeAbility extends Ability { // Todo: add particles on travel
 
         location.setY(200);
         p.getWorld().spawnEntity(location, EntityType.FIREBALL, CreatureSpawnEvent.SpawnReason.CUSTOM, (entity -> {
-            entity.setMetadata("ability", new FixedMetadataValue(KitPvpPlugin.INSTANCE, id));
             Fireball fireball = (Fireball) entity;
+            fireball.setMetadata("ability", new FixedMetadataValue(KitPvpPlugin.INSTANCE, id));
             fireball.setYield(10);
             fireball.setDirection(new Vector(0, -1, 0));
+            fireball.setShooter(p);
         }));
 
         return true;
