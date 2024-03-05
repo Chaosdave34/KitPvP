@@ -6,8 +6,6 @@ import net.gamershub.kitpvp.Utils;
 import net.gamershub.kitpvp.abilities.Ability;
 import net.gamershub.kitpvp.abilities.AbilityType;
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.NamedTextColor;
-import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -24,10 +22,10 @@ public class SpookAbility extends Ability {
 
     @Override
     public @NotNull List<Component> getDescription() {
-        return List.of(
-                Component.text("Places a pumpkin on the", NamedTextColor.GRAY).decoration(TextDecoration.ITALIC, false),
-                Component.text("player you are looking at", NamedTextColor.GRAY).decoration(TextDecoration.ITALIC, false),
-                Component.text("in a 20 block radius.", NamedTextColor.GRAY).decoration(TextDecoration.ITALIC, false)
+        return createSimpleDescription(
+                "Places a pumpkin on the",
+                "player you are looking at",
+                "in a 20 block radius."
         );
     }
 

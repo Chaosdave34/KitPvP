@@ -6,8 +6,6 @@ import net.gamershub.kitpvp.Utils;
 import net.gamershub.kitpvp.abilities.Ability;
 import net.gamershub.kitpvp.abilities.AbilityType;
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.NamedTextColor;
-import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.FallingBlock;
@@ -26,10 +24,10 @@ public class AnvilAbility extends Ability {
 
     @Override
     public @NotNull List<Component> getDescription() {
-        return List.of(
-                Component.text("Spawns an anvil above the", NamedTextColor.GRAY).decoration(TextDecoration.ITALIC, false),
-                Component.text("player you are looking at", NamedTextColor.GRAY).decoration(TextDecoration.ITALIC, false),
-                Component.text("in a 10 block radius.", NamedTextColor.GRAY).decoration(TextDecoration.ITALIC, false)
+        return createSimpleDescription(
+                "Spawns an anvil above the",
+                "player you are looking at",
+                "in a 10 block radius."
         );
     }
 

@@ -6,6 +6,7 @@ import net.gamershub.kitpvp.KitPvpPlugin;
 import net.gamershub.kitpvp.persistentdatatype.StringArrayPersistentDataType;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.GameMode;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
@@ -92,4 +93,12 @@ public abstract class Ability implements Listener {
     }
 
     public abstract boolean onAbility(Player p);
+
+
+    protected List<Component> createSimpleDescription(String... lines) {
+        List<Component> componentList = new ArrayList<>();
+        for (String line : lines)
+            componentList.add(Component.text(line, NamedTextColor.GRAY).decoration(TextDecoration.ITALIC, false));
+        return componentList;
+    }
 }

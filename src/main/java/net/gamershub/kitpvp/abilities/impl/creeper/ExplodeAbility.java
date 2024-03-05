@@ -5,8 +5,6 @@ import net.gamershub.kitpvp.abilities.Ability;
 import net.gamershub.kitpvp.abilities.AbilityType;
 import net.gamershub.kitpvp.persistentdatatype.StringArrayPersistentDataType;
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.NamedTextColor;
-import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -24,7 +22,7 @@ public class ExplodeAbility extends Ability {
 
     @Override
     public @NotNull List<Component> getDescription() {
-        return List.of(Component.text("Cause an explosion.", NamedTextColor.GRAY).decoration(TextDecoration.ITALIC, false));
+        return createSimpleDescription("Cause an explosion.");
     }
 
     @Override

@@ -3,8 +3,6 @@ package net.gamershub.kitpvp.abilities.impl.poseidon;
 import net.gamershub.kitpvp.abilities.Ability;
 import net.gamershub.kitpvp.abilities.AbilityType;
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.NamedTextColor;
-import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
@@ -17,7 +15,7 @@ public class StormAbility extends Ability {
 
     @Override
     public @NotNull List<Component> getDescription() {
-        return List.of(Component.text("Gather a storm for 30 seconds.", NamedTextColor.GRAY).decoration(TextDecoration.ITALIC, false));
+        return createSimpleDescription("Gather a storm for 30 seconds.");
     }
 
     @Override

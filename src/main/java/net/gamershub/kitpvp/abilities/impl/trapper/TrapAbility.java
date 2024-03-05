@@ -6,8 +6,6 @@ import net.gamershub.kitpvp.Utils;
 import net.gamershub.kitpvp.abilities.Ability;
 import net.gamershub.kitpvp.abilities.AbilityType;
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.NamedTextColor;
-import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -22,9 +20,9 @@ public class TrapAbility extends Ability {
 
     @Override
     public @NotNull List<Component> getDescription() {
-        return List.of(
-                Component.text("Traps the player you are", NamedTextColor.GRAY).decoration(TextDecoration.ITALIC, false),
-                Component.text("looking at in a 10 block radius,", NamedTextColor.GRAY).decoration(TextDecoration.ITALIC, false)
+        return createSimpleDescription(
+                "Traps the player you are",
+                "looking at in a 10 block radius,"
         );
     }
 

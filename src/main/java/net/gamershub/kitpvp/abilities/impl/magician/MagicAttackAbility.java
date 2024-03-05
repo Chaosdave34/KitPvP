@@ -19,7 +19,7 @@ public class MagicAttackAbility extends Ability {
 
     @Override
     public @NotNull List<Component> getDescription() {
-        return List.of(Component.empty());
+        return createSimpleDescription("MAGIC!");
     }
 
     @Override

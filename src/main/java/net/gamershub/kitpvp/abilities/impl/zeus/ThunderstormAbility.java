@@ -4,8 +4,6 @@ import net.gamershub.kitpvp.KitPvpPlugin;
 import net.gamershub.kitpvp.abilities.Ability;
 import net.gamershub.kitpvp.abilities.AbilityType;
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.NamedTextColor;
-import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Location;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LightningStrike;
@@ -32,10 +30,10 @@ public class ThunderstormAbility extends Ability {
 
     @Override
     public @NotNull List<Component> getDescription() {
-        List<Component> description = new ArrayList<>();
-        description.add(Component.text("Summons Lightning around you", NamedTextColor.GRAY).decoration(TextDecoration.ITALIC, false));
-        description.add(Component.text("in a 5 block radius.", NamedTextColor.GRAY).decoration(TextDecoration.ITALIC, false));
-        return description;
+        return createSimpleDescription(
+                "Summons Lightning around you",
+                "in a 5 block radius."
+        );
     }
 
     @Override

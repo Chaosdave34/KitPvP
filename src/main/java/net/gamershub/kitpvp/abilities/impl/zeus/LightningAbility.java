@@ -6,8 +6,6 @@ import net.gamershub.kitpvp.Utils;
 import net.gamershub.kitpvp.abilities.Ability;
 import net.gamershub.kitpvp.abilities.AbilityType;
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.NamedTextColor;
-import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
@@ -19,7 +17,6 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class LightningAbility extends Ability {
@@ -29,11 +26,11 @@ public class LightningAbility extends Ability {
 
     @Override
     public @NotNull List<Component> getDescription() {
-        List<Component> description = new ArrayList<>();
-        description.add(Component.text("Strikes a lightning bold", NamedTextColor.GRAY).decoration(TextDecoration.ITALIC, false));
-        description.add(Component.text("at the Enemy you are looking at", NamedTextColor.GRAY).decoration(TextDecoration.ITALIC, false));
-        description.add(Component.text("in a 10 block radius.", NamedTextColor.GRAY).decoration(TextDecoration.ITALIC, false));
-        return description;
+        return createSimpleDescription(
+                "Strikes a lightning bold",
+                "at the Enemy you are looking at",
+                "in a 10 block radius."
+        );
     }
 
     @Override

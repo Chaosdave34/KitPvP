@@ -4,8 +4,6 @@ import net.gamershub.kitpvp.KitPvpPlugin;
 import net.gamershub.kitpvp.abilities.Ability;
 import net.gamershub.kitpvp.abilities.AbilityType;
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.NamedTextColor;
-import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Location;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Fireball;
@@ -16,7 +14,6 @@ import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class FireballAbility extends Ability {
@@ -27,9 +24,7 @@ public class FireballAbility extends Ability {
 
     @Override
     public @NotNull List<Component> getDescription() {
-        List<Component> description = new ArrayList<>();
-        description.add(Component.text("Shoots a fireball.", NamedTextColor.GRAY).decoration(TextDecoration.ITALIC, false));
-        return description;
+        return createSimpleDescription("Shoots a fireball.");
     }
 
     @Override

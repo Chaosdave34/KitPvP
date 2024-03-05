@@ -6,8 +6,6 @@ import net.gamershub.kitpvp.Utils;
 import net.gamershub.kitpvp.abilities.Ability;
 import net.gamershub.kitpvp.abilities.AbilityType;
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.NamedTextColor;
-import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -22,11 +20,11 @@ public class EnderAttackAbility extends Ability {
 
     @Override
     public @NotNull List<Component> getDescription() {
-        return List.of(
-                Component.text("Teleports you behind the player", NamedTextColor.GRAY).decoration(TextDecoration.ITALIC, false),
-                Component.text("you are looking at in a 20", NamedTextColor.GRAY).decoration(TextDecoration.ITALIC, false),
-                Component.text("block radius. Gain speed and ", NamedTextColor.GRAY).decoration(TextDecoration.ITALIC, false),
-                Component.text("strength for 5 seconds", NamedTextColor.GRAY).decoration(TextDecoration.ITALIC, false)
+        return createSimpleDescription(
+                "Teleports you behind the player",
+                "you are looking at in a 20",
+                "block radius. Gain speed and ",
+                "strength for 5 seconds."
         );
     }
 

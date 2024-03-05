@@ -5,8 +5,6 @@ import net.gamershub.kitpvp.KitPvpPlugin;
 import net.gamershub.kitpvp.abilities.Ability;
 import net.gamershub.kitpvp.abilities.AbilityType;
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.NamedTextColor;
-import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -22,7 +20,10 @@ public class LevitateAbility extends Ability {
 
     @Override
     public @NotNull List<Component> getDescription() {
-        return List.of(Component.text("Rise into the air!", NamedTextColor.GRAY).decoration(TextDecoration.ITALIC, false));
+        return createSimpleDescription(
+                "Let the players around you",
+                "float into air."
+        );
     }
 
     @Override

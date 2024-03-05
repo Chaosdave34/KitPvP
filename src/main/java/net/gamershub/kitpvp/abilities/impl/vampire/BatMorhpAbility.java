@@ -5,8 +5,6 @@ import net.gamershub.kitpvp.KitPvpPlugin;
 import net.gamershub.kitpvp.abilities.Ability;
 import net.gamershub.kitpvp.abilities.AbilityType;
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.NamedTextColor;
-import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
@@ -23,7 +21,7 @@ public class BatMorhpAbility extends Ability {
 
     @Override
     public @NotNull List<Component> getDescription() {
-        return List.of(Component.text("Morph into a bat.", NamedTextColor.GRAY).decoration(TextDecoration.ITALIC, false));
+        return createSimpleDescription("Morph into a bat.");
     }
 
     @Override
