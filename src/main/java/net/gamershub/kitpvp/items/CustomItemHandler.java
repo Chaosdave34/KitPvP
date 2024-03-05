@@ -4,7 +4,6 @@ import net.gamershub.kitpvp.KitPvpPlugin;
 import net.gamershub.kitpvp.Utils;
 import net.gamershub.kitpvp.items.impl.*;
 import org.bukkit.NamespacedKey;
-import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
@@ -58,24 +57,5 @@ public class CustomItemHandler {
             return container.get(key, PersistentDataType.STRING);
         }
         return null;
-    }
-
-    public void updateCustomItems(Player p) {
-        ItemStack[] content = p.getInventory().getContents();
-
-        for (int i = 0; i < content.length; i++) {
-            ItemStack itemStack = content[i];
-
-            if (itemStack == null) continue;
-
-            String id = getCustomItemId(itemStack);
-            if (id == null) continue;
-
-            CustomItem customItem = ID_MAP.get(id);
-
-            content[i] = customItem.build(itemStack.getAmount());
-        }
-
-        p.getInventory().setContents(content);
     }
 }
