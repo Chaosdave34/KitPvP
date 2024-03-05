@@ -4,8 +4,6 @@ import net.gamershub.kitpvp.abilities.Ability;
 import net.gamershub.kitpvp.abilities.AbilityHandler;
 import net.gamershub.kitpvp.items.CustomItem;
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.NamedTextColor;
-import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.jetbrains.annotations.NotNull;
 
@@ -23,7 +21,7 @@ public class HauntWand extends CustomItem {
 
     @Override
     public @NotNull List<Component> getDescription() {
-        return List.of(Component.text("Happy haunting!", NamedTextColor.GRAY).decoration(TextDecoration.ITALIC, false));
+        return createSimpleDescription("Happy haunting!");
     }
 
     @Override

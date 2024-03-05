@@ -43,7 +43,7 @@ public final class KitPvpPlugin extends JavaPlugin {
     private FakePlayerHandler fakePlayerHandler;
     private TextDisplayHandler textDisplayHandler;
 
-    @SuppressWarnings("DataFlowIssue")
+    @SuppressWarnings({"DataFlowIssue", "ResultOfMethodCallIgnored"})
     @Override
     public void onEnable() {
         INSTANCE = this;

@@ -170,4 +170,11 @@ public abstract class CustomItem implements Listener {
         return Component.text(name).decoration(TextDecoration.ITALIC, false);
     }
 
+    protected List<Component> createSimpleDescription(String... lines) {
+        List<Component> componentList = new ArrayList<>();
+        for (String line : lines)
+            componentList.add(Component.text(line, NamedTextColor.GRAY).decoration(TextDecoration.ITALIC, false));
+        return componentList;
+    }
+
 }
