@@ -1,4 +1,4 @@
-package net.gamershub.kitpvp.items.impl;
+package net.gamershub.kitpvp.items.impl.vampire;
 
 import net.gamershub.kitpvp.abilities.Ability;
 import net.gamershub.kitpvp.abilities.AbilityHandler;

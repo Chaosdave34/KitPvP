@@ -1,4 +1,4 @@
-package net.gamershub.kitpvp.items.impl;
+package net.gamershub.kitpvp.items.impl.devil;
 
 import net.gamershub.kitpvp.items.CustomItem;
 import net.kyori.adventure.text.Component;

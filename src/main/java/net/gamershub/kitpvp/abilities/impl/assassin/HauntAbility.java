@@ -1,4 +1,4 @@
-package net.gamershub.kitpvp.abilities.impl.runner;
+package net.gamershub.kitpvp.abilities.impl.assassin;
 
 import net.gamershub.kitpvp.abilities.Ability;
 import net.gamershub.kitpvp.abilities.AbilityType;

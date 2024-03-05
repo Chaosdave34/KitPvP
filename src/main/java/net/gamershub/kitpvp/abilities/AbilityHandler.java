@@ -11,7 +11,7 @@ import net.gamershub.kitpvp.abilities.impl.magician.MagicAttackAbility;
 import net.gamershub.kitpvp.abilities.impl.poseidon.StormAbility;
 import net.gamershub.kitpvp.abilities.impl.provoker.NukeAbility;
 import net.gamershub.kitpvp.abilities.impl.provoker.SpookAbility;
-import net.gamershub.kitpvp.abilities.impl.runner.HauntAbility;
+import net.gamershub.kitpvp.abilities.impl.assassin.HauntAbility;
 import net.gamershub.kitpvp.abilities.impl.tank.FortifyAbility;
 import net.gamershub.kitpvp.abilities.impl.tank.SeismicWaveAbility;
 import net.gamershub.kitpvp.abilities.impl.trapper.AnvilAbility;

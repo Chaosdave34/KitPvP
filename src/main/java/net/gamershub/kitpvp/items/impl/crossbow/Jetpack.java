@@ -1,4 +1,4 @@
-package net.gamershub.kitpvp.items.impl;
+package net.gamershub.kitpvp.items.impl.crossbow;
 
 import net.gamershub.kitpvp.ExtendedPlayer;
 import net.gamershub.kitpvp.KitPvpPlugin;

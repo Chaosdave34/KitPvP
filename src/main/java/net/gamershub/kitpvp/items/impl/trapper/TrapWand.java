@@ -1,4 +1,4 @@
-package net.gamershub.kitpvp.items.impl;
+package net.gamershub.kitpvp.items.impl.trapper;
 
 import net.gamershub.kitpvp.abilities.Ability;
 import net.gamershub.kitpvp.abilities.AbilityHandler;
@@ -9,18 +9,18 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public class NukeItem extends CustomItem {
-    public NukeItem() {
-        super(Material.FIREWORK_ROCKET, "nuke", false, true);
+public class TrapWand extends CustomItem {
+    public TrapWand() {
+        super(Material.STICK, "trap_wand", false);
     }
 
     @Override
     public @NotNull Component getName() {
-        return createSimpleItemName("Nuke");
+        return createSimpleItemName("Trap Wand");
     }
 
     @Override
     public @NotNull List<Ability> getAbilities() {
-        return List.of(AbilityHandler.NUKE);
+        return List.of(AbilityHandler.ANVIL, AbilityHandler.TRAP);
     }
 }
