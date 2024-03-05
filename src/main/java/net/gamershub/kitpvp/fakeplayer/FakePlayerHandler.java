@@ -71,7 +71,7 @@ public class FakePlayerHandler implements Listener {
         PROVOKER_KIT = createFakePlayer(new KitSelectorFakePlayer(KitHandler.PROVOKER, new Location(world, 10.5, 100, 6.5, 90, 0)));
         ARCHER_KIT = createFakePlayer(new KitSelectorFakePlayer(KitHandler.ARCHER, new Location(world, 10.5, 100, -1.5, 90, 0)));
         CROSSBOW_KIT = createFakePlayer(new KitSelectorFakePlayer(KitHandler.CROSSBOW, new Location(world, 10.5, 100, -3.5, 90, 0)));
-        RUNNER_KIT = createFakePlayer(new KitSelectorFakePlayer(KitHandler.RUNNER, new Location(world, 10.5, 100, -5.5, 90, 0)));
+        RUNNER_KIT = createFakePlayer(new KitSelectorFakePlayer(KitHandler.ASSASSIN, new Location(world, 10.5, 100, -5.5, 90, 0)));
 
 
         TRAPPER_KIT = createFakePlayer(new KitSelectorFakePlayer(KitHandler.TRAPPER, new Location(world, -9.5, 100, 0.5, -90, 0)));

@@ -22,7 +22,7 @@ public class KitHandler {
     public static Kit PROVOKER;
     public static Kit ARCHER;
     public static Kit CROSSBOW;
-    public static Kit RUNNER;
+    public static Kit ASSASSIN;
     public static Kit TRAPPER;
     public static Kit MAGICIAN;
     public static Kit VAMPIRE;
@@ -38,7 +38,7 @@ public class KitHandler {
         PROVOKER = createKit(new ProvokerKit());
         ARCHER = createKit(new ArcherKit());
         CROSSBOW = createKit(new CrossbowKit());
-        RUNNER = createKit(new RunnerKit());
+        ASSASSIN = createKit(new AssassinKit());
         TRAPPER = createKit(new TrapperKit());
         MAGICIAN = createKit(new MagicianKit());
         VAMPIRE = createKit(new VampireKit());

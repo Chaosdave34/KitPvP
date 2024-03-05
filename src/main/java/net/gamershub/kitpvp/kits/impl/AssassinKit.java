@@ -5,9 +5,9 @@ import net.gamershub.kitpvp.kits.Kit;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
-public class RunnerKit extends Kit {
-    public RunnerKit() {
-        super("runner", "Runner");
+public class AssassinKit extends Kit {
+    public AssassinKit() {
+        super("assassin", "Assassin");
     }
 
     @Override
