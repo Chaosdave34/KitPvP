@@ -85,7 +85,10 @@ public class ExtendedPlayer {
         p.setFireTicks(0);
         p.setFreezeTicks(0);
 
+        p.clearActiveItem();
+
         killSteak = 0;
+        combatCooldown = 0;
 
         gameState = GameState.SPAWN;
 
