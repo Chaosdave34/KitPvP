@@ -50,9 +50,9 @@ public class ProvokerKit extends Kit {
         knockBackStick.addUnsafeEnchantment(Enchantment.KNOCKBACK, 5);
 
         return new ItemStack[]{
-                CustomItemHandler.SPOOK_SWORD.build(1),
+                CustomItemHandler.SPOOK_SWORD.build(),
                 knockBackStick,
-                CustomItemHandler.NUKE.build(1),
+                CustomItemHandler.NUKE.build(),
                 new ItemStack(Material.WATER_BUCKET),
         };
     }

@@ -40,7 +40,7 @@ public class TrapperKit extends Kit {
 
         return new ItemStack[]{
                 stoneSword,
-                CustomItemHandler.TRAP_WAND.build(1),
+                CustomItemHandler.TRAP_WAND.build(),
                 new ItemStack(Material.WATER_BUCKET),
         };
     }

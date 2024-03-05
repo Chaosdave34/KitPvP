@@ -39,7 +39,7 @@ public class TankKit extends Kit {
 
     @Override
     public ItemStack getFeetContent() {
-        return CustomItemHandler.TANK_BOOTS.build(1);
+        return CustomItemHandler.TANK_BOOTS.build();
     }
 
     public ItemStack getFortifiedHeadContent() {
@@ -86,7 +86,7 @@ public class TankKit extends Kit {
     @Override
     public ItemStack[] getInventoryContent() {
         return new ItemStack[]{
-                CustomItemHandler.TANK_AXE.build(1),
+                CustomItemHandler.TANK_AXE.build(),
                 new ItemStack(Material.WATER_BUCKET),
         };
     }

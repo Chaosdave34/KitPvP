@@ -56,6 +56,10 @@ public abstract class CustomItem implements Listener {
         return Collections.emptyList();
     }
 
+    public ItemStack build() {
+        return build(1);
+    }
+
     public ItemStack build(int count) {
         ItemStack itemStack = new ItemStack(material, count);
         ItemMeta itemMeta = itemStack.getItemMeta();

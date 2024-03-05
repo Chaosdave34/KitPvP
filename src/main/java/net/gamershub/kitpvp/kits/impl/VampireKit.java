@@ -47,7 +47,7 @@ public class VampireKit extends Kit {
     @Override
     public ItemStack[] getInventoryContent() {
         return new ItemStack[]{
-                CustomItemHandler.VAMPIRE_SWORD.build(1),
+                CustomItemHandler.VAMPIRE_SWORD.build(),
         };
     }
 

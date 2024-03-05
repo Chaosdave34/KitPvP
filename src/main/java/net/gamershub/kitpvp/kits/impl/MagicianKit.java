@@ -55,7 +55,7 @@ public class MagicianKit extends Kit {
     @Override
     public ItemStack[] getInventoryContent() {
         return new ItemStack[]{
-                CustomItemHandler.MAGIC_WAND.build(1),
+                CustomItemHandler.MAGIC_WAND.build(),
                 new ItemStack(Material.BOOK),
                 new ItemStack(Material.WATER_BUCKET),
         };

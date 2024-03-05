@@ -56,7 +56,7 @@ public class DevilKit extends Kit { // Add special ability
         setCustomModelData(bow, 1);
 
         return new ItemStack[]{
-                CustomItemHandler.DEVILS_SWORD.build(1),
+                CustomItemHandler.DEVILS_SWORD.build(),
                 bow,
                 new ItemStack(Material.ARROW),
                 new ItemStack(Material.WATER_BUCKET),

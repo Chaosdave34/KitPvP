@@ -31,7 +31,7 @@ public class CreeperKit extends Kit {
 
     @Override
     public ItemStack getLegsContent() {
-        return CustomItemHandler.CREEPER_LEGGINGS.build(1);
+        return CustomItemHandler.CREEPER_LEGGINGS.build();
     }
 
     @Override
@@ -50,7 +50,7 @@ public class CreeperKit extends Kit {
 
         return new ItemStack[]{
                 ironSword,
-                CustomItemHandler.FIREBALL.build(1),
+                CustomItemHandler.FIREBALL.build(),
         };
     }
 
