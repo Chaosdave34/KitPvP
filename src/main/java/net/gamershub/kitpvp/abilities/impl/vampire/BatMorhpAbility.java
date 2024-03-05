@@ -32,7 +32,7 @@ public class BatMorhpAbility extends Ability {
         Bukkit.getScheduler().runTaskLater(KitPvpPlugin.INSTANCE, () -> {
             Entity vehicle = p.getVehicle();
             if (vehicle != null) vehicle.removePassenger(p);
-        }, 200);
+        }, 10 * 20);
 
         return true;
     }

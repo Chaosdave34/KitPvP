@@ -55,7 +55,7 @@ public class FortifyAbility extends Ability {
                     inventory.setBoots(selectedKit.getFeetContent());
                 }
             }
-        }.runTaskLater(KitPvpPlugin.INSTANCE, 20 * 10);
+        }.runTaskLater(KitPvpPlugin.INSTANCE, 10 * 20);
 
         p.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 10 * 20, 2, false, false, false));
         return true;

@@ -44,7 +44,7 @@ public class SpookAbility extends Ability {
             Bukkit.getScheduler().runTaskLater(KitPvpPlugin.INSTANCE, () -> {
                 ExtendedPlayer extendedTargetPlayer = KitPvpPlugin.INSTANCE.getExtendedPlayer(target);
                 target.getInventory().setHelmet(extendedTargetPlayer.getSelectedKit().getHeadContent());
-            }, 200);
+            }, 10 * 20);
 
             return true;
         }

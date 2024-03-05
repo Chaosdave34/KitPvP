@@ -29,10 +29,10 @@ public class DebuffAbility extends Ability {
     public boolean onAbility(Player p) {
         for (Entity entity : p.getNearbyEntities(4, 4, 4)) {
             if (entity instanceof Player player) {
-                player.addPotionEffect(PotionEffectType.SLOW.createEffect(100, 1));
-                player.addPotionEffect(PotionEffectType.BLINDNESS.createEffect(100, 1));
-                player.addPotionEffect(PotionEffectType.CONFUSION.createEffect(100, 1));
-                player.addPotionEffect(PotionEffectType.WEAKNESS.createEffect(100, 1));
+                player.addPotionEffect(PotionEffectType.SLOW.createEffect(5 * 20, 1));
+                player.addPotionEffect(PotionEffectType.BLINDNESS.createEffect(5 * 20, 1));
+                player.addPotionEffect(PotionEffectType.CONFUSION.createEffect(5 * 20, 1));
+                player.addPotionEffect(PotionEffectType.WEAKNESS.createEffect(5 * 20, 1));
             }
         }
         return true;

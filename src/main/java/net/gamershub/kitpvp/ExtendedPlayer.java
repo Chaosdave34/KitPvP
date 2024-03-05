@@ -266,7 +266,8 @@ public class ExtendedPlayer {
                 public void run() {
                     combatCooldown--;
 
-                    if (combatCooldown == 0) {
+                    if (combatCooldown <= 0) {
+                        combatCooldown = 0;
                         this.cancel();
                         updateScoreboardLines();
                     }

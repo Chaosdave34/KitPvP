@@ -29,8 +29,8 @@ public class HauntAbility extends Ability {
 
     @Override
     public boolean onAbility(Player p) {
-        p.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 100, 10));
-        p.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 100, 1));
+        p.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 5 * 10, 10));
+        p.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 5 * 10, 1));
         p.addScoreboardTag("haunt_ability");
         return true;
     }

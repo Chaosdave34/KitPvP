@@ -34,7 +34,7 @@ public class TrapAbility extends Ability {
             if (KitPvpPlugin.INSTANCE.getExtendedPlayer(target).getGameState() == ExtendedPlayer.GameState.SPAWN)
                 return false;
 
-            target.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 100, 255));
+            target.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 5 * 20, 255));
             return true;
         }
         return false;
