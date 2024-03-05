@@ -21,7 +21,7 @@ public class MagicWand extends CustomItem {
 
     @Override
     public @NotNull Component getName() {
-        return Component.text("Magic Wand").decoration(TextDecoration.ITALIC, false);
+        return createSimpleItemName("Magic Wand");
     }
 
     @Override

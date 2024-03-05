@@ -20,7 +20,7 @@ public class LightningWand extends CustomItem {
 
   @Override
   public @NotNull Component getName() {
-    return Component.text("Lightning Wand").decoration(TextDecoration.ITALIC, false);
+    return createSimpleItemName("Lightning Wand");
   }
 
   @Override

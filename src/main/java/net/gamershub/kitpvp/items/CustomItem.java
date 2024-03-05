@@ -162,5 +162,8 @@ public abstract class CustomItem implements Listener {
         itemStack.setItemMeta(itemMeta);
     }
 
+    protected Component createSimpleItemName(String name) {
+        return Component.text(name).decoration(TextDecoration.ITALIC, false);
+    }
 
 }

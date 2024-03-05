@@ -4,7 +4,6 @@ import net.gamershub.kitpvp.abilities.Ability;
 import net.gamershub.kitpvp.abilities.AbilityHandler;
 import net.gamershub.kitpvp.items.CustomItem;
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -16,12 +15,12 @@ import java.util.List;
 
 public class CreeperLeggings extends CustomItem {
     public CreeperLeggings() {
-        super(Material.LEATHER_LEGGINGS, "Creeper Leggings", false);
+        super(Material.LEATHER_LEGGINGS, "creeper_leggings", false);
     }
 
     @Override
     public @NotNull Component getName() {
-        return Component.text("Creeper Leggings").decoration(TextDecoration.ITALIC, false);
+        return createSimpleItemName("Creeper Leggings");
     }
 
 

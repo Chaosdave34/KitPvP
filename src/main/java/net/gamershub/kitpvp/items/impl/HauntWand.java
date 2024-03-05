@@ -18,7 +18,7 @@ public class HauntWand extends CustomItem {
 
     @Override
     public @NotNull Component getName() {
-        return Component.text("Haunt Wand").decoration(TextDecoration.ITALIC, false);
+        return createSimpleItemName("Haunt Wand");
     }
 
     @Override

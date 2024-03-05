@@ -19,7 +19,7 @@ public class FireballWand extends CustomItem {
 
     @Override
     public @NotNull Component getName() {
-        return Component.text("Fireball Wand").decoration(TextDecoration.ITALIC, false);
+        return createSimpleItemName("Fireball Wand");
     }
 
     @Override

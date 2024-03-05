@@ -4,7 +4,6 @@ import net.gamershub.kitpvp.abilities.Ability;
 import net.gamershub.kitpvp.abilities.AbilityHandler;
 import net.gamershub.kitpvp.items.CustomItem;
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.jetbrains.annotations.NotNull;
 
@@ -17,7 +16,7 @@ public class TrapWand extends CustomItem {
 
     @Override
     public @NotNull Component getName() {
-        return Component.text("Trap Wand").decoration(TextDecoration.ITALIC, false);
+        return createSimpleItemName("Trap Wand");
     }
 
     @Override

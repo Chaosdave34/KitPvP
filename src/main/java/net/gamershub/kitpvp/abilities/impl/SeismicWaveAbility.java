@@ -9,6 +9,7 @@ import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.entity.BlockDisplay;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
@@ -16,6 +17,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Transformation;
+import org.bukkit.util.Vector;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
@@ -25,7 +27,7 @@ import java.util.List;
 
 public class SeismicWaveAbility extends Ability {
     public SeismicWaveAbility() {
-        super("seismic_wave", "Seismic Wave", AbilityType.RIGHT_CLICK, 30);
+        super("seismic_wave", "Seismic Wave", AbilityType.SNEAK, 1);
     }
 
     @Override
@@ -38,6 +40,8 @@ public class SeismicWaveAbility extends Ability {
 
     @Override
     public boolean onAbility(Player p) {
+        if (p.isOnGround()) return false;
+
         Location location = p.getLocation().toBlockLocation();
 
         Location circle0Location = location.clone();
@@ -135,12 +139,16 @@ public class SeismicWaveAbility extends Ability {
 
                 i++;
             }
-        }.runTaskTimer(KitPvpPlugin.INSTANCE, 0, 1);
+        }.runTaskTimer(KitPvpPlugin.INSTANCE, 10, 1);
+
+        p.playSound(location, Sound.ENTITY_GENERIC_BIG_FALL, 1, 0.1f);
+        p.setVelocity(p.getVelocity().add(new Vector(0, -2, 0)));
 
         p.getNearbyEntities(3, 3, 3).forEach(target -> {
             if (target instanceof Player targetPlayer) {
                 p.knockback(5, p.getX(), p.getZ());
                 targetPlayer.damage(6, p);
+                targetPlayer.playSound(location, Sound.ENTITY_GENERIC_BIG_FALL, 1, 0.1f);
             }
         });
 

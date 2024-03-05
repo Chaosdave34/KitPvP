@@ -5,8 +5,6 @@ import net.gamershub.kitpvp.abilities.AbilityHandler;
 import net.gamershub.kitpvp.enchantments.EnchantmentHandler;
 import net.gamershub.kitpvp.items.CustomItem;
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.NamedTextColor;
-import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
@@ -21,7 +19,7 @@ public class VampireSword extends CustomItem {
 
     @Override
     public @NotNull Component getName() {
-        return Component.text("Vampire Sword", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false);
+        return createSimpleItemName("Vampire Sword");
     }
 
     @Override
