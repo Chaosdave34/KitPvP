@@ -98,7 +98,7 @@ public abstract class CustomItem implements Listener {
         List<Component> enchantmentLore = new ArrayList<>();
 
         for (Map.Entry<Enchantment, Integer> enchantment : itemStack.getEnchantments().entrySet()) {
-            Component component = enchantment.getKey().displayName(enchantment.getValue()).color(NamedTextColor.BLUE).decoration(TextDecoration.ITALIC, false);
+            Component component = enchantment.getKey().displayName(enchantment.getValue()).decoration(TextDecoration.ITALIC, false);
             enchantmentLore.add(component);
         }
 
