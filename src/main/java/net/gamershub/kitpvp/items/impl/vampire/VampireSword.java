@@ -2,7 +2,7 @@ package net.gamershub.kitpvp.items.impl.vampire;
 
 import net.gamershub.kitpvp.abilities.Ability;
 import net.gamershub.kitpvp.abilities.AbilityHandler;
-import net.gamershub.kitpvp.enchantments.EnchantmentHandler;
+import net.gamershub.kitpvp.enchantments.CustomEnchantmentHandler;
 import net.gamershub.kitpvp.items.CustomItem;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
@@ -29,7 +29,7 @@ public class VampireSword extends CustomItem {
 
     @Override
     protected void additionalModifications(ItemStack itemStack) {
-        itemStack.addEnchantment(EnchantmentHandler.LIFE_STEAL, 4);
+        itemStack.addEnchantment(CustomEnchantmentHandler.LIFE_STEAL, 4);
         setCustomModelData(itemStack, 1);
     }
 }

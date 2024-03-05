@@ -33,7 +33,7 @@ public class AssassinKit extends Kit {
     @Override
     public ItemStack[] getInventoryContent() {
         return new ItemStack[]{
-                new ItemStack(Material.IRON_SWORD),
+                CustomItemHandler.ASSASSIN_SWORD.build(1),
                 CustomItemHandler.HAUNT_WAND.build(1),
                 new ItemStack(Material.WATER_BUCKET),
         };

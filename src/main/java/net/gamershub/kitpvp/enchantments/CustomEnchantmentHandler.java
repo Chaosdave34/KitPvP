@@ -3,6 +3,7 @@ package net.gamershub.kitpvp.enchantments;
 import lombok.Getter;
 import net.gamershub.kitpvp.KitPvpPlugin;
 import net.gamershub.kitpvp.Utils;
+import net.gamershub.kitpvp.enchantments.impl.BackstabEnchantment;
 import net.gamershub.kitpvp.enchantments.impl.FreezeEnchantment;
 import net.gamershub.kitpvp.enchantments.impl.LifeStealEnchantment;
 import net.minecraft.core.Registry;
@@ -15,15 +16,17 @@ import java.lang.reflect.Field;
 import java.util.IdentityHashMap;
 
 @Getter
-public class EnchantmentHandler implements Listener {
+public class CustomEnchantmentHandler implements Listener {
     public static Enchantment FREEZE;
     public static Enchantment LIFE_STEAL;
+    public static Enchantment BACKSTAB;
 
-    public EnchantmentHandler() {
+    public CustomEnchantmentHandler() {
         enableRegistering();
 
         FREEZE = registerEnchantment(new FreezeEnchantment());
         LIFE_STEAL = registerEnchantment(new LifeStealEnchantment());
+        BACKSTAB = registerEnchantment(new BackstabEnchantment());
 
         disableRegistering();
     }
