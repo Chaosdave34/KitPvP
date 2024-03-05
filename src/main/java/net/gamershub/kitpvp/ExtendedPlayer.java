@@ -85,6 +85,8 @@ public class ExtendedPlayer {
         p.setFireTicks(0);
         p.setFreezeTicks(0);
 
+        killSteak = 0;
+
         gameState = GameState.SPAWN;
 
         if (scoreboard == null) {
