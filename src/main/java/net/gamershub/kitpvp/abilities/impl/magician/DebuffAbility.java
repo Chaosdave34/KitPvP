@@ -1,4 +1,4 @@
-package net.gamershub.kitpvp.abilities.impl;
+package net.gamershub.kitpvp.abilities.impl.magician;
 
 import net.gamershub.kitpvp.abilities.Ability;
 import net.gamershub.kitpvp.abilities.AbilityType;
@@ -15,7 +15,7 @@ import java.util.List;
 
 public class DebuffAbility extends Ability {
     public DebuffAbility() {
-        super("debuff", "Debuff", AbilityType.LEFT_CLICK, 5);
+        super("debuff", "Debuff", AbilityType.SNEAK_RIGHT_CLICK, 5);
     }
 
 
