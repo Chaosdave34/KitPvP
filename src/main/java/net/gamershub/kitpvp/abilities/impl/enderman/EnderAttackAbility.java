@@ -38,8 +38,8 @@ public class EnderAttackAbility extends Ability {
 
             p.teleport(target.getLocation().subtract(target.getLocation().getDirection()));
 
-            p.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 5, 1));
-            p.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 5, 1));
+            p.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 5 * 20, 1));
+            p.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 5 * 20, 1));
 
             return true;
         }
