@@ -1,4 +1,4 @@
-package net.gamershub.kitpvp.abilities.impl;
+package net.gamershub.kitpvp.abilities.impl.runner;
 
 import net.gamershub.kitpvp.abilities.Ability;
 import net.gamershub.kitpvp.abilities.AbilityType;
