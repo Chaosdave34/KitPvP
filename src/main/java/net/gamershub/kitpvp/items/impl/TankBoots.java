@@ -6,28 +6,22 @@ import net.gamershub.kitpvp.items.CustomItem;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
-import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public class TankAxe extends CustomItem {
-    public TankAxe() {
-        super(Material.IRON_AXE, "tank_axe", false);
+public class TankBoots extends CustomItem {
+    public TankBoots() {
+        super(Material.DIAMOND_BOOTS, "tank_boots", false);
     }
 
     @Override
     public @NotNull Component getName() {
-        return Component.text("Tank Axe").decoration(TextDecoration.ITALIC, false);
+        return Component.text("Tank Boots").decoration(TextDecoration.ITALIC, false);
     }
 
     @Override
     public @NotNull List<Ability> getAbilities() {
         return List.of(AbilityHandler.SEISMIC_WAVE);
-    }
-
-    @Override
-    protected void additionalModifications(ItemStack itemStack) {
-        setCustomModelData(itemStack, 1);
     }
 }

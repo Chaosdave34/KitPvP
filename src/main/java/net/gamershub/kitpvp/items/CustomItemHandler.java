@@ -27,7 +27,7 @@ public class CustomItemHandler {
     public static CustomItem ENDER_SWORD;
     public static CustomItem POSEIDONS_TRIDENT;
     public static CustomItem DEVILS_SWORD;
-    public static CustomItem TANK_SWORD;
+    public static CustomItem TANK_BOOTS;
 
     public CustomItemHandler() {
         FIREBALL = createItem(new FireballWand());
@@ -42,7 +42,7 @@ public class CustomItemHandler {
         ENDER_SWORD = createItem(new EnderSword());
         POSEIDONS_TRIDENT = createItem(new PoseidonsTrident());
         DEVILS_SWORD = createItem(new DevilsSword());
-        TANK_SWORD = createItem(new TankAxe());
+        TANK_BOOTS = createItem(new TankBoots());
     }
 
     private CustomItem createItem(CustomItem item) {

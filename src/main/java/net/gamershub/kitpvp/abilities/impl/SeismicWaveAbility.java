@@ -27,7 +27,7 @@ import java.util.List;
 
 public class SeismicWaveAbility extends Ability {
     public SeismicWaveAbility() {
-        super("seismic_wave", "Seismic Wave", AbilityType.SNEAK, 1);
+        super("seismic_wave", "Seismic Wave", AbilityType.SNEAK, 30);
     }
 
     @Override

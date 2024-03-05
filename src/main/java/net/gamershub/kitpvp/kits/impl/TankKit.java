@@ -64,7 +64,9 @@ public class TankKit extends Kit {
         ItemMeta diamondBootsMeta =  diamondBoots.getItemMeta();
         diamondBootsMeta.addAttributeModifier(Attribute.GENERIC_KNOCKBACK_RESISTANCE, new AttributeModifier(UUID.randomUUID(), "tank_kit", 0.1, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.FEET));
         diamondBoots.setItemMeta(diamondBootsMeta);
-        return diamondBoots;
+
+        return CustomItemHandler.TANK_BOOTS.build(1);
+        //return diamondBoots;
     }
 
     @Override
@@ -74,8 +76,11 @@ public class TankKit extends Kit {
 
     @Override
     public ItemStack[] getInventoryContent() {
+        ItemStack ironAxe = new ItemStack(Material.IRON_AXE);
+        setCustomModelData(ironAxe, 1);
+
         return new ItemStack[]{
-                CustomItemHandler.TANK_SWORD.build(1),
+                ironAxe,
                 new ItemStack(Material.WATER_BUCKET),
         };
     }
