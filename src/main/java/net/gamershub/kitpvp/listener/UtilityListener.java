@@ -28,7 +28,7 @@ public class UtilityListener implements Listener {
         Component message = Component.text(p.getName() + " joined the party!", NamedTextColor.DARK_GRAY);
         e.joinMessage(message);
 
-        p.addResourcePack(UUID.randomUUID(), "https://vmd74965.contaboserver.net:8000/kitpvp.zip", HexFormat.of().parseHex("3cdfb428af81c083af7f23dfd387ee8b539a3c8a"), "FETT", false);
+        p.addResourcePack(UUID.fromString("9d309ee5-fcd8-4636-85cf-becfe3489018"), "https://vmd74965.contaboserver.net:8000/kitpvp.zip", HexFormat.of().parseHex("3cdfb428af81c083af7f23dfd387ee8b539a3c8a"), "FETT", false);
 
         KitPvpPlugin.INSTANCE.createExtendedPlayer(p);
 
