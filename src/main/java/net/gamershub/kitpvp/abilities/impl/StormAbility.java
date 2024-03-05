@@ -22,6 +22,7 @@ public class StormAbility extends Ability {
 
     @Override
     public boolean onAbility(Player p) {
+        p.getWorld().setStorm(true);
         p.getWorld().setThundering(true);
         p.getWorld().setThunderDuration(600);
         return true;
