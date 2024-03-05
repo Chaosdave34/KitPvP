@@ -1,4 +1,4 @@
-package net.gamershub.kitpvp.abilities.impl;
+package net.gamershub.kitpvp.abilities.impl.tank;
 
 import net.gamershub.kitpvp.KitPvpPlugin;
 import net.gamershub.kitpvp.Utils;
@@ -33,13 +33,14 @@ public class SeismicWaveAbility extends Ability {
     @Override
     public @NotNull List<Component> getDescription() {
         return List.of(
-                Component.text("Create a seismic wave that damages", NamedTextColor.GRAY).decoration(TextDecoration.ITALIC, false),
-                Component.text("players and knocks them away.", NamedTextColor.GRAY).decoration(TextDecoration.ITALIC, false)
+                Component.text("If in air create a seismic wave that", NamedTextColor.GRAY).decoration(TextDecoration.ITALIC, false),
+                Component.text("damages players and knocks them away.", NamedTextColor.GRAY).decoration(TextDecoration.ITALIC, false)
         );
     }
 
     @Override
     public boolean onAbility(Player p) {
+        //noinspection deprecation
         if (p.isOnGround()) return false;
 
         Location location = p.getLocation().toBlockLocation();
@@ -157,12 +158,10 @@ public class SeismicWaveAbility extends Ability {
     }
 
     private void spawnCircleLocation(Location location, List<Location> circle1Locations, List<Entity> circle1) {
-        circle1Locations.forEach(location1 -> {
-            location.getWorld().spawnEntity(location1.clone().add(0, 1, 0), EntityType.BLOCK_DISPLAY, CreatureSpawnEvent.SpawnReason.CUSTOM, block_display -> {
-                ((BlockDisplay) block_display).setBlock(location1.getBlock().getBlockData());
-                ((BlockDisplay) block_display).setTransformation(new Transformation(new Vector3f(0, -1, 0), new Quaternionf(0, 0, 0, 1), new Vector3f(1.01f, 1.01f, 1.01f), new Quaternionf(0, 0, 0, 1)));
-                circle1.add(block_display);
-            });
-        });
+        circle1Locations.forEach(location1 -> location.getWorld().spawnEntity(location1.clone().add(0, 1, 0), EntityType.BLOCK_DISPLAY, CreatureSpawnEvent.SpawnReason.CUSTOM, block_display -> {
+            ((BlockDisplay) block_display).setBlock(location1.getBlock().getBlockData());
+            ((BlockDisplay) block_display).setTransformation(new Transformation(new Vector3f(0, -1, 0), new Quaternionf(0, 0, 0, 1), new Vector3f(1.01f, 1.01f, 1.01f), new Quaternionf(0, 0, 0, 1)));
+            circle1.add(block_display);
+        }));
     }
 }

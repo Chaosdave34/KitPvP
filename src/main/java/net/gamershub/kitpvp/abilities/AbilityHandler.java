@@ -4,6 +4,8 @@ import net.gamershub.kitpvp.ExtendedPlayer;
 import net.gamershub.kitpvp.KitPvpPlugin;
 import net.gamershub.kitpvp.abilities.impl.creeper.ExplodeAbility;
 import net.gamershub.kitpvp.abilities.impl.creeper.FireballAbility;
+import net.gamershub.kitpvp.abilities.impl.tank.FortifyAbility;
+import net.gamershub.kitpvp.abilities.impl.tank.SeismicWaveAbility;
 import net.gamershub.kitpvp.persistentdatatype.StringArrayPersistentDataType;
 import net.gamershub.kitpvp.Utils;
 import net.gamershub.kitpvp.abilities.impl.*;
@@ -39,6 +41,7 @@ public class AbilityHandler implements Listener {
     public static Ability ENDER_ATTACK;
     public static Ability STORM;
     public static Ability SEISMIC_WAVE;
+    public static Ability FORTIFY;
 
     public AbilityHandler() {
         FIREBALL = registerAbility(new FireballAbility());
@@ -56,6 +59,7 @@ public class AbilityHandler implements Listener {
         ENDER_ATTACK = registerAbility(new EnderAttackAbility());
         STORM = registerAbility(new StormAbility());
         SEISMIC_WAVE = registerAbility(new SeismicWaveAbility());
+        FORTIFY = registerAbility(new FortifyAbility());
     }
 
     public Ability registerAbility(Ability ability) {

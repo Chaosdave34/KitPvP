@@ -23,50 +23,59 @@ public class TankKit extends Kit {
     }
 
     @Override
-    public double getMovementSpeed() {
-        return 0.05;
-    }
-
-    @Override
     public ItemStack getHeadContent() {
-        ItemStack diamondHelmet = new ItemStack(Material.DIAMOND_HELMET);
-        diamondHelmet.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 1);
-        ItemMeta diamondHelmetMeta =  diamondHelmet.getItemMeta();
-        diamondHelmetMeta.addAttributeModifier(Attribute.GENERIC_KNOCKBACK_RESISTANCE, new AttributeModifier(UUID.randomUUID(), "tank_kit", 0.1, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HEAD));
-        diamondHelmet.setItemMeta(diamondHelmetMeta);
-        return diamondHelmet;
+        return  new ItemStack(Material.DIAMOND_HELMET);
     }
 
     @Override
     public ItemStack getChestContent() {
-        ItemStack diamondChestplate = new ItemStack(Material.DIAMOND_CHESTPLATE);
-        diamondChestplate.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 1);
-        ItemMeta diamondChestplateMeta =  diamondChestplate.getItemMeta();
-        diamondChestplateMeta.addAttributeModifier(Attribute.GENERIC_KNOCKBACK_RESISTANCE, new AttributeModifier(UUID.randomUUID(), "tank_kit", 0.1, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.CHEST));
-        diamondChestplate.setItemMeta(diamondChestplateMeta);
-        return diamondChestplate;
+        return new ItemStack(Material.DIAMOND_CHESTPLATE);
     }
 
     @Override
     public ItemStack getLegsContent() {
-        ItemStack diamondLeggings = new ItemStack(Material.DIAMOND_LEGGINGS);
-        diamondLeggings.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 1);
-        ItemMeta diamondLeggingsMeta =  diamondLeggings.getItemMeta();
-        diamondLeggingsMeta.addAttributeModifier(Attribute.GENERIC_KNOCKBACK_RESISTANCE, new AttributeModifier(UUID.randomUUID(), "tank_kit", 0.1, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.LEGS));
-        diamondLeggings.setItemMeta(diamondLeggingsMeta);
-        return diamondLeggings;
+        return new ItemStack(Material.DIAMOND_LEGGINGS);
     }
 
     @Override
     public ItemStack getFeetContent() {
-        ItemStack diamondBoots = new ItemStack(Material.DIAMOND_BOOTS);
-        diamondBoots.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 1);
-        ItemMeta diamondBootsMeta =  diamondBoots.getItemMeta();
-        diamondBootsMeta.addAttributeModifier(Attribute.GENERIC_KNOCKBACK_RESISTANCE, new AttributeModifier(UUID.randomUUID(), "tank_kit", 0.1, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.FEET));
-        diamondBoots.setItemMeta(diamondBootsMeta);
-
         return CustomItemHandler.TANK_BOOTS.build(1);
-        //return diamondBoots;
+    }
+
+    public ItemStack getFortifiedHeadContent() {
+        ItemStack netheriteHelmet = new ItemStack(Material.NETHERITE_HELMET);
+        netheriteHelmet.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 1);
+        ItemMeta netheriteHelmetMeta =  netheriteHelmet.getItemMeta();
+        netheriteHelmetMeta.addAttributeModifier(Attribute.GENERIC_KNOCKBACK_RESISTANCE, new AttributeModifier(UUID.randomUUID(), "tank_kit", 0.1, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HEAD));
+        netheriteHelmet.setItemMeta(netheriteHelmetMeta);
+        return netheriteHelmet;
+    }
+
+    public ItemStack getFortifiedChestContent() {
+        ItemStack netheriteChestplate = new ItemStack(Material.NETHERITE_CHESTPLATE);
+        netheriteChestplate.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 1);
+        ItemMeta netheriteChestplateMeta =  netheriteChestplate.getItemMeta();
+        netheriteChestplateMeta.addAttributeModifier(Attribute.GENERIC_KNOCKBACK_RESISTANCE, new AttributeModifier(UUID.randomUUID(), "tank_kit", 0.1, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.CHEST));
+        netheriteChestplate.setItemMeta(netheriteChestplateMeta);
+        return netheriteChestplate;
+    }
+
+    public ItemStack getFortifiedLegsContent() {
+        ItemStack netheriteLeggings = new ItemStack(Material.NETHERITE_LEGGINGS);
+        netheriteLeggings.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 1);
+        ItemMeta netheriteLeggingsMeta =  netheriteLeggings.getItemMeta();
+        netheriteLeggingsMeta.addAttributeModifier(Attribute.GENERIC_KNOCKBACK_RESISTANCE, new AttributeModifier(UUID.randomUUID(), "tank_kit", 0.1, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.LEGS));
+        netheriteLeggings.setItemMeta(netheriteLeggingsMeta);
+        return netheriteLeggings;
+    }
+
+    public ItemStack getFortifiedFeetContent() {
+        ItemStack netheriteBoots = new ItemStack(Material.NETHERITE_BOOTS);
+        netheriteBoots.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 1);
+        ItemMeta netheriteBootsMeta =  netheriteBoots.getItemMeta();
+        netheriteBootsMeta.addAttributeModifier(Attribute.GENERIC_KNOCKBACK_RESISTANCE, new AttributeModifier(UUID.randomUUID(), "tank_kit", 0.1, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.FEET));
+        netheriteBoots.setItemMeta(netheriteBootsMeta);
+        return netheriteBoots;
     }
 
     @Override
@@ -76,11 +85,8 @@ public class TankKit extends Kit {
 
     @Override
     public ItemStack[] getInventoryContent() {
-        ItemStack ironAxe = new ItemStack(Material.IRON_AXE);
-        setCustomModelData(ironAxe, 1);
-
         return new ItemStack[]{
-                ironAxe,
+                CustomItemHandler.TANK_AXE.build(1),
                 new ItemStack(Material.WATER_BUCKET),
         };
     }
