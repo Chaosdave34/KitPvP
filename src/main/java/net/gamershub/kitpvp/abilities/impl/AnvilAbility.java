@@ -9,7 +9,12 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
+import org.bukkit.entity.EntityType;
+import org.bukkit.entity.FallingBlock;
 import org.bukkit.entity.Player;
+import org.bukkit.event.entity.CreatureSpawnEvent;
+import org.bukkit.metadata.FixedMetadataValue;
+import org.bukkit.util.Vector;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -36,7 +41,13 @@ public class AnvilAbility extends Ability {
             if (KitPvpPlugin.INSTANCE.getExtendedPlayer(target).getGameState() == ExtendedPlayer.GameState.SPAWN)
                 return false;
 
-            target.getLocation().add(0, 6, 0).getBlock().setType(Material.ANVIL);
+            p.getWorld().spawnEntity(p.getLocation().add(0, 6, 0), EntityType.FALLING_BLOCK, CreatureSpawnEvent.SpawnReason.CUSTOM, (entity) -> {
+                ((FallingBlock) entity).setBlockData(Material.ANVIL.createBlockData());
+
+                p.setVelocity(p.getEyeLocation().getDirection().multiply(2).setY(p.getVelocity().getY()).add(new Vector(0, 0.1, 0)));
+
+                entity.setMetadata("placed_by_player", new FixedMetadataValue(KitPvpPlugin.INSTANCE, true));
+            });
             return true;
         }
         return false;
