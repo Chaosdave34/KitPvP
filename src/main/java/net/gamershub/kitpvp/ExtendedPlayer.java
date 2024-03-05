@@ -278,6 +278,16 @@ public class ExtendedPlayer {
         combatCooldown = 5;
     }
 
+    public void killedPlayer(Player victim) {
+        incrementKillStreak();
+        incrementTotalKills();
+
+        ExtendedPlayer extendedTarget = KitPvpPlugin.INSTANCE.getExtendedPlayer(victim);
+        int xpReward = 10 + (int) (extendedTarget.getLevel() * 0.25);
+        addExperiencePoints(xpReward);
+        getPlayer().getInventory().addItem(getSelectedKit().getKillRewards());
+    }
+
     public enum GameState {
         SPAWN("§aIdle"),
         IN_GAME("§eActive"),

@@ -6,9 +6,7 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 import org.bukkit.Bukkit;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.Fireball;
 import org.bukkit.entity.LightningStrike;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -16,8 +14,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
-
-import java.util.UUID;
 
 public class GamePlayerDeathListener implements Listener {
     @EventHandler
@@ -46,13 +42,7 @@ public class GamePlayerDeathListener implements Listener {
                     if (damager instanceof LightningStrike lightningStrike) {
                         if (lightningStrike.getCausingPlayer() != null) {
                             message = name + " was killed by " + lightningStrike.getCausingPlayer().getName() + " with lightning";
-                        }
-                    }
-                    // Fireball
-                    if (damager instanceof Fireball fireball) {
-                        if (fireball.hasMetadata("shot_by_player")) {
-                            OfflinePlayer shooter = Bukkit.getOfflinePlayer((UUID) fireball.getMetadata("shot_by_player").get(0).value());
-                            message = name + " was blown up by " + shooter.getName();
+                            KitPvpPlugin.INSTANCE.getExtendedPlayer(lightningStrike.getCausingPlayer()).killedPlayer(p);
                         }
                     }
                 }

@@ -36,7 +36,6 @@ public class FireballAbility extends Ability {
             fireball.setYield(2);
             fireball.setShooter(p);
             fireball.setMetadata("ability", new FixedMetadataValue(KitPvpPlugin.INSTANCE, id));
-            fireball.setMetadata("shot_by_player", new FixedMetadataValue(KitPvpPlugin.INSTANCE, p.getUniqueId()));
         });
         return true;
     }
