@@ -1,5 +1,6 @@
 package net.gamershub.kitpvp.kits.impl;
 
+import net.gamershub.kitpvp.items.CustomItemHandler;
 import net.gamershub.kitpvp.kits.Kit;
 import org.bukkit.Color;
 import org.bukkit.FireworkEffect;
@@ -24,11 +25,7 @@ public class CrossbowKit extends Kit {
 
     @Override
     public ItemStack getChestContent() {
-        ItemStack leatherChestplate = new ItemStack(Material.LEATHER_CHESTPLATE);
-        leatherChestplate.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2);
-        leatherChestplate.addUnsafeEnchantment(Enchantment.PROTECTION_EXPLOSIONS, 4);
-        setLeatherArmorColor(leatherChestplate, Color.NAVY);
-        return leatherChestplate;
+        return CustomItemHandler.JETPACK.build();
     }
 
     @Override
