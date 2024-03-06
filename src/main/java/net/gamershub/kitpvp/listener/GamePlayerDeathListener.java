@@ -20,6 +20,7 @@ public class GamePlayerDeathListener implements Listener {
     public void onDeath(PlayerDeathEvent e) {
         Player p = e.getPlayer();
         ExtendedPlayer extendedPlayer = KitPvpPlugin.INSTANCE.getExtendedPlayer(p);
+        e.setKeepInventory(true);
 
         if (extendedPlayer.getGameState() == ExtendedPlayer.GameState.IN_GAME) {
 

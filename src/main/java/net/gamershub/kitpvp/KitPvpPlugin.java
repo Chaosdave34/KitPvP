@@ -59,7 +59,6 @@ public final class KitPvpPlugin extends JavaPlugin {
         // Setup world
         World overworld = getServer().getWorld("world");
         if (overworld != null) {
-            overworld.setGameRule(GameRule.KEEP_INVENTORY, true);
             overworld.setGameRule(GameRule.DO_MOB_SPAWNING, false);
         }
 
