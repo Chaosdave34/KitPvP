@@ -47,6 +47,9 @@ public class ExtendedPlayer {
 
     private int experiencePoints;
 
+    private String projectileTrailId;
+    private String killEffectId;
+
     public ExtendedPlayer(Player p) {
         uuid = p.getUniqueId();
         gameState = GameState.SPAWN;

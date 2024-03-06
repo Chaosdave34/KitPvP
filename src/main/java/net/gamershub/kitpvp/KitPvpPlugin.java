@@ -3,6 +3,7 @@ package net.gamershub.kitpvp;
 import lombok.Getter;
 import net.gamershub.kitpvp.abilities.AbilityHandler;
 import net.gamershub.kitpvp.commands.*;
+import net.gamershub.kitpvp.cosmetics.CosmeticHandler;
 import net.gamershub.kitpvp.enchantments.CustomEnchantmentHandler;
 import net.gamershub.kitpvp.fakeplayer.FakePlayerHandler;
 import net.gamershub.kitpvp.gui.GuiHandler;
@@ -42,19 +43,21 @@ public final class KitPvpPlugin extends JavaPlugin {
     private KitHandler kitHandler;
     private FakePlayerHandler fakePlayerHandler;
     private TextDisplayHandler textDisplayHandler;
+    private CosmeticHandler cosmeticHandler;
 
     @SuppressWarnings({"DataFlowIssue", "ResultOfMethodCallIgnored"})
     @Override
     public void onEnable() {
         INSTANCE = this;
 
-        guiHandler = new GuiHandler();
         customEnchantmentHandler = new CustomEnchantmentHandler();
         abilityHandler = new AbilityHandler();
         customItemHandler = new CustomItemHandler();
         kitHandler = new KitHandler();
         fakePlayerHandler = new FakePlayerHandler();
         textDisplayHandler = new TextDisplayHandler();
+        cosmeticHandler = new CosmeticHandler();
+        guiHandler = new GuiHandler();
 
         // Setup world
         World overworld = getServer().getWorld("world");
@@ -70,10 +73,11 @@ public final class KitPvpPlugin extends JavaPlugin {
         pluginManager.registerEvents(new SpawnListener(), this);
         pluginManager.registerEvents(new GameListener(), this);
         pluginManager.registerEvents(new GamePlayerDeathListener(), this);
-        pluginManager.registerEvents(guiHandler, this);
         pluginManager.registerEvents(customEnchantmentHandler, this);
         pluginManager.registerEvents(abilityHandler, this);
         pluginManager.registerEvents(fakePlayerHandler, this);
+        pluginManager.registerEvents(cosmeticHandler, this);
+        pluginManager.registerEvents(guiHandler, this);
 
         // Registering Commands
         getCommand("spawn").setExecutor(new SpawnCommand());

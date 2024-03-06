@@ -36,9 +36,9 @@ public class SeismicWaveAbility extends Ability {
         );
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public boolean onAbility(Player p) {
-        //noinspection deprecation
         if (p.isOnGround()) return false;
 
         Location location = p.getLocation().toBlockLocation();
