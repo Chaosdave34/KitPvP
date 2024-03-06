@@ -1,7 +1,7 @@
 package net.gamershub.kitpvp.enchantments.impl;
 
 import net.gamershub.kitpvp.enchantments.CustomEnchantment;
-import net.gamershub.kitpvp.enchantments.EnchantmentHandler;
+import net.gamershub.kitpvp.enchantments.CustomEnchantmentHandler;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.enchantment.EnchantmentCategory;
 import org.bukkit.entity.LivingEntity;
@@ -23,8 +23,8 @@ public class FreezeEnchantment extends CustomEnchantment {
         if (e.getCause() == EntityDamageEvent.DamageCause.ENTITY_ATTACK) {
             if (e.getDamager() instanceof Player damager) {
                 ItemStack itemStack = damager.getInventory().getItemInMainHand();
-                if (itemStack.containsEnchantment(EnchantmentHandler.FREEZE)) {
-                    int lvl = itemStack.getEnchantmentLevel(EnchantmentHandler.FREEZE);
+                if (itemStack.containsEnchantment(CustomEnchantmentHandler.FREEZE)) {
+                    int lvl = itemStack.getEnchantmentLevel(CustomEnchantmentHandler.FREEZE);
                     if (e.getEntity() instanceof LivingEntity entity) {
                         entity.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, lvl * 20, 1, false, false));
                     }

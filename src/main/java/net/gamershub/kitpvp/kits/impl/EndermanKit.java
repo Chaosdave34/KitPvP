@@ -51,7 +51,7 @@ public class EndermanKit extends Kit {
     @Override
     public ItemStack[] getInventoryContent() {
         return new ItemStack[]{
-                CustomItemHandler.ENDER_SWORD.build(1),
+                CustomItemHandler.ENDER_SWORD.build(),
         };
     }
 

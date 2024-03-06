@@ -23,7 +23,6 @@ public class KitSelectorFakePlayer extends FakePlayer {
         equipment.put(EquipmentSlot.FEET, kit.getFeetContent());
         equipment.put(EquipmentSlot.HAND, kit.getInventoryContent()[0]);
         equipment.put(EquipmentSlot.OFF_HAND, kit.getOffhandContent());
-
     }
 
     @Override

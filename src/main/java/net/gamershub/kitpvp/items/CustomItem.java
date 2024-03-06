@@ -56,6 +56,10 @@ public abstract class CustomItem implements Listener {
         return Collections.emptyList();
     }
 
+    public ItemStack build() {
+        return build(1);
+    }
+
     public ItemStack build(int count) {
         ItemStack itemStack = new ItemStack(material, count);
         ItemMeta itemMeta = itemStack.getItemMeta();
@@ -94,7 +98,7 @@ public abstract class CustomItem implements Listener {
         List<Component> enchantmentLore = new ArrayList<>();
 
         for (Map.Entry<Enchantment, Integer> enchantment : itemStack.getEnchantments().entrySet()) {
-            Component component = enchantment.getKey().displayName(enchantment.getValue()).color(NamedTextColor.BLUE).decoration(TextDecoration.ITALIC, false);
+            Component component = enchantment.getKey().displayName(enchantment.getValue()).decoration(TextDecoration.ITALIC, false);
             enchantmentLore.add(component);
         }
 
@@ -164,6 +168,13 @@ public abstract class CustomItem implements Listener {
 
     protected Component createSimpleItemName(String name) {
         return Component.text(name).decoration(TextDecoration.ITALIC, false);
+    }
+
+    protected List<Component> createSimpleDescription(String... lines) {
+        List<Component> componentList = new ArrayList<>();
+        for (String line : lines)
+            componentList.add(Component.text(line, NamedTextColor.GRAY).decoration(TextDecoration.ITALIC, false));
+        return componentList;
     }
 
 }

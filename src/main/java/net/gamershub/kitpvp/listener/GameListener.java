@@ -3,7 +3,6 @@ package net.gamershub.kitpvp.listener;
 import io.papermc.paper.event.entity.EntityMoveEvent;
 import net.gamershub.kitpvp.ExtendedPlayer;
 import net.gamershub.kitpvp.KitPvpPlugin;
-import net.gamershub.kitpvp.kits.KitHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -109,11 +108,6 @@ public class GameListener implements Listener {
                 fallingBlock.setMetadata("placed_by_player", new FixedMetadataValue(KitPvpPlugin.INSTANCE, true));
                 blocksToRemove.remove(block.getLocation());
             }
-
-            if (fallingBlock.getBlockData().getMaterial() == Material.ANVIL) {
-                block.setMetadata("placed_by_player", new FixedMetadataValue(KitPvpPlugin.INSTANCE, true));
-                blocksToRemove.put(block.getLocation(), System.currentTimeMillis());
-            }
         }
     }
 
@@ -169,17 +163,7 @@ public class GameListener implements Listener {
             if (damageByEntityEvent.getDamager() instanceof Player damager) {
                 ExtendedPlayer extendedDamager = KitPvpPlugin.INSTANCE.getExtendedPlayer(damager);
                 if (extendedDamager.getGameState() == ExtendedPlayer.GameState.IN_GAME) {
-                    extendedDamager.incrementKillStreak();
-                    extendedDamager.incrementTotalKills();
-
-                    ExtendedPlayer extendedTarget = KitPvpPlugin.INSTANCE.getExtendedPlayer(e.getPlayer());
-
-                    int xpReward = 10 + (int) (extendedTarget.getLevel() * 0.25);
-
-                    extendedDamager.addExperiencePoints(xpReward);
-
-                    damager.getInventory().addItem(extendedDamager.getSelectedKit().getKillRewards());
-
+                   extendedDamager.killedPlayer(e.getEntity());
                 }
             }
         }
@@ -233,17 +217,8 @@ public class GameListener implements Listener {
     public void onDealDamage(EntityDamageByEntityEvent e) {
         if (e.getDamager() instanceof Player damager) {
             ExtendedPlayer extendedDamager = KitPvpPlugin.INSTANCE.getExtendedPlayer(damager);
-
-            // Enter combat
             if (extendedDamager.getGameState() == ExtendedPlayer.GameState.IN_GAME) {
                 extendedDamager.enterCombat();
-            }
-
-            // AssassinKit passive: ambush
-            if (extendedDamager.getSelectedKit() == KitHandler.ASSASSIN) {
-                if (Math.abs(damager.getLocation().getDirection().angle(e.getEntity().getLocation().getDirection()) * 180 / Math.PI) < 30)
-                    e.setDamage(e.getDamage() * 2);
-
             }
         }
     }

@@ -1,26 +1,30 @@
 package net.gamershub.kitpvp.gui;
 
-import net.gamershub.kitpvp.gui.impl.KitTestGui;
-import org.bukkit.entity.Player;
+import lombok.Getter;
+import net.gamershub.kitpvp.KitPvpPlugin;
+import net.gamershub.kitpvp.gui.impl.CosmeticSubMenuGui;
+import net.gamershub.kitpvp.gui.impl.CosmeticsGui;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
+@Getter
 public class GuiHandler implements Listener {
     private final Map<UUID, Gui> openGuis = new HashMap<>();
 
-    public static Gui KIT_TEST;
+    public static Gui COSMETICS;
+    public static Gui PROJECTILE_TRAILS;
+    public static Gui KILL_EFFECTS;
 
     public GuiHandler() {
-        KIT_TEST = new KitTestGui();
-    }
-
-    public void openGui(Player p, Gui gui) {
-        p.openInventory(gui.build());
-        openGuis.put(p.getUniqueId(), gui);
+        COSMETICS = new CosmeticsGui();
+        PROJECTILE_TRAILS = new CosmeticSubMenuGui("Projectile Trails", KitPvpPlugin.INSTANCE.getCosmeticHandler().getProjectileTrails().values());
+        KILL_EFFECTS = new CosmeticSubMenuGui("Kill Effects", KitPvpPlugin.INSTANCE.getCosmeticHandler().getKillEffects().values());
     }
 
     @EventHandler

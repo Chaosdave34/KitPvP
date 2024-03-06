@@ -9,6 +9,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.craftbukkit.v1_20_R3.entity.CraftPlayer;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.util.Vector;
@@ -115,8 +116,8 @@ public class Utils {
     }
 
     @Nullable
-    public static <T extends Entity> T getTargetEntity(Player p, int radius, Class<T> type, boolean ignoreBlocks) {
-        @NotNull List<Entity> entities = p.getNearbyEntities(radius, radius, radius);
+    public static <T extends Entity> T getTargetEntity(LivingEntity livingEntity, int radius, Class<T> type, boolean ignoreBlocks) {
+        @NotNull List<Entity> entities = livingEntity.getNearbyEntities(radius, radius, radius);
         for (Entity entity : entities) {
 
             // Check for type
@@ -124,14 +125,14 @@ public class Utils {
             T target = type.cast(entity);
 
             // Check if blocks
-            if (!ignoreBlocks && !p.hasLineOfSight(target)) return null;
+            if (!ignoreBlocks && !livingEntity.hasLineOfSight(target)) return null;
 
             // Check for radius
-            if (target.getLocation().subtract(p.getLocation()).toVector().length() > radius) return null;
+            if (target.getLocation().subtract(livingEntity.getLocation()).toVector().length() > radius) return null;
 
             // Check if looking at
-            Vector playerLookVector = p.getEyeLocation().getDirection();
-            Vector targetLocationVector = target.getLocation().subtract(p.getLocation()).toVector();
+            Vector playerLookVector = livingEntity.getEyeLocation().getDirection();
+            Vector targetLocationVector = target.getLocation().subtract(livingEntity.getLocation()).toVector();
 
 
             if (playerLookVector.angle(targetLocationVector) < 0.2) {

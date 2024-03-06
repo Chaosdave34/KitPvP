@@ -3,7 +3,8 @@ package net.gamershub.kitpvp;
 import lombok.Getter;
 import net.gamershub.kitpvp.abilities.AbilityHandler;
 import net.gamershub.kitpvp.commands.*;
-import net.gamershub.kitpvp.enchantments.EnchantmentHandler;
+import net.gamershub.kitpvp.cosmetics.CosmeticHandler;
+import net.gamershub.kitpvp.enchantments.CustomEnchantmentHandler;
 import net.gamershub.kitpvp.fakeplayer.FakePlayerHandler;
 import net.gamershub.kitpvp.gui.GuiHandler;
 import net.gamershub.kitpvp.items.CustomItemHandler;
@@ -36,30 +37,31 @@ public final class KitPvpPlugin extends JavaPlugin {
     private final Map<UUID, Integer> highestLevels = new HashMap<>();
 
     private GuiHandler guiHandler;
-    private EnchantmentHandler enchantmentHandler;
+    private CustomEnchantmentHandler customEnchantmentHandler;
     private AbilityHandler abilityHandler;
     private CustomItemHandler customItemHandler;
     private KitHandler kitHandler;
     private FakePlayerHandler fakePlayerHandler;
     private TextDisplayHandler textDisplayHandler;
+    private CosmeticHandler cosmeticHandler;
 
-    @SuppressWarnings("DataFlowIssue")
+    @SuppressWarnings({"DataFlowIssue", "ResultOfMethodCallIgnored"})
     @Override
     public void onEnable() {
         INSTANCE = this;
 
-        guiHandler = new GuiHandler();
-        enchantmentHandler = new EnchantmentHandler();
+        customEnchantmentHandler = new CustomEnchantmentHandler();
         abilityHandler = new AbilityHandler();
         customItemHandler = new CustomItemHandler();
         kitHandler = new KitHandler();
         fakePlayerHandler = new FakePlayerHandler();
         textDisplayHandler = new TextDisplayHandler();
+        cosmeticHandler = new CosmeticHandler();
+        guiHandler = new GuiHandler();
 
         // Setup world
         World overworld = getServer().getWorld("world");
         if (overworld != null) {
-            overworld.setGameRule(GameRule.KEEP_INVENTORY, true);
             overworld.setGameRule(GameRule.DO_MOB_SPAWNING, false);
         }
 
@@ -71,10 +73,11 @@ public final class KitPvpPlugin extends JavaPlugin {
         pluginManager.registerEvents(new SpawnListener(), this);
         pluginManager.registerEvents(new GameListener(), this);
         pluginManager.registerEvents(new GamePlayerDeathListener(), this);
-        pluginManager.registerEvents(guiHandler, this);
-        pluginManager.registerEvents(enchantmentHandler, this);
+        pluginManager.registerEvents(customEnchantmentHandler, this);
         pluginManager.registerEvents(abilityHandler, this);
         pluginManager.registerEvents(fakePlayerHandler, this);
+        pluginManager.registerEvents(cosmeticHandler, this);
+        pluginManager.registerEvents(guiHandler, this);
 
         // Registering Commands
         getCommand("spawn").setExecutor(new SpawnCommand());

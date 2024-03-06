@@ -7,6 +7,7 @@ import com.mojang.datafixers.util.Pair;
 import io.netty.channel.embedded.EmbeddedChannel;
 import net.gamershub.kitpvp.KitPvpPlugin;
 import net.gamershub.kitpvp.Utils;
+import net.gamershub.kitpvp.fakeplayer.impl.CosmeticsFakePlayer;
 import net.gamershub.kitpvp.fakeplayer.impl.KitSelectorFakePlayer;
 import net.gamershub.kitpvp.kits.KitHandler;
 import net.minecraft.network.Connection;
@@ -63,6 +64,8 @@ public class FakePlayerHandler implements Listener {
     public static FakePlayer POSEIDON_KIT;
     public static FakePlayer DEVIL_KIT;
 
+    public static FakePlayer COSMETIC;
+
     public FakePlayerHandler() {
         World world = Bukkit.getWorld("world");
         CLASSIC_KIT = createFakePlayer(new KitSelectorFakePlayer(KitHandler.CLASSIC, new Location(world, 10.5, 100, 0.5, 90, 0)));
@@ -73,7 +76,6 @@ public class FakePlayerHandler implements Listener {
         CROSSBOW_KIT = createFakePlayer(new KitSelectorFakePlayer(KitHandler.CROSSBOW, new Location(world, 10.5, 100, -3.5, 90, 0)));
         RUNNER_KIT = createFakePlayer(new KitSelectorFakePlayer(KitHandler.ASSASSIN, new Location(world, 10.5, 100, -5.5, 90, 0)));
 
-
         TRAPPER_KIT = createFakePlayer(new KitSelectorFakePlayer(KitHandler.TRAPPER, new Location(world, -9.5, 100, 0.5, -90, 0)));
         MAGICIAN_KIT = createFakePlayer(new KitSelectorFakePlayer(KitHandler.MAGICIAN, new Location(world, -9.5, 100, 2.5, -90, 0)));
         VAMPIRE_KIT = createFakePlayer(new KitSelectorFakePlayer(KitHandler.VAMPIRE, new Location(world, -9.5, 100, 4.5, -90, 0)));
@@ -81,6 +83,8 @@ public class FakePlayerHandler implements Listener {
         ENDERMAN_KIT = createFakePlayer(new KitSelectorFakePlayer(KitHandler.ENDERMAN, new Location(world, -9.5, 100, -1.5, -90, 0)));
         POSEIDON_KIT = createFakePlayer(new KitSelectorFakePlayer(KitHandler.POSEIDON, new Location(world, -9.5, 100, -3.5, -90, 0)));
         DEVIL_KIT = createFakePlayer(new KitSelectorFakePlayer(KitHandler.DEVIL, new Location(world, -9.5, 100, -5.5, -90, 0)));
+
+        COSMETIC = createFakePlayer(new CosmeticsFakePlayer());
     }
 
     public FakePlayer createFakePlayer(FakePlayer fakePlayer) {
@@ -146,8 +150,10 @@ public class FakePlayerHandler implements Listener {
         for (Map.Entry<EquipmentSlot, ItemStack> entry : fakePlayer.getEquipment().entrySet()) {
             equipment.add(new Pair<>(CraftEquipmentSlot.getNMS(entry.getKey()), CraftItemStack.asNMSCopy(entry.getValue())));
         }
-        ClientboundSetEquipmentPacket equipmentPacket = new ClientboundSetEquipmentPacket(npc.getId(), equipment);
-        connection.send(equipmentPacket);
+        if (!equipment.isEmpty()) {
+            ClientboundSetEquipmentPacket equipmentPacket = new ClientboundSetEquipmentPacket(npc.getId(), equipment);
+            connection.send(equipmentPacket);
+        }
     }
 
     private FakePlayer getFakePlayerByID(int id) {

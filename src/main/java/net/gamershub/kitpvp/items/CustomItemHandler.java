@@ -28,7 +28,7 @@ public class CustomItemHandler {
     public static CustomItem DEVILS_SWORD;
     public static CustomItem TANK_BOOTS;
     public static CustomItem TANK_AXE;
-    public static CustomItem JETPACK;
+
     public CustomItemHandler() {
         FIREBALL = createItem(new FireballWand());
         LIGHTNING_WAND = createItem(new LightningWand());
@@ -44,7 +44,6 @@ public class CustomItemHandler {
         DEVILS_SWORD = createItem(new DevilsSword());
         TANK_BOOTS = createItem(new TankBoots());
         TANK_AXE = createItem(new TankAxe());
-        JETPACK = createItem(new Jetpack());
     }
 
     private CustomItem createItem(CustomItem item) {

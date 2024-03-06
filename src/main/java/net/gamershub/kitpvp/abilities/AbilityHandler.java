@@ -4,11 +4,23 @@ import net.gamershub.kitpvp.ExtendedPlayer;
 import net.gamershub.kitpvp.KitPvpPlugin;
 import net.gamershub.kitpvp.abilities.impl.creeper.ExplodeAbility;
 import net.gamershub.kitpvp.abilities.impl.creeper.FireballAbility;
+import net.gamershub.kitpvp.abilities.impl.enderman.EnderAttackAbility;
+import net.gamershub.kitpvp.abilities.impl.magician.DebuffAbility;
+import net.gamershub.kitpvp.abilities.impl.magician.LevitateAbility;
+import net.gamershub.kitpvp.abilities.impl.magician.MagicAttackAbility;
+import net.gamershub.kitpvp.abilities.impl.poseidon.StormAbility;
+import net.gamershub.kitpvp.abilities.impl.provoker.NukeAbility;
+import net.gamershub.kitpvp.abilities.impl.provoker.SpookAbility;
+import net.gamershub.kitpvp.abilities.impl.assassin.HauntAbility;
 import net.gamershub.kitpvp.abilities.impl.tank.FortifyAbility;
 import net.gamershub.kitpvp.abilities.impl.tank.SeismicWaveAbility;
+import net.gamershub.kitpvp.abilities.impl.trapper.AnvilAbility;
+import net.gamershub.kitpvp.abilities.impl.trapper.TrapAbility;
+import net.gamershub.kitpvp.abilities.impl.vampire.BatMorhpAbility;
+import net.gamershub.kitpvp.abilities.impl.zeus.LightningAbility;
+import net.gamershub.kitpvp.abilities.impl.zeus.ThunderstormAbility;
 import net.gamershub.kitpvp.persistentdatatype.StringArrayPersistentDataType;
 import net.gamershub.kitpvp.Utils;
-import net.gamershub.kitpvp.abilities.impl.*;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -42,6 +54,7 @@ public class AbilityHandler implements Listener {
     public static Ability STORM;
     public static Ability SEISMIC_WAVE;
     public static Ability FORTIFY;
+    public static Ability MAGIC_ATTACK;
 
     public AbilityHandler() {
         FIREBALL = registerAbility(new FireballAbility());
@@ -60,6 +73,7 @@ public class AbilityHandler implements Listener {
         STORM = registerAbility(new StormAbility());
         SEISMIC_WAVE = registerAbility(new SeismicWaveAbility());
         FORTIFY = registerAbility(new FortifyAbility());
+        MAGIC_ATTACK = registerAbility(new MagicAttackAbility());
     }
 
     public Ability registerAbility(Ability ability) {

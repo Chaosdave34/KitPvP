@@ -52,7 +52,7 @@ public class PoseidonKit extends Kit {
         riptideTrident.addUnsafeEnchantment(Enchantment.RIPTIDE, 5);
 
         return new ItemStack[]{
-                CustomItemHandler.POSEIDONS_TRIDENT.build(1),
+                CustomItemHandler.POSEIDONS_TRIDENT.build(),
                 riptideTrident,
                 new ItemStack(Material.WATER_BUCKET),
         };

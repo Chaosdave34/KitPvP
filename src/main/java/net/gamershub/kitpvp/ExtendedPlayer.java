@@ -47,6 +47,9 @@ public class ExtendedPlayer {
 
     private int experiencePoints;
 
+    private String projectileTrailId;
+    private String killEffectId;
+
     public ExtendedPlayer(Player p) {
         uuid = p.getUniqueId();
         gameState = GameState.SPAWN;
@@ -85,7 +88,10 @@ public class ExtendedPlayer {
         p.setFireTicks(0);
         p.setFreezeTicks(0);
 
+        p.clearActiveItem();
+
         killSteak = 0;
+        combatCooldown = 0;
 
         gameState = GameState.SPAWN;
 
@@ -263,7 +269,8 @@ public class ExtendedPlayer {
                 public void run() {
                     combatCooldown--;
 
-                    if (combatCooldown == 0) {
+                    if (combatCooldown <= 0) {
+                        combatCooldown = 0;
                         this.cancel();
                         updateScoreboardLines();
                     }
@@ -272,6 +279,16 @@ public class ExtendedPlayer {
         }
 
         combatCooldown = 5;
+    }
+
+    public void killedPlayer(Player victim) {
+        incrementKillStreak();
+        incrementTotalKills();
+
+        ExtendedPlayer extendedTarget = KitPvpPlugin.INSTANCE.getExtendedPlayer(victim);
+        int xpReward = 10 + (int) (extendedTarget.getLevel() * 0.25);
+        addExperiencePoints(xpReward);
+        getPlayer().getInventory().addItem(getSelectedKit().getKillRewards());
     }
 
     public enum GameState {

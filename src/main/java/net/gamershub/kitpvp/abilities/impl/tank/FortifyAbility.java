@@ -7,8 +7,6 @@ import net.gamershub.kitpvp.abilities.AbilityType;
 import net.gamershub.kitpvp.kits.Kit;
 import net.gamershub.kitpvp.kits.impl.TankKit;
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.NamedTextColor;
-import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.potion.PotionEffect;
@@ -25,10 +23,10 @@ public class FortifyAbility extends Ability {
 
     @Override
     public @NotNull List<Component> getDescription() {
-        return List.of(
-                Component.text("Upgrade your armor to enchanted", NamedTextColor.GRAY).decoration(TextDecoration.ITALIC, false),
-                Component.text("netherite for 10 seconds, but also", NamedTextColor.GRAY).decoration(TextDecoration.ITALIC, false),
-                Component.text("gain slowness.", NamedTextColor.GRAY).decoration(TextDecoration.ITALIC, false)
+        return createSimpleDescription(
+                "Upgrade your armor to enchanted",
+                "netherite for 10 seconds, but also",
+                "gain slowness."
         );
     }
 
@@ -57,7 +55,7 @@ public class FortifyAbility extends Ability {
                     inventory.setBoots(selectedKit.getFeetContent());
                 }
             }
-        }.runTaskLater(KitPvpPlugin.INSTANCE, 20 * 10);
+        }.runTaskLater(KitPvpPlugin.INSTANCE, 10 * 20);
 
         p.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 10 * 20, 2, false, false, false));
         return true;
