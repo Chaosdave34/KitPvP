@@ -2,7 +2,22 @@ package net.gamershub.kitpvp.items;
 
 import net.gamershub.kitpvp.KitPvpPlugin;
 import net.gamershub.kitpvp.Utils;
-import net.gamershub.kitpvp.items.impl.*;
+import net.gamershub.kitpvp.items.impl.assassin.AssassinSword;
+import net.gamershub.kitpvp.items.impl.assassin.HauntWand;
+import net.gamershub.kitpvp.items.impl.creeper.CreeperLeggings;
+import net.gamershub.kitpvp.items.impl.creeper.FireballWand;
+import net.gamershub.kitpvp.items.impl.crossbow.Jetpack;
+import net.gamershub.kitpvp.items.impl.devil.DevilsSword;
+import net.gamershub.kitpvp.items.impl.enderman.EnderSword;
+import net.gamershub.kitpvp.items.impl.magician.MagicWand;
+import net.gamershub.kitpvp.items.impl.poseidon.PoseidonsTrident;
+import net.gamershub.kitpvp.items.impl.provoker.NukeItem;
+import net.gamershub.kitpvp.items.impl.provoker.SpookSword;
+import net.gamershub.kitpvp.items.impl.tank.TankAxe;
+import net.gamershub.kitpvp.items.impl.tank.TankBoots;
+import net.gamershub.kitpvp.items.impl.trapper.TrapWand;
+import net.gamershub.kitpvp.items.impl.vampire.VampireSword;
+import net.gamershub.kitpvp.items.impl.zeus.LightningWand;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataContainer;
@@ -28,6 +43,8 @@ public class CustomItemHandler {
     public static CustomItem DEVILS_SWORD;
     public static CustomItem TANK_BOOTS;
     public static CustomItem TANK_AXE;
+    public static CustomItem JETPACK;
+    public static CustomItem ASSASSIN_SWORD;
 
     public CustomItemHandler() {
         FIREBALL = createItem(new FireballWand());
@@ -44,6 +61,8 @@ public class CustomItemHandler {
         DEVILS_SWORD = createItem(new DevilsSword());
         TANK_BOOTS = createItem(new TankBoots());
         TANK_AXE = createItem(new TankAxe());
+        JETPACK = createItem(new Jetpack());
+        ASSASSIN_SWORD = createItem(new AssassinSword());
     }
 
     private CustomItem createItem(CustomItem item) {
