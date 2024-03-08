@@ -20,5 +20,6 @@ public class AssassinSword extends CustomItem {
     @Override
     protected void additionalModifications(ItemStack itemStack) {
         itemStack.addEnchantment(CustomEnchantmentHandler.BACKSTAB, 1);
+        setCustomModelData(itemStack, 3);
     }
 }
