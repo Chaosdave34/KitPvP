@@ -1,10 +1,19 @@
 package net.gamershub.kitpvp.kits.impl;
 
+import net.gamershub.kitpvp.ExtendedPlayer;
+import net.gamershub.kitpvp.KitPvpPlugin;
+import net.gamershub.kitpvp.events.PlayerSpawnEvent;
 import net.gamershub.kitpvp.items.CustomItemHandler;
 import net.gamershub.kitpvp.kits.Kit;
+import net.gamershub.kitpvp.kits.KitHandler;
 import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.Player;
+import org.bukkit.entity.Trident;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.inventory.ItemStack;
 
 public class PoseidonKit extends Kit {
@@ -57,12 +66,36 @@ public class PoseidonKit extends Kit {
                 new ItemStack(Material.WATER_BUCKET),
         };
     }
+
     @Override
     public ItemStack[] getKillRewards() {
         return new ItemStack[]{
                 new ItemStack(Material.GOLDEN_APPLE),
                 new ItemStack(Material.PRISMARINE, 32),
         };
+    }
+
+    @EventHandler(priority = EventPriority.MONITOR)
+    public void onDeath(PlayerDeathEvent e) {
+        removeTrident(e.getPlayer());
+    }
+
+    @EventHandler(priority = EventPriority.MONITOR)
+    public void onSpawnEvent(PlayerSpawnEvent e) {
+        removeTrident(e.getPlayer());
+    }
+
+
+    private void removeTrident(Player p) {
+        ExtendedPlayer extendedPlayer = KitPvpPlugin.INSTANCE.getExtendedPlayer(p);
+        if (extendedPlayer.getSelectedKit() == KitHandler.POSEIDON) {
+            p.getWorld().getEntitiesByClass(Trident.class).forEach(trident -> {
+                p.sendMessage("test");
+                if (trident.getShooter() instanceof Player shooter)
+                    if (p.getEntityId() == shooter.getEntityId())
+                        trident.remove();
+            });
+        }
     }
 
 }

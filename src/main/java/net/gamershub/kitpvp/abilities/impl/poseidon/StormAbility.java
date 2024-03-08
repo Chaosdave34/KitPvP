@@ -10,7 +10,7 @@ import java.util.List;
 
 public class StormAbility extends Ability {
     public StormAbility() {
-        super("storm", "Storm", AbilityType.RIGHT_CLICK, 120);
+        super("storm", "Storm", AbilityType.SNEAK_RIGHT_CLICK, 120);
     }
 
     @Override
