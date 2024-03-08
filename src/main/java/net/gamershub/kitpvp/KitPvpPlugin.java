@@ -4,6 +4,7 @@ import lombok.Getter;
 import net.gamershub.kitpvp.abilities.AbilityHandler;
 import net.gamershub.kitpvp.commands.*;
 import net.gamershub.kitpvp.cosmetics.CosmeticHandler;
+import net.gamershub.kitpvp.customevents.CustomEventHandler;
 import net.gamershub.kitpvp.enchantments.CustomEnchantmentHandler;
 import net.gamershub.kitpvp.fakeplayer.FakePlayerHandler;
 import net.gamershub.kitpvp.gui.GuiHandler;
@@ -36,7 +37,6 @@ public final class KitPvpPlugin extends JavaPlugin {
     private final Map<UUID, Integer> highestKillstreaks = new HashMap<>();
     private final Map<UUID, Integer> highestLevels = new HashMap<>();
 
-    private GuiHandler guiHandler;
     private CustomEnchantmentHandler customEnchantmentHandler;
     private AbilityHandler abilityHandler;
     private CustomItemHandler customItemHandler;
@@ -44,6 +44,8 @@ public final class KitPvpPlugin extends JavaPlugin {
     private FakePlayerHandler fakePlayerHandler;
     private TextDisplayHandler textDisplayHandler;
     private CosmeticHandler cosmeticHandler;
+    private GuiHandler guiHandler;
+    private CustomEventHandler customEventHandler;
 
     @SuppressWarnings({"DataFlowIssue", "ResultOfMethodCallIgnored"})
     @Override
@@ -58,6 +60,7 @@ public final class KitPvpPlugin extends JavaPlugin {
         textDisplayHandler = new TextDisplayHandler();
         cosmeticHandler = new CosmeticHandler();
         guiHandler = new GuiHandler();
+        customEventHandler = new CustomEventHandler();
 
         // Setup world
         World overworld = getServer().getWorld("world");
@@ -138,7 +141,6 @@ public final class KitPvpPlugin extends JavaPlugin {
     public void onDisable() {
         saveHighscores();
     }
-
 
     public void saveHighscores () {
         Utils.writeObjectToFile(new File(getDataFolder(), "highestLevels"), highestLevels);

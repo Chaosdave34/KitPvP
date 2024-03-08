@@ -2,6 +2,7 @@ package net.gamershub.kitpvp;
 
 import lombok.Getter;
 import lombok.Setter;
+import net.gamershub.kitpvp.customevents.CustomEventHandler;
 import net.gamershub.kitpvp.events.PlayerSpawnEvent;
 import net.gamershub.kitpvp.kits.Kit;
 import net.gamershub.kitpvp.kits.KitHandler;
@@ -287,6 +288,9 @@ public class ExtendedPlayer {
 
         ExtendedPlayer extendedTarget = KitPvpPlugin.INSTANCE.getExtendedPlayer(victim);
         int xpReward = 10 + (int) (extendedTarget.getLevel() * 0.25);
+        if (KitPvpPlugin.INSTANCE.getCustomEventHandler().getActiveEvent() == CustomEventHandler.DOUBLE_EXPERIENCE_EVENT)
+            xpReward *= 2;
+
         addExperiencePoints(xpReward);
         getPlayer().getInventory().addItem(getSelectedKit().getKillRewards());
     }

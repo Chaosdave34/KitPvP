@@ -3,6 +3,7 @@ package net.gamershub.kitpvp.abilities;
 import lombok.Getter;
 import lombok.Setter;
 import net.gamershub.kitpvp.KitPvpPlugin;
+import net.gamershub.kitpvp.customevents.CustomEventHandler;
 import net.gamershub.kitpvp.persistentdatatype.StringArrayPersistentDataType;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -68,8 +69,10 @@ public abstract class Ability implements Listener {
             boolean success = onAbility(p);
 
             if (success) {
-
-                playerCooldown.put(p.getUniqueId(), cooldown);
+                if (KitPvpPlugin.INSTANCE.getCustomEventHandler().getActiveEvent() == CustomEventHandler.HALVED_COOLDOWN_EVENT)
+                    playerCooldown.put(p.getUniqueId(), cooldown / 2);
+                else
+                    playerCooldown.put(p.getUniqueId(), cooldown);
 
                 new BukkitRunnable() {
                     @Override
