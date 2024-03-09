@@ -43,8 +43,6 @@ public class ArcherKit extends Kit {
     public ItemStack[] getInventoryContent() {
         ItemStack bow = new ItemStack(Material.BOW);
         bow.addEnchantment(Enchantment.ARROW_INFINITE, 1);
-        bow.addEnchantment(Enchantment.ARROW_DAMAGE, 3);
-        bow.addEnchantment(Enchantment.ARROW_KNOCKBACK, 2);
 
         ItemStack stoneSword = new ItemStack(Material.STONE_SWORD);
         setCustomModelData(stoneSword, 2);
