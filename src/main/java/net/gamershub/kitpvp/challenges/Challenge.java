@@ -32,7 +32,7 @@ public abstract class Challenge implements Listener {
             if (KitPvpPlugin.INSTANCE.getCustomEventHandler().getActiveEvent() == CustomEventHandler.DOUBLE_EXPERIENCE_EVENT)
                 xpReward *= 2;
 
-            p.sendMessage(Component.text("You have completed a daily Challenge! +" + xpReward + "XP"));
+            p.sendMessage(Component.text("You have completed a daily challenge! +" + xpReward + "XP"));
             extendedPlayer.addExperiencePoints(xpReward);
         }
 
