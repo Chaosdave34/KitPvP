@@ -2,10 +2,11 @@ package net.gamershub.kitpvp.abilities.impl.enderman;
 
 import net.gamershub.kitpvp.ExtendedPlayer;
 import net.gamershub.kitpvp.KitPvpPlugin;
-import net.gamershub.kitpvp.Utils;
 import net.gamershub.kitpvp.abilities.Ability;
 import net.gamershub.kitpvp.abilities.AbilityType;
 import net.kyori.adventure.text.Component;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -30,13 +31,15 @@ public class EnderAttackAbility extends Ability {
 
     @Override
     public boolean onAbility(Player p) {
-        Player target = Utils.getTargetEntity(p, 20, Player.class, true);
-        if (target != null) {
+        Entity target = p.getTargetEntity(20);
+        if (target instanceof LivingEntity livingEntity) {
 
-            if (KitPvpPlugin.INSTANCE.getExtendedPlayer(target).getGameState() == ExtendedPlayer.GameState.SPAWN)
-                return false;
+            if (target instanceof Player player) {
+                if (KitPvpPlugin.INSTANCE.getExtendedPlayer(player).getGameState() == ExtendedPlayer.GameState.SPAWN)
+                    return false;
+            }
 
-            p.teleport(target.getLocation().subtract(target.getLocation().getDirection()));
+            p.teleport(livingEntity.getLocation().subtract(target.getLocation().getDirection()));
 
             p.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 5 * 20, 1));
             p.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 5 * 20, 1));

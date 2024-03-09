@@ -5,7 +5,6 @@ import net.gamershub.kitpvp.abilities.AbilityHandler;
 import net.gamershub.kitpvp.items.CustomItem;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
-import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
@@ -35,7 +34,6 @@ public class MagicWand extends CustomItem {
 
     @Override
     protected void additionalModifications(ItemStack itemStack) {
-        itemStack.addUnsafeEnchantment(Enchantment.KNOCKBACK, 8);
         setCustomModelData(itemStack, 1);
     }
 }

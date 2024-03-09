@@ -2,15 +2,11 @@ package net.gamershub.kitpvp.abilities.impl.zeus;
 
 import net.gamershub.kitpvp.ExtendedPlayer;
 import net.gamershub.kitpvp.KitPvpPlugin;
-import net.gamershub.kitpvp.Utils;
 import net.gamershub.kitpvp.abilities.Ability;
 import net.gamershub.kitpvp.abilities.AbilityType;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Location;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.LightningStrike;
-import org.bukkit.entity.Player;
+import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -35,14 +31,15 @@ public class LightningAbility extends Ability {
 
     @Override
     public boolean onAbility(Player p) {
-        Entity target = Utils.getTargetEntity(p, 10, Entity.class, false);
-        if (target != null) {
+        Entity target = p.getTargetEntity(10);
+        if (target instanceof LivingEntity livingEntity) {
+
             if (target instanceof Player player) {
                 if (KitPvpPlugin.INSTANCE.getExtendedPlayer(player).getGameState() == ExtendedPlayer.GameState.SPAWN)
                     return false;
             }
 
-            Location targetLocation = target.getLocation();
+            Location targetLocation = livingEntity.getLocation();
             targetLocation.getWorld().spawnEntity(targetLocation, EntityType.LIGHTNING, CreatureSpawnEvent.SpawnReason.CUSTOM, (entity) -> {
                 ((LightningStrike) entity).setCausingPlayer(p);
                 entity.setMetadata("ability", new FixedMetadataValue(KitPvpPlugin.INSTANCE, id));

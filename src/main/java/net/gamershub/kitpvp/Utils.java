@@ -8,11 +8,8 @@ import net.minecraft.server.network.ServerGamePacketListenerImpl;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.craftbukkit.v1_20_R3.entity.CraftPlayer;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
-import org.bukkit.util.Vector;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -113,33 +110,6 @@ public class Utils {
             KitPvpPlugin.INSTANCE.getLogger().warning("Error while reading object from file! " + e.getMessage());
             return null;
         }
-    }
-
-    @Nullable
-    public static <T extends Entity> T getTargetEntity(LivingEntity livingEntity, int radius, Class<T> type, boolean ignoreBlocks) {
-        @NotNull List<Entity> entities = livingEntity.getNearbyEntities(radius, radius, radius);
-        for (Entity entity : entities) {
-
-            // Check for type
-            if (!type.isInstance(entity)) return null;
-            T target = type.cast(entity);
-
-            // Check if blocks
-            if (!ignoreBlocks && !livingEntity.hasLineOfSight(target)) return null;
-
-            // Check for radius
-            if (target.getLocation().subtract(livingEntity.getLocation()).toVector().length() > radius) return null;
-
-            // Check if looking at
-            Vector playerLookVector = livingEntity.getEyeLocation().getDirection();
-            Vector targetLocationVector = target.getLocation().subtract(livingEntity.getLocation()).toVector();
-
-
-            if (playerLookVector.angle(targetLocationVector) < 0.2) {
-                return target;
-            }
-        }
-        return null;
     }
 
     public static int binomialCoefficient(int n, int k) {

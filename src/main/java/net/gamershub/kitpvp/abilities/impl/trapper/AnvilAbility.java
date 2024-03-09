@@ -2,14 +2,11 @@ package net.gamershub.kitpvp.abilities.impl.trapper;
 
 import net.gamershub.kitpvp.ExtendedPlayer;
 import net.gamershub.kitpvp.KitPvpPlugin;
-import net.gamershub.kitpvp.Utils;
 import net.gamershub.kitpvp.abilities.Ability;
 import net.gamershub.kitpvp.abilities.AbilityType;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.FallingBlock;
-import org.bukkit.entity.Player;
+import org.bukkit.entity.*;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.jetbrains.annotations.NotNull;
@@ -32,13 +29,15 @@ public class AnvilAbility extends Ability {
 
     @Override
     public boolean onAbility(Player p) {
-        Player target = Utils.getTargetEntity(p, 10, Player.class, true);
-        if (target != null) {
+        Entity target = p.getTargetEntity(10);
+        if (target instanceof LivingEntity livingEntity) {
 
-            if (KitPvpPlugin.INSTANCE.getExtendedPlayer(target).getGameState() == ExtendedPlayer.GameState.SPAWN)
-                return false;
+            if (target instanceof Player player) {
+                if (KitPvpPlugin.INSTANCE.getExtendedPlayer(player).getGameState() == ExtendedPlayer.GameState.SPAWN)
+                    return false;
+            }
 
-            p.getWorld().spawnEntity(p.getLocation().add(0, 6, 0), EntityType.FALLING_BLOCK, CreatureSpawnEvent.SpawnReason.CUSTOM, (entity) -> {
+            p.getWorld().spawnEntity(livingEntity.getLocation().add(0, 6, 0), EntityType.FALLING_BLOCK, CreatureSpawnEvent.SpawnReason.CUSTOM, (entity) -> {
                 ((FallingBlock) entity).setBlockData(Material.ANVIL.createBlockData());
                 entity.setMetadata("placed_by_player", new FixedMetadataValue(KitPvpPlugin.INSTANCE, true));
             });

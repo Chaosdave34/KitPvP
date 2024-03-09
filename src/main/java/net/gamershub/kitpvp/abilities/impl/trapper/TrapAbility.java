@@ -2,10 +2,11 @@ package net.gamershub.kitpvp.abilities.impl.trapper;
 
 import net.gamershub.kitpvp.ExtendedPlayer;
 import net.gamershub.kitpvp.KitPvpPlugin;
-import net.gamershub.kitpvp.Utils;
 import net.gamershub.kitpvp.abilities.Ability;
 import net.gamershub.kitpvp.abilities.AbilityType;
 import net.kyori.adventure.text.Component;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -28,13 +29,15 @@ public class TrapAbility extends Ability {
 
     @Override
     public boolean onAbility(Player p) {
-        Player target = Utils.getTargetEntity(p, 10, Player.class, true);
-        if (target != null) {
+        Entity target = p.getTargetEntity(10);
+        if (target instanceof LivingEntity livingEntity) {
 
-            if (KitPvpPlugin.INSTANCE.getExtendedPlayer(target).getGameState() == ExtendedPlayer.GameState.SPAWN)
-                return false;
+            if (target instanceof Player player) {
+                if (KitPvpPlugin.INSTANCE.getExtendedPlayer(player).getGameState() == ExtendedPlayer.GameState.SPAWN)
+                    return false;
+            }
 
-            target.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 5 * 20, 255));
+            livingEntity.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 5 * 20, 255));
             return true;
         }
         return false;
