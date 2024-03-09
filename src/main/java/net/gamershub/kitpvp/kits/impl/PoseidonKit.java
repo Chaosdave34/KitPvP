@@ -90,7 +90,6 @@ public class PoseidonKit extends Kit {
         ExtendedPlayer extendedPlayer = KitPvpPlugin.INSTANCE.getExtendedPlayer(p);
         if (extendedPlayer.getSelectedKit() == KitHandler.POSEIDON) {
             p.getWorld().getEntitiesByClass(Trident.class).forEach(trident -> {
-                p.sendMessage("test");
                 if (trident.getShooter() instanceof Player shooter)
                     if (p.getEntityId() == shooter.getEntityId())
                         trident.remove();

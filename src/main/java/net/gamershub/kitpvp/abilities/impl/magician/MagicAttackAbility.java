@@ -30,7 +30,7 @@ public class MagicAttackAbility extends Ability {
             p.getWorld().spawnParticle(Particle.REDSTONE, location.clone().add(location.getDirection().clone().multiply(i * 0.2)), 1, 0, 0, 0, new Particle.DustOptions(Color.PURPLE, 1));
         }
 
-        Player target = Utils.getTargetEntity(p, 4, Player.class, true);
+        Player target = Utils.getTargetEntity(p, 6, Player.class, true);
         if (target != null) {
             target.damage(2, p);
         }

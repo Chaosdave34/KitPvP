@@ -70,7 +70,7 @@ public abstract class Ability implements Listener {
 
             if (success) {
                 if (KitPvpPlugin.INSTANCE.getCustomEventHandler().getActiveEvent() == CustomEventHandler.HALVED_COOLDOWN_EVENT)
-                    playerCooldown.put(p.getUniqueId(), cooldown / 2);
+                    playerCooldown.put(p.getUniqueId(), Math.max(cooldown / 2, 1));
                 else
                     playerCooldown.put(p.getUniqueId(), cooldown);
 
