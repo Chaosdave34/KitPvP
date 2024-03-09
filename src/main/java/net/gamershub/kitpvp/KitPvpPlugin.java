@@ -2,6 +2,7 @@ package net.gamershub.kitpvp;
 
 import lombok.Getter;
 import net.gamershub.kitpvp.abilities.AbilityHandler;
+import net.gamershub.kitpvp.challenges.ChallengesHandler;
 import net.gamershub.kitpvp.commands.*;
 import net.gamershub.kitpvp.cosmetics.CosmeticHandler;
 import net.gamershub.kitpvp.customevents.CustomEventHandler;
@@ -46,6 +47,7 @@ public final class KitPvpPlugin extends JavaPlugin {
     private CosmeticHandler cosmeticHandler;
     private GuiHandler guiHandler;
     private CustomEventHandler customEventHandler;
+    private ChallengesHandler challengesHandler;
 
     @SuppressWarnings({"DataFlowIssue", "ResultOfMethodCallIgnored"})
     @Override
@@ -61,6 +63,7 @@ public final class KitPvpPlugin extends JavaPlugin {
         cosmeticHandler = new CosmeticHandler();
         guiHandler = new GuiHandler();
         customEventHandler = new CustomEventHandler();
+        challengesHandler = new ChallengesHandler();
 
         // Setup world
         World overworld = getServer().getWorld("world");
@@ -122,9 +125,8 @@ public final class KitPvpPlugin extends JavaPlugin {
 
     public void createExtendedPlayer(Player p) {
         ExtendedPlayer extendedPlayer = Utils.readObjectFromFile(new File(getDataFolder(), "player_data/" + p.getUniqueId() + ".json"), ExtendedPlayer.class);
-        if (extendedPlayer == null) {
+        if (extendedPlayer == null)
             extendedPlayer = new ExtendedPlayer(p);
-        }
 
         extendedPlayers.put(p.getUniqueId(), extendedPlayer);
     }
@@ -142,7 +144,7 @@ public final class KitPvpPlugin extends JavaPlugin {
         saveHighscores();
     }
 
-    public void saveHighscores () {
+    public void saveHighscores() {
         Utils.writeObjectToFile(new File(getDataFolder(), "highestLevels"), highestLevels);
         Utils.writeObjectToFile(new File(getDataFolder(), "highestKillstreaks"), highestKillstreaks);
     }

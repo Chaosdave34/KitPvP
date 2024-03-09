@@ -17,6 +17,9 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.world.WorldSaveEvent;
 
 import java.io.File;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.HexFormat;
 import java.util.UUID;
 
@@ -28,11 +31,12 @@ public class UtilityListener implements Listener {
         Component message = Component.text(p.getName() + " joined the party!", NamedTextColor.DARK_GRAY);
         e.joinMessage(message);
 
-        p.addResourcePack(UUID.fromString("9d309ee5-fcd8-4636-85cf-becfe3489018"), "https://vmd74965.contaboserver.net:8000/kitpvp.zip", HexFormat.of().parseHex("27746b52f01dd044dbdd43d7f4902c4415736e18"), "FETT", false);
-
         KitPvpPlugin.INSTANCE.createExtendedPlayer(p);
 
         ExtendedPlayer extendedPlayer = KitPvpPlugin.INSTANCE.getExtendedPlayer(p);
+
+        // resource pack
+        p.addResourcePack(UUID.fromString("9d309ee5-fcd8-4636-85cf-becfe3489018"), "https://vmd74965.contaboserver.net:8000/kitpvp.zip", HexFormat.of().parseHex("27746b52f01dd044dbdd43d7f4902c4415736e18"), "FETT", false);
 
         // NPC
         KitPvpPlugin.INSTANCE.getFakePlayerHandler().spawnFakePlayers(p);
@@ -54,8 +58,18 @@ public class UtilityListener implements Listener {
             KitPvpPlugin.INSTANCE.getTextDisplayHandler().updateTextDisplayForAll(TextDisplayHandler.HIGHEST_LEVELS);
         }
 
-
+        // player list header
         p.sendPlayerListHeader(Component.text("KitPvP", NamedTextColor.YELLOW, TextDecoration.BOLD));
+
+        // daily challenges
+        LocalDate lastLoginDate = Instant.ofEpochMilli(p.getLastLogin()).atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate today = LocalDate.now();
+
+        if (!lastLoginDate.isEqual(today) || extendedPlayer.getDailyChallenges() == null || extendedPlayer.getDailyChallenges().isEmpty()) {
+            extendedPlayer.updateDailyChallenges();
+        }
+
+        extendedPlayer.updatePlayerListFooter();
     }
 
     @EventHandler

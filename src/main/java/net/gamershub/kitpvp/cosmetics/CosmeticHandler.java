@@ -8,6 +8,7 @@ import net.gamershub.kitpvp.cosmetics.impl.SmokeKillEffect;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Particle;
+import org.bukkit.entity.Firework;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
@@ -69,6 +70,10 @@ public class CosmeticHandler implements Listener {
                     @Override
                     public void run() {
                         projectile.getWorld().spawnParticle(particle, projectile.getLocation(), 1);
+
+                        if (projectile instanceof Firework firework) {
+                            if (firework.isDetonated()) this.cancel();
+                        }
                     }
                 }.runTaskTimer(KitPvpPlugin.INSTANCE, 0, 1);
 

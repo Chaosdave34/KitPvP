@@ -2,6 +2,7 @@ package net.gamershub.kitpvp;
 
 import lombok.Getter;
 import lombok.Setter;
+import net.gamershub.kitpvp.challenges.Challenge;
 import net.gamershub.kitpvp.customevents.CustomEventHandler;
 import net.gamershub.kitpvp.events.PlayerSpawnEvent;
 import net.gamershub.kitpvp.kits.Kit;
@@ -9,6 +10,7 @@ import net.gamershub.kitpvp.kits.KitHandler;
 import net.gamershub.kitpvp.textdisplay.TextDisplayHandler;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
@@ -24,10 +26,7 @@ import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Scoreboard;
 
-import java.util.Collections;
-import java.util.Map;
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
 
 @Getter
 @Setter
@@ -50,6 +49,8 @@ public class ExtendedPlayer {
 
     private String projectileTrailId;
     private String killEffectId;
+
+    private List<String> dailyChallenges;
 
     public ExtendedPlayer(Player p) {
         uuid = p.getUniqueId();
@@ -139,6 +140,30 @@ public class ExtendedPlayer {
         objective.getScore("Kill Streak: " + killSteak).setScore(2);
         objective.getScore("   ").setScore(1);
         objective.getScore("Status: " + (combatCooldown > 0 ? "§cFighting" : getGameState().displayName)).setScore(0);
+    }
+
+    public void updatePlayerListFooter() {
+        Component footer = Component.text("Daily Challenges:", NamedTextColor.GREEN);
+
+        for (String challengeId : dailyChallenges) {
+            Challenge challenge = KitPvpPlugin.INSTANCE.getChallengesHandler().getChallenge(challengeId);
+            TextColor textColor = NamedTextColor.WHITE;
+            if (challenge.getProgress(getPlayer()) == challenge.getAmount())
+                textColor = NamedTextColor.GREEN;
+
+            footer = footer
+                    .append(Component.newline())
+                    .append(Component.text(challenge.getName() + " " + challenge.getProgress(getPlayer()) + "/" + challenge.getAmount(), textColor));
+        }
+
+        getPlayer().sendPlayerListFooter(footer);
+    }
+
+    public void updateDailyChallenges() {
+        dailyChallenges = KitPvpPlugin.INSTANCE.getChallengesHandler().getThreeRandomChallenges().stream().map(Challenge::getId).toList();
+        Bukkit.getScheduler().runTaskLater(KitPvpPlugin.INSTANCE, () -> getPlayer().sendMessage(Component.text("You have new daily challenges!")), 1);
+
+        KitPvpPlugin.INSTANCE.getChallengesHandler().resetProgress(getPlayer());
     }
 
     public void incrementKillStreak() {
