@@ -37,7 +37,10 @@ public class UtilityListener implements Listener {
         ExtendedPlayer extendedPlayer = KitPvpPlugin.INSTANCE.getExtendedPlayer(p);
 
         // resource pack
-        p.addResourcePack(UUID.fromString("9d309ee5-fcd8-4636-85cf-becfe3489018"), "https://vmd74965.contaboserver.net:8000/kitpvp.zip", HexFormat.of().parseHex("27746b52f01dd044dbdd43d7f4902c4415736e18"), "FETT", false);
+        String serverResourcePackUrl = KitPvpPlugin.INSTANCE.getConfig().getString("server_resource_pack_url");
+        String serverResourcePackSha1sum = KitPvpPlugin.INSTANCE.getConfig().getString("server_resource_pack_sha1sum");
+        if (serverResourcePackUrl != null && serverResourcePackSha1sum != null && serverResourcePackSha1sum.length() / 2 == 20)
+            p.addResourcePack(UUID.fromString("9d309ee5-fcd8-4636-85cf-becfe3489018"), serverResourcePackUrl, HexFormat.of().parseHex(serverResourcePackSha1sum), "FETT", false);
 
         // NPC
         KitPvpPlugin.INSTANCE.getFakePlayerHandler().spawnFakePlayers(p);
@@ -80,7 +83,7 @@ public class UtilityListener implements Listener {
                         .append(Component.text(" and ", NamedTextColor.AQUA))
                         .append(Component.text("Companions", NamedTextColor.GRAY).decorate(TextDecoration.ITALIC))
                         .append(Component.text(" have been enabled. You may experience strange or unexpected behaviour.", NamedTextColor.AQUA))
-                );
+        );
 
         Bukkit.getScheduler().runTaskLater(KitPvpPlugin.INSTANCE, () -> messages.forEach(p::sendMessage), 10);
     }

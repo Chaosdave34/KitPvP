@@ -68,6 +68,8 @@ public final class KitPvpPlugin extends JavaPlugin {
         customEventHandler = new CustomEventHandler();
         challengesHandler = new ChallengesHandler();
 
+        saveDefaultConfig();
+
         // Setup world
         World overworld = getServer().getWorld("world");
         if (overworld != null) {
