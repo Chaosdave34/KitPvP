@@ -4,12 +4,12 @@ import lombok.NonNull;
 import net.gamershub.kitpvp.ExtendedPlayer;
 import net.gamershub.kitpvp.KitPvpPlugin;
 import net.gamershub.kitpvp.cosmetics.Cosmetic;
-import net.gamershub.kitpvp.enchantments.CustomEnchantmentHandler;
 import net.gamershub.kitpvp.gui.Gui;
 import net.gamershub.kitpvp.gui.GuiHandler;
 import net.gamershub.kitpvp.gui.InventoryClickHandler;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -33,10 +33,23 @@ public class CosmeticSubMenuGui extends Gui {
 
     @Override
     protected @NonNull Inventory build(Player p, Inventory inventory) {
-        int slot = 0;
+        ExtendedPlayer extendedPlayer = KitPvpPlugin.INSTANCE.getExtendedPlayer(p);
+
+
+        Component noneDisplayName = Component.text("None").decoration(TextDecoration.ITALIC, false);
+        TextColor textColor = NamedTextColor.WHITE;
+        boolean glint = false;
+        if ((this.name.equals("Projectile Trails") && extendedPlayer.getProjectileTrailId() == null) || (this.name.equals("Kill Effects") && extendedPlayer.getKillEffectId() == null)) {
+            textColor = NamedTextColor.GREEN;
+            glint = true;
+        }
+        noneDisplayName = noneDisplayName.color(textColor);
+        ItemStack none = createItemStack(Material.BARRIER, noneDisplayName, true, glint);
+        inventory.setItem(0, none);
+
+        int slot = 1;
         for (Cosmetic cosmetic : cosmetics.stream().sorted(Comparator.comparingInt(Cosmetic::getLevelRequirement)).toList()) {
-            if (slot < (rows - 2) * 9) {
-                ExtendedPlayer extendedPlayer = KitPvpPlugin.INSTANCE.getExtendedPlayer(p);
+            if (slot < (rows - 2) * 9 - 1) {
                 Component component = Component.text(cosmetic.getName(), NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false);
 
                 String selected = null;
@@ -45,20 +58,19 @@ public class CosmeticSubMenuGui extends Gui {
                 else if (this.name.equals("Kill Effects"))
                     selected = extendedPlayer.getKillEffectId();
 
-                if (cosmetic.getId().equals(selected))
+                glint = false;
+                if (cosmetic.getId().equals(selected)) {
                     component = component.color(NamedTextColor.GREEN);
+                    glint = true;
+                }
 
                 if (extendedPlayer.getLevel() < cosmetic.getLevelRequirement())
                     component = component.color(NamedTextColor.RED);
 
-                ItemStack itemStack = createItemStack(cosmetic.getIcon(), component, true);
-
-                if (cosmetic.getId().equals(selected))
-                    itemStack.addUnsafeEnchantment(CustomEnchantmentHandler.BACKSTAB, 1); // Hacky way to add enchantment glint
+                ItemStack itemStack = createItemStack(cosmetic.getIcon(), component, true, glint);
 
                 if (extendedPlayer.getLevel() < cosmetic.getLevelRequirement())
                     itemStack.lore(List.of(Component.text("Unlocked at level " + cosmetic.getLevelRequirement() + ".", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false)));
-
 
                 inventory.setItem(slot, itemStack);
             } else break;
@@ -66,9 +78,23 @@ public class CosmeticSubMenuGui extends Gui {
             slot++;
         }
 
-        inventory.setItem(21, createItemStack(Material.ARROW, "Back", true));
-        inventory.setItem(22, createItemStack(Material.BARRIER, "Close", true));
+        inventory.setItem(21, createItemStack(Material.ARROW, "Back", true, false));
+        inventory.setItem(22, createItemStack(Material.BARRIER, "Close", true, false));
         return inventory;
+    }
+
+    @InventoryClickHandler(slot = 0)
+    public void onNoneButton(InventoryClickEvent e) {
+        Player p = (Player) e.getWhoClicked();
+        ExtendedPlayer extendedPlayer = KitPvpPlugin.INSTANCE.getExtendedPlayer(p);
+
+        if (name.equals("Projectile Trails"))
+            extendedPlayer.setProjectileTrailId(null);
+
+        else if (name.equals("Kill Effects"))
+            extendedPlayer.setKillEffectId(null);
+
+        show(p);
     }
 
     @InventoryClickHandler(slot = 21)
@@ -90,8 +116,8 @@ public class CosmeticSubMenuGui extends Gui {
         Player p = (Player) e.getWhoClicked();
         ExtendedPlayer extendedPlayer = KitPvpPlugin.INSTANCE.getExtendedPlayer(p);
 
-        if (e.getRawSlot() > cosmetics.size() || cosmetics.isEmpty()) return;
-        Cosmetic cosmetic = cosmetics.stream().sorted(Comparator.comparingInt(Cosmetic::getLevelRequirement)).toList().get(e.getRawSlot());
+        if (e.getRawSlot() - 1 >= cosmetics.size() || cosmetics.isEmpty() || e.getRawSlot() == 0) return;
+        Cosmetic cosmetic = cosmetics.stream().sorted(Comparator.comparingInt(Cosmetic::getLevelRequirement)).toList().get(e.getRawSlot() - 1);
 
         if (extendedPlayer.getLevel() < cosmetic.getLevelRequirement() || cosmetic.getId().equals(extendedPlayer.getProjectileTrailId()))
             return;

@@ -27,16 +27,16 @@ public class CosmeticsGui extends Gui {
         ExtendedPlayer extendedPlayer = KitPvpPlugin.INSTANCE.getExtendedPlayer(p);
 
         String selectedProjectileTrail = extendedPlayer.getProjectileTrailId() == null ? "None" : KitPvpPlugin.INSTANCE.getCosmeticHandler().getProjectileTrails().get(extendedPlayer.getProjectileTrailId()).getName();
-        ItemStack projectileTrailButton = createItemStack(Material.ARROW, "Projectile Trails", true);
+        ItemStack projectileTrailButton = createItemStack(Material.ARROW, "Projectile Trails", true, false);
         projectileTrailButton.lore(List.of(Component.text("Selected: " + selectedProjectileTrail, NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false)));
         inventory.setItem(11, projectileTrailButton);
 
         String selectedKillEffect = extendedPlayer.getKillEffectId() == null ? "None" : KitPvpPlugin.INSTANCE.getCosmeticHandler().getKillEffects().get(extendedPlayer.getKillEffectId()).getName();
-        ItemStack killEffectButton = createItemStack(Material.IRON_SWORD, "Kill Effects", true);
+        ItemStack killEffectButton = createItemStack(Material.IRON_SWORD, "Kill Effects", true, false);
         killEffectButton.lore(List.of(Component.text("Selected: " + selectedKillEffect, NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false)));
         inventory.setItem(15, killEffectButton);
 
-        inventory.setItem(31, createItemStack(Material.BARRIER, "Close", true));
+        inventory.setItem(31, createItemStack(Material.BARRIER, "Close", true, false));
         return inventory;
     }
 

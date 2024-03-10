@@ -3,6 +3,7 @@ package net.gamershub.kitpvp.gui;
 import lombok.Getter;
 import lombok.NonNull;
 import net.gamershub.kitpvp.KitPvpPlugin;
+import net.gamershub.kitpvp.enchantments.CustomEnchantmentHandler;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Bukkit;
@@ -42,17 +43,20 @@ public abstract class Gui {
         }
     }
 
-    protected ItemStack createItemStack(Material material, String name, boolean hideAttributes) {
-        return createItemStack(material, Component.text(name).decoration(TextDecoration.ITALIC, false), hideAttributes);
+    protected ItemStack createItemStack(Material material, String name, boolean hideAttributes, boolean glint) {
+        return createItemStack(material, Component.text(name).decoration(TextDecoration.ITALIC, false), hideAttributes, glint);
     }
 
-    protected ItemStack createItemStack(Material material, Component name, boolean hideAttributes) {
+    protected ItemStack createItemStack(Material material, Component name, boolean hideAttributes, boolean glint) {
         ItemStack itemStack = new ItemStack(material);
         ItemMeta itemMeta = itemStack.getItemMeta();
         itemMeta.displayName(name);
         if (hideAttributes) {
             itemMeta.addItemFlags(ItemFlag.HIDE_ITEM_SPECIFICS);
             itemMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+        }
+        if (glint) {
+            itemMeta.addEnchant(CustomEnchantmentHandler.BACKSTAB, 1, true); // Hacky way to add enchantment glint
         }
         itemStack.setItemMeta(itemMeta);
         return itemStack;
