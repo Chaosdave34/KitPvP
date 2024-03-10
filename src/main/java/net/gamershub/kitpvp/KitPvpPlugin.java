@@ -17,7 +17,6 @@ import net.gamershub.kitpvp.listener.GamePlayerDeathListener;
 import net.gamershub.kitpvp.listener.SpawnListener;
 import net.gamershub.kitpvp.listener.UtilityListener;
 import net.gamershub.kitpvp.textdisplay.TextDisplayHandler;
-import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.GameRule;
 import org.bukkit.World;
@@ -26,7 +25,9 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 
 @Getter
@@ -141,6 +142,11 @@ public final class KitPvpPlugin extends JavaPlugin {
     @Override
     public void onDisable() {
         saveHighscores();
+        for (ExtendedPlayer extendedPlayer : extendedPlayers.values()) {
+            extendedPlayer.unmorph();
+            extendedPlayer.removeCompanion();
+            Utils.writeObjectToFile(new File(getDataFolder(), "player_data/" +  extendedPlayer.getPlayer().getUniqueId() + ".json"), extendedPlayer);
+        }
     }
 
     public void saveHighscores() {

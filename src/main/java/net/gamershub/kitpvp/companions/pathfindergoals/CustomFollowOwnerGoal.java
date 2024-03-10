@@ -22,7 +22,7 @@ import java.util.EnumSet;
 
 public class CustomFollowOwnerGoal extends Goal {
     private final Mob mob;
-    private LivingEntity owner;
+    private final LivingEntity owner;
     private final LevelReader level;
     private final double speedModifier;
     private final PathNavigation navigation;
@@ -119,7 +119,7 @@ public class CustomFollowOwnerGoal extends Goal {
             return false;
         } else {
             // CraftBukkit start
-            EntityTeleportEvent event = CraftEventFactory.callEntityTeleportEvent(this.mob, (double) x + 0.5D, (double) y, (double) z + 0.5D);
+            EntityTeleportEvent event = CraftEventFactory.callEntityTeleportEvent(this.mob, (double) x + 0.5D, y, (double) z + 0.5D);
             if (event.isCancelled() || event.getTo() == null) { // Paper
                 return false;
             }
