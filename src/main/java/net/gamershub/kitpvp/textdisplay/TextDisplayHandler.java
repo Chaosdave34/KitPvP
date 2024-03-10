@@ -1,7 +1,7 @@
 package net.gamershub.kitpvp.textdisplay;
 
+import net.gamershub.kitpvp.Utils;
 import net.gamershub.kitpvp.textdisplay.impl.*;
-import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
 import net.minecraft.network.protocol.game.ClientboundSetEntityDataPacket;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
@@ -56,22 +56,11 @@ public class TextDisplayHandler {
 
     public void spawnTextDisplays(Player p) {
         for (TextDisplay textDisplay : textDisplays) {
-            CraftPlayer cp = (CraftPlayer) p;
-            ServerPlayer sp = cp.getHandle();
-            ServerGamePacketListenerImpl connection = sp.connection;
-
             for (int i = 0; i < textDisplay.getLineCount(); i++) {
                 ArmorStand armorStand = textDisplay.getArmorStands().get(i);
                 armorStand.setCustomName(textDisplay.getLines(p).get(i));
 
-                ClientboundAddEntityPacket addEntityPacket = new ClientboundAddEntityPacket(armorStand);
-                connection.send(addEntityPacket);
-
-                List<SynchedEntityData.DataValue<?>> nonDefaultValues = armorStand.getEntityData().getNonDefaultValues();
-                if (nonDefaultValues != null) {
-                    ClientboundSetEntityDataPacket setEntityDataPacket = new ClientboundSetEntityDataPacket(armorStand.getId(), armorStand.getEntityData().getNonDefaultValues());
-                    connection.send(setEntityDataPacket);
-                }
+                Utils.spawnNmsEntity(p, armorStand);
             }
         }
     }

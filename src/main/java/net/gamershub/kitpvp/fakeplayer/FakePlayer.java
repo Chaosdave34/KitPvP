@@ -1,17 +1,28 @@
 package net.gamershub.kitpvp.fakeplayer;
 
+import com.mojang.datafixers.util.Pair;
 import lombok.Getter;
 import lombok.Setter;
 import net.gamershub.kitpvp.KitPvpPlugin;
+import net.gamershub.kitpvp.Utils;
+import net.minecraft.network.protocol.game.ClientboundPlayerInfoUpdatePacket;
+import net.minecraft.network.protocol.game.ClientboundRemoveEntitiesPacket;
+import net.minecraft.network.protocol.game.ClientboundSetEquipmentPacket;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.server.network.ServerGamePacketListenerImpl;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Pose;
 import org.bukkit.Location;
+import org.bukkit.craftbukkit.v1_20_R3.CraftEquipmentSlot;
+import org.bukkit.craftbukkit.v1_20_R3.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_20_R3.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Getter
@@ -98,11 +109,29 @@ public abstract class FakePlayer {
     }
 
     public void spawn(Player p) {
-        KitPvpPlugin.INSTANCE.getFakePlayerHandler().spawnFakePlayer(p, this);
+        CraftPlayer cp = (CraftPlayer) p;
+        ServerPlayer sp = cp.getHandle();
+        ServerGamePacketListenerImpl connection = sp.connection;
+
+        ServerPlayer npc = serverPlayer;
+        ClientboundPlayerInfoUpdatePacket infoPacket = new ClientboundPlayerInfoUpdatePacket(ClientboundPlayerInfoUpdatePacket.Action.ADD_PLAYER, npc);
+        connection.send(infoPacket);
+
+        Utils.spawnNmsEntity(p, npc);
+
+        List<Pair<net.minecraft.world.entity.EquipmentSlot, net.minecraft.world.item.ItemStack>> equipment = new ArrayList<>();
+        for (Map.Entry<EquipmentSlot, ItemStack> entry : getEquipment().entrySet()) {
+            equipment.add(new Pair<>(CraftEquipmentSlot.getNMS(entry.getKey()), CraftItemStack.asNMSCopy(entry.getValue())));
+        }
+        if (!equipment.isEmpty()) {
+            ClientboundSetEquipmentPacket equipmentPacket = new ClientboundSetEquipmentPacket(npc.getId(), equipment);
+            connection.send(equipmentPacket);
+        }
     }
 
     protected void despawn() {
-        KitPvpPlugin.INSTANCE.getFakePlayerHandler().despawn(this);
+        ClientboundRemoveEntitiesPacket removeEntitiesPacket = new ClientboundRemoveEntitiesPacket(serverPlayer.getId());
+        Utils.sendPacketToOnlinePlayers(removeEntitiesPacket);
     }
 
     @Getter

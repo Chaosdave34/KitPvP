@@ -21,6 +21,7 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.HexFormat;
+import java.util.List;
 import java.util.UUID;
 
 public class UtilityListener implements Listener {
@@ -70,13 +71,27 @@ public class UtilityListener implements Listener {
         }
 
         extendedPlayer.updatePlayerListFooter();
+
+        List<Component> messages = List.of(
+                Component.text("KitPvP is currently in closed beta!", NamedTextColor.AQUA),
+                Component.text("- Feel free to report bugs and post feature requests in the #kitpvp channel on the discord server.", NamedTextColor.AQUA),
+                Component.text("- ", NamedTextColor.AQUA)
+                        .append(Component.text("Daily Challenges", NamedTextColor.GRAY).decorate(TextDecoration.ITALIC))
+                        .append(Component.text(" and ", NamedTextColor.AQUA))
+                        .append(Component.text("Companions", NamedTextColor.GRAY).decorate(TextDecoration.ITALIC))
+                        .append(Component.text(" have been enabled. You may experience strange or unexpected behaviour.", NamedTextColor.AQUA))
+                );
+
+        Bukkit.getScheduler().runTaskLater(KitPvpPlugin.INSTANCE, () -> messages.forEach(p::sendMessage), 10);
     }
 
     @EventHandler
     public void onQuit(PlayerQuitEvent e) {
         Player p = e.getPlayer();
 
-        KitPvpPlugin.INSTANCE.getExtendedPlayer(p).unmorph();
+        ExtendedPlayer extendedPlayer = KitPvpPlugin.INSTANCE.getExtendedPlayer(p);
+        extendedPlayer.unmorph();
+        extendedPlayer.removeCompanion();
         KitPvpPlugin.INSTANCE.removeExtendedPlayer(p);
 
         Component message = Component.text(p.getName() + " left!", NamedTextColor.DARK_GRAY);

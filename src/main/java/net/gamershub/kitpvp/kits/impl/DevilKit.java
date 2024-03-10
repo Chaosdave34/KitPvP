@@ -1,5 +1,7 @@
 package net.gamershub.kitpvp.kits.impl;
 
+import net.gamershub.kitpvp.companions.Companion;
+import net.gamershub.kitpvp.companions.CompanionHandler;
 import net.gamershub.kitpvp.items.CustomItemHandler;
 import net.gamershub.kitpvp.kits.Kit;
 import org.bukkit.Color;
@@ -69,5 +71,10 @@ public class DevilKit extends Kit { // Add special ability
                 new ItemStack(Material.GOLDEN_APPLE),
                 new ItemStack(Material.NETHERRACK, 32),
         };
+    }
+
+    @Override
+    public Companion getCompanion() {
+        return CompanionHandler.ZOGLIN;
     }
 }

@@ -32,7 +32,6 @@ import org.bukkit.World;
 import org.bukkit.craftbukkit.v1_20_R3.CraftEquipmentSlot;
 import org.bukkit.craftbukkit.v1_20_R3.CraftServer;
 import org.bukkit.craftbukkit.v1_20_R3.CraftWorld;
-import org.bukkit.craftbukkit.v1_20_R3.entity.CraftPlayer;
 import org.bukkit.craftbukkit.v1_20_R3.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -124,35 +123,7 @@ public class FakePlayerHandler implements Listener {
     public void spawnFakePlayers(Player p) {
         for (FakePlayer fakePlayer : fakePlayers) {
             if (fakePlayer.isShowOnPlayerSpawn())
-                spawnFakePlayer(p, fakePlayer);
-        }
-    }
-
-    public void spawnFakePlayer(Player p, FakePlayer fakePlayer) {
-        CraftPlayer cp = (CraftPlayer) p;
-        ServerPlayer sp = cp.getHandle();
-        ServerGamePacketListenerImpl connection = sp.connection;
-
-        ServerPlayer npc = fakePlayer.serverPlayer;
-        ClientboundPlayerInfoUpdatePacket infoPacket = new ClientboundPlayerInfoUpdatePacket(ClientboundPlayerInfoUpdatePacket.Action.ADD_PLAYER, npc);
-        connection.send(infoPacket);
-
-        ClientboundAddEntityPacket addNpcPacket = new ClientboundAddEntityPacket(npc);
-        connection.send(addNpcPacket);
-
-        List<SynchedEntityData.DataValue<?>> nonDefaultValues = npc.getEntityData().getNonDefaultValues();
-        if (nonDefaultValues != null) {
-            ClientboundSetEntityDataPacket entityDataPacket = new ClientboundSetEntityDataPacket(npc.getId(), nonDefaultValues);
-            connection.send(entityDataPacket);
-        }
-
-        List<Pair<net.minecraft.world.entity.EquipmentSlot, net.minecraft.world.item.ItemStack>> equipment = new ArrayList<>();
-        for (Map.Entry<EquipmentSlot, ItemStack> entry : fakePlayer.getEquipment().entrySet()) {
-            equipment.add(new Pair<>(CraftEquipmentSlot.getNMS(entry.getKey()), CraftItemStack.asNMSCopy(entry.getValue())));
-        }
-        if (!equipment.isEmpty()) {
-            ClientboundSetEquipmentPacket equipmentPacket = new ClientboundSetEquipmentPacket(npc.getId(), equipment);
-            connection.send(equipmentPacket);
+                fakePlayer.spawn(p);
         }
     }
 
@@ -231,10 +202,5 @@ public class FakePlayerHandler implements Listener {
     public void playHurtAnimation(FakePlayer fakePlayer) {
         ClientboundHurtAnimationPacket hurtAnimationPacket = new ClientboundHurtAnimationPacket(fakePlayer.serverPlayer);
         Utils.sendPacketToOnlinePlayers(hurtAnimationPacket);
-    }
-
-    public void despawn(FakePlayer fakePlayer) {
-        ClientboundRemoveEntitiesPacket removeEntitiesPacket = new ClientboundRemoveEntitiesPacket(fakePlayer.serverPlayer.getId());
-        Utils.sendPacketToOnlinePlayers(removeEntitiesPacket);
     }
 }

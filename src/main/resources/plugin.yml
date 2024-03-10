@@ -33,10 +33,6 @@ commands:
     description: Adds experience to the player
     usage: /<command> <player> <amount>
     permission: kitpvp.add_experience
-  test_companion:
-    description: Test companions
-    usage: /<command>
-    permission: kitpvp.test_companion
 permissions:
   bukkit.command.version:
     default: op

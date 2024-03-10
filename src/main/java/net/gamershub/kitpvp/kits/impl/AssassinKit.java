@@ -1,5 +1,7 @@
 package net.gamershub.kitpvp.kits.impl;
 
+import net.gamershub.kitpvp.companions.Companion;
+import net.gamershub.kitpvp.companions.CompanionHandler;
 import net.gamershub.kitpvp.items.CustomItemHandler;
 import net.gamershub.kitpvp.kits.Kit;
 import org.bukkit.Material;
@@ -45,5 +47,10 @@ public class AssassinKit extends Kit {
                 new ItemStack(Material.GOLDEN_APPLE),
                 new ItemStack(Material.COBBLESTONE, 32),
         };
+    }
+
+    @Override
+    public Companion getCompanion() {
+        return CompanionHandler.ALLAY;
     }
 }

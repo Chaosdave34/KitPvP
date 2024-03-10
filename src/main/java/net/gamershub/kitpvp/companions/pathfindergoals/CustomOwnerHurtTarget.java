@@ -10,12 +10,12 @@ import org.bukkit.entity.Player;
 
 import java.util.EnumSet;
 
-public class CustomOwnerHurtByTarget extends TargetGoal {
+public class CustomOwnerHurtTarget extends TargetGoal {
     private final LivingEntity owner;
-    private LivingEntity ownerLastHurtBy;
+    private LivingEntity ownerLastHurt;
     private int timestamp;
 
-    public CustomOwnerHurtByTarget(Mob mob, Player owner) {
+    public CustomOwnerHurtTarget(Mob mob, Player owner) {
         super(mob, false);
         this.owner = ((CraftLivingEntity) owner).getHandle();
         this.setFlags(EnumSet.of(Goal.Flag.TARGET));
@@ -26,19 +26,21 @@ public class CustomOwnerHurtByTarget extends TargetGoal {
         if (owner == null) {
             return false;
         } else {
-            this.ownerLastHurtBy = owner.getLastHurtByMob();
-            int i = owner.getLastHurtByMobTimestamp();
+            this.ownerLastHurt = owner.getLastHurtMob();
+            int i = owner.getLastHurtMobTimestamp();
 
-            return i != this.timestamp && this.canAttack(this.ownerLastHurtBy, TargetingConditions.DEFAULT);
+            return i != this.timestamp && this.canAttack(this.owner, TargetingConditions.DEFAULT);
         }
     }
 
     @Override
     public void start() {
-        this.mob.setTarget(this.ownerLastHurtBy, org.bukkit.event.entity.EntityTargetEvent.TargetReason.TARGET_ATTACKED_OWNER, false);
+        mob.setTarget(ownerLastHurt, org.bukkit.event.entity.EntityTargetEvent.TargetReason.OWNER_ATTACKED_TARGET, false);
+
         if (owner != null) {
-            this.timestamp = owner.getLastHurtByMobTimestamp();
+            this.timestamp = owner.getLastHurtMobTimestamp();
         }
+
         super.start();
     }
 }

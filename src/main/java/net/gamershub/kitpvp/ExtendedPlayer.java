@@ -3,6 +3,7 @@ package net.gamershub.kitpvp;
 import lombok.Getter;
 import lombok.Setter;
 import net.gamershub.kitpvp.challenges.Challenge;
+import net.gamershub.kitpvp.companions.Companion;
 import net.gamershub.kitpvp.customevents.CustomEventHandler;
 import net.gamershub.kitpvp.events.PlayerSpawnEvent;
 import net.gamershub.kitpvp.kits.Kit;
@@ -17,6 +18,7 @@ import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Mob;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.metadata.FixedMetadataValue;
@@ -39,6 +41,7 @@ public class ExtendedPlayer {
     private transient int combatCooldown;
 
     private transient Entity morph;
+    private transient Mob companion;
 
     private transient int killSteak;
     private int highestKillStreak;
@@ -80,6 +83,7 @@ public class ExtendedPlayer {
         if (p == null) return;
 
         unmorph();
+        removeCompanion();
 
         p.teleport(new Location(Bukkit.getWorld("world"), 0.5, 100.5, -8.5, 0, 0));
 
@@ -282,6 +286,26 @@ public class ExtendedPlayer {
             morph.removePassenger(p);
             morph.remove();
             morph = null;
+        }
+    }
+
+    public void spawnCompanion() {
+        Companion comp = getSelectedKit().getCompanion();
+        if (comp == null) {
+            if (this.companion != null) removeCompanion();
+            return;
+        }
+
+        if (this.companion == null) {
+            this.companion = comp.createCompanion(getPlayer());
+            getPlayer().getWorld().addEntity(companion);
+        }
+    }
+
+    public void removeCompanion() {
+        if (this.companion != null) {
+            companion.remove();
+            this.companion = null;
         }
     }
 

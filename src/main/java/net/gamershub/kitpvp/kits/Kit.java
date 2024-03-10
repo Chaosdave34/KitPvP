@@ -4,6 +4,7 @@ import com.mojang.datafixers.util.Pair;
 import lombok.Getter;
 import net.gamershub.kitpvp.ExtendedPlayer;
 import net.gamershub.kitpvp.KitPvpPlugin;
+import net.gamershub.kitpvp.companions.Companion;
 import org.bukkit.Color;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeInstance;
@@ -70,6 +71,10 @@ public class Kit implements Listener {
         return Collections.emptyList();
     }
 
+    public Companion getCompanion() {
+        return null;
+    }
+
     public void apply(Player p) {
         ExtendedPlayer extendedPlayer = KitPvpPlugin.INSTANCE.getExtendedPlayer(p);
         extendedPlayer.setSelectedKitId(id);
@@ -98,6 +103,9 @@ public class Kit implements Listener {
         for (Pair<PotionEffectType, Integer> potionEffect : getPotionEffects()) {
             p.addPotionEffect(new PotionEffect(potionEffect.getFirst(), -1, potionEffect.getSecond(), false, false, false));
         }
+
+        extendedPlayer.removeCompanion();
+        extendedPlayer.spawnCompanion();
     }
 
     protected void setLeatherArmorColor(ItemStack leatherArmor, Color color) {

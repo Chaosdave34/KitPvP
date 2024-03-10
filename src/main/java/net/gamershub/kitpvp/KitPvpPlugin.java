@@ -4,6 +4,7 @@ import lombok.Getter;
 import net.gamershub.kitpvp.abilities.AbilityHandler;
 import net.gamershub.kitpvp.challenges.ChallengesHandler;
 import net.gamershub.kitpvp.commands.*;
+import net.gamershub.kitpvp.companions.CompanionHandler;
 import net.gamershub.kitpvp.cosmetics.CosmeticHandler;
 import net.gamershub.kitpvp.customevents.CustomEventHandler;
 import net.gamershub.kitpvp.enchantments.CustomEnchantmentHandler;
@@ -16,6 +17,7 @@ import net.gamershub.kitpvp.listener.GamePlayerDeathListener;
 import net.gamershub.kitpvp.listener.SpawnListener;
 import net.gamershub.kitpvp.listener.UtilityListener;
 import net.gamershub.kitpvp.textdisplay.TextDisplayHandler;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.GameRule;
 import org.bukkit.World;
@@ -24,9 +26,7 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 
 @Getter
@@ -42,6 +42,7 @@ public final class KitPvpPlugin extends JavaPlugin {
     private AbilityHandler abilityHandler;
     private CustomItemHandler customItemHandler;
     private KitHandler kitHandler;
+    private CompanionHandler companionHandler;
     private FakePlayerHandler fakePlayerHandler;
     private TextDisplayHandler textDisplayHandler;
     private CosmeticHandler cosmeticHandler;
@@ -58,6 +59,7 @@ public final class KitPvpPlugin extends JavaPlugin {
         abilityHandler = new AbilityHandler();
         customItemHandler = new CustomItemHandler();
         kitHandler = new KitHandler();
+        companionHandler = new CompanionHandler();
         fakePlayerHandler = new FakePlayerHandler();
         textDisplayHandler = new TextDisplayHandler();
         cosmeticHandler = new CosmeticHandler();
@@ -106,9 +108,6 @@ public final class KitPvpPlugin extends JavaPlugin {
 
         getCommand("add_experience").setExecutor(new AddExperienceCommand());
         getCommand("add_experience").setTabCompleter(new PlayerTabCompleter());
-
-        getCommand("test_companion").setExecutor(new TestCompanionCommand());
-        getCommand("test_companion").setTabCompleter(new EmptyTabCompleter());
 
         // Create data folder
         getDataFolder().mkdir();

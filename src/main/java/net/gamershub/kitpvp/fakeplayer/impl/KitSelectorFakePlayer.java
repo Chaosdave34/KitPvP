@@ -2,11 +2,14 @@ package net.gamershub.kitpvp.fakeplayer.impl;
 
 import net.gamershub.kitpvp.ExtendedPlayer;
 import net.gamershub.kitpvp.KitPvpPlugin;
+import net.gamershub.kitpvp.Utils;
 import net.gamershub.kitpvp.fakeplayer.FakePlayer;
 import net.gamershub.kitpvp.kits.Kit;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
+import net.minecraft.world.entity.Mob;
 import org.bukkit.Location;
+import org.bukkit.craftbukkit.v1_20_R3.util.CraftVector;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.EquipmentSlot;
 
@@ -23,6 +26,18 @@ public class KitSelectorFakePlayer extends FakePlayer {
         equipment.put(EquipmentSlot.FEET, kit.getFeetContent());
         equipment.put(EquipmentSlot.HAND, kit.getInventoryContent()[0]);
         equipment.put(EquipmentSlot.OFF_HAND, kit.getOffhandContent());
+    }
+
+    @Override
+    public void spawn(Player p) {
+        super.spawn(p);
+
+        Location dummyCompanionLocation = getPosition().clone().add(CraftVector.toBukkit(serverPlayer.getLookAngle()).rotateAroundY(Math.toRadians(45)));
+
+        if (kit.getCompanion() != null) {
+            Mob mob = kit.getCompanion().createDummyCompanion(dummyCompanionLocation);
+            Utils.spawnNmsEntity(p, mob);
+        }
     }
 
     @Override
