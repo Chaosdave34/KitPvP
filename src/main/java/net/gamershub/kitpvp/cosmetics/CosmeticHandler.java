@@ -75,7 +75,7 @@ public class CosmeticHandler implements Listener {
                             if (firework.isDetonated()) this.cancel();
                         }
                     }
-                }.runTaskTimer(KitPvpPlugin.INSTANCE, 0, 1);
+                }.runTaskTimer(KitPvpPlugin.INSTANCE, 0, 2);
 
                 activeProjectiles.put(projectile.getEntityId(), task.getTaskId());
             }
