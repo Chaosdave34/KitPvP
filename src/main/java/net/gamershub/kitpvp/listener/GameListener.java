@@ -34,32 +34,9 @@ public class GameListener implements Listener {
 
     public void startBlockRemover() {
         if (blockRemoverTask == null || !Bukkit.getScheduler().isCurrentlyRunning(blockRemoverTask.getTaskId())) {
-            blockRemoverTask = new BukkitRunnable() {
-                @Override
-                public void run() {
-                    if (blocksToRemove.isEmpty()) {
-                        this.cancel();
-                    }
-
-                    long currentTime = System.currentTimeMillis();
-                    Iterator<Map.Entry<Location, Long>> iterator = blocksToRemove.entrySet().iterator();
-
-                    while (iterator.hasNext()) {
-                        Map.Entry<Location, Long> entry = iterator.next();
-                        if (currentTime - entry.getValue() >= 30 * 1000) {
-                            Block block = entry.getKey().getBlock();
-                            if (block instanceof Waterlogged)
-                                ((Waterlogged) block).setWaterlogged(false);
-                            else
-                                block.setType(Material.AIR);
-                            iterator.remove();
-                        }
-                    }
-                }
-            }.runTaskTimer(KitPvpPlugin.INSTANCE, 0, 20);
+            blockRemoverTask = new BlockRemover().runTaskTimer(KitPvpPlugin.INSTANCE, 0, 20);
         }
     }
-
 
     @EventHandler
     public void onBlockPlace(BlockPlaceEvent e) {
@@ -219,6 +196,30 @@ public class GameListener implements Listener {
             ExtendedPlayer extendedDamager = KitPvpPlugin.INSTANCE.getExtendedPlayer(damager);
             if (extendedDamager.getGameState() == ExtendedPlayer.GameState.IN_GAME) {
                 extendedDamager.enterCombat();
+            }
+        }
+    }
+
+    private class BlockRemover extends BukkitRunnable {
+        @Override
+        public void run() {
+            if (blocksToRemove.isEmpty()) {
+                this.cancel();
+            }
+
+            long currentTime = System.currentTimeMillis();
+            Iterator<Map.Entry<Location, Long>> iterator = blocksToRemove.entrySet().iterator();
+
+            while (iterator.hasNext()) {
+                Map.Entry<Location, Long> entry = iterator.next();
+                if (currentTime - entry.getValue() >= 30 * 1000) {
+                    Block block = entry.getKey().getBlock();
+                    if (block instanceof Waterlogged)
+                        ((Waterlogged) block).setWaterlogged(false);
+                    else
+                        block.setType(Material.AIR);
+                    iterator.remove();
+                }
             }
         }
     }
