@@ -7,7 +7,7 @@ import org.bukkit.Particle;
 
 public class ShriekKillEffect extends KillEffect {
     public ShriekKillEffect() {
-        super("shriek", "Shriek", 1, Material.SCULK_SHRIEKER);
+        super("shriek", "Shriek", 2, Material.SCULK_SHRIEKER);
     }
 
     @Override

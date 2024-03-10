@@ -3,8 +3,7 @@ package net.gamershub.kitpvp.cosmetics;
 import lombok.Getter;
 import net.gamershub.kitpvp.ExtendedPlayer;
 import net.gamershub.kitpvp.KitPvpPlugin;
-import net.gamershub.kitpvp.cosmetics.impl.ShriekKillEffect;
-import net.gamershub.kitpvp.cosmetics.impl.SmokeKillEffect;
+import net.gamershub.kitpvp.cosmetics.impl.*;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Particle;
@@ -34,17 +33,39 @@ public class CosmeticHandler implements Listener {
     public static ProjectileTrail HEARTS_PROJECTILE_TRAIL;
     public static ProjectileTrail COMPOSTER_PROJECTILE_TRAIL;
     public static ProjectileTrail ANGRY_VILLAGER_PROJECTILE_TRAIL;
+    public static ProjectileTrail BUBBLE_PROJECTILE_TRAIL;
+    public static ProjectileTrail CHERRY_LEAVES_PROJECTILE_TRAIL;
+    public static ProjectileTrail ELECTRIC_SPARK_PROJECTILE_TRAIL;
+    public static ProjectileTrail ENCHANT_PROJECTILE_TRAIL;
+    public static ProjectileTrail FLAME_PROJECTILE_TRAIL;
+    public static ProjectileTrail GLOW_PROJECTILE_TRAIL;
+    public static ProjectileTrail NAUTILUS_PROJECTILE_TRAIL;
+    public static ProjectileTrail NOTE_PROJECTILE_TRAIL;
+    public static ProjectileTrail SOUL_FIRE_PROJECTILE_TRAIL;
 
     public static KillEffect SHRIEK_KILL_EFFECT;
     public static KillEffect SMOKE_KILL_EFFECT;
+    public static KillEffect SONIC_BOOM_KILL_EFFECT;
+    public static KillEffect GUST_KILL_EFFECT;
 
     public CosmeticHandler() {
         HEARTS_PROJECTILE_TRAIL = registerProjectileTrail(new ProjectileTrail("hearts", "Hearts", Particle.HEART, 1, Material.RED_DYE));
-        COMPOSTER_PROJECTILE_TRAIL = registerProjectileTrail(new ProjectileTrail("composter", "Composter", Particle.COMPOSTER, 10, Material.COMPOSTER));
-        ANGRY_VILLAGER_PROJECTILE_TRAIL = registerProjectileTrail(new ProjectileTrail("angry_villager", "Angry Villager", Particle.VILLAGER_ANGRY, 20, Material.VILLAGER_SPAWN_EGG));
+        COMPOSTER_PROJECTILE_TRAIL = registerProjectileTrail(new ProjectileTrail("composter", "Composter", Particle.COMPOSTER, 2, Material.COMPOSTER));
+        ANGRY_VILLAGER_PROJECTILE_TRAIL = registerProjectileTrail(new ProjectileTrail("angry_villager", "Angry Villager", Particle.VILLAGER_ANGRY, 3, Material.VILLAGER_SPAWN_EGG));
+        BUBBLE_PROJECTILE_TRAIL = registerProjectileTrail(new ProjectileTrail("bubble", "Bubble", Particle.BUBBLE_POP, 4, Material.WATER_BUCKET));
+        CHERRY_LEAVES_PROJECTILE_TRAIL = registerProjectileTrail(new ProjectileTrail("cherry_blossom", "Cherry Blossom", Particle.CHERRY_LEAVES, 5, Material.CHERRY_LEAVES));
+        ELECTRIC_SPARK_PROJECTILE_TRAIL = registerProjectileTrail(new ProjectileTrail("electric_spark", "Electric Spark", Particle.ELECTRIC_SPARK, 6, Material.LIGHTNING_ROD));
+        ENCHANT_PROJECTILE_TRAIL = registerProjectileTrail(new ProjectileTrail("enchant", "Enchant", Particle.ENCHANTMENT_TABLE, 7, Material.ENCHANTING_TABLE));
+        FLAME_PROJECTILE_TRAIL = registerProjectileTrail(new ProjectileTrail("flame", "Flame", Particle.SMALL_FLAME, 8, Material.TORCH));
+        GLOW_PROJECTILE_TRAIL = registerProjectileTrail(new ProjectileTrail("glow", "Glow", Particle.GLOW, 9, Material.GLOW_INK_SAC));
+        NAUTILUS_PROJECTILE_TRAIL = registerProjectileTrail(new ProjectileTrail("nautilus", "Nautilus", Particle.NAUTILUS, 10, Material.NAUTILUS_SHELL));
+        NOTE_PROJECTILE_TRAIL = registerProjectileTrail(new ProjectileTrail("note", "Note", Particle.NOTE, 11, Material.NOTE_BLOCK));
+        SOUL_FIRE_PROJECTILE_TRAIL = registerProjectileTrail(new ProjectileTrail("soul_fire", "Soul Fire", Particle.SOUL_FIRE_FLAME, 12, Material.SOUL_LANTERN));
 
+        SMOKE_KILL_EFFECT = registerKillEffect(new SimpleKillEffect("smoke", "Smoke", Particle.SMOKE_NORMAL, 1, Material.COAL));
         SHRIEK_KILL_EFFECT = registerKillEffect(new ShriekKillEffect());
-        SMOKE_KILL_EFFECT = registerKillEffect(new SmokeKillEffect());
+        SONIC_BOOM_KILL_EFFECT = registerKillEffect(new SimpleKillEffect("sonic_boom", "Sonic Boom", Particle.SMOKE_LARGE, 3, Material.WARDEN_SPAWN_EGG));
+        GUST_KILL_EFFECT = registerKillEffect(new SimpleKillEffect("gust", "Gust", Particle.GUST, 4, Material.STONE_SWORD));
     }
 
     private ProjectileTrail registerProjectileTrail(ProjectileTrail projectileTrail) {
@@ -69,7 +90,7 @@ public class CosmeticHandler implements Listener {
                 BukkitTask task = new BukkitRunnable() {
                     @Override
                     public void run() {
-                        projectile.getWorld().spawnParticle(particle, projectile.getLocation(), 1);
+                        projectile.getWorld().spawnParticle(particle, projectile.getLocation(), 1, 0, 0, 0, 0);
 
                         if (projectile instanceof Firework firework) {
                             if (firework.isDetonated()) this.cancel();

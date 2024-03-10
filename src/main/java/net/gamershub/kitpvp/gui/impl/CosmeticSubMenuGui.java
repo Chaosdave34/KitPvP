@@ -25,8 +25,8 @@ public class CosmeticSubMenuGui extends Gui {
     private final String name;
     private final Collection<? extends Cosmetic> cosmetics;
 
-    public CosmeticSubMenuGui(String name, Collection<? extends Cosmetic> cosmetics) {
-        super(3, Component.text(name), true);
+    public CosmeticSubMenuGui(String name, Collection<? extends Cosmetic> cosmetics, int rows) {
+        super(rows, Component.text(name), true);
         this.name = name;
         this.cosmetics = cosmetics;
     }
@@ -49,7 +49,7 @@ public class CosmeticSubMenuGui extends Gui {
 
         int slot = 1;
         for (Cosmetic cosmetic : cosmetics.stream().sorted(Comparator.comparingInt(Cosmetic::getLevelRequirement)).toList()) {
-            if (slot < (rows - 2) * 9 - 1) {
+            if (slot < (rows - 1) * 9) {
                 Component component = Component.text(cosmetic.getName(), NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false);
 
                 String selected = null;
@@ -78,8 +78,8 @@ public class CosmeticSubMenuGui extends Gui {
             slot++;
         }
 
-        inventory.setItem(21, createItemStack(Material.ARROW, "Back", true, false));
-        inventory.setItem(22, createItemStack(Material.BARRIER, "Close", true, false));
+        inventory.setItem(rows * 9 - 6, createItemStack(Material.ARROW, "Back", true, false));
+        inventory.setItem(rows * 9 - 5, createItemStack(Material.BARRIER, "Close", true, false));
         return inventory;
     }
 
@@ -97,19 +97,14 @@ public class CosmeticSubMenuGui extends Gui {
         show(p);
     }
 
-    @InventoryClickHandler(slot = 21)
-    public void onBackButton(InventoryClickEvent e) {
-        GuiHandler.COSMETICS.show((Player) e.getWhoClicked());
-    }
-
-    @InventoryClickHandler(slot = 22)
-    public void onCloseButton(InventoryClickEvent e) {
-        e.getInventory().close();
-    }
-
-
     @Override
     public void onInventoryClick(InventoryClickEvent e) {
+        if (e.getRawSlot() == rows * 9 - 6)
+            GuiHandler.COSMETICS.show((Player) e.getWhoClicked());
+        else if (e.getRawSlot() == rows * 9 - 5)
+            e.getInventory().close();
+
+
         super.onInventoryClick(e);
         if (e.getClickedInventory() == null) return;
 
