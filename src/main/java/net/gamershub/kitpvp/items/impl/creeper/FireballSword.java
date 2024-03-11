@@ -12,20 +12,12 @@ import java.util.List;
 
 public class FireballSword extends CustomItem {
     public FireballSword() {
-        super(Material.FIRE_CHARGE, "fireball_sword", false, true);
+        super(Material.IRON_SWORD, "fireball_sword", false, true);
     }
 
     @Override
     public @NotNull Component getName() {
         return createSimpleItemName("Fireball Sword");
-    }
-
-    @Override
-    public @NotNull List<Component> getDescription() {
-        return createSimpleDescription(
-                "Handle with care... ",
-                "or not, if you're feeling hot-headed!"
-        );
     }
 
     @Override
