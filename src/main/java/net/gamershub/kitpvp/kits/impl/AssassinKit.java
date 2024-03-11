@@ -36,7 +36,6 @@ public class AssassinKit extends Kit {
     public ItemStack[] getInventoryContent() {
         return new ItemStack[]{
                 CustomItemHandler.ASSASSIN_SWORD.build(),
-                CustomItemHandler.HAUNT_WAND.build(),
                 new ItemStack(Material.WATER_BUCKET),
         };
     }

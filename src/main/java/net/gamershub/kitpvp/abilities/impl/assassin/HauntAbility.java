@@ -1,12 +1,16 @@
 package net.gamershub.kitpvp.abilities.impl.assassin;
 
+import net.gamershub.kitpvp.KitPvpPlugin;
 import net.gamershub.kitpvp.abilities.Ability;
 import net.gamershub.kitpvp.abilities.AbilityType;
 import net.gamershub.kitpvp.events.PlayerSpawnEvent;
 import net.kyori.adventure.text.Component;
+import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.jetbrains.annotations.NotNull;
@@ -32,23 +36,29 @@ public class HauntAbility extends Ability {
         p.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 5 * 10, 10));
         p.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 5 * 10, 1));
         p.addScoreboardTag("haunt_ability");
+
+        p.getInventory().setHelmet(new ItemStack(Material.AIR));
+        p.getInventory().setChestplate(new ItemStack(Material.AIR));
+        p.getInventory().setLeggings(new ItemStack(Material.AIR));
+        p.getInventory().setBoots(new ItemStack(Material.AIR));
+
+        Bukkit.getScheduler().runTaskLater(KitPvpPlugin.INSTANCE, () -> removeEffects(p), 5 * 20);
         return true;
     }
 
     @EventHandler
     public void onPlayerAttack(EntityDamageByEntityEvent e) {
         if (e.getEntity() instanceof Player && e.getDamager() instanceof Player damager) {
-            if (damager.getScoreboardTags().contains("haunt_ability")) {
-                damager.removePotionEffect(PotionEffectType.SPEED);
-                damager.removePotionEffect(PotionEffectType.INVISIBILITY);
-                damager.removeScoreboardTag("haunt_ability");
-            }
+            removeEffects(damager);
         }
     }
 
     @EventHandler
     public void onSpawn(PlayerSpawnEvent e) {
-        Player p = e.getPlayer();
+        removeEffects(e.getPlayer());
+    }
+
+    private void removeEffects(Player p) {
         if (p.getScoreboardTags().contains("haunt_ability")) {
             p.removePotionEffect(PotionEffectType.SPEED);
             p.removePotionEffect(PotionEffectType.INVISIBILITY);

@@ -45,12 +45,8 @@ public class CreeperKit extends Kit {
 
     @Override
     public ItemStack[] getInventoryContent() {
-        ItemStack ironSword = new ItemStack(Material.IRON_SWORD);
-        setCustomModelData(ironSword, 2);
-
         return new ItemStack[]{
-                ironSword,
-                CustomItemHandler.FIREBALL.build(),
+                CustomItemHandler.FIREBALL_SWORD.build(),
         };
     }
 
