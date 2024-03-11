@@ -3,6 +3,7 @@ package net.gamershub.kitpvp.abilities.impl.poseidon;
 import net.gamershub.kitpvp.abilities.Ability;
 import net.gamershub.kitpvp.abilities.AbilityType;
 import net.kyori.adventure.text.Component;
+import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
@@ -20,9 +21,11 @@ public class StormAbility extends Ability {
 
     @Override
     public boolean onAbility(Player p) {
-        p.getWorld().setStorm(true);
-        p.getWorld().setThundering(true);
-        p.getWorld().setThunderDuration(600);
+        World world = p.getWorld();
+        world.setStorm(true);
+        world.setWeatherDuration(600);
+        world.setThundering(true);
+        world.setThunderDuration(600);
         return true;
     }
 }
