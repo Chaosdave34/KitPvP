@@ -2,6 +2,7 @@ package net.gamershub.kitpvp.abilities;
 
 import net.gamershub.kitpvp.ExtendedPlayer;
 import net.gamershub.kitpvp.KitPvpPlugin;
+import net.gamershub.kitpvp.abilities.impl.artilleryman.EnhanceAbility;
 import net.gamershub.kitpvp.abilities.impl.creeper.ExplodeAbility;
 import net.gamershub.kitpvp.abilities.impl.creeper.FireballAbility;
 import net.gamershub.kitpvp.abilities.impl.enderman.EnderAttackAbility;
@@ -55,6 +56,7 @@ public class AbilityHandler implements Listener {
     public static Ability SEISMIC_WAVE;
     public static Ability FORTIFY;
     public static Ability MAGIC_ATTACK;
+    public static Ability ENHANCE;
 
     public AbilityHandler() {
         FIREBALL = registerAbility(new FireballAbility());
@@ -74,6 +76,7 @@ public class AbilityHandler implements Listener {
         SEISMIC_WAVE = registerAbility(new SeismicWaveAbility());
         FORTIFY = registerAbility(new FortifyAbility());
         MAGIC_ATTACK = registerAbility(new MagicAttackAbility());
+        ENHANCE = registerAbility(new EnhanceAbility());
     }
 
     public Ability registerAbility(Ability ability) {

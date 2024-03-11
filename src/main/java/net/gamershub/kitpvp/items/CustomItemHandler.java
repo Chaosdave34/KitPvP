@@ -2,10 +2,11 @@ package net.gamershub.kitpvp.items;
 
 import net.gamershub.kitpvp.KitPvpPlugin;
 import net.gamershub.kitpvp.Utils;
+import net.gamershub.kitpvp.items.impl.artilleryman.RocketLauncher;
 import net.gamershub.kitpvp.items.impl.assassin.AssassinSword;
 import net.gamershub.kitpvp.items.impl.creeper.CreeperLeggings;
 import net.gamershub.kitpvp.items.impl.creeper.FireballSword;
-import net.gamershub.kitpvp.items.impl.crossbow.Jetpack;
+import net.gamershub.kitpvp.items.impl.artilleryman.Jetpack;
 import net.gamershub.kitpvp.items.impl.devil.DevilsSword;
 import net.gamershub.kitpvp.items.impl.enderman.EnderSword;
 import net.gamershub.kitpvp.items.impl.magician.MagicWand;
@@ -43,26 +44,28 @@ public class CustomItemHandler {
     public static CustomItem TANK_AXE;
     public static CustomItem JETPACK;
     public static CustomItem ASSASSIN_SWORD;
+    public static CustomItem ROCKET_LAUNCHER;
 
     public CustomItemHandler() {
-        FIREBALL_SWORD = createItem(new FireballSword());
-        LIGHTNING_WAND = createItem(new LightningWand());
-        MAGIC_WAND = createItem(new MagicWand());
-        VAMPIRE_SWORD = createItem(new VampireSword());
-        NUKE = createItem(new NukeItem());
-        SPOOK_SWORD = createItem(new SpookSword());
-        TRAP_WAND = createItem(new TrapWand());
-        CREEPER_LEGGINGS = createItem(new CreeperLeggings());
-        ENDER_SWORD = createItem(new EnderSword());
-        POSEIDONS_TRIDENT = createItem(new PoseidonsTrident());
-        DEVILS_SWORD = createItem(new DevilsSword());
-        TANK_BOOTS = createItem(new TankBoots());
-        TANK_AXE = createItem(new TankAxe());
-        JETPACK = createItem(new Jetpack());
-        ASSASSIN_SWORD = createItem(new AssassinSword());
+        FIREBALL_SWORD = registerItem(new FireballSword());
+        LIGHTNING_WAND = registerItem(new LightningWand());
+        MAGIC_WAND = registerItem(new MagicWand());
+        VAMPIRE_SWORD = registerItem(new VampireSword());
+        NUKE = registerItem(new NukeItem());
+        SPOOK_SWORD = registerItem(new SpookSword());
+        TRAP_WAND = registerItem(new TrapWand());
+        CREEPER_LEGGINGS = registerItem(new CreeperLeggings());
+        ENDER_SWORD = registerItem(new EnderSword());
+        POSEIDONS_TRIDENT = registerItem(new PoseidonsTrident());
+        DEVILS_SWORD = registerItem(new DevilsSword());
+        TANK_BOOTS = registerItem(new TankBoots());
+        TANK_AXE = registerItem(new TankAxe());
+        JETPACK = registerItem(new Jetpack());
+        ASSASSIN_SWORD = registerItem(new AssassinSword());
+        ROCKET_LAUNCHER = registerItem(new RocketLauncher());
     }
 
-    private CustomItem createItem(CustomItem item) {
+    private CustomItem registerItem(CustomItem item) {
         Utils.registerEvents(item);
         ID_MAP.put(item.id, item);
         return item;

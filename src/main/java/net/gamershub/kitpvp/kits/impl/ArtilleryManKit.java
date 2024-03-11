@@ -3,15 +3,14 @@ package net.gamershub.kitpvp.kits.impl;
 import net.gamershub.kitpvp.items.CustomItemHandler;
 import net.gamershub.kitpvp.kits.Kit;
 import org.bukkit.Color;
-import org.bukkit.FireworkEffect;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.FireworkMeta;
 
-public class CrossbowKit extends Kit {
-    public CrossbowKit() {
-        super("crossbow", "Crossbow");
+public class ArtilleryManKit extends Kit {
+    public ArtilleryManKit() {
+        super("artilleryman", "Artilleryman");
     }
 
     @Override
@@ -48,21 +47,17 @@ public class CrossbowKit extends Kit {
 
     @Override
     public ItemStack getOffhandContent() {
-        ItemStack rocket = new ItemStack(Material.FIREWORK_ROCKET, 64);
+        ItemStack rocket = new ItemStack(Material.FIREWORK_ROCKET, 3);
         FireworkMeta rocketMeta = (FireworkMeta) rocket.getItemMeta();
         rocketMeta.setPower(5);
-        rocketMeta.addEffect(FireworkEffect.builder().withColor(Color.RED).with(FireworkEffect.Type.BALL).build());
         rocket.setItemMeta(rocketMeta);
         return rocket;
     }
 
     @Override
     public ItemStack[] getInventoryContent() {
-        ItemStack crossbow = new ItemStack(Material.CROSSBOW);
-        setCustomModelData(crossbow, 1);
-
         return new ItemStack[]{
-                crossbow,
+                CustomItemHandler.ROCKET_LAUNCHER.build(),
                 new ItemStack(Material.STONE_SWORD),
                 new ItemStack(Material.WATER_BUCKET),
         };

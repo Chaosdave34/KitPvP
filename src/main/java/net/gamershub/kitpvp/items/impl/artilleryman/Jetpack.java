@@ -1,4 +1,4 @@
-package net.gamershub.kitpvp.items.impl.crossbow;
+package net.gamershub.kitpvp.items.impl.artilleryman;
 
 import net.gamershub.kitpvp.ExtendedPlayer;
 import net.gamershub.kitpvp.KitPvpPlugin;
@@ -49,7 +49,7 @@ public class Jetpack extends CustomItem {
         ExtendedPlayer extendedPlayer = KitPvpPlugin.INSTANCE.getExtendedPlayer(p);
 
         if (extendedPlayer.getGameState() == ExtendedPlayer.GameState.IN_GAME) {
-            if (extendedPlayer.getSelectedKit() == KitHandler.CROSSBOW) {
+            if (extendedPlayer.getSelectedKit() == KitHandler.ARTILLERYMAN) {
                 if (p.isSneaking()) {
                     if (p.getInventory().getChestplate() != null) {
                         if (refillTasks.containsKey(p.getUniqueId())) {
