@@ -70,13 +70,17 @@ public final class KitPvpPlugin extends JavaPlugin {
 
         saveDefaultConfig();
 
+        Bukkit.clearRecipes();
+
         // Setup world
         World overworld = getServer().getWorld("world");
         if (overworld != null) {
             overworld.setGameRule(GameRule.DO_MOB_SPAWNING, false);
         }
 
-        Bukkit.clearRecipes();
+        // Unload worlds
+        Bukkit.unloadWorld("the_nether", false);
+        Bukkit.unloadWorld("the_end", false);
 
         // Registering Listener
         PluginManager pluginManager = getServer().getPluginManager();
