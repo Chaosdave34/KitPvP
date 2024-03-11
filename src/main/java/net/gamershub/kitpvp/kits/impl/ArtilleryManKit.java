@@ -48,9 +48,7 @@ public class ArtilleryManKit extends Kit {
     @Override
     public ItemStack getOffhandContent() {
         ItemStack rocket = new ItemStack(Material.FIREWORK_ROCKET, 3);
-        FireworkMeta rocketMeta = (FireworkMeta) rocket.getItemMeta();
-        rocketMeta.setPower(5);
-        rocket.setItemMeta(rocketMeta);
+        rocket.editMeta(FireworkMeta.class, fireworkMeta -> fireworkMeta.setPower(5));
         return rocket;
     }
 

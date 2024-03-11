@@ -163,15 +163,11 @@ public abstract class CustomItem implements Listener {
     }
 
     protected void setLeatherArmorColor(ItemStack leatherArmor, Color color) {
-        LeatherArmorMeta leatherArmorMeta = (LeatherArmorMeta) leatherArmor.getItemMeta();
-        leatherArmorMeta.setColor(color);
-        leatherArmor.setItemMeta(leatherArmorMeta);
+        leatherArmor.editMeta(LeatherArmorMeta.class, leatherArmorMeta -> leatherArmorMeta.setColor(color));
     }
 
     protected void setCustomModelData(ItemStack itemStack, Integer customModelData) {
-        ItemMeta itemMeta = itemStack.getItemMeta();
-        itemMeta.setCustomModelData(customModelData);
-        itemStack.setItemMeta(itemMeta);
+        itemStack.editMeta(itemMeta -> itemMeta.setCustomModelData(customModelData));
     }
 
     protected Component createSimpleItemName(String name) {

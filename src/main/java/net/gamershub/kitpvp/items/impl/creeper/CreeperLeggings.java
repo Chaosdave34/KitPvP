@@ -8,7 +8,6 @@ import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.LeatherArmorMeta;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -34,8 +33,6 @@ public class CreeperLeggings extends CustomItem {
         itemStack.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2);
         itemStack.addUnsafeEnchantment(Enchantment.PROTECTION_EXPLOSIONS, 4);
 
-        LeatherArmorMeta leatherArmorMeta = (LeatherArmorMeta) itemStack.getItemMeta();
-        leatherArmorMeta.setColor(Color.LIME);
-        itemStack.setItemMeta(leatherArmorMeta);
+        setLeatherArmorColor(itemStack, Color.LIME);
     }
 }
