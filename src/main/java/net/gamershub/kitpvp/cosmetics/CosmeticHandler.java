@@ -96,6 +96,10 @@ public class CosmeticHandler implements Listener {
                         if (projectile instanceof Firework firework) {
                             if (firework.isDetonated()) this.cancel();
                         }
+
+                        if (projectile.isValid()) {
+                            this.cancel();
+                        }
                     }
                 }.runTaskTimer(KitPvpPlugin.INSTANCE, 0, 2);
 
