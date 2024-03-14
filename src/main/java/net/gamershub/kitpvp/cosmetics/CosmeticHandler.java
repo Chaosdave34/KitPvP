@@ -97,7 +97,7 @@ public class CosmeticHandler implements Listener {
                             if (firework.isDetonated()) this.cancel();
                         }
 
-                        if (projectile.isValid()) {
+                        if (!projectile.isValid() || projectile.isDead()) {
                             this.cancel();
                         }
                     }
