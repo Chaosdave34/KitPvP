@@ -1,10 +1,15 @@
 package net.gamershub.kitpvp.kits.impl;
 
+import net.gamershub.kitpvp.ExtendedPlayer;
+import net.gamershub.kitpvp.KitPvpPlugin;
 import net.gamershub.kitpvp.items.CustomItemHandler;
 import net.gamershub.kitpvp.kits.Kit;
 import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.FireworkMeta;
 
@@ -68,5 +73,17 @@ public class ArtilleryManKit extends Kit {
                 new ItemStack(Material.GOLDEN_APPLE),
                 new ItemStack(Material.COBBLESTONE, 32),
         };
+    }
+
+    @EventHandler
+    public void onRocketLaunch(PlayerInteractEvent e) {
+        Player p = e.getPlayer();
+
+        if (KitPvpPlugin.INSTANCE.getExtendedPlayer(p).getGameState() == ExtendedPlayer.GameState.IN_GAME) {
+           if (e.getMaterial() == Material.FIREWORK_ROCKET) {
+               e.setCancelled(true);
+           }
+        }
+
     }
 }

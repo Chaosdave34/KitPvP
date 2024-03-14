@@ -71,6 +71,8 @@ public class Jetpack extends CustomItem {
                             if (verticalMovement.length() > 0.01) {
                                 p.setVelocity(p.getEyeLocation().getDirection().multiply(0.5).setY(p.getVelocity().getY()));
                             }
+
+                            p.sendActionBar(Component.text("Jetpack Fuel: " + (80 - jetpackMeta.getDamage()) + "/80"));
                         }
                     }
                 } else {
@@ -84,6 +86,7 @@ public class Jetpack extends CustomItem {
                                     if (jetpackMeta.getDamage() != 0) {
                                         jetpackMeta.setDamage(jetpackMeta.getDamage() - 1);
                                         jetpack.setItemMeta(jetpackMeta);
+                                        p.sendActionBar(Component.text("Jetpack Fuel: " + (80 - jetpackMeta.getDamage()) + "/80"));
                                     } else {
                                         refillTasks.remove(p.getUniqueId());
                                         this.cancel();
