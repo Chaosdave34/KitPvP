@@ -23,7 +23,7 @@ public class EnderAttackAbility extends Ability {
     public @NotNull List<Component> getDescription() {
         return createSimpleDescription(
                 "Teleports you behind the player",
-                "you are looking at in a 20",
+                "you are looking at in a 50",
                 "block radius. Gain speed and ",
                 "strength for 5 seconds."
         );
@@ -31,7 +31,7 @@ public class EnderAttackAbility extends Ability {
 
     @Override
     public boolean onAbility(Player p) {
-        Entity target = p.getTargetEntity(20);
+        Entity target = p.getTargetEntity(50, true);
         if (target instanceof LivingEntity livingEntity) {
 
             if (target instanceof Player player) {
