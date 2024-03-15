@@ -26,7 +26,7 @@ import java.util.Random;
 
 public class RocketLauncher extends CustomItem {
     public RocketLauncher() {
-        super(Material.CROSSBOW, "rocket_launcher", false);
+        super(Material.CROSSBOW, "rocket_launcher");
     }
 
     @Override

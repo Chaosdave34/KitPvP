@@ -12,7 +12,7 @@ import java.util.List;
 
 public class FireballSword extends CustomItem {
     public FireballSword() {
-        super(Material.IRON_SWORD, "fireball_sword", false, true);
+        super(Material.IRON_SWORD, "fireball_sword");
     }
 
     @Override

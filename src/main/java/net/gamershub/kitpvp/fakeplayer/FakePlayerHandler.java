@@ -51,9 +51,9 @@ public class FakePlayerHandler implements Listener {
     public static FakePlayer CLASSIC_KIT;
     public static FakePlayer ZEUS_KIT;
     public static FakePlayer TANK_KIT;
-    public static FakePlayer PROVOKER_KIT;
+    public static FakePlayer ENGINEER_KIT;
     public static FakePlayer ARCHER_KIT;
-    public static FakePlayer CROSSBOW_KIT;
+    public static FakePlayer ARTILLERYMAN_KIT;
     public static FakePlayer RUNNER_KIT;
     public static FakePlayer TRAPPER_KIT;
     public static FakePlayer MAGICIAN_KIT;
@@ -70,9 +70,9 @@ public class FakePlayerHandler implements Listener {
         CLASSIC_KIT = createFakePlayer(new KitSelectorFakePlayer(KitHandler.CLASSIC, new Location(world, 10.5, 100, 0.5, 90, 0)));
         ZEUS_KIT = createFakePlayer(new KitSelectorFakePlayer(KitHandler.ZEUS, new Location(world, 10.5, 100, 2.5, 90, 0)));
         TANK_KIT = createFakePlayer(new KitSelectorFakePlayer(KitHandler.TANK, new Location(world, 10.5, 100, 4.5, 90, 0)));
-        PROVOKER_KIT = createFakePlayer(new KitSelectorFakePlayer(KitHandler.PROVOKER, new Location(world, 10.5, 100, 6.5, 90, 0)));
+        ENGINEER_KIT = createFakePlayer(new KitSelectorFakePlayer(KitHandler.ENGINEER, new Location(world, 10.5, 100, 6.5, 90, 0)));
         ARCHER_KIT = createFakePlayer(new KitSelectorFakePlayer(KitHandler.ARCHER, new Location(world, 10.5, 100, -1.5, 90, 0)));
-        CROSSBOW_KIT = createFakePlayer(new KitSelectorFakePlayer(KitHandler.ARTILLERYMAN, new Location(world, 10.5, 100, -3.5, 90, 0)));
+        ARTILLERYMAN_KIT = createFakePlayer(new KitSelectorFakePlayer(KitHandler.ARTILLERYMAN, new Location(world, 10.5, 100, -3.5, 90, 0)));
         RUNNER_KIT = createFakePlayer(new KitSelectorFakePlayer(KitHandler.ASSASSIN, new Location(world, 10.5, 100, -5.5, 90, 0)));
 
         TRAPPER_KIT = createFakePlayer(new KitSelectorFakePlayer(KitHandler.TRAPPER, new Location(world, -9.5, 100, 0.5, -90, 0)));

@@ -13,7 +13,7 @@ import java.util.List;
 
 public class PoseidonsTrident extends CustomItem {
     public PoseidonsTrident() {
-        super(Material.TRIDENT, "poseidons_trident", false);
+        super(Material.TRIDENT, "poseidons_trident");
     }
 
     @Override

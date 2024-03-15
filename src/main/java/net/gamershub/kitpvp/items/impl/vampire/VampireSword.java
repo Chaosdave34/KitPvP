@@ -13,7 +13,7 @@ import java.util.List;
 
 public class VampireSword extends CustomItem {
     public VampireSword() {
-        super(Material.DIAMOND_SWORD, "vampire_sword", false);
+        super(Material.DIAMOND_SWORD, "vampire_sword");
     }
 
 

@@ -31,6 +31,13 @@ public abstract class CustomItem implements Listener {
     protected boolean stackable;
     protected boolean preventPlacingAndUsing;
 
+    public CustomItem(Material material, String id) {
+        this.material = material;
+        this.id = id;
+        this.stackable = true;
+        this.preventPlacingAndUsing = false;
+    }
+
     public CustomItem(Material material, String id, boolean stackable) {
         this.material = material;
         this.id = id;

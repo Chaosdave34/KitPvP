@@ -9,7 +9,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class DevilsSword extends CustomItem {
     public DevilsSword(){
-        super(Material.IRON_SWORD, "devils_sword", false);
+        super(Material.IRON_SWORD, "devils_sword");
     }
 
     @Override

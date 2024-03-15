@@ -13,7 +13,7 @@ import java.util.List;
 
 public class EnderSword extends CustomItem {
     public EnderSword() {
-        super(Material.STONE_SWORD, "ender_sword", false);
+        super(Material.STONE_SWORD, "ender_sword");
     }
 
     @Override

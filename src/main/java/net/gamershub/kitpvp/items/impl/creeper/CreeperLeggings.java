@@ -14,7 +14,7 @@ import java.util.List;
 
 public class CreeperLeggings extends CustomItem {
     public CreeperLeggings() {
-        super(Material.LEATHER_LEGGINGS, "creeper_leggings", false);
+        super(Material.LEATHER_LEGGINGS, "creeper_leggings");
     }
 
     @Override

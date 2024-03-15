@@ -28,7 +28,7 @@ public class Jetpack extends CustomItem {
     private final Map<UUID, Integer> refillTasks = new HashMap<>();
 
     public Jetpack() {
-        super(Material.LEATHER_CHESTPLATE, "jetpack", false);
+        super(Material.LEATHER_CHESTPLATE, "jetpack");
     }
 
     @Override

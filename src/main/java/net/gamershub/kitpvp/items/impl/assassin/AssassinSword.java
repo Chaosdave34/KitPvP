@@ -13,7 +13,7 @@ import java.util.List;
 
 public class AssassinSword extends CustomItem {
     public AssassinSword() {
-        super(Material.IRON_SWORD, "assasin_sword", false);
+        super(Material.IRON_SWORD, "assasin_sword");
     }
 
     @Override

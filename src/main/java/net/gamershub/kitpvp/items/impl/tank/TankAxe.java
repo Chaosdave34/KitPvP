@@ -12,7 +12,7 @@ import java.util.List;
 
 public class TankAxe extends CustomItem {
     public TankAxe() {
-        super(Material.IRON_AXE, "tank_axe", false);
+        super(Material.IRON_AXE, "tank_axe");
     }
 
     @Override
