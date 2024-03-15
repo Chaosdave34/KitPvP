@@ -1,4 +1,4 @@
-package net.gamershub.kitpvp.companions.pathfindergoals;
+package net.gamershub.kitpvp.pathfindergoals;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.LivingEntity;

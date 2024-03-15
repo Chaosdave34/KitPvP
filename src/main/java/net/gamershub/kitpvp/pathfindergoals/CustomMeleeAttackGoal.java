@@ -1,4 +1,4 @@
-package net.gamershub.kitpvp.companions.pathfindergoals;
+package net.gamershub.kitpvp.pathfindergoals;
 
 import net.gamershub.kitpvp.ExtendedPlayer;
 import net.gamershub.kitpvp.KitPvpPlugin;

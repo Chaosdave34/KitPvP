@@ -1,9 +1,9 @@
 package net.gamershub.kitpvp.companions;
 
-import net.gamershub.kitpvp.companions.pathfindergoals.CustomFollowOwnerGoal;
-import net.gamershub.kitpvp.companions.pathfindergoals.CustomMeleeAttackGoal;
-import net.gamershub.kitpvp.companions.pathfindergoals.CustomOwnerHurtByTarget;
-import net.gamershub.kitpvp.companions.pathfindergoals.CustomOwnerHurtTarget;
+import net.gamershub.kitpvp.pathfindergoals.CustomFollowOwnerGoal;
+import net.gamershub.kitpvp.pathfindergoals.CustomMeleeAttackGoal;
+import net.gamershub.kitpvp.pathfindergoals.CustomOwnerHurtByTarget;
+import net.gamershub.kitpvp.pathfindergoals.CustomOwnerHurtTarget;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;

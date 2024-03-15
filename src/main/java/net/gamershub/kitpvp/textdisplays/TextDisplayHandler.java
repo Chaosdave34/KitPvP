@@ -1,7 +1,7 @@
-package net.gamershub.kitpvp.textdisplay;
+package net.gamershub.kitpvp.textdisplays;
 
 import net.gamershub.kitpvp.Utils;
-import net.gamershub.kitpvp.textdisplay.impl.*;
+import net.gamershub.kitpvp.textdisplays.impl.*;
 import net.minecraft.network.protocol.game.ClientboundSetEntityDataPacket;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;

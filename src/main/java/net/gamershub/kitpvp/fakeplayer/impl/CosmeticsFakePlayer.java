@@ -1,7 +1,7 @@
 package net.gamershub.kitpvp.fakeplayer.impl;
 
 import net.gamershub.kitpvp.fakeplayer.FakePlayer;
-import net.gamershub.kitpvp.gui.GuiHandler;
+import net.gamershub.kitpvp.guis.GuiHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;

@@ -1,10 +1,10 @@
-package net.gamershub.kitpvp.gui.impl;
+package net.gamershub.kitpvp.guis.impl;
 
 import net.gamershub.kitpvp.ExtendedPlayer;
 import net.gamershub.kitpvp.KitPvpPlugin;
-import net.gamershub.kitpvp.gui.Gui;
-import net.gamershub.kitpvp.gui.GuiHandler;
-import net.gamershub.kitpvp.gui.InventoryClickHandler;
+import net.gamershub.kitpvp.guis.Gui;
+import net.gamershub.kitpvp.guis.GuiHandler;
+import net.gamershub.kitpvp.guis.InventoryClickHandler;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;

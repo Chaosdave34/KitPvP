@@ -1,9 +1,9 @@
-package net.gamershub.kitpvp.gui;
+package net.gamershub.kitpvp.guis;
 
 import lombok.Getter;
 import net.gamershub.kitpvp.KitPvpPlugin;
-import net.gamershub.kitpvp.gui.impl.CosmeticSubMenuGui;
-import net.gamershub.kitpvp.gui.impl.CosmeticsGui;
+import net.gamershub.kitpvp.guis.impl.CosmeticSubMenuGui;
+import net.gamershub.kitpvp.guis.impl.CosmeticsGui;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;

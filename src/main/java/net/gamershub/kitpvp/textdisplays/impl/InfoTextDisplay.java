@@ -1,6 +1,6 @@
-package net.gamershub.kitpvp.textdisplay.impl;
+package net.gamershub.kitpvp.textdisplays.impl;
 
-import net.gamershub.kitpvp.textdisplay.TextDisplay;
+import net.gamershub.kitpvp.textdisplays.TextDisplay;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import org.bukkit.Bukkit;

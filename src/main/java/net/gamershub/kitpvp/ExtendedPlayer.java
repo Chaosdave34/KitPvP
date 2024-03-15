@@ -8,7 +8,7 @@ import net.gamershub.kitpvp.customevents.CustomEventHandler;
 import net.gamershub.kitpvp.events.PlayerSpawnEvent;
 import net.gamershub.kitpvp.kits.Kit;
 import net.gamershub.kitpvp.kits.KitHandler;
-import net.gamershub.kitpvp.textdisplay.TextDisplayHandler;
+import net.gamershub.kitpvp.textdisplays.TextDisplayHandler;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;

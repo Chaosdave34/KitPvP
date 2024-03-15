@@ -1,4 +1,4 @@
-package net.gamershub.kitpvp.companions.pathfindergoals;
+package net.gamershub.kitpvp.pathfindergoals;
 
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;

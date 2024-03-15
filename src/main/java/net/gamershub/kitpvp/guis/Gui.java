@@ -1,4 +1,4 @@
-package net.gamershub.kitpvp.gui;
+package net.gamershub.kitpvp.guis;
 
 import lombok.Getter;
 import lombok.NonNull;

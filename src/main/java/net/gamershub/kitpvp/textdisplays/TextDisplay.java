@@ -1,4 +1,4 @@
-package net.gamershub.kitpvp.textdisplay;
+package net.gamershub.kitpvp.textdisplays;
 
 import lombok.Getter;
 import net.minecraft.network.chat.Component;

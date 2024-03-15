@@ -1,4 +1,4 @@
-package net.gamershub.kitpvp.persistentdatatype;
+package net.gamershub.kitpvp.persistentdatatypes;
 
 import org.bukkit.persistence.PersistentDataAdapterContext;
 import org.bukkit.persistence.PersistentDataType;

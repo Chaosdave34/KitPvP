@@ -3,7 +3,7 @@ package net.gamershub.kitpvp.abilities.impl.creeper;
 import net.gamershub.kitpvp.KitPvpPlugin;
 import net.gamershub.kitpvp.abilities.Ability;
 import net.gamershub.kitpvp.abilities.AbilityType;
-import net.gamershub.kitpvp.persistentdatatype.StringArrayPersistentDataType;
+import net.gamershub.kitpvp.persistentdatatypes.StringArrayPersistentDataType;
 import net.kyori.adventure.text.Component;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;

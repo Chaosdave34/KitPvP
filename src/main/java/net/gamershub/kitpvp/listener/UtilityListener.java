@@ -4,7 +4,7 @@ import io.papermc.paper.event.player.AsyncChatEvent;
 import net.gamershub.kitpvp.ExtendedPlayer;
 import net.gamershub.kitpvp.KitPvpPlugin;
 import net.gamershub.kitpvp.Utils;
-import net.gamershub.kitpvp.textdisplay.TextDisplayHandler;
+import net.gamershub.kitpvp.textdisplays.TextDisplayHandler;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;

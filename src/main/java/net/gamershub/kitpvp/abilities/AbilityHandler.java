@@ -20,7 +20,7 @@ import net.gamershub.kitpvp.abilities.impl.trapper.TrapAbility;
 import net.gamershub.kitpvp.abilities.impl.vampire.BatMorhpAbility;
 import net.gamershub.kitpvp.abilities.impl.zeus.LightningAbility;
 import net.gamershub.kitpvp.abilities.impl.zeus.ThunderstormAbility;
-import net.gamershub.kitpvp.persistentdatatype.StringArrayPersistentDataType;
+import net.gamershub.kitpvp.persistentdatatypes.StringArrayPersistentDataType;
 import net.gamershub.kitpvp.Utils;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
