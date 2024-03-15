@@ -9,7 +9,6 @@ import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
-import net.minecraft.world.entity.ai.goal.WrappedGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.level.Level;
 import org.bukkit.Location;
@@ -40,15 +39,13 @@ public abstract class Companion {
         companion.setCustomName(Component.literal(name));
         companion.setCustomNameVisible(true);
 
-        for (WrappedGoal goal : companion.goalSelector.getAvailableGoals()) {
-            companion.goalSelector.removeGoal(goal);
-        }
+        companion.goalSelector.removeAllGoals(goal -> true);
 
         companion.goalSelector.addGoal(1, new FloatGoal(companion));
         companion.goalSelector.addGoal(2, new CustomMeleeAttackGoal(companion, owner, 1, false));
         companion.goalSelector.addGoal(3, new CustomFollowOwnerGoal(companion, owner, 1.0D, 10.0F, 2.0F, false));
 
-        companion.targetSelector.removeAllGoals(testgoal -> true);
+        companion.targetSelector.removeAllGoals(goal -> true);
 
         companion.targetSelector.addGoal(1, new CustomOwnerHurtByTarget(companion, owner));
         companion.targetSelector.addGoal(2, new CustomOwnerHurtTarget(companion, owner));
