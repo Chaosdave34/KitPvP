@@ -134,7 +134,7 @@ public class SpawnListener implements Listener {
             // Launchpad
             if (p.getLocation().subtract(0, 1, 0).getBlock().getType() == Material.SLIME_BLOCK) {
                 Vector launchVector = p.getLocation().toVector().normalize();
-                launchVector.multiply(5);
+                launchVector.multiply(8);
                 launchVector.setY(0.5);
                 p.setVelocity(launchVector);
             }
