@@ -9,10 +9,11 @@ import net.gamershub.kitpvp.items.impl.creeper.FireballSword;
 import net.gamershub.kitpvp.items.impl.artilleryman.Jetpack;
 import net.gamershub.kitpvp.items.impl.devil.DevilsSword;
 import net.gamershub.kitpvp.items.impl.enderman.EnderSword;
+import net.gamershub.kitpvp.items.impl.engineer.TurretItem;
 import net.gamershub.kitpvp.items.impl.magician.MagicWand;
 import net.gamershub.kitpvp.items.impl.poseidon.PoseidonsTrident;
-import net.gamershub.kitpvp.items.impl.provoker.NukeItem;
-import net.gamershub.kitpvp.items.impl.provoker.SpookSword;
+import net.gamershub.kitpvp.items.impl.engineer.NukeItem;
+import net.gamershub.kitpvp.items.impl.engineer.SpookSword;
 import net.gamershub.kitpvp.items.impl.tank.TankAxe;
 import net.gamershub.kitpvp.items.impl.tank.TankBoots;
 import net.gamershub.kitpvp.items.impl.trapper.TrapWand;
@@ -45,6 +46,7 @@ public class CustomItemHandler {
     public static CustomItem JETPACK;
     public static CustomItem ASSASSIN_SWORD;
     public static CustomItem ROCKET_LAUNCHER;
+    public static CustomItem TURRET;
 
     public CustomItemHandler() {
         FIREBALL_SWORD = registerItem(new FireballSword());
@@ -63,6 +65,7 @@ public class CustomItemHandler {
         JETPACK = registerItem(new Jetpack());
         ASSASSIN_SWORD = registerItem(new AssassinSword());
         ROCKET_LAUNCHER = registerItem(new RocketLauncher());
+        TURRET = registerItem(new TurretItem());
     }
 
     private CustomItem registerItem(CustomItem item) {

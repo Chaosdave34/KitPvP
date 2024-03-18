@@ -8,6 +8,7 @@ import net.gamershub.kitpvp.kits.Kit;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.minecraft.world.entity.Mob;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.craftbukkit.v1_20_R3.util.CraftVector;
 import org.bukkit.entity.Player;
@@ -16,8 +17,8 @@ import org.bukkit.inventory.EquipmentSlot;
 public class KitSelectorFakePlayer extends FakePlayer {
     private final Kit kit;
 
-    public KitSelectorFakePlayer(Kit kit, Location location) {
-        super(kit.getName(), location, location.getYaw(), location.getPitch(), true);
+    public KitSelectorFakePlayer(Kit kit, String worldName, Location position) {
+        super(kit.getName(), worldName, position, position.getYaw(), position.getPitch(), true);
         this.kit = kit;
 
         equipment.put(EquipmentSlot.HEAD, kit.getHeadContent());
@@ -33,6 +34,7 @@ public class KitSelectorFakePlayer extends FakePlayer {
         super.spawn(p);
 
         Location dummyCompanionLocation = getPosition().clone().add(CraftVector.toBukkit(serverPlayer.getLookAngle()).rotateAroundY(Math.toRadians(45)));
+        dummyCompanionLocation.setWorld(Bukkit.getWorld(worldName));
 
         if (kit.getCompanion() != null) {
             Mob mob = kit.getCompanion().createDummyCompanion(dummyCompanionLocation);

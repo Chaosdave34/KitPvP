@@ -1,4 +1,4 @@
-package net.gamershub.kitpvp.abilities.impl.provoker;
+package net.gamershub.kitpvp.abilities.impl.engineer;
 
 import net.gamershub.kitpvp.KitPvpPlugin;
 import net.gamershub.kitpvp.abilities.Ability;
@@ -19,7 +19,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public class NukeAbility extends Ability { // Todo: add particles on travel
+public class NukeAbility extends Ability {
     public NukeAbility() {
         super("nuke", "Nuke", AbilityType.LEFT_CLICK, 120);
     }

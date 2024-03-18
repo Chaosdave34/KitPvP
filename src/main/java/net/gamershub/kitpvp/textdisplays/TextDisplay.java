@@ -14,10 +14,12 @@ import java.util.List;
 public abstract class TextDisplay {
     protected List<ArmorStand> armorStands = new ArrayList<>();
 
+    protected final String worldName;
     protected final Location position;
     protected final int lineCount;
 
-    public TextDisplay(Location position, int lineCount) {
+    public TextDisplay(String worldName, Location position, int lineCount) {
+        this.worldName = worldName;
         this.position = position;
         this.lineCount = lineCount;
     }

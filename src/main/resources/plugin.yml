@@ -1,8 +1,9 @@
+#file: noinspection YAMLSchemaValidation
 name: $name
 version: $version
 main: net.gamershub.kitpvp.KitPvpPlugin
 description: $description
-load: POSTWORLD
+load: STARTUP
 authors:
   - Chaosdave34, Muawag, palul
 api-version: "$apiVersion"

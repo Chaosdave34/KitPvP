@@ -6,14 +6,14 @@ import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 
-public class ProvokerKit extends Kit {
-    public ProvokerKit() {
-        super("provoker", "Provoker");
+public class EngineerKit extends Kit {
+    public EngineerKit() {
+        super("engineer", "Engineer");
     }
 
     @Override
     public double getMovementSpeed() {
-        return 0.3;
+        return 0.2;
     }
 
     @Override
@@ -53,6 +53,7 @@ public class ProvokerKit extends Kit {
                 CustomItemHandler.SPOOK_SWORD.build(),
                 knockBackStick,
                 CustomItemHandler.NUKE.build(),
+                CustomItemHandler.TURRET.build(),
                 new ItemStack(Material.WATER_BUCKET),
         };
     }

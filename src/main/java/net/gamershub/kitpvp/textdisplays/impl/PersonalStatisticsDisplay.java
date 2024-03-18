@@ -5,7 +5,6 @@ import net.gamershub.kitpvp.KitPvpPlugin;
 import net.gamershub.kitpvp.textdisplays.TextDisplay;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
@@ -14,7 +13,7 @@ import java.util.List;
 
 public class PersonalStatisticsDisplay extends TextDisplay {
     public PersonalStatisticsDisplay() {
-        super(new Location(Bukkit.getWorld("world"), -3.5, 101.5, -9.5), 5);
+        super("world", new Location(null, -3.5, 101.5, -9.5), 5);
     }
 
     @Override

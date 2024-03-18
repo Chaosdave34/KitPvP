@@ -6,12 +6,13 @@ import net.gamershub.kitpvp.abilities.impl.artilleryman.EnhanceAbility;
 import net.gamershub.kitpvp.abilities.impl.creeper.ExplodeAbility;
 import net.gamershub.kitpvp.abilities.impl.creeper.FireballAbility;
 import net.gamershub.kitpvp.abilities.impl.enderman.EnderAttackAbility;
+import net.gamershub.kitpvp.abilities.impl.engineer.TurretAbility;
 import net.gamershub.kitpvp.abilities.impl.magician.DebuffAbility;
 import net.gamershub.kitpvp.abilities.impl.magician.LevitateAbility;
 import net.gamershub.kitpvp.abilities.impl.magician.MagicAttackAbility;
 import net.gamershub.kitpvp.abilities.impl.poseidon.StormAbility;
-import net.gamershub.kitpvp.abilities.impl.provoker.NukeAbility;
-import net.gamershub.kitpvp.abilities.impl.provoker.SpookAbility;
+import net.gamershub.kitpvp.abilities.impl.engineer.NukeAbility;
+import net.gamershub.kitpvp.abilities.impl.engineer.SpookAbility;
 import net.gamershub.kitpvp.abilities.impl.assassin.HauntAbility;
 import net.gamershub.kitpvp.abilities.impl.tank.FortifyAbility;
 import net.gamershub.kitpvp.abilities.impl.tank.SeismicWaveAbility;
@@ -57,6 +58,7 @@ public class AbilityHandler implements Listener {
     public static Ability FORTIFY;
     public static Ability MAGIC_ATTACK;
     public static Ability ENHANCE;
+    public static Ability TURRET;
 
     public AbilityHandler() {
         FIREBALL = registerAbility(new FireballAbility());
@@ -77,6 +79,7 @@ public class AbilityHandler implements Listener {
         FORTIFY = registerAbility(new FortifyAbility());
         MAGIC_ATTACK = registerAbility(new MagicAttackAbility());
         ENHANCE = registerAbility(new EnhanceAbility());
+        TURRET = registerAbility(new TurretAbility());
     }
 
     public Ability registerAbility(Ability ability) {

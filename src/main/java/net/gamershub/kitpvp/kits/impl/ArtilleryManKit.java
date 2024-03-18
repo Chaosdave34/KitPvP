@@ -84,6 +84,5 @@ public class ArtilleryManKit extends Kit {
                e.setCancelled(true);
            }
         }
-
     }
 }

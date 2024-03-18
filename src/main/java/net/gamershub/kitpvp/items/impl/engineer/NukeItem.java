@@ -1,4 +1,4 @@
-package net.gamershub.kitpvp.items.impl.provoker;
+package net.gamershub.kitpvp.items.impl.engineer;
 
 import net.gamershub.kitpvp.abilities.Ability;
 import net.gamershub.kitpvp.abilities.AbilityHandler;

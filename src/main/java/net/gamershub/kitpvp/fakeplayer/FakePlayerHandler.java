@@ -36,6 +36,7 @@ import org.bukkit.craftbukkit.v1_20_R3.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.world.WorldLoadEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 
@@ -66,29 +67,36 @@ public class FakePlayerHandler implements Listener {
     public static FakePlayer COSMETIC;
 
     public FakePlayerHandler() {
-        World world = Bukkit.getWorld("world");
-        CLASSIC_KIT = createFakePlayer(new KitSelectorFakePlayer(KitHandler.CLASSIC, new Location(world, 10.5, 100, 0.5, 90, 0)));
-        ZEUS_KIT = createFakePlayer(new KitSelectorFakePlayer(KitHandler.ZEUS, new Location(world, 10.5, 100, 2.5, 90, 0)));
-        TANK_KIT = createFakePlayer(new KitSelectorFakePlayer(KitHandler.TANK, new Location(world, 10.5, 100, 4.5, 90, 0)));
-        ENGINEER_KIT = createFakePlayer(new KitSelectorFakePlayer(KitHandler.ENGINEER, new Location(world, 10.5, 100, 6.5, 90, 0)));
-        ARCHER_KIT = createFakePlayer(new KitSelectorFakePlayer(KitHandler.ARCHER, new Location(world, 10.5, 100, -1.5, 90, 0)));
-        ARTILLERYMAN_KIT = createFakePlayer(new KitSelectorFakePlayer(KitHandler.ARTILLERYMAN, new Location(world, 10.5, 100, -3.5, 90, 0)));
-        RUNNER_KIT = createFakePlayer(new KitSelectorFakePlayer(KitHandler.ASSASSIN, new Location(world, 10.5, 100, -5.5, 90, 0)));
+        CLASSIC_KIT = registerFakePlayer(new KitSelectorFakePlayer(KitHandler.CLASSIC, "world", new Location(null, 10.5, 100, 0.5, 90, 0)));
+        ZEUS_KIT = registerFakePlayer(new KitSelectorFakePlayer(KitHandler.ZEUS, "world", new Location(null, 10.5, 100, 2.5, 90, 0)));
+        TANK_KIT = registerFakePlayer(new KitSelectorFakePlayer(KitHandler.TANK, "world", new Location(null, 10.5, 100, 4.5, 90, 0)));
+        ENGINEER_KIT = registerFakePlayer(new KitSelectorFakePlayer(KitHandler.ENGINEER, "world", new Location(null, 10.5, 100, 6.5, 90, 0)));
+        ARCHER_KIT = registerFakePlayer(new KitSelectorFakePlayer(KitHandler.ARCHER, "world", new Location(null, 10.5, 100, -1.5, 90, 0)));
+        ARTILLERYMAN_KIT = registerFakePlayer(new KitSelectorFakePlayer(KitHandler.ARTILLERYMAN, "world", new Location(null, 10.5, 100, -3.5, 90, 0)));
+        RUNNER_KIT = registerFakePlayer(new KitSelectorFakePlayer(KitHandler.ASSASSIN, "world", new Location(null, 10.5, 100, -5.5, 90, 0)));
 
-        TRAPPER_KIT = createFakePlayer(new KitSelectorFakePlayer(KitHandler.TRAPPER, new Location(world, -9.5, 100, 0.5, -90, 0)));
-        MAGICIAN_KIT = createFakePlayer(new KitSelectorFakePlayer(KitHandler.MAGICIAN, new Location(world, -9.5, 100, 2.5, -90, 0)));
-        VAMPIRE_KIT = createFakePlayer(new KitSelectorFakePlayer(KitHandler.VAMPIRE, new Location(world, -9.5, 100, 4.5, -90, 0)));
-        CREEPER_KIT = createFakePlayer(new KitSelectorFakePlayer(KitHandler.CREEPER, new Location(world, -9.5, 100, 6.5, -90, 0)));
-        ENDERMAN_KIT = createFakePlayer(new KitSelectorFakePlayer(KitHandler.ENDERMAN, new Location(world, -9.5, 100, -1.5, -90, 0)));
-        POSEIDON_KIT = createFakePlayer(new KitSelectorFakePlayer(KitHandler.POSEIDON, new Location(world, -9.5, 100, -3.5, -90, 0)));
-        DEVIL_KIT = createFakePlayer(new KitSelectorFakePlayer(KitHandler.DEVIL, new Location(world, -9.5, 100, -5.5, -90, 0)));
+        TRAPPER_KIT = registerFakePlayer(new KitSelectorFakePlayer(KitHandler.TRAPPER, "world", new Location(null, -9.5, 100, 0.5, -90, 0)));
+        MAGICIAN_KIT = registerFakePlayer(new KitSelectorFakePlayer(KitHandler.MAGICIAN, "world", new Location(null, -9.5, 100, 2.5, -90, 0)));
+        VAMPIRE_KIT = registerFakePlayer(new KitSelectorFakePlayer(KitHandler.VAMPIRE, "world", new Location(null, -9.5, 100, 4.5, -90, 0)));
+        CREEPER_KIT = registerFakePlayer(new KitSelectorFakePlayer(KitHandler.CREEPER, "world", new Location(null, -9.5, 100, 6.5, -90, 0)));
+        ENDERMAN_KIT = registerFakePlayer(new KitSelectorFakePlayer(KitHandler.ENDERMAN, "world", new Location(null, -9.5, 100, -1.5, -90, 0)));
+        POSEIDON_KIT = registerFakePlayer(new KitSelectorFakePlayer(KitHandler.POSEIDON, "world", new Location(null, -9.5, 100, -3.5, -90, 0)));
+        DEVIL_KIT = registerFakePlayer(new KitSelectorFakePlayer(KitHandler.DEVIL, "world", new Location(null, -9.5, 100, -5.5, -90, 0)));
 
-        COSMETIC = createFakePlayer(new CosmeticsFakePlayer());
+        COSMETIC = registerFakePlayer(new CosmeticsFakePlayer());
     }
 
-    public FakePlayer createFakePlayer(FakePlayer fakePlayer) {
+    public FakePlayer registerFakePlayer(FakePlayer fakePlayer) {
+        fakePlayers.add(fakePlayer);
+        return fakePlayer;
+    }
+
+    private void createFakePlayer(FakePlayer fakePlayer) {
         MinecraftServer server = ((CraftServer) Bukkit.getServer()).getServer();
-        ServerLevel level = ((CraftWorld) fakePlayer.getPosition().getWorld()).getHandle();
+        World world = Bukkit.getWorld(fakePlayer.getWorldName());
+        if (world == null) return;
+
+        ServerLevel level = ((CraftWorld) world).getHandle();
 
         GameProfile profile = new GameProfile(UUID.randomUUID(), fakePlayer.getName());
         ClientInformation info = new ClientInformation("de_de", 2, ChatVisiblity.FULL, true, 127, net.minecraft.world.entity.player.Player.DEFAULT_MAIN_HAND, false, false);
@@ -115,9 +123,17 @@ public class FakePlayerHandler implements Listener {
         new ServerGamePacketListenerImpl(server, c, npc, new CommonListenerCookie(profile, 0, info));
 
         fakePlayer.setServerPlayer(npc);
-        fakePlayers.add(fakePlayer);
+    }
 
-        return fakePlayer;
+    @EventHandler
+    public void onWorldLoad(WorldLoadEvent e) {
+        World world = e.getWorld();
+
+        for (FakePlayer fakePlayer : fakePlayers) {
+            if (world.getName().equals(fakePlayer.getWorldName())) {
+                createFakePlayer(fakePlayer);
+            }
+        }
     }
 
     public void spawnFakePlayers(Player p) {

@@ -25,12 +25,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@SuppressWarnings("unused")
 @Getter
 public abstract class FakePlayer {
     @Setter
     protected ServerPlayer serverPlayer;
 
     protected String name;
+    protected String worldName;
     protected Location position;
     protected float yaw;
     protected float pitch;
@@ -42,8 +44,9 @@ public abstract class FakePlayer {
     protected Map<EquipmentSlot, ItemStack> equipment = new HashMap<>();
     protected Pose pose;
 
-    public FakePlayer(String name, Location position, float yaw, float pitch, boolean showOnPlayerSpawn) {
+    public FakePlayer(String name, String worldName, Location position, float yaw, float pitch, boolean showOnPlayerSpawn) {
         this.name = name;
+        this.worldName = worldName;
         this.position = position;
         this.yaw = yaw;
         this.pitch = pitch;

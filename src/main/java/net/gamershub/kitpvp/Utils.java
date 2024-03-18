@@ -18,54 +18,10 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.*;
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.*;
 
+@SuppressWarnings("unused")
 public class Utils {
-
-    @Nullable
-    public static Object getPrivateFieldValue(Object instance, String mojangMapping, String obfuscated) {
-        Object result = null;
-
-        try {
-            for (Field field : instance.getClass().getDeclaredFields()) {
-                if (field.getName().equals(mojangMapping) || field.getName().equals(obfuscated)) {
-                    field.setAccessible(true);
-                    result = field.get(instance);
-                    field.setAccessible(false);
-                }
-            }
-        } catch (IllegalAccessException e) {
-            String message = "Error while getting private field value for " + mojangMapping + " in " + instance.getClass().getName() + ". " + e.getMessage();
-            KitPvpPlugin.INSTANCE.getLogger().warning(message);
-        }
-        return result;
-    }
-
-
-    @Nullable
-    public static Object getPrivateMethodReturn(Object instance, String mojangMapping, String obfuscated, Object... args) {
-        Object result = null;
-
-        try {
-            for (Method method : instance.getClass().getDeclaredMethods()) {
-                if (method.getName().equals(mojangMapping) || method.getName().equals(obfuscated)) {
-                    if (method.getParameterCount() != args.length) continue;
-                    method.setAccessible(true);
-                    result = method.invoke(instance, args);
-                    method.setAccessible(false);
-                }
-            }
-        } catch (IllegalAccessException | InvocationTargetException e) {
-            String message = "Error while getting private method return value for " + mojangMapping + " in " + instance.getClass().getName() + ". " + e.getMessage();
-            KitPvpPlugin.INSTANCE.getLogger().warning(message);
-        }
-        return result;
-    }
-
-
     public static void sendPacketToOnlinePlayers(Packet<?> packet) {
         for (Player player : Bukkit.getOnlinePlayers()) {
             CraftPlayer cp = (CraftPlayer) player;
@@ -144,6 +100,7 @@ public class Utils {
             inputStreamReader.close();
             fileInputStream.close();
 
+            @SuppressWarnings("Convert2Diamond")
             Map<UUID, Integer> highscore = new Gson().fromJson(stringBuilder.toString(), new TypeToken<Map<UUID, Integer>>() {
             });
 

@@ -1,4 +1,4 @@
-package net.gamershub.kitpvp.abilities.impl.provoker;
+package net.gamershub.kitpvp.abilities.impl.engineer;
 
 import net.gamershub.kitpvp.ExtendedPlayer;
 import net.gamershub.kitpvp.KitPvpPlugin;

@@ -6,6 +6,7 @@ import net.gamershub.kitpvp.challenges.ChallengesHandler;
 import net.gamershub.kitpvp.commands.*;
 import net.gamershub.kitpvp.companions.CompanionHandler;
 import net.gamershub.kitpvp.cosmetics.CosmeticHandler;
+import net.gamershub.kitpvp.customentities.CustomEntityHandler;
 import net.gamershub.kitpvp.customevents.CustomEventHandler;
 import net.gamershub.kitpvp.enchantments.CustomEnchantmentHandler;
 import net.gamershub.kitpvp.fakeplayer.FakePlayerHandler;
@@ -39,8 +40,10 @@ public final class KitPvpPlugin extends JavaPlugin {
     private final Map<UUID, Integer> highestKillstreaks = new HashMap<>();
     private final Map<UUID, Integer> highestLevels = new HashMap<>();
 
+    private CustomEntityHandler customEntityHandler;
     private CustomEnchantmentHandler customEnchantmentHandler;
     private AbilityHandler abilityHandler;
+
     private CustomItemHandler customItemHandler;
     private KitHandler kitHandler;
     private CompanionHandler companionHandler;
@@ -51,7 +54,7 @@ public final class KitPvpPlugin extends JavaPlugin {
     private CustomEventHandler customEventHandler;
     private ChallengesHandler challengesHandler;
 
-    @SuppressWarnings({"DataFlowIssue", "ResultOfMethodCallIgnored"})
+    @SuppressWarnings({"ResultOfMethodCallIgnored", "DataFlowIssue"})
     @Override
     public void onEnable() {
         INSTANCE = this;
@@ -67,6 +70,7 @@ public final class KitPvpPlugin extends JavaPlugin {
         guiHandler = new GuiHandler();
         customEventHandler = new CustomEventHandler();
         challengesHandler = new ChallengesHandler();
+        customEntityHandler = new CustomEntityHandler();
 
         saveDefaultConfig();
 
@@ -91,8 +95,10 @@ public final class KitPvpPlugin extends JavaPlugin {
         pluginManager.registerEvents(customEnchantmentHandler, this);
         pluginManager.registerEvents(abilityHandler, this);
         pluginManager.registerEvents(fakePlayerHandler, this);
+        pluginManager.registerEvents(textDisplayHandler, this);
         pluginManager.registerEvents(cosmeticHandler, this);
         pluginManager.registerEvents(guiHandler, this);
+        pluginManager.registerEvents(customEntityHandler, this);
 
         // Registering Commands
         getCommand("spawn").setExecutor(new SpawnCommand());
@@ -148,10 +154,11 @@ public final class KitPvpPlugin extends JavaPlugin {
     @Override
     public void onDisable() {
         saveHighscores();
+
         for (ExtendedPlayer extendedPlayer : extendedPlayers.values()) {
             extendedPlayer.unmorph();
             extendedPlayer.removeCompanion();
-            Utils.writeObjectToFile(new File(getDataFolder(), "player_data/" +  extendedPlayer.getPlayer().getUniqueId() + ".json"), extendedPlayer);
+            Utils.writeObjectToFile(new File(getDataFolder(), "player_data/" + extendedPlayer.getPlayer().getUniqueId() + ".json"), extendedPlayer);
         }
     }
 

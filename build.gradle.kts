@@ -3,7 +3,7 @@ plugins {
   id("io.papermc.paperweight.userdev") version "1.5.11"
   id("xyz.jpenilla.run-paper") version "2.2.3" // Adds runServer and runMojangMappedServer tasks for testing
 
-  id("io.freefair.lombok") version "8.4"
+  id("io.freefair.lombok") version "8.6"
 }
 
 group = "net.gamershub.kitpvp"

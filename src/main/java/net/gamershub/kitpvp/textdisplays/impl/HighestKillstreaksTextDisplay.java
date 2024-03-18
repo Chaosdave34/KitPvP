@@ -13,7 +13,7 @@ import java.util.*;
 
 public class HighestKillstreaksTextDisplay extends TextDisplay {
     public HighestKillstreaksTextDisplay() {
-        super(new Location(Bukkit.getWorld("world"), 4.5, 101.5, 10.5), 6);
+        super("world", new Location(null, 4.5, 101.5, 10.5), 6);
     }
 
     @Override

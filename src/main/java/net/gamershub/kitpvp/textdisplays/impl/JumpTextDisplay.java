@@ -3,7 +3,6 @@ package net.gamershub.kitpvp.textdisplays.impl;
 import net.gamershub.kitpvp.textdisplays.TextDisplay;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
@@ -12,7 +11,7 @@ import java.util.List;
 
 public class JumpTextDisplay extends TextDisplay {
     public JumpTextDisplay() {
-        super(new Location(Bukkit.getWorld("world"), 0.5, 100, 0.5), 1);
+        super("world", new Location(null, 0.5, 100, 0.5), 1);
     }
 
     @Override

@@ -13,7 +13,7 @@ import java.util.*;
 
 public class HighestLevelsTextDisplay extends TextDisplay {
     public HighestLevelsTextDisplay() {
-        super(new Location(Bukkit.getWorld("world"), -3.5, 101.5, 10.5), 6);
+        super("world", new Location(null, -3.5, 101.5, 10.5), 6);
     }
 
     @Override
