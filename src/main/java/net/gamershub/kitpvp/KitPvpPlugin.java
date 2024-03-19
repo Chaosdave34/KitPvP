@@ -167,8 +167,10 @@ public final class KitPvpPlugin extends JavaPlugin {
 
         for (Location location : gameListener.getBlocksToRemove().keySet()) {
             Block block = location.getBlock();
-            if (block instanceof Waterlogged)
-                ((Waterlogged) block).setWaterlogged(false);
+            if (block.getBlockData() instanceof Waterlogged waterlogged) {
+                waterlogged.setWaterlogged(false);
+                block.setBlockData(waterlogged);
+            }
             else
                 block.setType(Material.AIR);
         }

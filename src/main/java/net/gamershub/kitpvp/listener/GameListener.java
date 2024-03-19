@@ -216,8 +216,10 @@ public class GameListener implements Listener {
                 Map.Entry<Location, Long> entry = iterator.next();
                 if (currentTime - entry.getValue() >= 30 * 1000) {
                     Block block = entry.getKey().getBlock();
-                    if (block instanceof Waterlogged)
-                        ((Waterlogged) block).setWaterlogged(false);
+                    if (block.getBlockData() instanceof Waterlogged waterlogged) {
+                        waterlogged.setWaterlogged(false);
+                        block.setBlockData(waterlogged);
+                    }
                     else
                         block.setType(Material.AIR);
                     iterator.remove();
