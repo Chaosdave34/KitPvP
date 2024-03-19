@@ -11,7 +11,7 @@ import java.util.List;
 
 public class JumpTextDisplay extends TextDisplay {
     public JumpTextDisplay() {
-        super("world", new Location(null, 0.5, 100, 0.5), 1);
+        super("world", new Location(null, 2.0, 120, 2.0), 1);
     }
 
     @Override

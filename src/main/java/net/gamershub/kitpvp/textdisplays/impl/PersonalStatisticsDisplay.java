@@ -13,7 +13,7 @@ import java.util.List;
 
 public class PersonalStatisticsDisplay extends TextDisplay {
     public PersonalStatisticsDisplay() {
-        super("world", new Location(null, -3.5, 101.5, -9.5), 5);
+        super("world", new Location(null, 5.5,121.5,11.5), 5);
     }
 
     @Override

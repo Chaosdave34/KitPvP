@@ -17,10 +17,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.*;
-import org.bukkit.event.player.PlayerBucketEmptyEvent;
-import org.bukkit.event.player.PlayerBucketFillEvent;
-import org.bukkit.event.player.PlayerDropItemEvent;
-import org.bukkit.event.player.PlayerItemDamageEvent;
+import org.bukkit.event.player.*;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
@@ -48,7 +45,7 @@ public class GameListener implements Listener {
 
             if (e.getBlock().getType() == Material.FIRE) return;
 
-            if (e.getBlock().getLocation().getY() > 90) {
+            if (e.getBlock().getLocation().getY() > 105) {
                 e.setCancelled(true);
                 return;
             }
@@ -96,7 +93,7 @@ public class GameListener implements Listener {
         if (KitPvpPlugin.INSTANCE.getExtendedPlayer(p).getGameState() == ExtendedPlayer.GameState.IN_GAME) {
             Block block = e.getBlock();
 
-            if (e.getBlock().getLocation().getY() > 90) {
+            if (e.getBlock().getLocation().getY() > 105) {
                 e.setCancelled(true);
                 return;
             }
@@ -174,6 +171,7 @@ public class GameListener implements Listener {
     public void onMorphMove(EntityMoveEvent e) {
         Entity morph = e.getEntity();
         if (morph.hasMetadata("morph")) {
+            if (morph.getPassengers().isEmpty()) morph.remove();
             Player p = (Player) morph.getPassengers().get(0);
 
             if (KitPvpPlugin.INSTANCE.getExtendedPlayer(p).getGameState() == ExtendedPlayer.GameState.IN_GAME) {
@@ -223,6 +221,20 @@ public class GameListener implements Listener {
                     else
                         block.setType(Material.AIR);
                     iterator.remove();
+                }
+            }
+        }
+    }
+
+    @EventHandler
+    public void onRespawnAnchor(PlayerInteractEvent e) {
+        Player p = e.getPlayer();
+        ExtendedPlayer extendedPlayer = KitPvpPlugin.INSTANCE.getExtendedPlayer(p);
+        if (extendedPlayer.getGameState() == ExtendedPlayer.GameState.IN_GAME) {
+            if (e.getClickedBlock() != null) {
+                if (e.getClickedBlock().getType() == Material.RESPAWN_ANCHOR) {
+                    if (e.getClickedBlock().getLocation().getY() > 105)
+                        e.setCancelled(true);
                 }
             }
         }

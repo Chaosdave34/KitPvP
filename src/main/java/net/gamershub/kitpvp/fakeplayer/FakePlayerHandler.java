@@ -67,21 +67,21 @@ public class FakePlayerHandler implements Listener {
     public static FakePlayer COSMETIC;
 
     public FakePlayerHandler() {
-        CLASSIC_KIT = registerFakePlayer(new KitSelectorFakePlayer(KitHandler.CLASSIC, "world", new Location(null, 10.5, 100, 0.5, 90, 0)));
-        ZEUS_KIT = registerFakePlayer(new KitSelectorFakePlayer(KitHandler.ZEUS, "world", new Location(null, 10.5, 100, 2.5, 90, 0)));
-        TANK_KIT = registerFakePlayer(new KitSelectorFakePlayer(KitHandler.TANK, "world", new Location(null, 10.5, 100, 4.5, 90, 0)));
-        ENGINEER_KIT = registerFakePlayer(new KitSelectorFakePlayer(KitHandler.PROVOKER, "world", new Location(null, 10.5, 100, 6.5, 90, 0)));
-        ARCHER_KIT = registerFakePlayer(new KitSelectorFakePlayer(KitHandler.ARCHER, "world", new Location(null, 10.5, 100, -1.5, 90, 0)));
-        ARTILLERYMAN_KIT = registerFakePlayer(new KitSelectorFakePlayer(KitHandler.ARTILLERYMAN, "world", new Location(null, 10.5, 100, -3.5, 90, 0)));
-        RUNNER_KIT = registerFakePlayer(new KitSelectorFakePlayer(KitHandler.ASSASSIN, "world", new Location(null, 10.5, 100, -5.5, 90, 0)));
+        CLASSIC_KIT = registerFakePlayer(new KitSelectorFakePlayer(KitHandler.CLASSIC, "world", new Location(null, -6.5, 120.0, 9.5, -90, 0)));
+        ZEUS_KIT = registerFakePlayer(new KitSelectorFakePlayer(KitHandler.ZEUS, "world", new Location(null, -7.5, 120.0, 6.5, -90, 0)));
+        TANK_KIT = registerFakePlayer(new KitSelectorFakePlayer(KitHandler.TANK, "world", new Location(null, -8.5, 120.0, 3.5, -90, 0)));
+        ENGINEER_KIT = registerFakePlayer(new KitSelectorFakePlayer(KitHandler.PROVOKER, "world", new Location(null, -8.5, 120.0, 0.5, -90, 0)));
+        ARCHER_KIT = registerFakePlayer(new KitSelectorFakePlayer(KitHandler.ARCHER, "world", new Location(null, -7.5, 120.0, -2.5, -90, 0)));
+        ARTILLERYMAN_KIT = registerFakePlayer(new KitSelectorFakePlayer(KitHandler.ARTILLERYMAN, "world", new Location(null, -6.5, 120.0, -5.5, -65, 0)));
+        RUNNER_KIT = registerFakePlayer(new KitSelectorFakePlayer(KitHandler.ASSASSIN, "world", new Location(null, -4.5, 120.0, -7.5, -35, 0)));
 
-        TRAPPER_KIT = registerFakePlayer(new KitSelectorFakePlayer(KitHandler.ENGINEER, "world", new Location(null, -9.5, 100, 0.5, -90, 0)));
-        MAGICIAN_KIT = registerFakePlayer(new KitSelectorFakePlayer(KitHandler.MAGICIAN, "world", new Location(null, -9.5, 100, 2.5, -90, 0)));
-        VAMPIRE_KIT = registerFakePlayer(new KitSelectorFakePlayer(KitHandler.VAMPIRE, "world", new Location(null, -9.5, 100, 4.5, -90, 0)));
-        CREEPER_KIT = registerFakePlayer(new KitSelectorFakePlayer(KitHandler.CREEPER, "world", new Location(null, -9.5, 100, 6.5, -90, 0)));
-        ENDERMAN_KIT = registerFakePlayer(new KitSelectorFakePlayer(KitHandler.ENDERMAN, "world", new Location(null, -9.5, 100, -1.5, -90, 0)));
-        POSEIDON_KIT = registerFakePlayer(new KitSelectorFakePlayer(KitHandler.POSEIDON, "world", new Location(null, -9.5, 100, -3.5, -90, 0)));
-        DEVIL_KIT = registerFakePlayer(new KitSelectorFakePlayer(KitHandler.DEVIL, "world", new Location(null, -9.5, 100, -5.5, -90, 0)));
+        TRAPPER_KIT = registerFakePlayer(new KitSelectorFakePlayer(KitHandler.ENGINEER, "world", new Location(null, 10.5, 120.0, 9.5, 90, 0)));
+        MAGICIAN_KIT = registerFakePlayer(new KitSelectorFakePlayer(KitHandler.MAGICIAN, "world", new Location(null, 11.5, 120.0, 6.5, 90, 0)));
+        VAMPIRE_KIT = registerFakePlayer(new KitSelectorFakePlayer(KitHandler.VAMPIRE, "world", new Location(null, 12.5, 120.0, 3.5, 90, 0)));
+        CREEPER_KIT = registerFakePlayer(new KitSelectorFakePlayer(KitHandler.CREEPER, "world", new Location(null, 12.5, 120.0, 0.5, 90, 0)));
+        ENDERMAN_KIT = registerFakePlayer(new KitSelectorFakePlayer(KitHandler.ENDERMAN, "world", new Location(null, 11.5, 120.0, -2.5, 90, 0)));
+        POSEIDON_KIT = registerFakePlayer(new KitSelectorFakePlayer(KitHandler.POSEIDON, "world", new Location(null, 10.5, 120.0, -5.5, 65, 0)));
+        DEVIL_KIT = registerFakePlayer(new KitSelectorFakePlayer(KitHandler.DEVIL, "world", new Location(null, 8.5, 120.0, -7.5, 45, 0)));
 
         COSMETIC = registerFakePlayer(new CosmeticsFakePlayer());
     }

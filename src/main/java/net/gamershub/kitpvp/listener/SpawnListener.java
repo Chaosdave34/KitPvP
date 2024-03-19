@@ -8,6 +8,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.BlockExplodeEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityShootBowEvent;
@@ -17,6 +18,29 @@ import org.bukkit.event.player.*;
 import org.bukkit.util.Vector;
 
 public class SpawnListener implements Listener {
+    @EventHandler
+    public void onRespawnAnchorExplode(BlockExplodeEvent e) {
+        if (e.getExplodedBlockState() == null) return;
+        if (e.getExplodedBlockState().getType() == Material.RESPAWN_ANCHOR) {
+            if (e.getBlock().getLocation().getY() > 105)
+                e.setCancelled(true);
+        }
+    }
+
+    @EventHandler
+    public void onRespawnAnchor(PlayerInteractEvent e) {
+        Player p = e.getPlayer();
+        ExtendedPlayer extendedPlayer = KitPvpPlugin.INSTANCE.getExtendedPlayer(p);
+        if (extendedPlayer.getGameState() == ExtendedPlayer.GameState.SPAWN) {
+            if (e.getClickedBlock() != null) {
+                if (e.getClickedBlock().getType() == Material.RESPAWN_ANCHOR) {
+                    e.setCancelled(true);
+                }
+            }
+        }
+    }
+
+
     @EventHandler
     public void onDamage(EntityDamageEvent e) {
         if (e.getEntity() instanceof Player p) {
@@ -34,7 +58,7 @@ public class SpawnListener implements Listener {
         Player p = e.getPlayer();
         ExtendedPlayer extendedPlayer = KitPvpPlugin.INSTANCE.getExtendedPlayer(p);
         if (extendedPlayer.getGameState() == ExtendedPlayer.GameState.SPAWN) {
-            if (e.getTo().clone().subtract(0, 1, 0).getBlock().getType() != Material.AIR && e.getTo().getY() <= 90) {
+            if (e.getTo().clone().subtract(0, 1, 0).getBlock().getType() != Material.AIR && e.getTo().getY() <= 105) {
                 extendedPlayer.setGameState(ExtendedPlayer.GameState.IN_GAME);
                 p.setFallDistance(0f);
             }

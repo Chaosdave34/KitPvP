@@ -22,10 +22,6 @@ commands:
     description: Give yourself a custom item
     usage: /<command> <item_id> <amount>
     permission: kitpvp.custom_item
-  generate_spawn:
-    description: Generates the spawn centered at coordinates 0, 100, 0
-    usage: /<command>
-    permission: kitpvp.generate_spawn
   set_game_state:
     description: Sets your game state
     usage: /<command> <game_state>

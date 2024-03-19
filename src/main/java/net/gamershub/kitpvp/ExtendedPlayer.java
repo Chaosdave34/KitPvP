@@ -85,7 +85,7 @@ public class ExtendedPlayer {
         unmorph();
         removeCompanion();
 
-        p.teleport(new Location(Bukkit.getWorld("world"), 0.5, 100.5, -8.5, 0, 0));
+        p.teleport(new Location(Bukkit.getWorld("world"), 2.0, 120.0, 10.0, 180, 0));
 
         p.setFoodLevel(20);
         p.setSaturation(5);

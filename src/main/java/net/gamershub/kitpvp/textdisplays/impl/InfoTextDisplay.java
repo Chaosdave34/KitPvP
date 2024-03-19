@@ -11,7 +11,7 @@ import java.util.List;
 
 public class InfoTextDisplay extends TextDisplay {
     public InfoTextDisplay() {
-        super("world", new Location(null, 4.5, 101.5, -9.5), 7);
+        super("world", new Location(null, -1.5,121.5,11.5), 7);
     }
 
     @Override

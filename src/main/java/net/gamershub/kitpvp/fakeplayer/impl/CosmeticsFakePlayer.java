@@ -7,7 +7,7 @@ import org.bukkit.entity.Player;
 
 public class CosmeticsFakePlayer extends FakePlayer {
     public CosmeticsFakePlayer() {
-        super("Cosmetics", "world", new Location(null, 0.5, 100, 10.5), -180, 0, true);
+        super("Cosmetics", "world", new Location(null, 4.5,120,12.5), 180, 0, true);
     }
 
     @Override

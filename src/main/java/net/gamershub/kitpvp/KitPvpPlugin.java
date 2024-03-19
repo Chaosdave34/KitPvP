@@ -117,9 +117,6 @@ public final class KitPvpPlugin extends JavaPlugin {
         getCommand("custom_item").setExecutor(new CustomItemCommand());
         getCommand("custom_item").setTabCompleter(new CustomItemTabCompleter());
 
-        getCommand("generate_spawn").setExecutor(new GenerateSpawnCommand());
-        getCommand("generate_spawn").setTabCompleter(new EmptyTabCompleter());
-
         getCommand("set_game_state").setExecutor(new SetGameStateCommand());
         getCommand("set_game_state").setTabCompleter(new SetGameStateTabCompleter());
 
