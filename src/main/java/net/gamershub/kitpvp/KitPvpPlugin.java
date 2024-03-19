@@ -18,9 +18,9 @@ import net.gamershub.kitpvp.listener.GamePlayerDeathListener;
 import net.gamershub.kitpvp.listener.SpawnListener;
 import net.gamershub.kitpvp.listener.UtilityListener;
 import net.gamershub.kitpvp.textdisplays.TextDisplayHandler;
-import org.bukkit.Bukkit;
-import org.bukkit.GameRule;
-import org.bukkit.World;
+import org.bukkit.*;
+import org.bukkit.block.Block;
+import org.bukkit.block.data.Waterlogged;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -54,6 +54,8 @@ public final class KitPvpPlugin extends JavaPlugin {
     private CustomEventHandler customEventHandler;
     private ChallengesHandler challengesHandler;
 
+    private GameListener gameListener;
+
     @SuppressWarnings({"ResultOfMethodCallIgnored", "DataFlowIssue"})
     @Override
     public void onEnable() {
@@ -71,6 +73,8 @@ public final class KitPvpPlugin extends JavaPlugin {
         customEventHandler = new CustomEventHandler();
         challengesHandler = new ChallengesHandler();
         customEntityHandler = new CustomEntityHandler();
+
+        gameListener = new GameListener();
 
         saveDefaultConfig();
 
@@ -90,7 +94,7 @@ public final class KitPvpPlugin extends JavaPlugin {
         PluginManager pluginManager = getServer().getPluginManager();
         pluginManager.registerEvents(new UtilityListener(), this);
         pluginManager.registerEvents(new SpawnListener(), this);
-        pluginManager.registerEvents(new GameListener(), this);
+        pluginManager.registerEvents(gameListener, this);
         pluginManager.registerEvents(new GamePlayerDeathListener(), this);
         pluginManager.registerEvents(customEnchantmentHandler, this);
         pluginManager.registerEvents(abilityHandler, this);
@@ -159,6 +163,14 @@ public final class KitPvpPlugin extends JavaPlugin {
             extendedPlayer.unmorph();
             extendedPlayer.removeCompanion();
             Utils.writeObjectToFile(new File(getDataFolder(), "player_data/" + extendedPlayer.getPlayer().getUniqueId() + ".json"), extendedPlayer);
+        }
+
+        for (Location location : gameListener.getBlocksToRemove().keySet()) {
+            Block block = location.getBlock();
+            if (block instanceof Waterlogged)
+                ((Waterlogged) block).setWaterlogged(false);
+            else
+                block.setType(Material.AIR);
         }
     }
 

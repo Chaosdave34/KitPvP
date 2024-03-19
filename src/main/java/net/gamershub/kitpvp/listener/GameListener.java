@@ -1,6 +1,7 @@
 package net.gamershub.kitpvp.listener;
 
 import io.papermc.paper.event.entity.EntityMoveEvent;
+import lombok.Getter;
 import net.gamershub.kitpvp.ExtendedPlayer;
 import net.gamershub.kitpvp.KitPvpPlugin;
 import org.bukkit.Bukkit;
@@ -29,6 +30,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class GameListener implements Listener {
+    @Getter
     private final Map<Location, Long> blocksToRemove = new ConcurrentHashMap<>();
     private BukkitTask blockRemoverTask;
 
