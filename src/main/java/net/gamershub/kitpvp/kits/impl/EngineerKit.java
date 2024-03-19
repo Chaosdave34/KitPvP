@@ -12,48 +12,36 @@ public class EngineerKit extends Kit {
     }
 
     @Override
-    public double getMovementSpeed() {
-        return 0.2;
-    }
-
-    @Override
     public ItemStack getHeadContent() {
-        ItemStack diamondHelmet = new ItemStack(Material.LEATHER_HELMET);
-        diamondHelmet.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 1);
-        return diamondHelmet;
+        return new ItemStack(Material.CHAINMAIL_HELMET);
     }
 
     @Override
     public ItemStack getChestContent() {
-        ItemStack diamondChestplate = new ItemStack(Material.LEATHER_CHESTPLATE);
-        diamondChestplate.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 1);
-        return diamondChestplate;
+        return new ItemStack(Material.CHAINMAIL_CHESTPLATE);
     }
 
     @Override
     public ItemStack getLegsContent() {
-        ItemStack diamondLeggings = new ItemStack(Material.LEATHER_LEGGINGS);
-        diamondLeggings.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 1);
-        return diamondLeggings;
+        return new ItemStack(Material.CHAINMAIL_LEGGINGS);
     }
 
     @Override
     public ItemStack getFeetContent() {
-        ItemStack diamondBoots = new ItemStack(Material.LEATHER_BOOTS);
-        diamondBoots.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 1);
-        return diamondBoots;
+        return new ItemStack(Material.CHAINMAIL_BOOTS);
     }
 
     @Override
     public ItemStack[] getInventoryContent() {
-        ItemStack knockBackStick = new ItemStack(Material.STICK);
-        knockBackStick.addUnsafeEnchantment(Enchantment.KNOCKBACK, 5);
+        ItemStack stoneSword = new ItemStack(Material.STONE_SWORD);
+        stoneSword.addUnsafeEnchantment(Enchantment.DIG_SPEED, 10);
+        stoneSword.addEnchantment(Enchantment.DAMAGE_ALL, 2);
+
 
         return new ItemStack[]{
-                CustomItemHandler.SPOOK_SWORD.build(),
-                knockBackStick,
-                CustomItemHandler.NUKE.build(),
+                stoneSword,
                 CustomItemHandler.TURRET.build(),
+                CustomItemHandler.TRAP_WAND.build(),
                 new ItemStack(Material.WATER_BUCKET),
         };
     }
@@ -61,10 +49,8 @@ public class EngineerKit extends Kit {
     @Override
     public ItemStack[] getKillRewards() {
         return new ItemStack[]{
-                new ItemStack(Material.GOLDEN_APPLE),
+                new ItemStack(Material.COBWEB, 8),
                 new ItemStack(Material.COBBLESTONE, 32),
         };
     }
-
-
 }

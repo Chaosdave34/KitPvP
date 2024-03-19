@@ -14,11 +14,11 @@ public class KitHandler {
     public static Kit CLASSIC;
     public static Kit ZEUS;
     public static Kit TANK;
-    public static Kit ENGINEER;
+    public static Kit PROVOKER;
     public static Kit ARCHER;
     public static Kit ARTILLERYMAN;
     public static Kit ASSASSIN;
-    public static Kit TRAPPER;
+    public static Kit ENGINEER;
     public static Kit MAGICIAN;
     public static Kit VAMPIRE;
     public static Kit CREEPER;
@@ -30,11 +30,11 @@ public class KitHandler {
         CLASSIC = createKit(new ClassicKit());
         ZEUS = createKit(new ZeusKit());
         TANK = createKit(new TankKit());
-        ENGINEER = createKit(new EngineerKit());
+        PROVOKER = createKit(new ProvokerKit());
         ARCHER = createKit(new ArcherKit());
         ARTILLERYMAN = createKit(new ArtilleryManKit());
         ASSASSIN = createKit(new AssassinKit());
-        TRAPPER = createKit(new TrapperKit());
+        ENGINEER = createKit(new EngineerKit());
         MAGICIAN = createKit(new MagicianKit());
         VAMPIRE = createKit(new VampireKit());
         CREEPER = createKit(new CreeperKit());

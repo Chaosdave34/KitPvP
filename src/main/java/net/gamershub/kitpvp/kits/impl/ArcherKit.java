@@ -6,6 +6,7 @@ import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.potion.PotionEffectType;
 
 import java.util.List;
@@ -46,6 +47,10 @@ public class ArcherKit extends Kit {
 
         ItemStack stoneSword = new ItemStack(Material.STONE_SWORD);
         setCustomModelData(stoneSword, 2);
+
+        ItemStack arrows = new ItemStack(Material.TIPPED_ARROW);
+        arrows.editMeta(PotionMeta.class, potionMeta -> {
+        });
 
         return new ItemStack[]{
                 stoneSword,

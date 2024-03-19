@@ -1,9 +1,9 @@
-package net.gamershub.kitpvp.customentities;
+package net.gamershub.kitpvp.entities;
 
 import com.destroystokyo.paper.event.entity.EntityAddToWorldEvent;
 import net.gamershub.kitpvp.KitPvpPlugin;
 import net.gamershub.kitpvp.Utils;
-import net.gamershub.kitpvp.customentities.impl.Turret;
+import net.gamershub.kitpvp.entities.impl.Turret;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Entity;
 import org.bukkit.event.EventHandler;

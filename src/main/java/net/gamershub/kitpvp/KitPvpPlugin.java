@@ -6,7 +6,7 @@ import net.gamershub.kitpvp.challenges.ChallengesHandler;
 import net.gamershub.kitpvp.commands.*;
 import net.gamershub.kitpvp.companions.CompanionHandler;
 import net.gamershub.kitpvp.cosmetics.CosmeticHandler;
-import net.gamershub.kitpvp.customentities.CustomEntityHandler;
+import net.gamershub.kitpvp.entities.CustomEntityHandler;
 import net.gamershub.kitpvp.customevents.CustomEventHandler;
 import net.gamershub.kitpvp.enchantments.CustomEnchantmentHandler;
 import net.gamershub.kitpvp.fakeplayer.FakePlayerHandler;

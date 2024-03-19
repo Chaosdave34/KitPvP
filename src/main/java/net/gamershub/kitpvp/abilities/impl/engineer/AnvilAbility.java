@@ -1,29 +1,29 @@
-package net.gamershub.kitpvp.abilities.impl.trapper;
+package net.gamershub.kitpvp.abilities.impl.engineer;
 
 import net.gamershub.kitpvp.ExtendedPlayer;
 import net.gamershub.kitpvp.KitPvpPlugin;
 import net.gamershub.kitpvp.abilities.Ability;
 import net.gamershub.kitpvp.abilities.AbilityType;
 import net.kyori.adventure.text.Component;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.LivingEntity;
-import org.bukkit.entity.Player;
-import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
+import org.bukkit.Material;
+import org.bukkit.entity.*;
+import org.bukkit.event.entity.CreatureSpawnEvent;
+import org.bukkit.metadata.FixedMetadataValue;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public class TrapAbility extends Ability {
-    public TrapAbility() {
-        super("trap", "Trap", AbilityType.LEFT_CLICK, 10);
+public class AnvilAbility extends Ability {
+    public AnvilAbility() {
+        super("anvil", "Anvil", AbilityType.RIGHT_CLICK, 10);
     }
 
     @Override
     public @NotNull List<Component> getDescription() {
         return createSimpleDescription(
-                "Traps the player you are",
-                "looking at in a 10 block radius,"
+                "Spawns an anvil above the",
+                "player you are looking at",
+                "in a 10 block radius."
         );
     }
 
@@ -37,7 +37,10 @@ public class TrapAbility extends Ability {
                     return false;
             }
 
-            livingEntity.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 5 * 20, 255));
+            p.getWorld().spawnEntity(livingEntity.getLocation().add(0, 6, 0), EntityType.FALLING_BLOCK, CreatureSpawnEvent.SpawnReason.CUSTOM, (entity) -> {
+                ((FallingBlock) entity).setBlockData(Material.ANVIL.createBlockData());
+                entity.setMetadata("placed_by_player", new FixedMetadataValue(KitPvpPlugin.INSTANCE, true));
+            });
             return true;
         }
         return false;

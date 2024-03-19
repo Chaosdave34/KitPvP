@@ -2,7 +2,7 @@ package net.gamershub.kitpvp.abilities.impl.engineer;
 
 import net.gamershub.kitpvp.abilities.Ability;
 import net.gamershub.kitpvp.abilities.AbilityType;
-import net.gamershub.kitpvp.customentities.CustomEntityHandler;
+import net.gamershub.kitpvp.entities.CustomEntityHandler;
 import net.kyori.adventure.text.Component;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;

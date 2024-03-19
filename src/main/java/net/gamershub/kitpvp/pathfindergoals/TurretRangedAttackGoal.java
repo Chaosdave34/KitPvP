@@ -1,15 +1,11 @@
 package net.gamershub.kitpvp.pathfindergoals;
 
+import net.gamershub.kitpvp.entities.CustomEntityHandler;
+import net.gamershub.kitpvp.entities.impl.Turret;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.goal.Goal;
-import net.minecraft.world.entity.projectile.Arrow;
-import net.minecraft.world.item.ItemStack;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.Sound;
-import org.bukkit.craftbukkit.v1_20_R3.CraftWorld;
 
 import javax.annotation.Nullable;
 import java.util.EnumSet;
@@ -95,7 +91,7 @@ public class TurretRangedAttackGoal extends Goal {
             float f = (float) Math.sqrt(d) / this.attackRadius;
             float g = Mth.clamp(f, 0.1F, 1.0F);
 
-            performRangedAttack(this.target, g);
+            ((Turret) CustomEntityHandler.TURRET).performRangedAttack(this.mob.getBukkitMob(), this.target, g);
 
 
             this.attackTime = Mth.floor(f * (float) (this.attackIntervalMax - this.attackIntervalMin) + (float) this.attackIntervalMin);
@@ -105,18 +101,5 @@ public class TurretRangedAttackGoal extends Goal {
 
     }
 
-    public void performRangedAttack(LivingEntity target, float pullProgress) {
-        Arrow arrowEntity = new Arrow(this.mob.level(), this.mob, ItemStack.fromBukkitCopy(new org.bukkit.inventory.ItemStack(Material.ARROW)));
-        double d0 = target.getEyeY() - 1.100000023841858D;
-        double d1 = target.getX() - this.mob.getX();
-        double d2 = d0 - arrowEntity.getY();
-        double d3 = target.getZ() - this.mob.getZ();
-        double d4 = Math.sqrt(d1 * d1 + d3 * d3) * 0.20000000298023224D;
 
-        arrowEntity.shoot(d1, d2 + d4, d3, 1.6F, 12.0F);
-
-        CraftWorld world = this.mob.level().getWorld();
-        world.playSound(new Location(world, this.mob.getX(), this.mob.getY(), this.mob.getZ()), Sound.ENTITY_GENERIC_WIND_BURST, 1.0F, 0.4F);
-        this.mob.level().addFreshEntity(arrowEntity);
-    }
 }

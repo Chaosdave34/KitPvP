@@ -52,8 +52,8 @@ public class GamePlayerDeathListener implements Listener {
                         }
                     }
                     // Turret
-                    if (damager instanceof Arrow arrow) {
-                        if (arrow.getShooter() instanceof Husk husk) {
+                    if (damager instanceof Firework firework) {
+                        if (firework.getShooter() instanceof Husk husk) {
 
                             PersistentDataContainer container = husk.getPersistentDataContainer();
                             NamespacedKey ownerKey = new NamespacedKey(KitPvpPlugin.INSTANCE, "owner");

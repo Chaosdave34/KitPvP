@@ -1,4 +1,4 @@
-package net.gamershub.kitpvp.customentities;
+package net.gamershub.kitpvp.entities;
 
 import com.destroystokyo.paper.event.entity.EntityAddToWorldEvent;
 import lombok.Getter;

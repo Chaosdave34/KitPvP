@@ -1,4 +1,4 @@
-package net.gamershub.kitpvp.abilities.impl.engineer;
+package net.gamershub.kitpvp.abilities.impl.provoker;
 
 import net.gamershub.kitpvp.KitPvpPlugin;
 import net.gamershub.kitpvp.abilities.Ability;
@@ -21,7 +21,7 @@ import java.util.List;
 
 public class NukeAbility extends Ability {
     public NukeAbility() {
-        super("nuke", "Nuke", AbilityType.LEFT_CLICK, 120);
+        super("nuke", "Nuke", AbilityType.RIGHT_CLICK, 120);
     }
 
     @Override
