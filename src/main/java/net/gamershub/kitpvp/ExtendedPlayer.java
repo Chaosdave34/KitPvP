@@ -147,7 +147,8 @@ public class ExtendedPlayer {
     }
 
     public void updatePlayerListFooter() {
-        Component footer = Component.text("Daily Challenges:", NamedTextColor.GREEN);
+        Component footer = Component.newline()
+                .append(Component.text("Daily Challenges:", NamedTextColor.GREEN));
 
         for (String challengeId : dailyChallenges) {
             Challenge challenge = KitPvpPlugin.INSTANCE.getChallengesHandler().getChallenge(challengeId);
