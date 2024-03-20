@@ -3,7 +3,10 @@ package net.gamershub.kitpvp.listener;
 import io.papermc.paper.event.entity.EntityLoadCrossbowEvent;
 import net.gamershub.kitpvp.ExtendedPlayer;
 import net.gamershub.kitpvp.KitPvpPlugin;
+import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.Particle;
+import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -15,9 +18,16 @@ import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.event.player.*;
+import org.bukkit.event.world.WorldLoadEvent;
+import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
 public class SpawnListener implements Listener {
+    private Location turbine1;
+    private Location turbine2;
+    private Location turbine3;
+    private Location turbine4;
+
     @EventHandler
     public void onRespawnAnchorExplode(BlockExplodeEvent e) {
         if (e.getExplodedBlockState() == null) return;
@@ -40,6 +50,28 @@ public class SpawnListener implements Listener {
         }
     }
 
+    @EventHandler
+    public void onWorldLoad(WorldLoadEvent e) {
+        if (!e.getWorld().getName().equals("world")) return;
+
+        World world = e.getWorld();
+        turbine1 = new Location(world, 2.0, 120.0, 22.0);
+        turbine2 = new Location(world, -18.0, 120.0, 2.0);
+        turbine3 = new Location(world, 2.0, 120.0, -18.0);
+        turbine4 = new Location(world, 22.0, 120.0, 2.0);
+
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                world.spawnParticle(Particle.EXPLOSION_NORMAL, turbine1, 20, 2, 1, 2, 0);
+                world.spawnParticle(Particle.EXPLOSION_NORMAL, turbine2, 20, 2, 1, 2, 0);
+                world.spawnParticle(Particle.EXPLOSION_NORMAL, turbine3, 20, 2, 1, 2, 0);
+                world.spawnParticle(Particle.EXPLOSION_NORMAL, turbine4, 20, 2, 1, 2, 0);
+
+            }
+        }.runTaskTimer(KitPvpPlugin.INSTANCE, 0, 2);
+    }
+
 
     @EventHandler
     public void onDamage(EntityDamageEvent e) {
@@ -54,16 +86,26 @@ public class SpawnListener implements Listener {
     }
 
     @EventHandler
-    public void onEnterGameEvent(PlayerMoveEvent e) {
+    public void onPlayerMove(PlayerMoveEvent e) {
         Player p = e.getPlayer();
         ExtendedPlayer extendedPlayer = KitPvpPlugin.INSTANCE.getExtendedPlayer(p);
         if (extendedPlayer.getGameState() == ExtendedPlayer.GameState.SPAWN) {
+            // Game enter
             if (e.getTo().clone().subtract(0, 1, 0).getBlock().getType() != Material.AIR && e.getTo().getY() <= 105) {
                 extendedPlayer.setGameState(ExtendedPlayer.GameState.IN_GAME);
                 p.setFallDistance(0f);
             }
-        }
 
+            // Turbine
+            Location loc = p.getLocation();
+            int d = 5;
+            if (loc.distance(turbine1) < d || loc.distance(turbine2) < d || loc.distance(turbine3) < d || loc.distance(turbine4) < d) {
+                Vector launchVector = p.getLocation().toVector().normalize();
+                launchVector.multiply(12);
+                launchVector.setY(0.75);
+                p.setVelocity(launchVector);
+            }
+        }
     }
 
     @EventHandler
@@ -145,22 +187,6 @@ public class SpawnListener implements Listener {
         if (e.getEntity() instanceof Player p) {
             if (KitPvpPlugin.INSTANCE.getExtendedPlayer(p).getGameState() == ExtendedPlayer.GameState.SPAWN) {
                 e.setCancelled(true);
-            }
-        }
-    }
-
-    @EventHandler
-    public void onPlayerMove(PlayerMoveEvent e) {
-        Player p = e.getPlayer();
-        ExtendedPlayer extendedPlayer = KitPvpPlugin.INSTANCE.getExtendedPlayer(p);
-
-        if (extendedPlayer.getGameState() == ExtendedPlayer.GameState.SPAWN) {
-            // Launchpad
-            if (p.getLocation().subtract(0, 1, 0).getBlock().getType() == Material.SLIME_BLOCK) {
-                Vector launchVector = p.getLocation().toVector().normalize();
-                launchVector.multiply(8);
-                launchVector.setY(0.5);
-                p.setVelocity(launchVector);
             }
         }
     }
