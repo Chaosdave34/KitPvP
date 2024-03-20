@@ -69,7 +69,7 @@ public class SpawnListener implements Listener {
                 world.spawnParticle(Particle.EXPLOSION_NORMAL, turbine4, 10, 2, 1, 2, 0);
 
             }
-        }.runTaskTimer(KitPvpPlugin.INSTANCE, 0, 2);
+        }.runTaskTimer(KitPvpPlugin.INSTANCE, 0, 5);
     }
 
 

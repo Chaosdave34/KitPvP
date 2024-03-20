@@ -35,7 +35,6 @@ public class CustomEventHandler implements Listener {
 
     private void start() {
         enabled = true;
-        Bukkit.getLogger().info(String.valueOf(Bukkit.getOnlinePlayers().size()));
         if (!Bukkit.getOnlinePlayers().isEmpty()) {
             Random random = new Random();
             CustomEvent event = customEvents.get(random.nextInt(customEvents.size()));
