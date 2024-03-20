@@ -63,10 +63,10 @@ public class SpawnListener implements Listener {
         new BukkitRunnable() {
             @Override
             public void run() {
-                world.spawnParticle(Particle.EXPLOSION_NORMAL, turbine1, 20, 2, 1, 2, 0);
-                world.spawnParticle(Particle.EXPLOSION_NORMAL, turbine2, 20, 2, 1, 2, 0);
-                world.spawnParticle(Particle.EXPLOSION_NORMAL, turbine3, 20, 2, 1, 2, 0);
-                world.spawnParticle(Particle.EXPLOSION_NORMAL, turbine4, 20, 2, 1, 2, 0);
+                world.spawnParticle(Particle.EXPLOSION_NORMAL, turbine1, 10, 2, 1, 2, 0);
+                world.spawnParticle(Particle.EXPLOSION_NORMAL, turbine2, 10, 2, 1, 2, 0);
+                world.spawnParticle(Particle.EXPLOSION_NORMAL, turbine3, 10, 2, 1, 2, 0);
+                world.spawnParticle(Particle.EXPLOSION_NORMAL, turbine4, 10, 2, 1, 2, 0);
 
             }
         }.runTaskTimer(KitPvpPlugin.INSTANCE, 0, 2);
