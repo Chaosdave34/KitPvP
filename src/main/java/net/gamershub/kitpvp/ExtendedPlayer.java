@@ -342,7 +342,9 @@ public class ExtendedPlayer {
             xpReward *= 2;
 
         addExperiencePoints(xpReward);
-        getPlayer().getInventory().addItem(getSelectedKit().getKillRewards());
+
+        if (gameState == GameState.IN_GAME)
+            getPlayer().getInventory().addItem(getSelectedKit().getKillRewards());
     }
 
     public enum GameState {

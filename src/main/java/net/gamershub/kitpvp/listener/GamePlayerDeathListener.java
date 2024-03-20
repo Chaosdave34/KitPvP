@@ -46,6 +46,11 @@ public class GamePlayerDeathListener implements Listener {
 
                     // Kill Effect
                     if (damager instanceof Player killer) {
+                        KitPvpPlugin.INSTANCE.getExtendedPlayer(killer).killedPlayer(p);
+                        KitPvpPlugin.INSTANCE.getCosmeticHandler().triggerKillEffect(killer, p);
+                    }
+                    else if (damager instanceof Projectile projectile && projectile.getShooter() instanceof Player killer) {
+                        KitPvpPlugin.INSTANCE.getExtendedPlayer(killer).killedPlayer(p);
                         KitPvpPlugin.INSTANCE.getCosmeticHandler().triggerKillEffect(killer, p);
                     }
 
@@ -60,7 +65,7 @@ public class GamePlayerDeathListener implements Listener {
                         }
                     }
                     // Turret
-                    if (damager instanceof Firework firework) {
+                    else if (damager instanceof Firework firework) {
                         if (firework.getShooter() instanceof Husk husk) {
 
                             PersistentDataContainer container = husk.getPersistentDataContainer();

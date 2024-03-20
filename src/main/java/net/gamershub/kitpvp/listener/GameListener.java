@@ -134,18 +134,6 @@ public class GameListener implements Listener {
     }
 
     @EventHandler
-    public void onKill(PlayerDeathEvent e) {
-        if (e.getEntity().getLastDamageCause() instanceof EntityDamageByEntityEvent damageByEntityEvent) {
-            if (damageByEntityEvent.getDamager() instanceof Player damager) {
-                ExtendedPlayer extendedDamager = KitPvpPlugin.INSTANCE.getExtendedPlayer(damager);
-                if (extendedDamager.getGameState() == ExtendedPlayer.GameState.IN_GAME) {
-                   extendedDamager.killedPlayer(e.getEntity());
-                }
-            }
-        }
-    }
-
-    @EventHandler
     public void onDurabilityReduction(PlayerItemDamageEvent e) {
         Player p = e.getPlayer();
         if (KitPvpPlugin.INSTANCE.getExtendedPlayer(p).getGameState() == ExtendedPlayer.GameState.IN_GAME) {
