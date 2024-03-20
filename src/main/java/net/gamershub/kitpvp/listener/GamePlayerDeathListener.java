@@ -44,11 +44,19 @@ public class GamePlayerDeathListener implements Listener {
                 if (lastDamageEvent instanceof EntityDamageByEntityEvent lastDamageByEntityEvent) {
                     Entity damager = lastDamageByEntityEvent.getDamager();
 
+                    // Kill Effect
+                    if (damager instanceof Player killer) {
+                        KitPvpPlugin.INSTANCE.getCosmeticHandler().triggerKillEffect(killer, p);
+                    }
+
                     // Lightning
                     if (damager instanceof LightningStrike lightningStrike) {
                         if (lightningStrike.getCausingPlayer() != null) {
-                            message = name + " was killed by " + lightningStrike.getCausingPlayer().getName() + " with lightning";
-                            KitPvpPlugin.INSTANCE.getExtendedPlayer(lightningStrike.getCausingPlayer()).killedPlayer(p);
+                            Player killer = lightningStrike.getCausingPlayer();
+                            message = name + " was killed by " + killer + " with lightning";
+
+                            KitPvpPlugin.INSTANCE.getExtendedPlayer(killer).killedPlayer(p);
+                            KitPvpPlugin.INSTANCE.getCosmeticHandler().triggerKillEffect(killer, p);
                         }
                     }
                     // Turret
@@ -62,6 +70,12 @@ public class GamePlayerDeathListener implements Listener {
                                 UUID turretOwnerUUUID = container.get(ownerKey, new UUIDPersistentDataType());
                                 if (turretOwnerUUUID != null) {
                                     message = name + " was killed by " + Bukkit.getOfflinePlayer(turretOwnerUUUID).getName() + "'s turret";
+
+                                    Player turretOwner = Bukkit.getPlayer(turretOwnerUUUID);
+                                    if (turretOwner != null) {
+                                        KitPvpPlugin.INSTANCE.getExtendedPlayer(turretOwner).killedPlayer(p);
+                                        KitPvpPlugin.INSTANCE.getCosmeticHandler().triggerKillEffect(turretOwner, p);
+                                    }
                                 }
                             }
                         }

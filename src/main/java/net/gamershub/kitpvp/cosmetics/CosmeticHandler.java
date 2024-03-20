@@ -131,11 +131,25 @@ public class CosmeticHandler implements Listener {
         }
     }
 
+    public void triggerKillEffect(Player killer, Entity target) {
+        ExtendedPlayer extendedDamager = KitPvpPlugin.INSTANCE.getExtendedPlayer(killer);
+        if (extendedDamager.getKillEffectId() != null) {
+            killEffects.get(extendedDamager.getKillEffectId()).playEffect(target.getLocation());
+        }
+    }
+
     @EventHandler
     public void onKill(EntityDeathEvent e) {
         LivingEntity entity = e.getEntity();
         if (entity.getLastDamageCause() instanceof EntityDamageByEntityEvent damageEvent) {
-            if (damageEvent.getDamager() instanceof Player damager) {
+            Entity damagerEntity = damageEvent.getDamager();
+            if (damagerEntity instanceof Player damager) {
+                ExtendedPlayer extendedDamager = KitPvpPlugin.INSTANCE.getExtendedPlayer(damager);
+                if (extendedDamager.getKillEffectId() != null) {
+                    killEffects.get(extendedDamager.getKillEffectId()).playEffect(entity.getLocation());
+                }
+            }
+            if (damageEvent instanceof Projectile projectile && projectile.getShooter() instanceof Player damager) {
                 ExtendedPlayer extendedDamager = KitPvpPlugin.INSTANCE.getExtendedPlayer(damager);
                 if (extendedDamager.getKillEffectId() != null) {
                     killEffects.get(extendedDamager.getKillEffectId()).playEffect(entity.getLocation());
