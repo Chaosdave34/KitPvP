@@ -3,29 +3,29 @@ package net.gamershub.kitpvp.customevents;
 import lombok.Getter;
 import net.gamershub.kitpvp.KitPvpPlugin;
 import net.gamershub.kitpvp.customevents.impl.SimpleEvent;
+import org.bukkit.Bukkit;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
 import java.util.Random;
 
 @Getter
-public class CustomEventHandler {
+public class CustomEventHandler implements Listener {
     private final ArrayList<CustomEvent> customEvents = new ArrayList<>();
     private CustomEvent activeEvent;
+    private boolean enabled;
 
     public static CustomEvent DOUBLE_EXPERIENCE_EVENT;
     public static CustomEvent HALVED_COOLDOWN_EVENT;
 
     public CustomEventHandler() {
+        enabled = false;
+
         DOUBLE_EXPERIENCE_EVENT = registerCustomEvent(new SimpleEvent("2x Experience", 5 * 60));
         HALVED_COOLDOWN_EVENT = registerCustomEvent(new SimpleEvent("Halved Ability Cooldown", 5 * 60));
-
-        new BukkitRunnable() {
-            @Override
-            public void run() {
-                start();
-            }
-        }.runTaskLater(KitPvpPlugin.INSTANCE, 20 * 20);
     }
 
     private CustomEvent registerCustomEvent(CustomEvent customEvent) {
@@ -34,10 +34,16 @@ public class CustomEventHandler {
     }
 
     private void start() {
-        Random random = new Random();
-        CustomEvent event = customEvents.get(random.nextInt(customEvents.size()));
-        event.trigger();
-        activeEvent = event;
+        enabled = true;
+        Bukkit.getLogger().info(String.valueOf(Bukkit.getOnlinePlayers().size()));
+        if (!Bukkit.getOnlinePlayers().isEmpty()) {
+            Random random = new Random();
+            CustomEvent event = customEvents.get(random.nextInt(customEvents.size()));
+            event.trigger();
+            activeEvent = event;
+        } else {
+            enabled = false;
+        }
     }
 
     public void stopActiveEvent() {
@@ -48,6 +54,11 @@ public class CustomEventHandler {
                 start();
             }
         }.runTaskLater(KitPvpPlugin.INSTANCE, 10 * 60 * 20);
+    }
+
+    @EventHandler
+    public void onPlayerJoin(PlayerJoinEvent event) {
+        if (!enabled) start();
     }
 }
 

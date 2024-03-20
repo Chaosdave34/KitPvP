@@ -102,6 +102,7 @@ public final class KitPvpPlugin extends JavaPlugin {
         pluginManager.registerEvents(textDisplayHandler, this);
         pluginManager.registerEvents(cosmeticHandler, this);
         pluginManager.registerEvents(guiHandler, this);
+        pluginManager.registerEvents(customEventHandler, this);
         pluginManager.registerEvents(customEntityHandler, this);
 
         // Registering Commands
