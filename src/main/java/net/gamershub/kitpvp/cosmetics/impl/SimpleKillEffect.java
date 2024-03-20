@@ -15,6 +15,6 @@ public class SimpleKillEffect extends KillEffect {
 
     @Override
     public void playEffect(Location location) {
-        location.getWorld().spawnParticle(particle, location.add(0, 1, 0), 1);
+        location.getWorld().spawnParticle(particle, location.add(0, 1, 0), 1, 0, 0, 0, 0);
     }
 }

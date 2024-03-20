@@ -77,7 +77,7 @@ public class CosmeticHandler implements Listener {
 
         SMOKE_KILL_EFFECT = registerKillEffect(new SimpleKillEffect("smoke", "Smoke", Particle.SMOKE_NORMAL, 1, Material.COAL));
         SHRIEK_KILL_EFFECT = registerKillEffect(new ShriekKillEffect());
-        SONIC_BOOM_KILL_EFFECT = registerKillEffect(new SimpleKillEffect("sonic_boom", "Sonic Boom", Particle.SMOKE_LARGE, 3, Material.WARDEN_SPAWN_EGG));
+        SONIC_BOOM_KILL_EFFECT = registerKillEffect(new SimpleKillEffect("sonic_boom", "Sonic Boom", Particle.SONIC_BOOM, 3, Material.WARDEN_SPAWN_EGG));
         GUST_KILL_EFFECT = registerKillEffect(new SimpleKillEffect("gust", "Gust", Particle.GUST, 4, Material.STONE_SWORD));
         SQUID_INK_KILL_EFFECT = registerKillEffect(new SimpleKillEffect("squid_ink", "Squid Ink", Particle.SQUID_INK, 5, Material.INK_SAC));
         GLOW_SQUID_INK_KILL_EFFECT = registerKillEffect(new SimpleKillEffect("glow_squid_ink", "Glow Squid Ink", Particle.GLOW_SQUID_INK, 6, Material.GLOW_INK_SAC));
@@ -144,16 +144,10 @@ public class CosmeticHandler implements Listener {
         if (entity.getLastDamageCause() instanceof EntityDamageByEntityEvent damageEvent) {
             Entity damagerEntity = damageEvent.getDamager();
             if (damagerEntity instanceof Player damager) {
-                ExtendedPlayer extendedDamager = KitPvpPlugin.INSTANCE.getExtendedPlayer(damager);
-                if (extendedDamager.getKillEffectId() != null) {
-                    killEffects.get(extendedDamager.getKillEffectId()).playEffect(entity.getLocation());
-                }
+                triggerKillEffect(damager, entity);
             }
-            if (damageEvent instanceof Projectile projectile && projectile.getShooter() instanceof Player damager) {
-                ExtendedPlayer extendedDamager = KitPvpPlugin.INSTANCE.getExtendedPlayer(damager);
-                if (extendedDamager.getKillEffectId() != null) {
-                    killEffects.get(extendedDamager.getKillEffectId()).playEffect(entity.getLocation());
-                }
+            if (damagerEntity instanceof Projectile projectile && projectile.getShooter() instanceof Player damager) {
+                triggerKillEffect(damager, entity);
             }
         }
     }
