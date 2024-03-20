@@ -25,8 +25,8 @@ public class CosmeticSubMenuGui extends Gui {
     private final String name;
     private final Collection<? extends Cosmetic> cosmetics;
 
-    public CosmeticSubMenuGui(String name, Collection<? extends Cosmetic> cosmetics, int rows) {
-        super(rows, Component.text(name), true);
+    public CosmeticSubMenuGui(String name, Collection<? extends Cosmetic> cosmetics) {
+        super(cosmetics.size() / 9 + 2, Component.text(name), true);
         this.name = name;
         this.cosmetics = cosmetics;
     }

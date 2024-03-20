@@ -23,8 +23,8 @@ public class GuiHandler implements Listener {
 
     public GuiHandler() {
         COSMETICS = new CosmeticsGui();
-        PROJECTILE_TRAILS = new CosmeticSubMenuGui("Projectile Trails", KitPvpPlugin.INSTANCE.getCosmeticHandler().getProjectileTrails().values(), 3);
-        KILL_EFFECTS = new CosmeticSubMenuGui("Kill Effects", KitPvpPlugin.INSTANCE.getCosmeticHandler().getKillEffects().values(), 2);
+        PROJECTILE_TRAILS = new CosmeticSubMenuGui("Projectile Trails", KitPvpPlugin.INSTANCE.getCosmeticHandler().getProjectileTrails().values());
+        KILL_EFFECTS = new CosmeticSubMenuGui("Kill Effects", KitPvpPlugin.INSTANCE.getCosmeticHandler().getKillEffects().values());
     }
 
     @EventHandler
