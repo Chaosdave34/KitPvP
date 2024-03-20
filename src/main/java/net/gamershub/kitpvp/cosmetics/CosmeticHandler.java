@@ -8,10 +8,7 @@ import net.gamershub.kitpvp.cosmetics.impl.SimpleKillEffect;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Particle;
-import org.bukkit.entity.Firework;
-import org.bukkit.entity.LivingEntity;
-import org.bukkit.entity.Player;
-import org.bukkit.entity.Projectile;
+import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -43,11 +40,20 @@ public class CosmeticHandler implements Listener {
     public static ProjectileTrail NAUTILUS_PROJECTILE_TRAIL;
     public static ProjectileTrail NOTE_PROJECTILE_TRAIL;
     public static ProjectileTrail SOUL_FIRE_PROJECTILE_TRAIL;
+    public static ProjectileTrail TOTEM_OF_UNDYING_PROJECTILE_TRAIL;
+    public static ProjectileTrail SNOWFLAKE_PROJECTILE_TRAIL;
+    public static ProjectileTrail SOUL_PROJECTILE_TRAIL;
+    public static ProjectileTrail SCULK_SOUL_PROJECTILE_TRAIL;
+    public static ProjectileTrail SCULK_CHARGE_PROJECTILE_TRAIL;
+    public static ProjectileTrail END_ROD_PROJECTILE_TRAIL;
 
     public static KillEffect SHRIEK_KILL_EFFECT;
     public static KillEffect SMOKE_KILL_EFFECT;
     public static KillEffect SONIC_BOOM_KILL_EFFECT;
     public static KillEffect GUST_KILL_EFFECT;
+    public static KillEffect SQUID_INK_KILL_EFFECT;
+    public static KillEffect GLOW_SQUID_INK_KILL_EFFECT;
+    public static KillEffect EXPLOSION_KILL_EFFECT;
 
     public CosmeticHandler() {
         HEARTS_PROJECTILE_TRAIL = registerProjectileTrail(new ProjectileTrail("hearts", "Hearts", Particle.HEART, 1, Material.RED_DYE));
@@ -62,11 +68,20 @@ public class CosmeticHandler implements Listener {
         NAUTILUS_PROJECTILE_TRAIL = registerProjectileTrail(new ProjectileTrail("nautilus", "Nautilus", Particle.NAUTILUS, 10, Material.NAUTILUS_SHELL));
         NOTE_PROJECTILE_TRAIL = registerProjectileTrail(new ProjectileTrail("note", "Note", Particle.NOTE, 11, Material.NOTE_BLOCK));
         SOUL_FIRE_PROJECTILE_TRAIL = registerProjectileTrail(new ProjectileTrail("soul_fire", "Soul Fire", Particle.SOUL_FIRE_FLAME, 12, Material.SOUL_LANTERN));
+        TOTEM_OF_UNDYING_PROJECTILE_TRAIL = registerProjectileTrail(new ProjectileTrail("totem_of_undying", "Totem of Undying", Particle.TOTEM, 13, Material.TOTEM_OF_UNDYING));
+        SNOWFLAKE_PROJECTILE_TRAIL = registerProjectileTrail(new ProjectileTrail("snowflake", "Snowflake", Particle.SNOWFLAKE, 14, Material.SNOWBALL));
+        SOUL_PROJECTILE_TRAIL = registerProjectileTrail(new ProjectileTrail("soul", "Soul", Particle.SOUL, 15, Material.SOUL_SAND));
+        SCULK_SOUL_PROJECTILE_TRAIL = registerProjectileTrail(new ProjectileTrail("sculk_soul", "Sculk Soul", Particle.SCULK_SOUL, 16, Material.SCULK_CATALYST));
+        SCULK_CHARGE_PROJECTILE_TRAIL = registerProjectileTrail(new ProjectileTrail("sculk_charge", "Sculk Charge", Particle.SCULK_CHARGE_POP, 17, Material.SCULK));
+        END_ROD_PROJECTILE_TRAIL = registerProjectileTrail(new ProjectileTrail("end_rod", "End Rod", Particle.END_ROD, 18, Material.END_ROD));
 
         SMOKE_KILL_EFFECT = registerKillEffect(new SimpleKillEffect("smoke", "Smoke", Particle.SMOKE_NORMAL, 1, Material.COAL));
         SHRIEK_KILL_EFFECT = registerKillEffect(new ShriekKillEffect());
         SONIC_BOOM_KILL_EFFECT = registerKillEffect(new SimpleKillEffect("sonic_boom", "Sonic Boom", Particle.SMOKE_LARGE, 3, Material.WARDEN_SPAWN_EGG));
         GUST_KILL_EFFECT = registerKillEffect(new SimpleKillEffect("gust", "Gust", Particle.GUST, 4, Material.STONE_SWORD));
+        SQUID_INK_KILL_EFFECT = registerKillEffect(new SimpleKillEffect("squid_ink", "Squid Ink", Particle.SQUID_INK, 5, Material.INK_SAC));
+        GLOW_SQUID_INK_KILL_EFFECT = registerKillEffect(new SimpleKillEffect("glow_squid_ink", "Glow Squid Ink", Particle.GLOW_SQUID_INK, 6, Material.GLOW_INK_SAC));
+        EXPLOSION_KILL_EFFECT = registerKillEffect(new SimpleKillEffect("explosion", "Explosion", Particle.EXPLOSION_NORMAL, 7, Material.TNT));
     }
 
     private ProjectileTrail registerProjectileTrail(ProjectileTrail projectileTrail) {
