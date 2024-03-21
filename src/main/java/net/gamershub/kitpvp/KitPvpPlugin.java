@@ -76,6 +76,8 @@ public final class KitPvpPlugin extends JavaPlugin {
 
         gameListener = new GameListener();
 
+        getServer().getMessenger().registerOutgoingPluginChannel(this, "gamershub");
+
         saveDefaultConfig();
 
         Bukkit.clearRecipes();

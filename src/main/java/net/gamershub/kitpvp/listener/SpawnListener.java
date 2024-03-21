@@ -109,6 +109,20 @@ public class SpawnListener implements Listener {
     }
 
     @EventHandler
+    public void onEnterEndPortal(PlayerPortalEvent e) {
+        Player p = e.getPlayer();
+        ExtendedPlayer extendedPlayer = ExtendedPlayer.from(p);
+
+        if (extendedPlayer.getGameState() == ExtendedPlayer.GameState.IN_GAME) {
+            if (e.getCause() == PlayerTeleportEvent.TeleportCause.END_PORTAL) {
+                e.setCancelled(true);
+
+                p.sendPluginMessage(KitPvpPlugin.INSTANCE, "gamershub", "amusementpark".getBytes());
+            }
+        }
+    }
+
+    @EventHandler
     public void onProjectileLaunch(ProjectileLaunchEvent e) {
         if (e.getEntity().getShooter() instanceof Player p) {
             if (ExtendedPlayer.from(p).getGameState() == ExtendedPlayer.GameState.SPAWN) {
