@@ -1,15 +1,15 @@
 package net.gamershub.kitpvp.companions;
 
 import net.gamershub.kitpvp.companions.impl.AllayCompanion;
-import net.gamershub.kitpvp.companions.impl.ZoglinCompanion;
+import net.gamershub.kitpvp.companions.impl.ZombifiedPiglinCompanion;
 
 public class CompanionHandler{
     public static Companion ALLAY;
-    public static Companion ZOGLIN;
+    public static Companion ZOMBIFIED_PIGLIN;
 
     public CompanionHandler() {
         ALLAY = registerCompanion(new AllayCompanion());
-        ZOGLIN = registerCompanion(new ZoglinCompanion());
+        ZOMBIFIED_PIGLIN = registerCompanion(new ZombifiedPiglinCompanion());
     }
 
     private Companion registerCompanion(Companion companion) {

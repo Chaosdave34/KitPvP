@@ -75,6 +75,6 @@ public class DevilKit extends Kit { // Add special ability
 
     @Override
     public Companion getCompanion() {
-        return CompanionHandler.ZOGLIN;
+        return CompanionHandler.ZOMBIFIED_PIGLIN;
     }
 }
