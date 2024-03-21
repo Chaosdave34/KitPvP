@@ -26,7 +26,7 @@ public class BatMorhpAbility extends Ability {
 
     @Override
     public boolean onAbility(Player p) {
-        ExtendedPlayer extendedPlayer = KitPvpPlugin.INSTANCE.getExtendedPlayer(p);
+        ExtendedPlayer extendedPlayer = ExtendedPlayer.from(p);
         extendedPlayer.morph(EntityType.BAT);
 
         Bukkit.getScheduler().runTaskLater(KitPvpPlugin.INSTANCE, () -> {

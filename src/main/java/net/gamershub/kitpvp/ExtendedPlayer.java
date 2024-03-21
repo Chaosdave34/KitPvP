@@ -60,6 +60,14 @@ public class ExtendedPlayer {
         gameState = GameState.SPAWN;
     }
 
+    public static ExtendedPlayer from(UUID uuid) {
+        return from(Bukkit.getPlayer(uuid));
+    }
+
+    public static ExtendedPlayer from(Player player) {
+        return KitPvpPlugin.INSTANCE.getExtendedPlayer(player);
+    }
+
     public Player getPlayer() {
         return Bukkit.getPlayer(uuid);
     }
@@ -335,7 +343,7 @@ public class ExtendedPlayer {
         incrementKillStreak();
         incrementTotalKills();
 
-        ExtendedPlayer extendedTarget = KitPvpPlugin.INSTANCE.getExtendedPlayer(victim);
+        ExtendedPlayer extendedTarget = from(victim);
         int xpReward = 10 + (int) (extendedTarget.getLevel() * 0.25);
         if (KitPvpPlugin.INSTANCE.getCustomEventHandler().getActiveEvent() == CustomEventHandler.DOUBLE_EXPERIENCE_EVENT)
             xpReward *= 2;

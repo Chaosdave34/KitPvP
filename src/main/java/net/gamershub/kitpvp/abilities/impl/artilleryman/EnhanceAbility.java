@@ -28,7 +28,7 @@ public class EnhanceAbility extends Ability {
 
     @Override
     public boolean onAbility(Player p) {
-        ExtendedPlayer extendedPlayer = KitPvpPlugin.INSTANCE.getExtendedPlayer(p);
+        ExtendedPlayer extendedPlayer = ExtendedPlayer.from(p);
         ItemStack crossbow = p.getInventory().getItemInMainHand();
         crossbow.addUnsafeEnchantment(Enchantment.QUICK_CHARGE, 5);
         new BukkitRunnable() {

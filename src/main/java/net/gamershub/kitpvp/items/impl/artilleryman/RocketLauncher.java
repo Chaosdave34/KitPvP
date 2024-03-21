@@ -50,7 +50,7 @@ public class RocketLauncher extends CustomItem {
     @EventHandler
     public void onCrossbowLoad(EntityLoadCrossbowEvent e) {
         if (e.getEntity() instanceof Player player) {
-            ExtendedPlayer extendedPlayer = KitPvpPlugin.INSTANCE.getExtendedPlayer(player);
+            ExtendedPlayer extendedPlayer = ExtendedPlayer.from(player);
 
             Bukkit.getScheduler().runTaskLater(KitPvpPlugin.INSTANCE, () -> {
                 if (extendedPlayer.getSelectedKit() == KitHandler.ARTILLERYMAN) {

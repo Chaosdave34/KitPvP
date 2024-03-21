@@ -1,7 +1,6 @@
 package net.gamershub.kitpvp.companions;
 
 import net.gamershub.kitpvp.ExtendedPlayer;
-import net.gamershub.kitpvp.KitPvpPlugin;
 import net.gamershub.kitpvp.pathfindergoals.CustomFollowOwnerGoal;
 import net.gamershub.kitpvp.pathfindergoals.CustomMeleeAttackGoal;
 import net.gamershub.kitpvp.pathfindergoals.CustomOwnerHurtByTarget;
@@ -53,7 +52,7 @@ public abstract class Companion {
         companion.targetSelector.addGoal(2, new CustomOwnerHurtTarget(companion, owner));
         companion.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(companion, net.minecraft.world.entity.player.Player.class, 10, true, true, livingEntity -> {
             if  (!livingEntity.getUUID().equals(owner.getUniqueId())) {
-                return livingEntity.getBukkitLivingEntity() instanceof Player player && KitPvpPlugin.INSTANCE.getExtendedPlayer(player).getGameState() == ExtendedPlayer.GameState.IN_GAME;
+                return livingEntity.getBukkitLivingEntity() instanceof Player player && ExtendedPlayer.from(player).getGameState() == ExtendedPlayer.GameState.IN_GAME;
             }
             return false;
         }));

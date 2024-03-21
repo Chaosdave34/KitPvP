@@ -120,7 +120,7 @@ public class AbilityHandler implements Listener {
         Player p = e.getPlayer();
         if (e.getItem() == null) return;
 
-        if (KitPvpPlugin.INSTANCE.getExtendedPlayer(p).getGameState() == ExtendedPlayer.GameState.SPAWN)
+        if (ExtendedPlayer.from(p).getGameState() == ExtendedPlayer.GameState.SPAWN)
             return;
 
         PersistentDataContainer container = e.getItem().getItemMeta().getPersistentDataContainer();
@@ -158,7 +158,7 @@ public class AbilityHandler implements Listener {
 
         if (!e.isSneaking()) return;
 
-        if (KitPvpPlugin.INSTANCE.getExtendedPlayer(p).getGameState() == ExtendedPlayer.GameState.SPAWN) return;
+        if (ExtendedPlayer.from(p).getGameState() == ExtendedPlayer.GameState.SPAWN) return;
 
         for (ItemStack armorContent : p.getInventory().getArmorContents()) {
             if (armorContent == null) continue;

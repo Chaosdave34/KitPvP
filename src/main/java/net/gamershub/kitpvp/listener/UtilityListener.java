@@ -34,7 +34,7 @@ public class UtilityListener implements Listener {
 
         KitPvpPlugin.INSTANCE.createExtendedPlayer(p);
 
-        ExtendedPlayer extendedPlayer = KitPvpPlugin.INSTANCE.getExtendedPlayer(p);
+        ExtendedPlayer extendedPlayer = ExtendedPlayer.from(p);
 
         // resource pack
         String serverResourcePackUrl = KitPvpPlugin.INSTANCE.getConfig().getString("server_resource_pack_url");
@@ -92,7 +92,7 @@ public class UtilityListener implements Listener {
     public void onQuit(PlayerQuitEvent e) {
         Player p = e.getPlayer();
 
-        ExtendedPlayer extendedPlayer = KitPvpPlugin.INSTANCE.getExtendedPlayer(p);
+        ExtendedPlayer extendedPlayer = ExtendedPlayer.from(p);
         extendedPlayer.unmorph();
         extendedPlayer.removeCompanion();
         KitPvpPlugin.INSTANCE.removeExtendedPlayer(p);
@@ -119,7 +119,7 @@ public class UtilityListener implements Listener {
             KitPvpPlugin.INSTANCE.saveHighscores();
 
             for (Player p : Bukkit.getOnlinePlayers()) {
-                ExtendedPlayer extendedPlayer = KitPvpPlugin.INSTANCE.getExtendedPlayer(p);
+                ExtendedPlayer extendedPlayer = ExtendedPlayer.from(p);
                 Utils.writeObjectToFile(new File(KitPvpPlugin.INSTANCE.getDataFolder(), "player_data/" + p.getUniqueId() + ".json"), extendedPlayer);
             }
         }

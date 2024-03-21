@@ -1,6 +1,6 @@
 package net.gamershub.kitpvp.commands;
 
-import net.gamershub.kitpvp.KitPvpPlugin;
+import net.gamershub.kitpvp.ExtendedPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -25,7 +25,7 @@ public class AddExperienceCommand implements CommandExecutor {
 
         if (amount < 1) return false;
 
-        KitPvpPlugin.INSTANCE.getExtendedPlayer(player).addExperiencePoints(amount);
+        ExtendedPlayer.from(player).addExperiencePoints(amount);
 
         return true;
     }

@@ -1,7 +1,6 @@
 package net.gamershub.kitpvp.kits.impl;
 
 import net.gamershub.kitpvp.ExtendedPlayer;
-import net.gamershub.kitpvp.KitPvpPlugin;
 import net.gamershub.kitpvp.items.CustomItemHandler;
 import net.gamershub.kitpvp.kits.Kit;
 import org.bukkit.Color;
@@ -72,7 +71,7 @@ public class MagicianKit extends Kit {
     @EventHandler
     public void onSlotChange(PlayerItemHeldEvent e) {
         Player p = e.getPlayer();
-        ExtendedPlayer extendedPlayer = KitPvpPlugin.INSTANCE.getExtendedPlayer(p);
+        ExtendedPlayer extendedPlayer = ExtendedPlayer.from(p);
         if (extendedPlayer.getSelectedKitId().equals(getId()) && extendedPlayer.getGameState() == ExtendedPlayer.GameState.IN_GAME) {
             ItemStack slot = p.getInventory().getItem(e.getNewSlot());
             if (slot == null) return;

@@ -34,7 +34,7 @@ public class SpookAbility extends Ability {
         Entity target = p.getTargetEntity(10);
         if (target instanceof Player player) {
 
-                if (KitPvpPlugin.INSTANCE.getExtendedPlayer(player).getGameState() == ExtendedPlayer.GameState.SPAWN)
+                if (ExtendedPlayer.from(player).getGameState() == ExtendedPlayer.GameState.SPAWN)
                     return false;
 
 
@@ -43,7 +43,7 @@ public class SpookAbility extends Ability {
             player.getInventory().setHelmet(pumpkin);
 
             Bukkit.getScheduler().runTaskLater(KitPvpPlugin.INSTANCE, () -> {
-                ExtendedPlayer extendedTargetPlayer = KitPvpPlugin.INSTANCE.getExtendedPlayer(player);
+                ExtendedPlayer extendedTargetPlayer = ExtendedPlayer.from(player);
                 player.getInventory().setHelmet(extendedTargetPlayer.getSelectedKit().getHeadContent());
             }, 10 * 20);
 

@@ -1,7 +1,6 @@
 package net.gamershub.kitpvp.kits.impl;
 
 import net.gamershub.kitpvp.ExtendedPlayer;
-import net.gamershub.kitpvp.KitPvpPlugin;
 import net.gamershub.kitpvp.items.CustomItemHandler;
 import net.gamershub.kitpvp.kits.Kit;
 import org.bukkit.Color;
@@ -79,7 +78,7 @@ public class ArtilleryManKit extends Kit {
     public void onRocketLaunch(PlayerInteractEvent e) {
         Player p = e.getPlayer();
 
-        if (KitPvpPlugin.INSTANCE.getExtendedPlayer(p).getGameState() == ExtendedPlayer.GameState.IN_GAME) {
+        if (ExtendedPlayer.from(p).getGameState() == ExtendedPlayer.GameState.IN_GAME) {
            if (e.getMaterial() == Material.FIREWORK_ROCKET) {
                e.setCancelled(true);
            }

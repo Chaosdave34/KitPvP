@@ -46,7 +46,7 @@ public class Jetpack extends CustomItem {
     @EventHandler
     public void onMove(PlayerMoveEvent e) {
         Player p = e.getPlayer();
-        ExtendedPlayer extendedPlayer = KitPvpPlugin.INSTANCE.getExtendedPlayer(p);
+        ExtendedPlayer extendedPlayer = ExtendedPlayer.from(p);
 
         if (extendedPlayer.getGameState() == ExtendedPlayer.GameState.IN_GAME) {
             if (extendedPlayer.getSelectedKit() == KitHandler.ARTILLERYMAN) {

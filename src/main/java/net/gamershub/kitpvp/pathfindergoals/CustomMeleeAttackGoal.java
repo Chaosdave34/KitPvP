@@ -1,7 +1,6 @@
 package net.gamershub.kitpvp.pathfindergoals;
 
 import net.gamershub.kitpvp.ExtendedPlayer;
-import net.gamershub.kitpvp.KitPvpPlugin;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 import org.bukkit.entity.Player;
@@ -16,7 +15,7 @@ public class CustomMeleeAttackGoal extends MeleeAttackGoal {
 
     @Override
     public boolean canUse() {
-        if (KitPvpPlugin.INSTANCE.getExtendedPlayer(owner).getGameState() == ExtendedPlayer.GameState.SPAWN)
+        if (ExtendedPlayer.from(owner).getGameState() == ExtendedPlayer.GameState.SPAWN)
             return false;
 
         return super.canUse();

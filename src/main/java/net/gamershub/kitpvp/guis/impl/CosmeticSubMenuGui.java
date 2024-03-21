@@ -2,7 +2,6 @@ package net.gamershub.kitpvp.guis.impl;
 
 import lombok.NonNull;
 import net.gamershub.kitpvp.ExtendedPlayer;
-import net.gamershub.kitpvp.KitPvpPlugin;
 import net.gamershub.kitpvp.cosmetics.Cosmetic;
 import net.gamershub.kitpvp.guis.Gui;
 import net.gamershub.kitpvp.guis.GuiHandler;
@@ -33,7 +32,7 @@ public class CosmeticSubMenuGui extends Gui {
 
     @Override
     protected @NonNull Inventory build(Player p, Inventory inventory) {
-        ExtendedPlayer extendedPlayer = KitPvpPlugin.INSTANCE.getExtendedPlayer(p);
+        ExtendedPlayer extendedPlayer = ExtendedPlayer.from(p);
 
 
         Component noneDisplayName = Component.text("None").decoration(TextDecoration.ITALIC, false);
@@ -86,7 +85,7 @@ public class CosmeticSubMenuGui extends Gui {
     @InventoryClickHandler(slot = 0)
     public void onNoneButton(InventoryClickEvent e) {
         Player p = (Player) e.getWhoClicked();
-        ExtendedPlayer extendedPlayer = KitPvpPlugin.INSTANCE.getExtendedPlayer(p);
+        ExtendedPlayer extendedPlayer = ExtendedPlayer.from(p);
 
         if (name.equals("Projectile Trails"))
             extendedPlayer.setProjectileTrailId(null);
@@ -109,7 +108,7 @@ public class CosmeticSubMenuGui extends Gui {
         if (e.getClickedInventory() == null) return;
 
         Player p = (Player) e.getWhoClicked();
-        ExtendedPlayer extendedPlayer = KitPvpPlugin.INSTANCE.getExtendedPlayer(p);
+        ExtendedPlayer extendedPlayer = ExtendedPlayer.from(p);
 
         if (e.getRawSlot() - 1 >= cosmetics.size() || cosmetics.isEmpty() || e.getRawSlot() == 0) return;
         Cosmetic cosmetic = cosmetics.stream().sorted(Comparator.comparingInt(Cosmetic::getLevelRequirement)).toList().get(e.getRawSlot() - 1);

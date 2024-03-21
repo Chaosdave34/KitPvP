@@ -35,7 +35,7 @@ public class LightningAbility extends Ability {
         if (target instanceof LivingEntity livingEntity) {
 
             if (target instanceof Player player) {
-                if (KitPvpPlugin.INSTANCE.getExtendedPlayer(player).getGameState() == ExtendedPlayer.GameState.SPAWN)
+                if (ExtendedPlayer.from(player).getGameState() == ExtendedPlayer.GameState.SPAWN)
                     return false;
             }
 

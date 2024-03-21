@@ -1,7 +1,6 @@
 package net.gamershub.kitpvp.textdisplays.impl;
 
 import net.gamershub.kitpvp.ExtendedPlayer;
-import net.gamershub.kitpvp.KitPvpPlugin;
 import net.gamershub.kitpvp.textdisplays.TextDisplay;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -18,7 +17,7 @@ public class PersonalStatisticsDisplay extends TextDisplay {
 
     @Override
     public @NotNull List<Component> getLines(Player p) {
-        ExtendedPlayer extendedPlayer = KitPvpPlugin.INSTANCE.getExtendedPlayer(p);
+        ExtendedPlayer extendedPlayer = ExtendedPlayer.from(p);
         double killDeathRation = extendedPlayer.getTotalDeaths() == 0 ? extendedPlayer.getTotalKills() : (double) extendedPlayer.getTotalKills() / extendedPlayer.getTotalDeaths();
         return List.of(
                 Component.literal("Personal Statistics:").withStyle(ChatFormatting.BOLD, ChatFormatting.GOLD),

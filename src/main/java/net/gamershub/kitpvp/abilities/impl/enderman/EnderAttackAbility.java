@@ -1,7 +1,6 @@
 package net.gamershub.kitpvp.abilities.impl.enderman;
 
 import net.gamershub.kitpvp.ExtendedPlayer;
-import net.gamershub.kitpvp.KitPvpPlugin;
 import net.gamershub.kitpvp.abilities.Ability;
 import net.gamershub.kitpvp.abilities.AbilityType;
 import net.kyori.adventure.text.Component;
@@ -35,7 +34,7 @@ public class EnderAttackAbility extends Ability {
         if (target instanceof LivingEntity livingEntity) {
 
             if (target instanceof Player player) {
-                if (KitPvpPlugin.INSTANCE.getExtendedPlayer(player).getGameState() == ExtendedPlayer.GameState.SPAWN)
+                if (ExtendedPlayer.from(player).getGameState() == ExtendedPlayer.GameState.SPAWN)
                     return false;
             }
 

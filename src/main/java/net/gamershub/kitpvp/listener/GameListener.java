@@ -40,7 +40,7 @@ public class GameListener implements Listener {
     @EventHandler
     public void onBlockPlace(BlockPlaceEvent e) {
         Player p = e.getPlayer();
-        if (KitPvpPlugin.INSTANCE.getExtendedPlayer(p).getGameState() == ExtendedPlayer.GameState.IN_GAME) {
+        if (ExtendedPlayer.from(p).getGameState() == ExtendedPlayer.GameState.IN_GAME) {
             Block block = e.getBlock();
 
             if (e.getBlock().getType() == Material.FIRE) return;
@@ -61,7 +61,7 @@ public class GameListener implements Listener {
     @EventHandler
     public void onBlockBreak(BlockBreakEvent e) {
         Player p = e.getPlayer();
-        if (KitPvpPlugin.INSTANCE.getExtendedPlayer(p).getGameState() == ExtendedPlayer.GameState.IN_GAME) {
+        if (ExtendedPlayer.from(p).getGameState() == ExtendedPlayer.GameState.IN_GAME) {
             if (!e.getBlock().hasMetadata("placed_by_player")) {
                 if (e.getBlock().getType() == Material.FIRE) return;
 
@@ -90,7 +90,7 @@ public class GameListener implements Listener {
     @EventHandler
     public void onBucketEmpty(PlayerBucketEmptyEvent e) {
         Player p = e.getPlayer();
-        if (KitPvpPlugin.INSTANCE.getExtendedPlayer(p).getGameState() == ExtendedPlayer.GameState.IN_GAME) {
+        if (ExtendedPlayer.from(p).getGameState() == ExtendedPlayer.GameState.IN_GAME) {
             Block block = e.getBlock();
 
             if (e.getBlock().getLocation().getY() > 105) {
@@ -109,7 +109,7 @@ public class GameListener implements Listener {
     @EventHandler
     public void onBucketFill(PlayerBucketFillEvent e) {
         Player p = e.getPlayer();
-        if (KitPvpPlugin.INSTANCE.getExtendedPlayer(p).getGameState() == ExtendedPlayer.GameState.IN_GAME) {
+        if (ExtendedPlayer.from(p).getGameState() == ExtendedPlayer.GameState.IN_GAME) {
             if (!e.getBlock().hasMetadata("placed_by_player")) {
                 blocksToRemove.remove(e.getBlock().getLocation());
                 e.setCancelled(true);
@@ -120,7 +120,7 @@ public class GameListener implements Listener {
     @EventHandler
     public void onDrop(PlayerDropItemEvent e) {
         Player p = e.getPlayer();
-        if (KitPvpPlugin.INSTANCE.getExtendedPlayer(p).getGameState() == ExtendedPlayer.GameState.IN_GAME) {
+        if (ExtendedPlayer.from(p).getGameState() == ExtendedPlayer.GameState.IN_GAME) {
             e.setCancelled(true);
         }
     }
@@ -128,7 +128,7 @@ public class GameListener implements Listener {
     @EventHandler
     public void onFoodLevelChance(FoodLevelChangeEvent e) {
         Player p = (Player) e.getEntity();
-        if (KitPvpPlugin.INSTANCE.getExtendedPlayer(p).getGameState() == ExtendedPlayer.GameState.IN_GAME) {
+        if (ExtendedPlayer.from(p).getGameState() == ExtendedPlayer.GameState.IN_GAME) {
             e.setCancelled(true);
         }
     }
@@ -136,7 +136,7 @@ public class GameListener implements Listener {
     @EventHandler
     public void onDurabilityReduction(PlayerItemDamageEvent e) {
         Player p = e.getPlayer();
-        if (KitPvpPlugin.INSTANCE.getExtendedPlayer(p).getGameState() == ExtendedPlayer.GameState.IN_GAME) {
+        if (ExtendedPlayer.from(p).getGameState() == ExtendedPlayer.GameState.IN_GAME) {
             e.setCancelled(true);
         }
     }
@@ -145,7 +145,7 @@ public class GameListener implements Listener {
     @EventHandler
     public void onDismountMorph(EntityDismountEvent e) {
         if (e.getEntity() instanceof Player p) {
-            ExtendedPlayer extendedPlayer = KitPvpPlugin.INSTANCE.getExtendedPlayer(p);
+            ExtendedPlayer extendedPlayer = ExtendedPlayer.from(p);
             if (extendedPlayer.getGameState() == ExtendedPlayer.GameState.IN_GAME) {
                 if (p.getUniqueId().equals(extendedPlayer.getUuid())) {
                     if (extendedPlayer.getMorph() == null) return;
@@ -162,7 +162,7 @@ public class GameListener implements Listener {
             if (morph.getPassengers().isEmpty()) morph.remove();
             Player p = (Player) morph.getPassengers().get(0);
 
-            if (KitPvpPlugin.INSTANCE.getExtendedPlayer(p).getGameState() == ExtendedPlayer.GameState.IN_GAME) {
+            if (ExtendedPlayer.from(p).getGameState() == ExtendedPlayer.GameState.IN_GAME) {
                 morph.setVelocity(p.getEyeLocation().getDirection().multiply(0.5));
             }
         }
@@ -171,7 +171,7 @@ public class GameListener implements Listener {
     @EventHandler
     public void onDamage(EntityDamageEvent e) {
         if (e.getEntity() instanceof Player p) {
-            ExtendedPlayer extendedPlayer = KitPvpPlugin.INSTANCE.getExtendedPlayer(p);
+            ExtendedPlayer extendedPlayer = ExtendedPlayer.from(p);
             if (extendedPlayer.getGameState() == ExtendedPlayer.GameState.IN_GAME) {
                 extendedPlayer.enterCombat();
             }
@@ -181,7 +181,7 @@ public class GameListener implements Listener {
     @EventHandler
     public void onDealDamage(EntityDamageByEntityEvent e) {
         if (e.getDamager() instanceof Player damager) {
-            ExtendedPlayer extendedDamager = KitPvpPlugin.INSTANCE.getExtendedPlayer(damager);
+            ExtendedPlayer extendedDamager = ExtendedPlayer.from(damager);
             if (extendedDamager.getGameState() == ExtendedPlayer.GameState.IN_GAME) {
                 extendedDamager.enterCombat();
             }
@@ -217,7 +217,7 @@ public class GameListener implements Listener {
     @EventHandler
     public void onRespawnAnchor(PlayerInteractEvent e) {
         Player p = e.getPlayer();
-        ExtendedPlayer extendedPlayer = KitPvpPlugin.INSTANCE.getExtendedPlayer(p);
+        ExtendedPlayer extendedPlayer = ExtendedPlayer.from(p);
         if (extendedPlayer.getGameState() == ExtendedPlayer.GameState.IN_GAME) {
             if (e.getClickedBlock() != null) {
                 if (e.getClickedBlock().getType() == Material.RESPAWN_ANCHOR) {

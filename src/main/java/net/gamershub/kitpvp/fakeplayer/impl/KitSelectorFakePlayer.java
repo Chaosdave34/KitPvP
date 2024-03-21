@@ -1,7 +1,6 @@
 package net.gamershub.kitpvp.fakeplayer.impl;
 
 import net.gamershub.kitpvp.ExtendedPlayer;
-import net.gamershub.kitpvp.KitPvpPlugin;
 import net.gamershub.kitpvp.Utils;
 import net.gamershub.kitpvp.fakeplayer.FakePlayer;
 import net.gamershub.kitpvp.kits.Kit;
@@ -44,9 +43,9 @@ public class KitSelectorFakePlayer extends FakePlayer {
 
     @Override
     public void onAttack(Player p) {
-        if (KitPvpPlugin.INSTANCE.getExtendedPlayer(p).getGameState() == ExtendedPlayer.GameState.IN_GAME) return;
+        if (ExtendedPlayer.from(p).getGameState() == ExtendedPlayer.GameState.IN_GAME) return;
 
-        if (KitPvpPlugin.INSTANCE.getExtendedPlayer(p).getSelectedKit() == kit) {
+        if (ExtendedPlayer.from(p).getSelectedKit() == kit) {
             p.sendMessage(Component.text("You have already selected this kit!", NamedTextColor.GRAY));
         } else {
 

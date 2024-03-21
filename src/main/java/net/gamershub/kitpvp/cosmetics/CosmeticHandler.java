@@ -98,7 +98,7 @@ public class CosmeticHandler implements Listener {
     public void onProjectileLaunch(ProjectileLaunchEvent e) {
         Projectile projectile = e.getEntity();
         if (e.getEntity().getShooter() instanceof Player p) {
-            ExtendedPlayer extendedPlayer = KitPvpPlugin.INSTANCE.getExtendedPlayer(p);
+            ExtendedPlayer extendedPlayer = ExtendedPlayer.from(p);
 
             if (extendedPlayer.getProjectileTrailId() != null) {
                 Particle particle = projectileTrails.get(extendedPlayer.getProjectileTrailId()).getParticle();
@@ -132,7 +132,7 @@ public class CosmeticHandler implements Listener {
     }
 
     public void triggerKillEffect(Player killer, Entity target) {
-        ExtendedPlayer extendedDamager = KitPvpPlugin.INSTANCE.getExtendedPlayer(killer);
+        ExtendedPlayer extendedDamager = ExtendedPlayer.from(killer);
         if (extendedDamager.getKillEffectId() != null) {
             killEffects.get(extendedDamager.getKillEffectId()).playEffect(target.getLocation());
         }

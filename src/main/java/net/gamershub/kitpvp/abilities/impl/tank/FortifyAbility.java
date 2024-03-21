@@ -32,7 +32,7 @@ public class FortifyAbility extends Ability {
 
     @Override
     public boolean onAbility(Player p) {
-        ExtendedPlayer extendedPlayer = KitPvpPlugin.INSTANCE.getExtendedPlayer(p);
+        ExtendedPlayer extendedPlayer = ExtendedPlayer.from(p);
         PlayerInventory inventory = p.getInventory();
 
         if (extendedPlayer.getSelectedKit() instanceof TankKit tankKit) {

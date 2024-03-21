@@ -25,7 +25,7 @@ public abstract class Challenge implements Listener {
     }
 
     protected void incrementProgress(Player p) {
-        ExtendedPlayer extendedPlayer = KitPvpPlugin.INSTANCE.getExtendedPlayer(p);
+        ExtendedPlayer extendedPlayer = ExtendedPlayer.from(p);
 
         if (getProgress(p) == amount - 1) {
             int xpReward = 50;

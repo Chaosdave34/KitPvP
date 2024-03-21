@@ -40,7 +40,7 @@ public class SpawnListener implements Listener {
     @EventHandler
     public void onRespawnAnchor(PlayerInteractEvent e) {
         Player p = e.getPlayer();
-        ExtendedPlayer extendedPlayer = KitPvpPlugin.INSTANCE.getExtendedPlayer(p);
+        ExtendedPlayer extendedPlayer = ExtendedPlayer.from(p);
         if (extendedPlayer.getGameState() == ExtendedPlayer.GameState.SPAWN) {
             if (e.getClickedBlock() != null) {
                 if (e.getClickedBlock().getType() == Material.RESPAWN_ANCHOR) {
@@ -76,7 +76,7 @@ public class SpawnListener implements Listener {
     @EventHandler
     public void onDamage(EntityDamageEvent e) {
         if (e.getEntity() instanceof Player p) {
-            ExtendedPlayer extendedPlayer = KitPvpPlugin.INSTANCE.getExtendedPlayer(p);
+            ExtendedPlayer extendedPlayer = ExtendedPlayer.from(p);
             if (extendedPlayer.getGameState() == ExtendedPlayer.GameState.SPAWN) {
                 // Kill Command
                 if (e.getCause() == EntityDamageEvent.DamageCause.KILL) return;
@@ -88,7 +88,7 @@ public class SpawnListener implements Listener {
     @EventHandler
     public void onPlayerMove(PlayerMoveEvent e) {
         Player p = e.getPlayer();
-        ExtendedPlayer extendedPlayer = KitPvpPlugin.INSTANCE.getExtendedPlayer(p);
+        ExtendedPlayer extendedPlayer = ExtendedPlayer.from(p);
         if (extendedPlayer.getGameState() == ExtendedPlayer.GameState.SPAWN) {
             // Game enter
             if (e.getTo().clone().subtract(0, 1, 0).getBlock().getType() != Material.AIR && e.getTo().getY() <= 105) {
@@ -111,7 +111,7 @@ public class SpawnListener implements Listener {
     @EventHandler
     public void onProjectileLaunch(ProjectileLaunchEvent e) {
         if (e.getEntity().getShooter() instanceof Player p) {
-            if (KitPvpPlugin.INSTANCE.getExtendedPlayer(p).getGameState() == ExtendedPlayer.GameState.SPAWN) {
+            if (ExtendedPlayer.from(p).getGameState() == ExtendedPlayer.GameState.SPAWN) {
                 e.setCancelled(true);
             }
         }
@@ -120,7 +120,7 @@ public class SpawnListener implements Listener {
     @EventHandler
     public void onBowShot(EntityShootBowEvent e) {
         if (e.getEntity() instanceof Player p) {
-            if (KitPvpPlugin.INSTANCE.getExtendedPlayer(p).getGameState() == ExtendedPlayer.GameState.SPAWN) {
+            if (ExtendedPlayer.from(p).getGameState() == ExtendedPlayer.GameState.SPAWN) {
                 e.setCancelled(true);
             }
         }
@@ -129,7 +129,7 @@ public class SpawnListener implements Listener {
     @EventHandler
     public void onBlockBreak(BlockBreakEvent e) {
         Player p = e.getPlayer();
-        if (KitPvpPlugin.INSTANCE.getExtendedPlayer(p).getGameState() == ExtendedPlayer.GameState.SPAWN) {
+        if (ExtendedPlayer.from(p).getGameState() == ExtendedPlayer.GameState.SPAWN) {
             e.setCancelled(true);
         }
     }
@@ -137,7 +137,7 @@ public class SpawnListener implements Listener {
     @EventHandler
     public void onBlockPlace(BlockPlaceEvent e) {
         Player p = e.getPlayer();
-        if (KitPvpPlugin.INSTANCE.getExtendedPlayer(p).getGameState() == ExtendedPlayer.GameState.SPAWN) {
+        if (ExtendedPlayer.from(p).getGameState() == ExtendedPlayer.GameState.SPAWN) {
             e.setCancelled(true);
         }
     }
@@ -145,7 +145,7 @@ public class SpawnListener implements Listener {
     @EventHandler
     public void onBucketEmpty(PlayerBucketEmptyEvent e) {
         Player p = e.getPlayer();
-        if (KitPvpPlugin.INSTANCE.getExtendedPlayer(p).getGameState() == ExtendedPlayer.GameState.SPAWN) {
+        if (ExtendedPlayer.from(p).getGameState() == ExtendedPlayer.GameState.SPAWN) {
             e.setCancelled(true);
         }
     }
@@ -153,7 +153,7 @@ public class SpawnListener implements Listener {
     @EventHandler
     public void onBucketFill(PlayerBucketFillEvent e) {
         Player p = e.getPlayer();
-        if (KitPvpPlugin.INSTANCE.getExtendedPlayer(p).getGameState() == ExtendedPlayer.GameState.SPAWN) {
+        if (ExtendedPlayer.from(p).getGameState() == ExtendedPlayer.GameState.SPAWN) {
             e.setCancelled(true);
         }
     }
@@ -161,7 +161,7 @@ public class SpawnListener implements Listener {
     @EventHandler
     public void onConsumeItem(PlayerItemConsumeEvent e) {
         Player p = e.getPlayer();
-        if (KitPvpPlugin.INSTANCE.getExtendedPlayer(p).getGameState() == ExtendedPlayer.GameState.SPAWN) {
+        if (ExtendedPlayer.from(p).getGameState() == ExtendedPlayer.GameState.SPAWN) {
             e.setCancelled(true);
         }
     }
@@ -169,7 +169,7 @@ public class SpawnListener implements Listener {
     @EventHandler
     public void onFoodLevelChance(FoodLevelChangeEvent e) {
         Player p = (Player) e.getEntity();
-        if (KitPvpPlugin.INSTANCE.getExtendedPlayer(p).getGameState() == ExtendedPlayer.GameState.SPAWN) {
+        if (ExtendedPlayer.from(p).getGameState() == ExtendedPlayer.GameState.SPAWN) {
             e.setCancelled(true);
         }
     }
@@ -177,7 +177,7 @@ public class SpawnListener implements Listener {
     @EventHandler
     public void onDrop(PlayerDropItemEvent e) {
         Player p = e.getPlayer();
-        if (KitPvpPlugin.INSTANCE.getExtendedPlayer(p).getGameState() == ExtendedPlayer.GameState.SPAWN) {
+        if (ExtendedPlayer.from(p).getGameState() == ExtendedPlayer.GameState.SPAWN) {
             e.setCancelled(true);
         }
     }
@@ -185,7 +185,7 @@ public class SpawnListener implements Listener {
     @EventHandler
     public void onLoadCrossbow(EntityLoadCrossbowEvent e) {
         if (e.getEntity() instanceof Player p) {
-            if (KitPvpPlugin.INSTANCE.getExtendedPlayer(p).getGameState() == ExtendedPlayer.GameState.SPAWN) {
+            if (ExtendedPlayer.from(p).getGameState() == ExtendedPlayer.GameState.SPAWN) {
                 e.setCancelled(true);
             }
         }
@@ -194,7 +194,7 @@ public class SpawnListener implements Listener {
     @EventHandler
     public void onInteract(PlayerInteractEvent e) {
         Player p = e.getPlayer();
-        ExtendedPlayer extendedPlayer = KitPvpPlugin.INSTANCE.getExtendedPlayer(p);
+        ExtendedPlayer extendedPlayer = ExtendedPlayer.from(p);
         if (extendedPlayer.getGameState() == ExtendedPlayer.GameState.SPAWN) {
             if (e.getMaterial() == Material.TRIDENT)
                 e.setCancelled(true);

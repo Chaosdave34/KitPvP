@@ -22,7 +22,7 @@ public class GamePlayerDeathListener implements Listener {
     @EventHandler
     public void onDeath(PlayerDeathEvent e) {
         Player p = e.getPlayer();
-        ExtendedPlayer extendedPlayer = KitPvpPlugin.INSTANCE.getExtendedPlayer(p);
+        ExtendedPlayer extendedPlayer = ExtendedPlayer.from(p);
         e.setKeepInventory(true);
 
         if (extendedPlayer.getGameState() == ExtendedPlayer.GameState.IN_GAME) {
@@ -46,11 +46,11 @@ public class GamePlayerDeathListener implements Listener {
 
                     // Kill Effect
                     if (damager instanceof Player killer) {
-                        KitPvpPlugin.INSTANCE.getExtendedPlayer(killer).killedPlayer(p);
+                        ExtendedPlayer.from(killer).killedPlayer(p);
                         KitPvpPlugin.INSTANCE.getCosmeticHandler().triggerKillEffect(killer, p);
                     }
                     else if (damager instanceof Projectile projectile && projectile.getShooter() instanceof Player killer) {
-                        KitPvpPlugin.INSTANCE.getExtendedPlayer(killer).killedPlayer(p);
+                        ExtendedPlayer.from(killer).killedPlayer(p);
                         KitPvpPlugin.INSTANCE.getCosmeticHandler().triggerKillEffect(killer, p);
                     }
 
@@ -58,9 +58,9 @@ public class GamePlayerDeathListener implements Listener {
                     if (damager instanceof LightningStrike lightningStrike) {
                         if (lightningStrike.getCausingPlayer() != null) {
                             Player killer = lightningStrike.getCausingPlayer();
-                            message = name + " was killed by " + killer + " with lightning";
+                            message = name + " was killed by " + killer.getName() + " with lightning";
 
-                            KitPvpPlugin.INSTANCE.getExtendedPlayer(killer).killedPlayer(p);
+                            ExtendedPlayer.from(killer).killedPlayer(p);
                             KitPvpPlugin.INSTANCE.getCosmeticHandler().triggerKillEffect(killer, p);
                         }
                     }
@@ -78,7 +78,7 @@ public class GamePlayerDeathListener implements Listener {
 
                                     Player turretOwner = Bukkit.getPlayer(turretOwnerUUUID);
                                     if (turretOwner != null) {
-                                        KitPvpPlugin.INSTANCE.getExtendedPlayer(turretOwner).killedPlayer(p);
+                                        ExtendedPlayer.from(turretOwner).killedPlayer(p);
                                         KitPvpPlugin.INSTANCE.getCosmeticHandler().triggerKillEffect(turretOwner, p);
                                     }
                                 }

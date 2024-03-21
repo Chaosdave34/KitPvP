@@ -24,7 +24,7 @@ public class CosmeticsGui extends Gui {
 
     @Override
     public @NotNull Inventory build(Player p, Inventory inventory) {
-        ExtendedPlayer extendedPlayer = KitPvpPlugin.INSTANCE.getExtendedPlayer(p);
+        ExtendedPlayer extendedPlayer = ExtendedPlayer.from(p);
 
         String selectedProjectileTrail = extendedPlayer.getProjectileTrailId() == null ? "None" : KitPvpPlugin.INSTANCE.getCosmeticHandler().getProjectileTrails().get(extendedPlayer.getProjectileTrailId()).getName();
         ItemStack projectileTrailButton = createItemStack(Material.ARROW, "Projectile Trails", true, false);

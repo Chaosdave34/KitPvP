@@ -3,7 +3,6 @@ package net.gamershub.kitpvp.kits;
 import com.mojang.datafixers.util.Pair;
 import lombok.Getter;
 import net.gamershub.kitpvp.ExtendedPlayer;
-import net.gamershub.kitpvp.KitPvpPlugin;
 import net.gamershub.kitpvp.companions.Companion;
 import org.bukkit.Color;
 import org.bukkit.attribute.Attribute;
@@ -75,7 +74,7 @@ public class Kit implements Listener {
     }
 
     public void apply(Player p) {
-        ExtendedPlayer extendedPlayer = KitPvpPlugin.INSTANCE.getExtendedPlayer(p);
+        ExtendedPlayer extendedPlayer = ExtendedPlayer.from(p);
         extendedPlayer.setSelectedKitId(id);
 
         AttributeInstance maxHealth = p.getAttribute(Attribute.GENERIC_MAX_HEALTH);
