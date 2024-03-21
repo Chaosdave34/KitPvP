@@ -276,7 +276,6 @@ public class ExtendedPlayer {
         this.morph = p.getWorld().spawnEntity(p.getLocation(), entityType, CreatureSpawnEvent.SpawnReason.CUSTOM, (entity) -> {
             entity.setMetadata("morph", new FixedMetadataValue(KitPvpPlugin.INSTANCE, p.getUniqueId()));
             entity.addPassenger(p);
-            entity.setInvulnerable(true);
         });
     }
 
