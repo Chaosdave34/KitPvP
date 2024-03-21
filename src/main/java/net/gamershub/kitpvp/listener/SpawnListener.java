@@ -115,14 +115,13 @@ public class SpawnListener implements Listener {
         Player p = e.getPlayer();
         ExtendedPlayer extendedPlayer = ExtendedPlayer.from(p);
 
-        if (extendedPlayer == null) {
-            e.setCancelled(true);
+        e.setCancelled(true);
+
+        if (extendedPlayer == null)
             return;
-        }
 
         if (extendedPlayer.inSpawn()) {
             if (e.getCause() == PlayerTeleportEvent.TeleportCause.END_PORTAL) {
-                e.setCancelled(true);
 
                 ByteArrayDataOutput out = ByteStreams.newDataOutput();
                 out.writeUTF("Connect");
