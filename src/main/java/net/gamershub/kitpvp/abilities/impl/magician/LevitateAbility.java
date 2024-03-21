@@ -29,7 +29,7 @@ public class LevitateAbility extends Ability {
     public boolean onAbility(Player p) {
         p.getNearbyEntities(10, 10, 10).forEach(entity -> {
             if (entity instanceof Player target) {
-                if (ExtendedPlayer.from(target).getGameState() == ExtendedPlayer.GameState.IN_GAME) {
+                if (ExtendedPlayer.from(target).inGame()) {
                     target.addPotionEffect(new PotionEffect(PotionEffectType.LEVITATION, 5 * 20, 10));
                 }
             }

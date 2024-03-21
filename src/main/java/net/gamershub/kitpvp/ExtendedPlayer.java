@@ -77,6 +77,14 @@ public class ExtendedPlayer {
         updateScoreboardLines();
     }
 
+    public boolean inSpawn() {
+        return gameState == GameState.SPAWN;
+    }
+
+    public boolean inGame() {
+        return gameState == GameState.IN_GAME;
+    }
+
     public void setSelectedKitId(String id) {
         selectedKitId = id;
         updateScoreboardLines();

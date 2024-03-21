@@ -15,7 +15,7 @@ public class CustomMeleeAttackGoal extends MeleeAttackGoal {
 
     @Override
     public boolean canUse() {
-        if (ExtendedPlayer.from(owner).getGameState() == ExtendedPlayer.GameState.SPAWN)
+        if (ExtendedPlayer.from(owner).inSpawn())
             return false;
 
         return super.canUse();

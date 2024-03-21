@@ -48,7 +48,7 @@ public class Jetpack extends CustomItem {
         Player p = e.getPlayer();
         ExtendedPlayer extendedPlayer = ExtendedPlayer.from(p);
 
-        if (extendedPlayer.getGameState() == ExtendedPlayer.GameState.IN_GAME) {
+        if (extendedPlayer.inGame()) {
             if (extendedPlayer.getSelectedKit() == KitHandler.ARTILLERYMAN) {
                 if (p.isSneaking()) {
                     if (p.getInventory().getChestplate() != null) {

@@ -34,7 +34,7 @@ public class SpookAbility extends Ability {
         Entity target = p.getTargetEntity(10);
         if (target instanceof Player player) {
 
-                if (ExtendedPlayer.from(player).getGameState() == ExtendedPlayer.GameState.SPAWN)
+                if (ExtendedPlayer.from(player).inSpawn())
                     return false;
 
 

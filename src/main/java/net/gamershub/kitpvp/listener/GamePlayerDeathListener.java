@@ -25,7 +25,7 @@ public class GamePlayerDeathListener implements Listener {
         ExtendedPlayer extendedPlayer = ExtendedPlayer.from(p);
         e.setKeepInventory(true);
 
-        if (extendedPlayer.getGameState() == ExtendedPlayer.GameState.IN_GAME) {
+        if (extendedPlayer.inGame()) {
 
             extendedPlayer.incrementTotalDeaths();
 

@@ -43,7 +43,7 @@ public class KitSelectorFakePlayer extends FakePlayer {
 
     @Override
     public void onAttack(Player p) {
-        if (ExtendedPlayer.from(p).getGameState() == ExtendedPlayer.GameState.IN_GAME) return;
+        if (ExtendedPlayer.from(p).inGame()) return;
 
         if (ExtendedPlayer.from(p).getSelectedKit() == kit) {
             p.sendMessage(Component.text("You have already selected this kit!", NamedTextColor.GRAY));

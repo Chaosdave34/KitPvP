@@ -78,7 +78,7 @@ public class ArtilleryManKit extends Kit {
     public void onRocketLaunch(PlayerInteractEvent e) {
         Player p = e.getPlayer();
 
-        if (ExtendedPlayer.from(p).getGameState() == ExtendedPlayer.GameState.IN_GAME) {
+        if (ExtendedPlayer.from(p).inGame()) {
            if (e.getMaterial() == Material.FIREWORK_ROCKET) {
                e.setCancelled(true);
            }

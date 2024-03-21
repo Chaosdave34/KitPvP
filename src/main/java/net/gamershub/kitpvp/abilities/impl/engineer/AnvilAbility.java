@@ -33,7 +33,7 @@ public class AnvilAbility extends Ability {
         if (target instanceof LivingEntity livingEntity) {
 
             if (target instanceof Player player) {
-                if (ExtendedPlayer.from(player).getGameState() == ExtendedPlayer.GameState.SPAWN)
+                if (ExtendedPlayer.from(player).inSpawn())
                     return false;
             }
 
