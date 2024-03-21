@@ -130,6 +130,6 @@ public class UtilityListener implements Listener {
     @EventHandler
     public void onWorldLoad(WorldLoadEvent e) {
         World world = e.getWorld();
-        if (world.getName().equals("the_nether") || world.getName().equals("the_end")) Bukkit.unloadWorld(world, false);
+        if (world.getName().equals("nether") || world.getName().equals("the_end")) Bukkit.unloadWorld(world, false);
     }
 }
