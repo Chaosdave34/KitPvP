@@ -29,6 +29,7 @@ public class TextDisplayHandler implements Listener {
     public static TextDisplay INFO;
     public static TextDisplay HIGHEST_KILLSTREAKS;
     public static TextDisplay HIGHEST_LEVELS;
+    public static TextDisplay AMUSEMENT_PARK_TEST_DISPLAY;
 
     public TextDisplayHandler() {
         JUMP = registerTextDisplay(new JumpTextDisplay());
@@ -36,6 +37,7 @@ public class TextDisplayHandler implements Listener {
         INFO = registerTextDisplay(new InfoTextDisplay());
         HIGHEST_KILLSTREAKS = registerTextDisplay(new HighestKillstreaksTextDisplay());
         HIGHEST_LEVELS = registerTextDisplay(new HighestLevelsTextDisplay());
+        AMUSEMENT_PARK_TEST_DISPLAY = registerTextDisplay(new AmusementParkTextDisplay());
     }
 
     private TextDisplay registerTextDisplay(TextDisplay textDisplay) {
