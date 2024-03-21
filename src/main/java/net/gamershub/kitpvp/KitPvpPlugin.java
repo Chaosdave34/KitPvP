@@ -76,7 +76,7 @@ public final class KitPvpPlugin extends JavaPlugin {
 
         gameListener = new GameListener();
 
-        getServer().getMessenger().registerOutgoingPluginChannel(this, "gamershub");
+        getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
 
         saveDefaultConfig();
 

@@ -1,5 +1,7 @@
 package net.gamershub.kitpvp.listener;
 
+import com.google.common.io.ByteArrayDataOutput;
+import com.google.common.io.ByteStreams;
 import io.papermc.paper.event.entity.EntityLoadCrossbowEvent;
 import net.gamershub.kitpvp.ExtendedPlayer;
 import net.gamershub.kitpvp.KitPvpPlugin;
@@ -113,11 +115,19 @@ public class SpawnListener implements Listener {
         Player p = e.getPlayer();
         ExtendedPlayer extendedPlayer = ExtendedPlayer.from(p);
 
-        if (extendedPlayer.inGame()) {
+        if (extendedPlayer == null) {
+            e.setCancelled(true);
+            return;
+        }
+
+        if (extendedPlayer.inSpawn()) {
             if (e.getCause() == PlayerTeleportEvent.TeleportCause.END_PORTAL) {
                 e.setCancelled(true);
 
-                p.sendPluginMessage(KitPvpPlugin.INSTANCE, "gamershub", "amusementpark".getBytes());
+                ByteArrayDataOutput out = ByteStreams.newDataOutput();
+                out.writeUTF("Connect");
+                out.writeUTF("amusementpark");
+                p.sendPluginMessage(KitPvpPlugin.INSTANCE, "BungeeCord", out.toByteArray());
             }
         }
     }
