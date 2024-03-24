@@ -2,7 +2,9 @@ package net.gamershub.kitpvp.customevents;
 
 import lombok.Getter;
 import net.gamershub.kitpvp.KitPvpPlugin;
+import net.gamershub.kitpvp.Utils;
 import net.gamershub.kitpvp.customevents.impl.SimpleEvent;
+import net.gamershub.kitpvp.customevents.impl.SupplyDropEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -20,15 +22,18 @@ public class CustomEventHandler implements Listener {
 
     public static CustomEvent DOUBLE_EXPERIENCE_EVENT;
     public static CustomEvent HALVED_COOLDOWN_EVENT;
+    public static CustomEvent SUPPLY_DROP_EVENT;
 
     public CustomEventHandler() {
         enabled = false;
 
         DOUBLE_EXPERIENCE_EVENT = registerCustomEvent(new SimpleEvent("2x Experience", 5 * 60));
         HALVED_COOLDOWN_EVENT = registerCustomEvent(new SimpleEvent("Halved Ability Cooldown", 5 * 60));
+        SUPPLY_DROP_EVENT = registerCustomEvent(new SupplyDropEvent());
     }
 
     private CustomEvent registerCustomEvent(CustomEvent customEvent) {
+        Utils.registerEvents(customEvent);
         customEvents.add(customEvent);
         return customEvent;
     }

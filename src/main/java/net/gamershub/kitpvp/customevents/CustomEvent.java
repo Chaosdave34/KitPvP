@@ -6,17 +6,20 @@ import net.kyori.adventure.bossbar.BossBar;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
+import org.bukkit.event.Listener;
 import org.bukkit.scheduler.BukkitRunnable;
 
 @Getter
-public abstract class CustomEvent {
+public abstract class CustomEvent implements Listener {
     private final String name;
     private final int duration;
+    protected boolean cancelled;
     private BossBar bossBar;
 
     public CustomEvent(String name, int duration) {
         this.name = name;
         this.duration = duration;
+        this.cancelled = false;
     }
 
     public void trigger() {
@@ -32,12 +35,14 @@ public abstract class CustomEvent {
         bossBar = BossBar.bossBar(Component.text(name + " " + time), 1, BossBar.Color.GREEN, BossBar.Overlay.PROGRESS);
         world.showBossBar(bossBar);
 
+        start();
+
         new BukkitRunnable() {
             int duration_left = duration;
 
             @Override
             public void run() {
-                if (duration_left == 0) {
+                if (duration_left == 0 || cancelled) {
                     this.cancel();
                     world.hideBossBar(bossBar);
                     stop();
@@ -55,6 +60,9 @@ public abstract class CustomEvent {
                 duration_left--;
             }
         }.runTaskTimer(KitPvpPlugin.INSTANCE, 0, 20);
+    }
+
+    public void start() {
     }
 
 
