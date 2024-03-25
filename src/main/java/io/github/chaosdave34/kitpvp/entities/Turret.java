@@ -1,8 +1,8 @@
 package io.github.chaosdave34.kitpvp.entities;
 
 import com.destroystokyo.paper.event.entity.EntityAddToWorldEvent;
-import io.github.chaosdave34.ghlib.PDCUtils;
-import io.github.chaosdave34.ghlib.entity.CustomEntity;
+import io.github.chaosdave34.ghutils.entity.CustomEntity;
+import io.github.chaosdave34.ghutils.utils.PDCUtils;
 import io.github.chaosdave34.kitpvp.KitPvp;
 import io.github.chaosdave34.kitpvp.pathfindergoals.TurretRangedAttackGoal;
 import net.kyori.adventure.text.Component;

@@ -1,6 +1,6 @@
 package io.github.chaosdave34.kitpvp.abilities.impl.creeper;
 
-import io.github.chaosdave34.ghlib.persistentdatatypes.StringArrayPersistentDataType;
+import io.github.chaosdave34.ghutils.persistentdatatypes.StringArrayPersistentDataType;
 import io.github.chaosdave34.kitpvp.KitPvp;
 import io.github.chaosdave34.kitpvp.abilities.Ability;
 import io.github.chaosdave34.kitpvp.abilities.AbilityType;

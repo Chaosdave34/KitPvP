@@ -1,10 +1,10 @@
 package io.github.chaosdave34.kitpvp.customevents;
 
-import lombok.Getter;
-import io.github.chaosdave34.ghlib.Utils;
+import io.github.chaosdave34.ghutils.Utils;
 import io.github.chaosdave34.kitpvp.KitPvp;
 import io.github.chaosdave34.kitpvp.customevents.impl.SimpleEvent;
 import io.github.chaosdave34.kitpvp.customevents.impl.SupplyDropEvent;
+import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -13,6 +13,8 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
 import java.util.Random;
+
+;
 
 @Getter
 public class CustomEventHandler implements Listener {

@@ -1,6 +1,6 @@
 package io.github.chaosdave34.kitpvp.fakeplayer;
 
-import io.github.chaosdave34.ghlib.fakeplayer.FakePlayer;
+import io.github.chaosdave34.ghutils.fakeplayer.FakePlayer;
 import io.github.chaosdave34.kitpvp.kits.KitHandler;
 import org.bukkit.Location;
 import org.bukkit.event.Listener;

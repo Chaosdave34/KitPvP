@@ -1,7 +1,7 @@
 package io.github.chaosdave34.kitpvp.fakeplayer;
 
-import io.github.chaosdave34.ghlib.Utils;
-import io.github.chaosdave34.ghlib.fakeplayer.FakePlayer;
+import io.github.chaosdave34.ghutils.Utils;
+import io.github.chaosdave34.ghutils.fakeplayer.FakePlayer;
 import io.github.chaosdave34.kitpvp.ExtendedPlayer;
 import io.github.chaosdave34.kitpvp.kits.Kit;
 import net.kyori.adventure.text.Component;
@@ -12,6 +12,8 @@ import org.bukkit.Location;
 import org.bukkit.craftbukkit.v1_20_R3.util.CraftVector;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.EquipmentSlot;
+
+;
 
 public class KitSelectorFakePlayer extends FakePlayer {
     private final Kit kit;

@@ -2,9 +2,10 @@ package io.github.chaosdave34.kitpvp;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import io.github.chaosdave34.ghutils.utils.JsonUtils;
 import lombok.Getter;
-import io.github.chaosdave34.ghlib.GHLib;
-import io.github.chaosdave34.ghlib.Utils;
+import io.github.chaosdave34.ghutils.GHUtils;
+;
 import io.github.chaosdave34.kitpvp.abilities.AbilityHandler;
 import io.github.chaosdave34.kitpvp.challenges.ChallengesHandler;
 import io.github.chaosdave34.kitpvp.commands.*;
@@ -56,7 +57,7 @@ public final class KitPvp extends JavaPlugin {
     @Override
     public void onEnable() {
         INSTANCE = this;
-        GHLib.setPlugin(INSTANCE);
+        GHUtils.setPlugin(INSTANCE);
 
         abilityHandler = new AbilityHandler();
         customItemHandler = new CustomItemHandler();
@@ -125,7 +126,7 @@ public final class KitPvp extends JavaPlugin {
     }
 
     public void createExtendedPlayer(Player p) {
-        ExtendedPlayer extendedPlayer = Utils.readObjectFromFile(new File(getDataFolder(), "player_data/" + p.getUniqueId() + ".json"), ExtendedPlayer.class);
+        ExtendedPlayer extendedPlayer = JsonUtils.readObjectFromFile(new File(getDataFolder(), "player_data/" + p.getUniqueId() + ".json"), ExtendedPlayer.class);
         if (extendedPlayer == null)
             extendedPlayer = new ExtendedPlayer(p);
 
@@ -135,7 +136,7 @@ public final class KitPvp extends JavaPlugin {
     public void removeExtendedPlayer(Player p) {
         ExtendedPlayer extendedPlayer = getExtendedPlayer(p);
 
-        Utils.writeObjectToFile(new File(getDataFolder(), "player_data/" + p.getUniqueId() + ".json"), extendedPlayer);
+        JsonUtils.writeObjectToFile(new File(getDataFolder(), "player_data/" + p.getUniqueId() + ".json"), extendedPlayer);
 
         extendedPlayers.remove(p.getUniqueId());
     }
@@ -147,7 +148,7 @@ public final class KitPvp extends JavaPlugin {
         for (ExtendedPlayer extendedPlayer : extendedPlayers.values()) {
             extendedPlayer.unmorph();
             extendedPlayer.removeCompanion();
-            Utils.writeObjectToFile(new File(getDataFolder(), "player_data/" + extendedPlayer.getPlayer().getUniqueId() + ".json"), extendedPlayer);
+            JsonUtils.writeObjectToFile(new File(getDataFolder(), "player_data/" + extendedPlayer.getPlayer().getUniqueId() + ".json"), extendedPlayer);
         }
 
         for (Location location : gameListener.getBlocksToRemove().keySet()) {
@@ -161,13 +162,13 @@ public final class KitPvp extends JavaPlugin {
     }
 
     public void saveHighscores() {
-        Utils.writeObjectToFile(new File(getDataFolder(), "highestLevels"), highestLevels);
-        Utils.writeObjectToFile(new File(getDataFolder(), "highestKillstreaks"), highestKillstreaks);
+        JsonUtils.writeObjectToFile(new File(getDataFolder(), "highestLevels"), highestLevels);
+        JsonUtils.writeObjectToFile(new File(getDataFolder(), "highestKillstreaks"), highestKillstreaks);
     }
 
     private Map<UUID, Integer> loadHighescore(String name) {
         try {
-            FileInputStream fileInputStream = new FileInputStream(new File(GHLib.PLUGIN.getDataFolder(), name));
+            FileInputStream fileInputStream = new FileInputStream(new File(GHUtils.PLUGIN.getDataFolder(), name));
             InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
 
@@ -190,7 +191,7 @@ public final class KitPvp extends JavaPlugin {
 
 
         } catch (IOException e) {
-            GHLib.PLUGIN.getLogger().warning("Error while reading high scores from file! " + e.getMessage());
+            GHUtils.PLUGIN.getLogger().warning("Error while reading high scores from file! " + e.getMessage());
         }
         return Collections.emptyMap();
     }

@@ -1,9 +1,10 @@
 package io.github.chaosdave34.kitpvp;
 
+import io.github.chaosdave34.ghutils.utils.MathUtils;
 import lombok.Getter;
 import lombok.Setter;
-import io.github.chaosdave34.ghlib.GHLib;
-import io.github.chaosdave34.ghlib.Utils;
+import io.github.chaosdave34.ghutils.GHUtils;
+;
 import io.github.chaosdave34.kitpvp.challenges.Challenge;
 import io.github.chaosdave34.kitpvp.companions.Companion;
 import io.github.chaosdave34.kitpvp.customevents.CustomEventHandler;
@@ -197,7 +198,7 @@ public class ExtendedPlayer {
 
         if (killSteak > highestKillStreak) {
             highestKillStreak = killSteak;
-            GHLib.getTextDisplayHandler().updateTextDisplay(getPlayer(), TextDisplays.PERSONAL_STATISTICS);
+            GHUtils.getTextDisplayHandler().updateTextDisplay(getPlayer(), TextDisplays.PERSONAL_STATISTICS);
 
             Map<UUID, Integer> highestKillstreaks = KitPvp.INSTANCE.getHighestKillstreaks();
 
@@ -215,7 +216,7 @@ public class ExtendedPlayer {
 
                 highestKillstreaks.put(uuid, getLevel());
 
-                GHLib.getTextDisplayHandler().updateTextDisplayForAll(TextDisplays.HIGHEST_KILLSTREAKS);
+                GHUtils.getTextDisplayHandler().updateTextDisplayForAll(TextDisplays.HIGHEST_KILLSTREAKS);
 
             }
         }
@@ -225,12 +226,12 @@ public class ExtendedPlayer {
 
     public void incrementTotalKills() {
         totalKills++;
-        GHLib.getTextDisplayHandler().updateTextDisplay(getPlayer(), TextDisplays.PERSONAL_STATISTICS);
+        GHUtils.getTextDisplayHandler().updateTextDisplay(getPlayer(), TextDisplays.PERSONAL_STATISTICS);
     }
 
     public void incrementTotalDeaths() {
         totalDeaths++;
-        GHLib.getTextDisplayHandler().updateTextDisplay(getPlayer(), TextDisplays.PERSONAL_STATISTICS);
+        GHUtils.getTextDisplayHandler().updateTextDisplay(getPlayer(), TextDisplays.PERSONAL_STATISTICS);
     }
 
     public void addExperiencePoints(int amount) {
@@ -259,7 +260,7 @@ public class ExtendedPlayer {
 
                 highestLevels.put(uuid, getLevel());
 
-                GHLib.getTextDisplayHandler().updateTextDisplayForAll(TextDisplays.HIGHEST_LEVELS);
+                GHUtils.getTextDisplayHandler().updateTextDisplayForAll(TextDisplays.HIGHEST_LEVELS);
 
             }
         }
@@ -285,7 +286,7 @@ public class ExtendedPlayer {
         if (level == 1) return 0;
         if (level == 2) return 20;
         level -= 1;
-        return level * 20 + (Utils.binomialCoefficient(level, 2) * 5);
+        return level * 20 + (MathUtils.binomialCoefficient(level, 2) * 5);
     }
 
     public void morph(EntityType entityType) {

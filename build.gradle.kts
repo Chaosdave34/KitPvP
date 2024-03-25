@@ -25,7 +25,7 @@ dependencies {
     // paperweight.foliaDevBundle("1.20.4-R0.1-SNAPSHOT")
     // paperweight.devBundle("com.example.paperfork", "1.20.4-R0.1-SNAPSHOT")
 
-    implementation("io.github.chaosdave34", "ghlib", "0.1.0-SNAPSHOT")
+    implementation("io.github.chaosdave34", "ghutils", "0.2.1-SNAPSHOT")
 }
 
 tasks {
@@ -72,6 +72,6 @@ tasks {
         fun reloc(pkg: String) = relocate(pkg, group + rootProject.name + "dependency.$pkg")
 
         // relocate cloud and it's transitive dependencies
-        reloc("io.github.chaosdave34.ghlib")
+        reloc("io.github.chaosdave34.ghutils")
     }
 }

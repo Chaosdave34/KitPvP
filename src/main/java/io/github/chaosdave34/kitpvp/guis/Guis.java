@@ -1,6 +1,6 @@
 package io.github.chaosdave34.kitpvp.guis;
 
-import io.github.chaosdave34.ghlib.gui.Gui;
+import io.github.chaosdave34.ghutils.gui.Gui;
 import io.github.chaosdave34.kitpvp.KitPvp;
 
 public class Guis {

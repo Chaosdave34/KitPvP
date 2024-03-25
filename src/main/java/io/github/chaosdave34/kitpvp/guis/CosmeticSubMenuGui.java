@@ -1,8 +1,8 @@
 package io.github.chaosdave34.kitpvp.guis;
 
 import lombok.NonNull;
-import io.github.chaosdave34.ghlib.gui.Gui;
-import io.github.chaosdave34.ghlib.gui.InventoryClickHandler;
+import io.github.chaosdave34.ghutils.gui.Gui;
+import io.github.chaosdave34.ghutils.gui.InventoryClickHandler;
 import io.github.chaosdave34.kitpvp.ExtendedPlayer;
 import io.github.chaosdave34.kitpvp.cosmetics.Cosmetic;
 import net.kyori.adventure.text.Component;

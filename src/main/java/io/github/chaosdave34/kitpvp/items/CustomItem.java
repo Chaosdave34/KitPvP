@@ -1,9 +1,9 @@
 package io.github.chaosdave34.kitpvp.items;
 
-import lombok.Getter;
-import io.github.chaosdave34.ghlib.PDCUtils;
+import io.github.chaosdave34.ghutils.utils.PDCUtils;
 import io.github.chaosdave34.kitpvp.KitPvp;
 import io.github.chaosdave34.kitpvp.abilities.Ability;
+import lombok.Getter;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;

@@ -1,6 +1,6 @@
 package io.github.chaosdave34.kitpvp.listener;
 
-import io.github.chaosdave34.ghlib.PDCUtils;
+import io.github.chaosdave34.ghutils.utils.PDCUtils;
 import io.github.chaosdave34.kitpvp.ExtendedPlayer;
 import io.github.chaosdave34.kitpvp.KitPvp;
 import net.kyori.adventure.text.Component;
@@ -15,6 +15,8 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 
 import java.util.UUID;
+
+;
 
 public class GamePlayerDeathListener implements Listener {
     @EventHandler

@@ -1,12 +1,14 @@
 package io.github.chaosdave34.kitpvp.challenges;
 
-import io.github.chaosdave34.ghlib.Utils;
+import io.github.chaosdave34.ghutils.Utils;
 import io.github.chaosdave34.kitpvp.challenges.impl.TenKillsWithKit;
 import io.github.chaosdave34.kitpvp.challenges.impl.TwentyFiveKillsChallenge;
 import io.github.chaosdave34.kitpvp.kits.KitHandler;
 import org.bukkit.entity.Player;
 
 import java.util.*;
+
+;
 
 public class ChallengesHandler {
     private final Map<String, Challenge> challenges = new HashMap<>();

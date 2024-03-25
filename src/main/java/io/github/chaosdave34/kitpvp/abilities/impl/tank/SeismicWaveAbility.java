@@ -1,6 +1,7 @@
 package io.github.chaosdave34.kitpvp.abilities.impl.tank;
 
-import io.github.chaosdave34.ghlib.Utils;
+;
+import io.github.chaosdave34.ghutils.utils.MathUtils;
 import io.github.chaosdave34.kitpvp.KitPvp;
 import io.github.chaosdave34.kitpvp.abilities.Ability;
 import io.github.chaosdave34.kitpvp.abilities.AbilityType;
@@ -44,9 +45,9 @@ public class SeismicWaveAbility extends Ability {
         Location location = p.getLocation().toBlockLocation();
 
         Location circle0Location = location.clone();
-        List<Location> circle1Locations = Utils.generateCircle(location, 2, true);
-        List<Location> circle2Locations = Utils.generateCircle(location, 3, true);
-        List<Location> circle3Locations = Utils.generateCircle(location, 4, true);
+        List<Location> circle2Locations = MathUtils.generateCircle(location, 3, true);
+        List<Location> circle3Locations = MathUtils.generateCircle(location, 4, true);
+        List<Location> circle1Locations = MathUtils.generateCircle(location, 2, true);
 
         circle0Location.setYaw(0);
         circle0Location.setPitch(0);

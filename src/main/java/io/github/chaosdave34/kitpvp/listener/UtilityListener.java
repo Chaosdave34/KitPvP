@@ -1,8 +1,9 @@
 package io.github.chaosdave34.kitpvp.listener;
 
+import io.github.chaosdave34.ghutils.utils.JsonUtils;
 import io.papermc.paper.event.player.AsyncChatEvent;
-import io.github.chaosdave34.ghlib.GHLib;
-import io.github.chaosdave34.ghlib.Utils;
+import io.github.chaosdave34.ghutils.GHUtils;
+;
 import io.github.chaosdave34.kitpvp.ExtendedPlayer;
 import io.github.chaosdave34.kitpvp.KitPvp;
 import io.github.chaosdave34.kitpvp.textdisplays.TextDisplays;
@@ -46,10 +47,10 @@ public class UtilityListener implements Listener {
             p.addResourcePack(UUID.fromString("9d309ee5-fcd8-4636-85cf-becfe3489018"), serverResourcePackUrl, HexFormat.of().parseHex(serverResourcePackSha1sum), "FETT", false);
 
         // NPC
-        GHLib.getFakePlayerHandler().spawnFakePlayers(p);
+        GHUtils.getFakePlayerHandler().spawnFakePlayers(p);
 
         // TextDisplay
-        GHLib.getTextDisplayHandler().spawnTextDisplays(p);
+        GHUtils.getTextDisplayHandler().spawnTextDisplays(p);
 
         // Spawn
         extendedPlayer.spawnPlayer();
@@ -58,11 +59,11 @@ public class UtilityListener implements Listener {
         // Highscores
         if (KitPvp.INSTANCE.getHighestKillstreaks().size() < 5) {
             KitPvp.INSTANCE.getHighestKillstreaks().put(p.getUniqueId(), extendedPlayer.getHighestKillStreak());
-            GHLib.getTextDisplayHandler().updateTextDisplayForAll(TextDisplays.HIGHEST_KILLSTREAKS);
+            GHUtils.getTextDisplayHandler().updateTextDisplayForAll(TextDisplays.HIGHEST_KILLSTREAKS);
         }
         if (KitPvp.INSTANCE.getHighestLevels().size() < 5) {
             KitPvp.INSTANCE.getHighestLevels().put(p.getUniqueId(), extendedPlayer.getLevel());
-            GHLib.getTextDisplayHandler().updateTextDisplayForAll(TextDisplays.HIGHEST_LEVELS);
+            GHUtils.getTextDisplayHandler().updateTextDisplayForAll(TextDisplays.HIGHEST_LEVELS);
         }
 
         // player list header
@@ -123,7 +124,7 @@ public class UtilityListener implements Listener {
 
             for (Player p : Bukkit.getOnlinePlayers()) {
                 ExtendedPlayer extendedPlayer = ExtendedPlayer.from(p);
-                Utils.writeObjectToFile(new File(KitPvp.INSTANCE.getDataFolder(), "player_data/" + p.getUniqueId() + ".json"), extendedPlayer);
+                JsonUtils.writeObjectToFile(new File(KitPvp.INSTANCE.getDataFolder(), "player_data/" + p.getUniqueId() + ".json"), extendedPlayer);
             }
         }
     }

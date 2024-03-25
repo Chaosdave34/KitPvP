@@ -1,7 +1,7 @@
 package io.github.chaosdave34.kitpvp.abilities;
 
-import io.github.chaosdave34.ghlib.Utils;
-import io.github.chaosdave34.ghlib.persistentdatatypes.StringArrayPersistentDataType;
+import io.github.chaosdave34.ghutils.Utils;
+import io.github.chaosdave34.ghutils.persistentdatatypes.StringArrayPersistentDataType;
 import io.github.chaosdave34.kitpvp.ExtendedPlayer;
 import io.github.chaosdave34.kitpvp.KitPvp;
 import io.github.chaosdave34.kitpvp.abilities.impl.artilleryman.EnhanceAbility;
@@ -36,6 +36,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+
+;
 
 public class AbilityHandler implements Listener {
     public HashMap<String, Ability> abilities = new HashMap<>();

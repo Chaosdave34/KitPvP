@@ -2,7 +2,7 @@ package io.github.chaosdave34.kitpvp.abilities;
 
 import lombok.Getter;
 import lombok.Setter;
-import io.github.chaosdave34.ghlib.persistentdatatypes.StringArrayPersistentDataType;
+import io.github.chaosdave34.ghutils.persistentdatatypes.StringArrayPersistentDataType;
 import io.github.chaosdave34.kitpvp.KitPvp;
 import io.github.chaosdave34.kitpvp.customevents.CustomEventHandler;
 import net.kyori.adventure.text.Component;

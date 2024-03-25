@@ -1,6 +1,6 @@
 package io.github.chaosdave34.kitpvp.textdisplays;
 
-import io.github.chaosdave34.ghlib.textdisplay.TextDisplay;
+import io.github.chaosdave34.ghutils.textdisplay.TextDisplay;
 import io.github.chaosdave34.kitpvp.KitPvp;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;

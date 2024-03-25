@@ -1,6 +1,6 @@
 package io.github.chaosdave34.kitpvp.enchantments;
 
-import io.github.chaosdave34.ghlib.enchantment.CustomEnchantment;
+import io.github.chaosdave34.ghutils.enchantment.CustomEnchantment;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.enchantment.EnchantmentCategory;
 import org.bukkit.attribute.Attribute;
