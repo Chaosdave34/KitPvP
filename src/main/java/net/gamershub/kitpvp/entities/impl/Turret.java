@@ -2,9 +2,9 @@ package net.gamershub.kitpvp.entities.impl;
 
 import com.destroystokyo.paper.event.entity.EntityAddToWorldEvent;
 import net.gamershub.kitpvp.KitPvpPlugin;
+import net.gamershub.kitpvp.PDCUtils;
 import net.gamershub.kitpvp.entities.CustomEntity;
 import net.gamershub.kitpvp.pathfindergoals.TurretRangedAttackGoal;
-import net.gamershub.kitpvp.persistentdatatypes.UUIDPersistentDataType;
 import net.kyori.adventure.text.Component;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
@@ -48,8 +48,9 @@ public class Turret extends CustomEntity {
 
             husk.setHealth(20);
 
+            PDCUtils.setOwner(husk, p.getUniqueId());
+
             PersistentDataContainer container = husk.getPersistentDataContainer();
-            container.set(new NamespacedKey(KitPvpPlugin.INSTANCE, "owner"), new UUIDPersistentDataType(), p.getUniqueId());
             container.set(new NamespacedKey(KitPvpPlugin.INSTANCE, "custom_entity"), PersistentDataType.STRING, "turret");
         });
 
@@ -60,14 +61,7 @@ public class Turret extends CustomEntity {
         if (e.getEntity() instanceof Mob mob) {
             net.minecraft.world.entity.Mob nmsMob = ((CraftMob) mob).getHandle();
 
-            final UUID turretOwnerUUUID;
-            PersistentDataContainer container = mob.getPersistentDataContainer();
-            NamespacedKey ownerKey = new NamespacedKey(KitPvpPlugin.INSTANCE, "owner");
-            if (container.has(ownerKey)) {
-                turretOwnerUUUID = container.get(ownerKey, new UUIDPersistentDataType());
-            } else {
-                turretOwnerUUUID = null;
-            }
+            UUID turretOwnerUUUID = PDCUtils.getOwner(mob);
 
             nmsMob.goalSelector.removeAllGoals(goal -> true);
             nmsMob.goalSelector.addGoal(1, new RandomLookAroundGoal(nmsMob));
@@ -97,13 +91,8 @@ public class Turret extends CustomEntity {
                 if (e.getDamage() == Float.MAX_VALUE) return;
 
                 if (e instanceof EntityDamageByEntityEvent damageEvent) {
-                    PersistentDataContainer container = entity.getPersistentDataContainer();
-                    NamespacedKey ownerKey = new NamespacedKey(KitPvpPlugin.INSTANCE, "owner");
-                    if (container.has(ownerKey)) {
-                        UUID turretOwnerUUUID = container.get(ownerKey, new UUIDPersistentDataType());
-                        if (damageEvent.getDamager().getUniqueId().equals(turretOwnerUUUID)) {
-                            e.setCancelled(true);
-                        }
+                    if (damageEvent.getDamager().getUniqueId().equals(PDCUtils.getOwner(entity))) {
+                        e.setCancelled(true);
                     }
                 }
 

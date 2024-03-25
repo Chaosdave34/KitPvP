@@ -4,7 +4,6 @@ import net.gamershub.kitpvp.ExtendedPlayer;
 import net.gamershub.kitpvp.events.PlayerSpawnEvent;
 import net.gamershub.kitpvp.items.CustomItemHandler;
 import net.gamershub.kitpvp.kits.Kit;
-import net.gamershub.kitpvp.kits.KitHandler;
 import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -87,7 +86,7 @@ public class PoseidonKit extends Kit {
 
     private void removeTrident(Player p) {
         ExtendedPlayer extendedPlayer = ExtendedPlayer.from(p);
-        if (extendedPlayer.getSelectedKit() == KitHandler.POSEIDON) {
+        if (extendedPlayer.getSelectedKitId().equals(getId())) {
             p.getWorld().getEntitiesByClass(Trident.class).forEach(trident -> {
                 if (trident.getShooter() instanceof Player shooter)
                     if (p.getEntityId() == shooter.getEntityId())

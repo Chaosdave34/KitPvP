@@ -2,19 +2,17 @@ package net.gamershub.kitpvp.listener;
 
 import net.gamershub.kitpvp.ExtendedPlayer;
 import net.gamershub.kitpvp.KitPvpPlugin;
-import net.gamershub.kitpvp.persistentdatatypes.UUIDPersistentDataType;
+import net.gamershub.kitpvp.PDCUtils;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 import org.bukkit.Bukkit;
-import org.bukkit.NamespacedKey;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
-import org.bukkit.persistence.PersistentDataContainer;
 
 import java.util.UUID;
 
@@ -48,8 +46,7 @@ public class GamePlayerDeathListener implements Listener {
                     if (damager instanceof Player killer) {
                         ExtendedPlayer.from(killer).killedPlayer(p);
                         KitPvpPlugin.INSTANCE.getCosmeticHandler().triggerKillEffect(killer, p);
-                    }
-                    else if (damager instanceof Projectile projectile && projectile.getShooter() instanceof Player killer) {
+                    } else if (damager instanceof Projectile projectile && projectile.getShooter() instanceof Player killer) {
                         ExtendedPlayer.from(killer).killedPlayer(p);
                         KitPvpPlugin.INSTANCE.getCosmeticHandler().triggerKillEffect(killer, p);
                     }
@@ -68,28 +65,23 @@ public class GamePlayerDeathListener implements Listener {
                     else if (damager instanceof Firework firework) {
                         if (firework.getShooter() instanceof Husk husk) {
 
-                            PersistentDataContainer container = husk.getPersistentDataContainer();
-                            NamespacedKey ownerKey = new NamespacedKey(KitPvpPlugin.INSTANCE, "owner");
-                            if (container.has(ownerKey)) {
 
-                                UUID turretOwnerUUUID = container.get(ownerKey, new UUIDPersistentDataType());
-                                if (turretOwnerUUUID != null) {
-                                    message = name + " was killed by " + Bukkit.getOfflinePlayer(turretOwnerUUUID).getName() + "'s turret";
+                            UUID turretOwnerUUUID = PDCUtils.getOwner(husk);
+                            if (turretOwnerUUUID != null) {
+                                message = name + " was killed by " + Bukkit.getOfflinePlayer(turretOwnerUUUID).getName() + "'s turret";
 
-                                    Player turretOwner = Bukkit.getPlayer(turretOwnerUUUID);
-                                    if (turretOwner != null) {
-                                        ExtendedPlayer.from(turretOwner).killedPlayer(p);
-                                        KitPvpPlugin.INSTANCE.getCosmeticHandler().triggerKillEffect(turretOwner, p);
-                                    }
+                                Player turretOwner = Bukkit.getPlayer(turretOwnerUUUID);
+                                if (turretOwner != null) {
+                                    ExtendedPlayer.from(turretOwner).killedPlayer(p);
+                                    KitPvpPlugin.INSTANCE.getCosmeticHandler().triggerKillEffect(turretOwner, p);
                                 }
                             }
                         }
                     }
                 }
+                Bukkit.broadcast(Component.text("☠ ", NamedTextColor.RED)
+                        .append(Component.text(message, NamedTextColor.GRAY)));
             }
-
-            Bukkit.broadcast(Component.text("☠ ", NamedTextColor.RED)
-                    .append(Component.text(message, NamedTextColor.GRAY)));
         }
     }
 }
