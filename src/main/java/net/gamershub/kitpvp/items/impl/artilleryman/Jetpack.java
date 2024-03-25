@@ -13,6 +13,7 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.event.player.PlayerToggleSneakEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -44,6 +45,37 @@ public class Jetpack extends CustomItem {
     }
 
     @EventHandler
+    public void onSneak(PlayerToggleSneakEvent e) {
+        Player p = e.getPlayer();
+        ExtendedPlayer extendedPlayer = ExtendedPlayer.from(p);
+
+        if (extendedPlayer.inGame()) {
+            ItemStack jetpack = p.getInventory().getChestplate();
+            if (jetpack == null) return;
+
+            if (CustomItemHandler.JETPACK.getId().equals(CustomItemHandler.getCustomItemId(jetpack))) {
+
+                if (e.isSneaking()) {
+                    if (refillTasks.containsKey(p.getUniqueId()))
+                        Bukkit.getScheduler().cancelTask(refillTasks.remove(p.getUniqueId()));
+
+                    Damageable jetpackMeta = (Damageable) jetpack.getItemMeta();
+
+                    if (jetpackMeta.getDamage() < 80 && p.getVelocity().length() < 0.1) {
+                        p.setVelocity(p.getVelocity().setY(0.5));
+                    }
+
+                } else {
+                    if (!refillTasks.containsKey(p.getUniqueId())) {
+                        BukkitTask task = new RefillTask(p).runTaskTimer(KitPvpPlugin.INSTANCE, 10, 10);
+                        refillTasks.put(p.getUniqueId(), task.getTaskId());
+                    }
+                }
+            }
+        }
+    }
+
+    @EventHandler
     public void onMove(PlayerMoveEvent e) {
         Player p = e.getPlayer();
         ExtendedPlayer extendedPlayer = ExtendedPlayer.from(p);
@@ -55,18 +87,16 @@ public class Jetpack extends CustomItem {
             if (CustomItemHandler.JETPACK.getId().equals(CustomItemHandler.getCustomItemId(jetpack))) {
 
                 if (p.isSneaking()) {
-
-                    if (refillTasks.containsKey(p.getUniqueId())) {
-                        Bukkit.getScheduler().cancelTask(refillTasks.remove(p.getUniqueId()));
-                    }
-
                     Damageable jetpackMeta = (Damageable) jetpack.getItemMeta();
 
                     Vector verticalMovement = e.getTo().clone().subtract(e.getFrom()).toVector().setY(p.getVelocity().getY());
 
                     if (jetpackMeta.getDamage() < 80) {
                         if (p.getVelocity().getY() <= 0.3) {
-                            p.setVelocity(p.getVelocity().add(new Vector(0, 0.1, 0)));
+                            if (p.getVelocity().getY() < 0)
+                                p.setVelocity(p.getVelocity().add(new Vector(0, 0.1, 0)));
+                            else
+                                p.setVelocity(p.getVelocity().add(new Vector(0, 0.3, 0)));
                             jetpackMeta.setDamage(jetpackMeta.getDamage() + 1);
                             jetpack.setItemMeta(jetpackMeta);
                         }
@@ -76,27 +106,6 @@ public class Jetpack extends CustomItem {
                         }
 
                         p.sendActionBar(Component.text("Jetpack Fuel: " + (80 - jetpackMeta.getDamage()) + "/80"));
-                    }
-                } else {
-                    if (!refillTasks.containsKey(p.getUniqueId())) {
-                        BukkitTask task = new BukkitRunnable() {
-                            @Override
-                            public void run() {
-                                if (p.getInventory().getChestplate() != null) {
-                                    ItemStack jetpack = p.getInventory().getChestplate();
-                                    Damageable jetpackMeta = (Damageable) jetpack.getItemMeta();
-                                    if (jetpackMeta.getDamage() != 0) {
-                                        jetpackMeta.setDamage(jetpackMeta.getDamage() - 1);
-                                        jetpack.setItemMeta(jetpackMeta);
-                                        p.sendActionBar(Component.text("Jetpack Fuel: " + (80 - jetpackMeta.getDamage()) + "/80"));
-                                    } else {
-                                        refillTasks.remove(p.getUniqueId());
-                                        this.cancel();
-                                    }
-                                }
-                            }
-                        }.runTaskTimer(KitPvpPlugin.INSTANCE, 0, 10);
-                        refillTasks.put(p.getUniqueId(), task.getTaskId());
                     }
                 }
             }
@@ -110,6 +119,30 @@ public class Jetpack extends CustomItem {
         if (refillTasks.containsKey(p.getUniqueId())) {
             Bukkit.getScheduler().cancelTask(refillTasks.get(p.getUniqueId()));
             refillTasks.remove(p.getUniqueId());
+        }
+    }
+
+    class RefillTask extends BukkitRunnable {
+        private final Player player;
+
+        public RefillTask(Player player) {
+            this.player = player;
+        }
+
+        @Override
+        public void run() {
+            if (player.getInventory().getChestplate() != null) {
+                ItemStack jetpack = player.getInventory().getChestplate();
+                Damageable jetpackMeta = (Damageable) jetpack.getItemMeta();
+                if (jetpackMeta.getDamage() != 0) {
+                    jetpackMeta.setDamage(jetpackMeta.getDamage() - 1);
+                    jetpack.setItemMeta(jetpackMeta);
+                    player.sendActionBar(Component.text("Jetpack Fuel: " + (80 - jetpackMeta.getDamage()) + "/80"));
+                } else {
+                    refillTasks.remove(player.getUniqueId());
+                    this.cancel();
+                }
+            }
         }
     }
 

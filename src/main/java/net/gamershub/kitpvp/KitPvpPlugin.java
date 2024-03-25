@@ -6,9 +6,9 @@ import net.gamershub.kitpvp.challenges.ChallengesHandler;
 import net.gamershub.kitpvp.commands.*;
 import net.gamershub.kitpvp.companions.CompanionHandler;
 import net.gamershub.kitpvp.cosmetics.CosmeticHandler;
-import net.gamershub.kitpvp.entities.CustomEntityHandler;
 import net.gamershub.kitpvp.customevents.CustomEventHandler;
 import net.gamershub.kitpvp.enchantments.CustomEnchantmentHandler;
+import net.gamershub.kitpvp.entities.CustomEntityHandler;
 import net.gamershub.kitpvp.fakeplayer.FakePlayerHandler;
 import net.gamershub.kitpvp.guis.GuiHandler;
 import net.gamershub.kitpvp.items.CustomItemHandler;
@@ -76,9 +76,8 @@ public final class KitPvpPlugin extends JavaPlugin {
 
         gameListener = new GameListener();
 
-        getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
-
         saveDefaultConfig();
+        getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
 
         Bukkit.clearRecipes();
 
@@ -166,8 +165,7 @@ public final class KitPvpPlugin extends JavaPlugin {
             if (block.getBlockData() instanceof Waterlogged waterlogged) {
                 waterlogged.setWaterlogged(false);
                 block.setBlockData(waterlogged);
-            }
-            else
+            } else
                 block.setType(Material.AIR);
         }
     }
