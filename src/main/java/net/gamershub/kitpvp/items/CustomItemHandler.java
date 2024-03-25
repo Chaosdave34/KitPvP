@@ -1,14 +1,15 @@
 package net.gamershub.kitpvp.items;
 
-import net.gamershub.kitpvp.KitPvpPlugin;
+import net.gamershub.kitpvp.PDCUtils;
 import net.gamershub.kitpvp.Utils;
+import net.gamershub.kitpvp.items.impl.artilleryman.Jetpack;
 import net.gamershub.kitpvp.items.impl.artilleryman.RocketLauncher;
 import net.gamershub.kitpvp.items.impl.assassin.AssassinSword;
 import net.gamershub.kitpvp.items.impl.creeper.CreeperLeggings;
 import net.gamershub.kitpvp.items.impl.creeper.FireballSword;
-import net.gamershub.kitpvp.items.impl.artilleryman.Jetpack;
 import net.gamershub.kitpvp.items.impl.devil.DevilsSword;
 import net.gamershub.kitpvp.items.impl.enderman.EnderSword;
+import net.gamershub.kitpvp.items.impl.engineer.TrapWand;
 import net.gamershub.kitpvp.items.impl.engineer.TurretItem;
 import net.gamershub.kitpvp.items.impl.magician.MagicWand;
 import net.gamershub.kitpvp.items.impl.poseidon.PoseidonsTrident;
@@ -16,13 +17,11 @@ import net.gamershub.kitpvp.items.impl.provoker.NukeItem;
 import net.gamershub.kitpvp.items.impl.provoker.SpookSword;
 import net.gamershub.kitpvp.items.impl.tank.TankAxe;
 import net.gamershub.kitpvp.items.impl.tank.TankBoots;
-import net.gamershub.kitpvp.items.impl.engineer.TrapWand;
 import net.gamershub.kitpvp.items.impl.vampire.VampireSword;
 import net.gamershub.kitpvp.items.impl.zeus.LightningWand;
-import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.persistence.PersistentDataContainer;
-import org.bukkit.persistence.PersistentDataType;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -74,12 +73,8 @@ public class CustomItemHandler {
         return item;
     }
 
-    public static String getCustomItemId(ItemStack itemStack) {
-        PersistentDataContainer container = itemStack.getItemMeta().getPersistentDataContainer();
-        NamespacedKey key = new NamespacedKey(KitPvpPlugin.INSTANCE, "id");
-        if (container.has(key)) {
-            return container.get(key, PersistentDataType.STRING);
-        }
-        return null;
+    @Nullable
+    public static String getCustomItemId(@NotNull ItemStack itemStack) {
+        return PDCUtils.getId(itemStack.getItemMeta());
     }
 }

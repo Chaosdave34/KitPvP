@@ -1,12 +1,11 @@
 package net.gamershub.kitpvp.items.impl.artilleryman;
 
 import io.papermc.paper.event.entity.EntityLoadCrossbowEvent;
-import net.gamershub.kitpvp.ExtendedPlayer;
 import net.gamershub.kitpvp.KitPvpPlugin;
 import net.gamershub.kitpvp.abilities.Ability;
 import net.gamershub.kitpvp.abilities.AbilityHandler;
 import net.gamershub.kitpvp.items.CustomItem;
-import net.gamershub.kitpvp.kits.KitHandler;
+import net.gamershub.kitpvp.items.CustomItemHandler;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
@@ -49,12 +48,11 @@ public class RocketLauncher extends CustomItem {
 
     @EventHandler
     public void onCrossbowLoad(EntityLoadCrossbowEvent e) {
-        if (e.getEntity() instanceof Player player) {
-            ExtendedPlayer extendedPlayer = ExtendedPlayer.from(player);
-
+        if (e.getEntity() instanceof Player) {
             Bukkit.getScheduler().runTaskLater(KitPvpPlugin.INSTANCE, () -> {
-                if (extendedPlayer.getSelectedKit() == KitHandler.ARTILLERYMAN) {
-                    ItemStack crossbow = e.getCrossbow();
+                ItemStack crossbow = e.getCrossbow();
+                if (CustomItemHandler.ROCKET_LAUNCHER.getId().equals(CustomItemHandler.getCustomItemId(crossbow))) {
+
                     CrossbowMeta crossbowMeta = (CrossbowMeta) crossbow.getItemMeta();
 
                     List<ItemStack> projectiles = new ArrayList<>();

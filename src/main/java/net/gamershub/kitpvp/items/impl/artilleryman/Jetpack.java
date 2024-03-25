@@ -4,7 +4,7 @@ import net.gamershub.kitpvp.ExtendedPlayer;
 import net.gamershub.kitpvp.KitPvpPlugin;
 import net.gamershub.kitpvp.events.PlayerSpawnEvent;
 import net.gamershub.kitpvp.items.CustomItem;
-import net.gamershub.kitpvp.kits.KitHandler;
+import net.gamershub.kitpvp.items.CustomItemHandler;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
@@ -49,31 +49,33 @@ public class Jetpack extends CustomItem {
         ExtendedPlayer extendedPlayer = ExtendedPlayer.from(p);
 
         if (extendedPlayer.inGame()) {
-            if (extendedPlayer.getSelectedKit() == KitHandler.ARTILLERYMAN) {
+            ItemStack jetpack = p.getInventory().getChestplate();
+            if (jetpack == null) return;
+
+            if (CustomItemHandler.JETPACK.getId().equals(CustomItemHandler.getCustomItemId(jetpack))) {
+
                 if (p.isSneaking()) {
-                    if (p.getInventory().getChestplate() != null) {
-                        if (refillTasks.containsKey(p.getUniqueId())) {
-                            Bukkit.getScheduler().cancelTask(refillTasks.remove(p.getUniqueId()));
+
+                    if (refillTasks.containsKey(p.getUniqueId())) {
+                        Bukkit.getScheduler().cancelTask(refillTasks.remove(p.getUniqueId()));
+                    }
+
+                    Damageable jetpackMeta = (Damageable) jetpack.getItemMeta();
+
+                    Vector verticalMovement = e.getTo().clone().subtract(e.getFrom()).toVector().setY(p.getVelocity().getY());
+
+                    if (jetpackMeta.getDamage() < 80) {
+                        if (p.getVelocity().getY() <= 0.3) {
+                            p.setVelocity(p.getVelocity().add(new Vector(0, 0.1, 0)));
+                            jetpackMeta.setDamage(jetpackMeta.getDamage() + 1);
+                            jetpack.setItemMeta(jetpackMeta);
                         }
 
-                        ItemStack jetpack = p.getInventory().getChestplate();
-                        Damageable jetpackMeta = (Damageable) jetpack.getItemMeta();
-
-                        Vector verticalMovement = e.getTo().clone().subtract(e.getFrom()).toVector().setY(p.getVelocity().getY());
-
-                        if (jetpackMeta.getDamage() < 80) {
-                            if (p.getVelocity().getY() <= 0.3) {
-                                p.setVelocity(p.getVelocity().add(new Vector(0, 0.1, 0)));
-                                jetpackMeta.setDamage(jetpackMeta.getDamage() + 1);
-                                jetpack.setItemMeta(jetpackMeta);
-                            }
-
-                            if (verticalMovement.length() > 0.01) {
-                                p.setVelocity(p.getEyeLocation().getDirection().multiply(0.5).setY(p.getVelocity().getY()));
-                            }
-
-                            p.sendActionBar(Component.text("Jetpack Fuel: " + (80 - jetpackMeta.getDamage()) + "/80"));
+                        if (verticalMovement.length() > 0.01) {
+                            p.setVelocity(p.getEyeLocation().getDirection().multiply(0.5).setY(p.getVelocity().getY()));
                         }
+
+                        p.sendActionBar(Component.text("Jetpack Fuel: " + (80 - jetpackMeta.getDamage()) + "/80"));
                     }
                 } else {
                     if (!refillTasks.containsKey(p.getUniqueId())) {
@@ -100,6 +102,7 @@ public class Jetpack extends CustomItem {
             }
         }
     }
+
 
     @EventHandler
     public void onSpawn(PlayerSpawnEvent e) {

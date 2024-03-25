@@ -1,6 +1,8 @@
 package net.gamershub.kitpvp.items;
 
+import lombok.Getter;
 import net.gamershub.kitpvp.KitPvpPlugin;
+import net.gamershub.kitpvp.PDCUtils;
 import net.gamershub.kitpvp.abilities.Ability;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -26,8 +28,9 @@ import org.jetbrains.annotations.NotNull;
 import java.util.*;
 
 public abstract class CustomItem implements Listener {
-    protected Material material;
+    @Getter
     protected String id;
+    protected Material material;
     protected boolean stackable;
     protected boolean preventPlacingAndUsing;
 
@@ -72,15 +75,16 @@ public abstract class CustomItem implements Listener {
     public ItemStack build(int count) {
         ItemStack itemStack = new ItemStack(material, count);
         ItemMeta itemMeta = itemStack.getItemMeta();
-        PersistentDataContainer container = itemMeta.getPersistentDataContainer();
+
 
         itemMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         itemMeta.displayName(getName());
 
-        container.set(new NamespacedKey(KitPvpPlugin.INSTANCE, "id"), PersistentDataType.STRING, String.valueOf(id));
+        PDCUtils.setId(itemMeta, id);
 
         if (!stackable) {
-            container.set(new NamespacedKey(KitPvpPlugin.INSTANCE, "uuid"), PersistentDataType.STRING, String.valueOf(UUID.randomUUID()));
+            PersistentDataContainer container = itemMeta.getPersistentDataContainer();
+            container.set(new NamespacedKey(KitPvpPlugin.INSTANCE, "uuid"), PersistentDataType.STRING, UUID.randomUUID().toString());
         }
 
         itemStack.setItemMeta(itemMeta);
