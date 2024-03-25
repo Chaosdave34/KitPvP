@@ -1,7 +1,7 @@
 #file: noinspection YAMLSchemaValidation
 name: $name
 version: $version
-main: net.gamershub.kitpvp.KitPvpPlugin
+main: io.github.chaosdave34.kitpvp.KitPvp
 description: $description
 load: STARTUP
 authors:
