@@ -18,18 +18,18 @@ commands:
     description: Loop command
     usage: /<command> <amount> <period> <command>
     permission: kitpvp.loop
-  custom_item:
+  customitem:
     description: Give yourself a custom item
     usage: /<command> <item_id> <amount>
-    permission: kitpvp.custom_item
+    permission: kitpvp.customitem
   debug:
     description: Sets you into debug mode
     usage: /<command>
     permission: kitpvp.debug
-  add_experience:
+  addexperience:
     description: Adds experience to the player
     usage: /<command> <player> <amount>
-    permission: kitpvp.add_experience
+    permission: kitpvp.addexperience
 permissions:
   bukkit.command.version:
     default: op

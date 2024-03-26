@@ -24,6 +24,9 @@ import lombok.Getter;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.block.data.Waterlogged;
+import org.bukkit.command.CommandExecutor;
+import org.bukkit.command.PluginCommand;
+import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -104,23 +107,12 @@ public final class KitPvp extends JavaPlugin {
         pluginManager.registerEvents(customEventHandler, this);
 
         // Registering Commands
-        getCommand("spawn").setExecutor(new SpawnCommand());
-        getCommand("spawn").setTabCompleter(new EmptyTabCompleter());
-
-        getCommand("msg").setExecutor(new MessageCommand());
-        getCommand("msg").setTabCompleter(new PlayerTabCompleter());
-
-        getCommand("loop").setExecutor(new LoopCommand());
-        getCommand("loop").setTabCompleter(new LoopTabCompleter());
-
-        getCommand("custom_item").setExecutor(new CustomItemCommand());
-        getCommand("custom_item").setTabCompleter(new CustomItemTabCompleter());
-
-        getCommand("debug").setExecutor(new DebugCommand());
-        getCommand("debug").setTabCompleter(new EmptyTabCompleter());
-
-        getCommand("add_experience").setExecutor(new AddExperienceCommand());
-        getCommand("add_experience").setTabCompleter(new PlayerTabCompleter());
+        registerCommand("spawn", new SpawnCommand());
+        registerCommand("msg", new MessageCommand(), new PlayerTabCompleter());
+        registerCommand("loop", new LoopCommand(), new LoopTabCompleter());
+        registerCommand("customitem", new CustomItemCommand(), new CustomItemTabCompleter());
+        registerCommand("debug", new DebugCommand());
+        registerCommand("addexperience", new AddExperienceCommand(), new PlayerTabCompleter());
 
         // Create data folder
         getDataFolder().mkdir();
@@ -129,6 +121,20 @@ public final class KitPvp extends JavaPlugin {
         // load high scores
         highestLevels.putAll(loadHighescore("highestLevels"));
         highestKillstreaks.putAll(loadHighescore("highestKillstreaks"));
+    }
+
+    private void registerCommand(String name, CommandExecutor executor) {
+        registerCommand(name, executor, new EmptyTabCompleter());
+    }
+
+    private boolean registerCommand(String name, CommandExecutor executor, TabCompleter tabCompleter) {
+        PluginCommand command = getCommand(name);
+        if (command == null) return false;
+
+        command.setExecutor(executor);
+        command.setTabCompleter(tabCompleter);
+
+        return true;
     }
 
     public ExtendedPlayer getExtendedPlayer(Player p) {
