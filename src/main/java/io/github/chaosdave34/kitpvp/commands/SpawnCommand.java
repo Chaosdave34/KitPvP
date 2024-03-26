@@ -16,14 +16,7 @@ public class SpawnCommand implements CommandExecutor {
             ExtendedPlayer extendedPlayer = ExtendedPlayer.from(p);
 
             if (extendedPlayer.getCombatCooldown() == 0) {
-                ExtendedPlayer.GameState gameState = extendedPlayer.getGameState();
-
-                if (gameState == ExtendedPlayer.GameState.SPAWN || gameState == ExtendedPlayer.GameState.IN_GAME || gameState == ExtendedPlayer.GameState.DEBUG )
-                    extendedPlayer.spawn(ExtendedPlayer.GameType.NORMAL);
-
-                else if (gameState == ExtendedPlayer.GameState.ELYTRA_SPAWN || gameState == ExtendedPlayer.GameState.ELYTRA_IN_GAME)
-                    extendedPlayer.spawn(ExtendedPlayer.GameType.ELYTRA);
-
+                extendedPlayer.spawn();
             } else {
                 p.sendMessage(Component.text("You are still in combat for " + extendedPlayer.getCombatCooldown() + "s!", NamedTextColor.RED));
             }
