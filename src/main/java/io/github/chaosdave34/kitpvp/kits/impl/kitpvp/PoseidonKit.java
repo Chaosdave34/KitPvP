@@ -1,17 +1,10 @@
 package io.github.chaosdave34.kitpvp.kits.impl.kitpvp;
 
-import io.github.chaosdave34.kitpvp.ExtendedPlayer;
-import io.github.chaosdave34.kitpvp.events.PlayerSpawnEvent;
 import io.github.chaosdave34.kitpvp.items.CustomItemHandler;
 import io.github.chaosdave34.kitpvp.kits.Kit;
 import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
-import org.bukkit.entity.Player;
-import org.bukkit.entity.Trident;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
-import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.inventory.ItemStack;
 
 public class PoseidonKit extends Kit {
@@ -72,27 +65,4 @@ public class PoseidonKit extends Kit {
                 new ItemStack(Material.PRISMARINE, 32),
         };
     }
-
-    @EventHandler(priority = EventPriority.MONITOR)
-    public void onDeath(PlayerDeathEvent e) {
-        removeTrident(e.getPlayer());
-    }
-
-    @EventHandler(priority = EventPriority.MONITOR)
-    public void onSpawnEvent(PlayerSpawnEvent e) {
-        removeTrident(e.getPlayer());
-    }
-
-
-    private void removeTrident(Player p) {
-        ExtendedPlayer extendedPlayer = ExtendedPlayer.from(p);
-        if (extendedPlayer.getSelectedKitId().equals(getId())) {
-            p.getWorld().getEntitiesByClass(Trident.class).forEach(trident -> {
-                if (trident.getShooter() instanceof Player shooter)
-                    if (p.getEntityId() == shooter.getEntityId())
-                        trident.remove();
-            });
-        }
-    }
-
 }

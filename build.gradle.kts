@@ -10,7 +10,7 @@ plugins {
 
 group = "io.github.chaosdave34"
 version = "1.0.0-SNAPSHOT"
-description = "KitPvP Plugin"
+description = "KitPvP Paper Plugin"
 
 java {
     // Configure the java toolchain. This allows gradle to auto-provision JDK 17 on systems that only have JDK 8 installed for example.

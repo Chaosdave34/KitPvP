@@ -19,10 +19,7 @@ import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.Mob;
-import org.bukkit.entity.Player;
+import org.bukkit.entity.*;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -162,6 +159,12 @@ public class ExtendedPlayer {
 
         new PlayerSpawnEvent(p).callEvent();
         updateScoreboardLines();
+
+        p.getWorld().getEntitiesByClass(Trident.class).forEach(trident -> {
+            if (trident.getShooter() instanceof Player shooter)
+                if (p.getEntityId() == shooter.getEntityId())
+                    trident.remove();
+        });
     }
 
     public void updateDisplayName() {

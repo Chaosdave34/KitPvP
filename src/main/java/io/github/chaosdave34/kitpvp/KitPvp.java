@@ -59,7 +59,7 @@ public final class KitPvp extends JavaPlugin {
 
     private GameListener gameListener;
 
-    @SuppressWarnings({"ResultOfMethodCallIgnored", "DataFlowIssue"})
+    @SuppressWarnings({"ResultOfMethodCallIgnored"})
     @Override
     public void onEnable() {
         INSTANCE = this;
@@ -127,16 +127,14 @@ public final class KitPvp extends JavaPlugin {
         registerCommand(name, executor, new EmptyTabCompleter());
     }
 
-    private boolean registerCommand(String name, CommandExecutor executor, TabCompleter tabCompleter) {
+    private void registerCommand(String name, CommandExecutor executor, TabCompleter tabCompleter) {
         PluginCommand command = getCommand(name);
-        if (command == null) return false;
+        if (command == null) return;
 
         command.setExecutor(executor);
         command.setTabCompleter(tabCompleter);
-
-        return true;
     }
-
+    
     public ExtendedPlayer getExtendedPlayer(Player p) {
         return extendedPlayers.get(p.getUniqueId());
     }
