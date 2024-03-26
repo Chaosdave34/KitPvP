@@ -4,6 +4,7 @@ import io.github.chaosdave34.ghutils.fakeplayer.FakePlayer;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.EquipmentSlot;
 
 public class EclipsePhotonFakePlayer extends FakePlayer {
     public EclipsePhotonFakePlayer() {
@@ -15,6 +16,11 @@ public class EclipsePhotonFakePlayer extends FakePlayer {
 
     @Override
     public void onAttack(Player p) {
+        p.sendMessage(Component.text("Ich werde euren Server zerstüren!"));
+    }
+
+    @Override
+    public void onInteract(Player p, EquipmentSlot hand) {
         p.sendMessage(Component.text("Ich werde euren Server zerstüren!"));
     }
 }

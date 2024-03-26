@@ -45,6 +45,15 @@ public class KitSelectorFakePlayer extends FakePlayer {
 
     @Override
     public void onAttack(Player p) {
+        selectKit(p);
+    }
+
+    @Override
+    public void onInteract(Player p, EquipmentSlot hand) {
+        selectKit(p);
+    }
+
+    private void selectKit(Player p) {
         if (ExtendedPlayer.from(p).inGame()) return;
 
         if (ExtendedPlayer.from(p).getSelectedKit() == kit) {

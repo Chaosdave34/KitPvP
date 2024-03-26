@@ -4,6 +4,7 @@ import io.github.chaosdave34.ghutils.fakeplayer.FakePlayer;
 import io.github.chaosdave34.kitpvp.ExtendedPlayer;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.EquipmentSlot;
 
 public class ReturnFakePlayer extends FakePlayer {
     public ReturnFakePlayer() {
@@ -12,6 +13,11 @@ public class ReturnFakePlayer extends FakePlayer {
 
     @Override
     public void onAttack(Player p) {
+        ExtendedPlayer.from(p).spawn(ExtendedPlayer.GameType.NORMAL);
+    }
+
+    @Override
+    public void onInteract(Player p, EquipmentSlot hand) {
         ExtendedPlayer.from(p).spawn(ExtendedPlayer.GameType.NORMAL);
     }
 }

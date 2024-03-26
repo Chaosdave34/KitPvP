@@ -4,6 +4,7 @@ import io.github.chaosdave34.ghutils.fakeplayer.FakePlayer;
 import io.github.chaosdave34.kitpvp.guis.Guis;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.EquipmentSlot;
 
 public class CosmeticsFakePlayer extends FakePlayer {
     public CosmeticsFakePlayer(String world, Location location) {
@@ -12,6 +13,11 @@ public class CosmeticsFakePlayer extends FakePlayer {
 
     @Override
     public void onAttack(Player p) {
+        Guis.COSMETICS.show(p);
+    }
+
+    @Override
+    public void onInteract(Player p, EquipmentSlot hand) {
         Guis.COSMETICS.show(p);
     }
 }

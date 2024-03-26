@@ -19,4 +19,9 @@ public class ElytraFakePlayer extends FakePlayer {
     public void onAttack(Player p) {
         ExtendedPlayer.from(p).spawn(ExtendedPlayer.GameType.ELYTRA);
     }
+
+    @Override
+    public void onInteract(Player p, EquipmentSlot hand) {
+        ExtendedPlayer.from(p).spawn(ExtendedPlayer.GameType.ELYTRA);
+    }
 }
