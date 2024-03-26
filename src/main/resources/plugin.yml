@@ -22,10 +22,10 @@ commands:
     description: Give yourself a custom item
     usage: /<command> <item_id> <amount>
     permission: kitpvp.custom_item
-  set_game_state:
-    description: Sets your game state
-    usage: /<command> <game_state>
-    permission: kitpvp.set_game_state
+  debug:
+    description: Sets you into debug mode
+    usage: /<command>
+    permission: kitpvp.debug
   add_experience:
     description: Adds experience to the player
     usage: /<command> <player> <amount>
