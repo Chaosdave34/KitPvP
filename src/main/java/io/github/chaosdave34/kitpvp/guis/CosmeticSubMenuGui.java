@@ -77,6 +77,9 @@ public class CosmeticSubMenuGui extends Gui {
 
         inventory.setItem(rows * 9 - 6, createItemStack(Material.ARROW, "Back", true, false));
         inventory.setItem(rows * 9 - 5, createItemStack(Material.BARRIER, "Close", true, false));
+
+        fillEmpty(inventory, Material.GRAY_STAINED_GLASS_PANE);
+
         return inventory;
     }
 

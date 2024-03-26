@@ -18,7 +18,7 @@ import java.util.List;
 
 public class CosmeticsGui extends Gui {
     public CosmeticsGui() {
-        super(4, Component.text("Cosmetics"), true);
+        super(2, Component.text("Cosmetics"), true);
     }
 
     @Override
@@ -28,28 +28,31 @@ public class CosmeticsGui extends Gui {
         String selectedProjectileTrail = extendedPlayer.getProjectileTrailId() == null ? "None" : KitPvp.INSTANCE.getCosmeticHandler().getProjectileTrails().get(extendedPlayer.getProjectileTrailId()).getName();
         ItemStack projectileTrailButton = createItemStack(Material.ARROW, "Projectile Trails", true, false);
         projectileTrailButton.lore(List.of(Component.text("Selected: " + selectedProjectileTrail, NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false)));
-        inventory.setItem(11, projectileTrailButton);
+        inventory.setItem(2, projectileTrailButton);
 
         String selectedKillEffect = extendedPlayer.getKillEffectId() == null ? "None" : KitPvp.INSTANCE.getCosmeticHandler().getKillEffects().get(extendedPlayer.getKillEffectId()).getName();
         ItemStack killEffectButton = createItemStack(Material.IRON_SWORD, "Kill Effects", true, false);
         killEffectButton.lore(List.of(Component.text("Selected: " + selectedKillEffect, NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false)));
-        inventory.setItem(15, killEffectButton);
+        inventory.setItem(6, killEffectButton);
 
-        inventory.setItem(31, createItemStack(Material.BARRIER, "Close", true, false));
+        inventory.setItem(13, createItemStack(Material.BARRIER, "Close", true, false));
+
+        fillEmpty(inventory, Material.GRAY_STAINED_GLASS_PANE);
+
         return inventory;
     }
 
-    @InventoryClickHandler(slot = 11)
+    @InventoryClickHandler(slot = 2)
     public void onProjectileTrails(InventoryClickEvent e) {
         Guis.PROJECTILE_TRAILS.show((Player) e.getWhoClicked());
     }
 
-    @InventoryClickHandler(slot = 15)
+    @InventoryClickHandler(slot = 6)
     public void onKillEffects(InventoryClickEvent e) {
         Guis.KILL_EFFECTS.show((Player) e.getWhoClicked());
     }
 
-    @InventoryClickHandler(slot = 31)
+    @InventoryClickHandler(slot = 13)
     public void onCloseButton(InventoryClickEvent e) {
         e.getInventory().close();
     }

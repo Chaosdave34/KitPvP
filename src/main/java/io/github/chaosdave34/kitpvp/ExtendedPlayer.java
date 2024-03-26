@@ -33,8 +33,6 @@ import org.bukkit.scoreboard.Scoreboard;
 
 import java.util.*;
 
-;
-
 @Getter
 @Setter
 public class ExtendedPlayer {
@@ -118,6 +116,8 @@ public class ExtendedPlayer {
     public void spawn(GameType gameType) {
         Player p = getPlayer();
         if (p == null) return;
+
+        p.setGameMode(GameMode.SURVIVAL);
 
         lastGame = gameType;
         if (lastGame == null) lastGame = GameType.NORMAL;
@@ -403,7 +403,7 @@ public class ExtendedPlayer {
 
     public enum GameType {
         NORMAL,
-        ELYTRA;
+        ELYTRA
     }
 
     public enum GameState {

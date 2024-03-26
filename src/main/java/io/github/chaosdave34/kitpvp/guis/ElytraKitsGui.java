@@ -1,9 +1,10 @@
 package io.github.chaosdave34.kitpvp.guis;
 
 import io.github.chaosdave34.ghutils.gui.Gui;
+import io.github.chaosdave34.ghutils.gui.InventoryClickHandler;
 import io.github.chaosdave34.kitpvp.ExtendedPlayer;
-import io.github.chaosdave34.kitpvp.KitPvp;
 import io.github.chaosdave34.kitpvp.kits.ElytraKit;
+import io.github.chaosdave34.kitpvp.kits.ElytraKitHandler;
 import lombok.NonNull;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -14,57 +15,68 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ElytraKitsGui extends Gui {
-    private List<ElytraKit> kits;
+    private final Map<Integer, ElytraKit> kits = new HashMap<>();
 
     public ElytraKitsGui() {
-        super(KitPvp.INSTANCE.getElytraKitHandler().getKits().size() / 9 + 2, Component.text("Kits"), true);
-
-        kits = KitPvp.INSTANCE.getElytraKitHandler().getKits().values().stream().toList();
+        super(4, Component.text("Kits"), true);
     }
 
     @Override
     protected @NonNull Inventory build(Player p, Inventory inventory) {
-        inventory.setItem(rows * 9 - 5, createItemStack(Material.BARRIER, "Close", true, false));
+        inventory.setItem(31, createItemStack(Material.BARRIER, "Close", true, false));
 
-        int slot = 0;
-        for (ElytraKit elytraKit : kits) {
-            if (slot < (rows) * 9) {
-                Component component = Component.text(elytraKit.getName(), NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false);
+        setIcon(11, inventory, p, ElytraKitHandler.KNIGHT);
+        setIcon(12, inventory, p, ElytraKitHandler.SNIPER);
+        setIcon(13, inventory, p, ElytraKitHandler.PYRO);
+        setIcon(14, inventory, p, ElytraKitHandler.TANK);
+        setIcon(15, inventory, p, ElytraKitHandler.KNOCKER);
+        setIcon(20, inventory, p, ElytraKitHandler.ROCKET_LAUNCHER);
+        setIcon(21, inventory, p, ElytraKitHandler.POSEIDON);
+        setIcon(22, inventory, p, ElytraKitHandler.TELEPORTER);
+        setIcon(23, inventory, p, ElytraKitHandler.HEALER);
+        setIcon(24, inventory, p, ElytraKitHandler.CHEMIST);
 
-                boolean glint = false;
-                if (elytraKit.getId().equals(ExtendedPlayer.from(p).getSelectedElytraKitId())) {
-                    component = component.color(NamedTextColor.GREEN);
-                    glint = true;
-                }
-
-                ItemStack itemStack = createItemStack(elytraKit.getIcon(), component, true, glint);
-
-                inventory.setItem(slot, itemStack);
-            } else break;
-
-            slot++;
-        }
+        fillEmpty(inventory, Material.GRAY_STAINED_GLASS_PANE);
 
         return inventory;
+    }
+
+    private void setIcon(int slot, Inventory inventory, Player player, ElytraKit elytraKit) {
+        Component component = Component.text(elytraKit.getName(), NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false);
+
+        boolean glint = false;
+        if (elytraKit.getId().equals(ExtendedPlayer.from(player).getSelectedElytraKitId())) {
+            component = component.color(NamedTextColor.GREEN);
+            glint = true;
+        }
+
+        ItemStack itemStack = createItemStack(elytraKit.getIcon(), component, true, glint);
+
+        inventory.setItem(slot, itemStack);
+
+        kits.put(slot, elytraKit);
+    }
+
+    @InventoryClickHandler(slot = 31)
+    public void onClose(InventoryClickEvent e) {
+        e.getInventory().close();
     }
 
     @Override
     public void onInventoryClick(InventoryClickEvent e) {
         super.onInventoryClick(e);
 
-        if (e.getRawSlot() == rows * 9 - 5)
-            e.getInventory().close();
-
         Player p = (Player) e.getWhoClicked();
         ExtendedPlayer extendedPlayer = ExtendedPlayer.from(p);
+        int slot = e.getRawSlot();
 
+        if (!kits.containsKey(slot)) return;
 
-        if (e.getRawSlot() - 1 >= kits.size() || kits.isEmpty()) return;
-
-        ElytraKit kit = kits.get(e.getRawSlot());
+        ElytraKit kit = kits.get(slot);
 
         if (!extendedPlayer.getSelectedElytraKitId().equals(kit.getId())) {
             kit.apply(p);
