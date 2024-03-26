@@ -142,7 +142,11 @@ public final class KitPvp extends JavaPlugin {
     }
 
     public void createExtendedPlayer(Player p) {
-        ExtendedPlayer extendedPlayer = JsonUtils.readObjectFromFile(new File(getDataFolder(), "player_data/" + p.getUniqueId() + ".json"), ExtendedPlayer.class);
+        File playerData = new File(getDataFolder(), "player_data/" + p.getUniqueId() + ".json");
+
+        ExtendedPlayer extendedPlayer = null;
+        if (playerData.exists())
+            extendedPlayer = JsonUtils.readObjectFromFile(playerData, ExtendedPlayer.class);
         if (extendedPlayer == null)
             extendedPlayer = new ExtendedPlayer(p);
 

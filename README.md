@@ -1,1 +1,1 @@
-# KitPvP Plugin
+# KitPvP Paper Plugin
