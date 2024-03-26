@@ -175,6 +175,9 @@ public final class KitPvp extends JavaPlugin {
             } else
                 block.setType(Material.AIR);
         }
+
+        if (customEventHandler.getActiveEvent() != null)
+            customEventHandler.getActiveEvent().stop();
     }
 
     public void saveHighscores() {

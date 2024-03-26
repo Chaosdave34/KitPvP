@@ -2,7 +2,6 @@ package io.github.chaosdave34.kitpvp.customevents;
 
 import io.github.chaosdave34.ghutils.Utils;
 import io.github.chaosdave34.kitpvp.KitPvp;
-import io.github.chaosdave34.kitpvp.customevents.impl.SimpleEvent;
 import io.github.chaosdave34.kitpvp.customevents.impl.SupplyDropEvent;
 import lombok.Getter;
 import org.bukkit.Bukkit;
@@ -29,8 +28,8 @@ public class CustomEventHandler implements Listener {
     public CustomEventHandler() {
         enabled = false;
 
-        DOUBLE_EXPERIENCE_EVENT = registerCustomEvent(new SimpleEvent("2x Experience", 5 * 60));
-        HALVED_COOLDOWN_EVENT = registerCustomEvent(new SimpleEvent("Halved Ability Cooldown", 5 * 60));
+//        DOUBLE_EXPERIENCE_EVENT = registerCustomEvent(new SimpleEvent("2x Experience", 5 * 60));
+//        HALVED_COOLDOWN_EVENT = registerCustomEvent(new SimpleEvent("Halved Ability Cooldown", 5 * 60));
         SUPPLY_DROP_EVENT = registerCustomEvent(new SupplyDropEvent());
     }
 

@@ -1,17 +1,18 @@
 package io.github.chaosdave34.kitpvp.customevents.impl;
 
 import io.github.chaosdave34.kitpvp.customevents.CustomEvent;
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.Material;
+import org.bukkit.*;
 import org.bukkit.block.Barrel;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.FallingBlock;
+import org.bukkit.entity.Firework;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.CreatureSpawnEvent;
+import org.bukkit.event.entity.EntityChangeBlockEvent;
 import org.bukkit.event.entity.EntityDropItemEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.FireworkMeta;
 
 import java.util.Random;
 
@@ -21,7 +22,7 @@ public class SupplyDropEvent extends CustomEvent {
         super("Supply Drop", 5 * 60);
     }
 
-    Location location;
+    private Location location;
 
     @Override
     public void start() {
@@ -31,6 +32,8 @@ public class SupplyDropEvent extends CustomEvent {
         int z = random.nextInt(30, 50) * (random.nextBoolean() ? 1 : -1);
 
         location = new Location(Bukkit.getWorld("world"), x + 0.5, 200, z + 0.5);
+
+        Bukkit.getLogger().info(location.toString());
 
         location.getWorld().spawnEntity(location, EntityType.FALLING_BLOCK, CreatureSpawnEvent.SpawnReason.CUSTOM, entity -> {
             FallingBlock fallingBlock = ((FallingBlock) entity);
@@ -46,19 +49,15 @@ public class SupplyDropEvent extends CustomEvent {
 
     @Override
     public void stop() {
-        Location target = location.clone();
-        while (target.getBlock().getType() != Material.BARREL) {
-            target.subtract(0, 1, 0);
-        }
-
-        target.getBlock().setType(Material.AIR);
+        if (location.getBlock().getType() == Material.BARREL)
+            location.getBlock().setType(Material.AIR);
     }
 
     @EventHandler
     public void onBarrelLoot(InventoryCloseEvent e) {
         if (location == null) return;
         if (e.getInventory().getHolder() instanceof Barrel barrel) {
-            if (barrel.getLocation().getBlockX() == location.getBlockX() && barrel.getLocation().getBlockZ() == location.getBlockZ() && barrel.getWorld().equals(location.getWorld())) {
+            if (barrel.getLocation().equals(location)) {
                 if (e.getInventory().isEmpty()) {
                     barrel.setType(Material.AIR);
                     cancelled = true;
@@ -68,9 +67,24 @@ public class SupplyDropEvent extends CustomEvent {
     }
 
     @EventHandler
-    public void onBlockChangeEvent(EntityDropItemEvent e) {
+    public void onEntityChangeBlock(EntityChangeBlockEvent e) {
+        if (e.getEntity() instanceof FallingBlock fallingBlock && e.getTo() == Material.BARREL) {
+            if (fallingBlock.getOrigin() == null) return;
+
+            if (fallingBlock.getOrigin().equals(location)) {
+                location = e.getBlock().getLocation();
+
+                spawnFlare(location);
+            }
+        }
+    }
+
+    @EventHandler
+    public void onEntityDropItem(EntityDropItemEvent e) {
         if (e.getEntity() instanceof FallingBlock fallingBlock) {
-            if (location.equals(fallingBlock.getOrigin())) {
+            if (fallingBlock.getOrigin() == null) return;
+
+            if (fallingBlock.getOrigin().equals(location)) {
                 e.setCancelled(true);
 
                 Location loc = fallingBlock.getLocation();
@@ -79,10 +93,25 @@ public class SupplyDropEvent extends CustomEvent {
                     loc.add(0, 1, 0);
                 }
 
+                location = fallingBlock.getLocation();
+
                 loc.getBlock().setBlockData(fallingBlock.getBlockData());
                 Barrel barrel = (Barrel) loc.getBlock().getState();
                 barrel.getInventory().setContents(((Barrel) fallingBlock.getBlockState()).getInventory().getContents());
+
+                spawnFlare(location);
             }
         }
+    }
+
+    private void spawnFlare(Location location) {
+        location.getWorld().spawnEntity(location.clone().add(0, 1, 0), EntityType.FIREWORK, CreatureSpawnEvent.SpawnReason.CUSTOM, entity -> {
+            Firework firework = ((Firework) entity);
+
+            FireworkMeta fireworkMeta = firework.getFireworkMeta();
+            fireworkMeta.setPower(2);
+            fireworkMeta.addEffect(FireworkEffect.builder().withColor(Color.RED).with(FireworkEffect.Type.BALL).build());
+            firework.setFireworkMeta(fireworkMeta);
+        } );
     }
 }
