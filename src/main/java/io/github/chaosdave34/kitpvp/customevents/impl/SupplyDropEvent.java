@@ -56,8 +56,9 @@ public class SupplyDropEvent extends CustomEvent {
 
     @EventHandler
     public void onBarrelLoot(InventoryCloseEvent e) {
+        if (location == null) return;
         if (e.getInventory().getHolder() instanceof Barrel barrel) {
-            if (barrel.getLocation().getBlockX() == location.getBlockX() && barrel.getLocation().getBlockZ() == location.getBlockZ()) {
+            if (barrel.getLocation().getBlockX() == location.getBlockX() && barrel.getLocation().getBlockZ() == location.getBlockZ() && barrel.getWorld().equals(location.getWorld())) {
                 if (e.getInventory().isEmpty()) {
                     barrel.setType(Material.AIR);
                     cancelled = true;
