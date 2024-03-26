@@ -1,4 +1,4 @@
-package io.github.chaosdave34.kitpvp.kits.impl;
+package io.github.chaosdave34.kitpvp.kits.impl.kitpvp;
 
 import io.github.chaosdave34.kitpvp.ExtendedPlayer;
 import io.github.chaosdave34.kitpvp.events.PlayerSpawnEvent;

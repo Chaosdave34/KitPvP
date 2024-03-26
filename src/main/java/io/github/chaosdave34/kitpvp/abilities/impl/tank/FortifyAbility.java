@@ -5,7 +5,7 @@ import io.github.chaosdave34.kitpvp.KitPvp;
 import io.github.chaosdave34.kitpvp.abilities.Ability;
 import io.github.chaosdave34.kitpvp.abilities.AbilityType;
 import io.github.chaosdave34.kitpvp.kits.Kit;
-import io.github.chaosdave34.kitpvp.kits.impl.TankKit;
+import io.github.chaosdave34.kitpvp.kits.impl.kitpvp.TankKit;
 import net.kyori.adventure.text.Component;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.PlayerInventory;

@@ -3,8 +3,6 @@ package io.github.chaosdave34.kitpvp.commands;
 import io.github.chaosdave34.kitpvp.ExtendedPlayer;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -18,8 +16,14 @@ public class SpawnCommand implements CommandExecutor {
             ExtendedPlayer extendedPlayer = ExtendedPlayer.from(p);
 
             if (extendedPlayer.getCombatCooldown() == 0) {
-                p.teleport(new Location(Bukkit.getWorld("world"), 0.5, 100.5, -8.5, 0, 0));
-                ExtendedPlayer.from(p).spawnPlayer();
+                ExtendedPlayer.GameState gameState = extendedPlayer.getGameState();
+
+                if (gameState == ExtendedPlayer.GameState.SPAWN || gameState == ExtendedPlayer.GameState.IN_GAME || gameState == ExtendedPlayer.GameState.DEBUG )
+                    extendedPlayer.spawn(ExtendedPlayer.GameType.NORMAL);
+
+                else if (gameState == ExtendedPlayer.GameState.ELYTRA_SPAWN || gameState == ExtendedPlayer.GameState.ELYTRA_IN_GAME)
+                    extendedPlayer.spawn(ExtendedPlayer.GameType.ELYTRA);
+
             } else {
                 p.sendMessage(Component.text("You are still in combat for " + extendedPlayer.getCombatCooldown() + "s!", NamedTextColor.RED));
             }

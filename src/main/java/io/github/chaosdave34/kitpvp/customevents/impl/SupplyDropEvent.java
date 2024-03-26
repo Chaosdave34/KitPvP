@@ -15,6 +15,7 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.Random;
 
+// Todo: elytra?
 public class SupplyDropEvent extends CustomEvent {
     public SupplyDropEvent() {
         super("Supply Drop", 5 * 60);

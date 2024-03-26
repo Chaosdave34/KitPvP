@@ -5,13 +5,13 @@ import io.github.chaosdave34.kitpvp.guis.Guis;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
-public class CosmeticsFakePlayer extends FakePlayer {
-    public CosmeticsFakePlayer(String world, Location location) {
-        super("Cosmetics", world, location, location.getYaw(), location.getPitch(), true);
+public class ElytraKitSelectorFakePlayer extends FakePlayer {
+    public ElytraKitSelectorFakePlayer() {
+        super("Kits", "world_elytra", new Location(null, 10.5, 200, -5.5), 0, 0, true);
     }
 
     @Override
     public void onAttack(Player p) {
-        Guis.COSMETICS.show(p);
+        Guis.ELYTRA_KITS.show(p);
     }
 }

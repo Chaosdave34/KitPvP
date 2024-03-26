@@ -2,24 +2,25 @@ package io.github.chaosdave34.kitpvp;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import io.github.chaosdave34.ghutils.utils.JsonUtils;
-import lombok.Getter;
 import io.github.chaosdave34.ghutils.GHUtils;
-;
+import io.github.chaosdave34.ghutils.utils.JsonUtils;
 import io.github.chaosdave34.kitpvp.abilities.AbilityHandler;
 import io.github.chaosdave34.kitpvp.challenges.ChallengesHandler;
 import io.github.chaosdave34.kitpvp.commands.*;
 import io.github.chaosdave34.kitpvp.companions.CompanionHandler;
 import io.github.chaosdave34.kitpvp.cosmetics.CosmeticHandler;
 import io.github.chaosdave34.kitpvp.customevents.CustomEventHandler;
+import io.github.chaosdave34.kitpvp.damagetype.DamageTypes;
 import io.github.chaosdave34.kitpvp.fakeplayer.FakePlayers;
 import io.github.chaosdave34.kitpvp.items.CustomItemHandler;
+import io.github.chaosdave34.kitpvp.kits.ElytraKitHandler;
 import io.github.chaosdave34.kitpvp.kits.KitHandler;
 import io.github.chaosdave34.kitpvp.listener.GameListener;
 import io.github.chaosdave34.kitpvp.listener.GamePlayerDeathListener;
 import io.github.chaosdave34.kitpvp.listener.SpawnListener;
 import io.github.chaosdave34.kitpvp.listener.UtilityListener;
 import io.github.chaosdave34.kitpvp.textdisplays.TextDisplays;
+import lombok.Getter;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.block.data.Waterlogged;
@@ -33,7 +34,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-
 @Getter
 public final class KitPvp extends JavaPlugin {
     public static KitPvp INSTANCE;
@@ -46,10 +46,13 @@ public final class KitPvp extends JavaPlugin {
     private AbilityHandler abilityHandler;
     private CustomItemHandler customItemHandler;
     private KitHandler kitHandler;
+    private ElytraKitHandler elytraKitHandler;
     private CompanionHandler companionHandler;
     private CosmeticHandler cosmeticHandler;
     private CustomEventHandler customEventHandler;
     private ChallengesHandler challengesHandler;
+
+    private DamageTypes damageTypes;
 
     private GameListener gameListener;
 
@@ -62,10 +65,13 @@ public final class KitPvp extends JavaPlugin {
         abilityHandler = new AbilityHandler();
         customItemHandler = new CustomItemHandler();
         kitHandler = new KitHandler();
+        elytraKitHandler = new ElytraKitHandler();
         companionHandler = new CompanionHandler();
         cosmeticHandler = new CosmeticHandler();
         customEventHandler = new CustomEventHandler();
         challengesHandler = new ChallengesHandler();
+
+        damageTypes = new DamageTypes();
 
         gameListener = new GameListener();
 
@@ -85,10 +91,14 @@ public final class KitPvp extends JavaPlugin {
 
         // Registering Listener
         PluginManager pluginManager = getServer().getPluginManager();
+
         pluginManager.registerEvents(new UtilityListener(), this);
+
         pluginManager.registerEvents(new SpawnListener(), this);
+
         pluginManager.registerEvents(gameListener, this);
         pluginManager.registerEvents(new GamePlayerDeathListener(), this);
+
         pluginManager.registerEvents(abilityHandler, this);
         pluginManager.registerEvents(cosmeticHandler, this);
         pluginManager.registerEvents(customEventHandler, this);

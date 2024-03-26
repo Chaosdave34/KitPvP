@@ -1,4 +1,4 @@
-package io.github.chaosdave34.kitpvp.kits.impl;
+package io.github.chaosdave34.kitpvp.kits.impl.kitpvp;
 
 import io.github.chaosdave34.kitpvp.ExtendedPlayer;
 import io.github.chaosdave34.kitpvp.items.CustomItemHandler;
@@ -77,11 +77,11 @@ public class ArtilleryManKit extends Kit {
     @EventHandler
     public void onRocketLaunch(PlayerInteractEvent e) {
         Player p = e.getPlayer();
-
-        if (ExtendedPlayer.from(p).inGame()) {
-           if (e.getMaterial() == Material.FIREWORK_ROCKET) {
-               e.setCancelled(true);
-           }
+        ExtendedPlayer extendedPlayer = ExtendedPlayer.from(p);
+        if (extendedPlayer.getLastGame() == ExtendedPlayer.GameType.NORMAL && extendedPlayer.getSelectedKitId().equals(getId())) {
+            if (e.getMaterial() == Material.FIREWORK_ROCKET) {
+                e.setCancelled(true);
+            }
         }
     }
 }

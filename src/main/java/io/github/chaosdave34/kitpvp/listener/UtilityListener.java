@@ -1,24 +1,30 @@
 package io.github.chaosdave34.kitpvp.listener;
 
-import io.github.chaosdave34.ghutils.utils.JsonUtils;
-import io.papermc.paper.event.player.AsyncChatEvent;
 import io.github.chaosdave34.ghutils.GHUtils;
-;
+import io.github.chaosdave34.ghutils.utils.JsonUtils;
 import io.github.chaosdave34.kitpvp.ExtendedPlayer;
 import io.github.chaosdave34.kitpvp.KitPvp;
 import io.github.chaosdave34.kitpvp.textdisplays.TextDisplays;
+import io.papermc.paper.event.player.AsyncChatEvent;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Bukkit;
+import org.bukkit.GameRule;
 import org.bukkit.World;
+import org.bukkit.WorldCreator;
+import org.bukkit.block.data.type.Door;
+import org.bukkit.block.data.type.TrapDoor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.world.WorldLoadEvent;
 import org.bukkit.event.world.WorldSaveEvent;
+import org.bukkit.generator.ChunkGenerator;
 
 import java.io.File;
 import java.time.Instant;
@@ -27,6 +33,8 @@ import java.time.ZoneId;
 import java.util.HexFormat;
 import java.util.List;
 import java.util.UUID;
+
+;
 
 public class UtilityListener implements Listener {
     @EventHandler
@@ -53,7 +61,7 @@ public class UtilityListener implements Listener {
         GHUtils.getTextDisplayHandler().spawnTextDisplays(p);
 
         // Spawn
-        extendedPlayer.spawnPlayer();
+        extendedPlayer.spawn();
         extendedPlayer.updateDisplayName();
 
         // Highscores
@@ -133,5 +141,30 @@ public class UtilityListener implements Listener {
     public void onWorldLoad(WorldLoadEvent e) {
         World world = e.getWorld();
         if (world.getName().equals("nether") || world.getName().equals("the_end")) Bukkit.unloadWorld(world, false);
+
+        if (Bukkit.getWorld("world_elytra") == null) {
+            WorldCreator worldCreator = new WorldCreator("world_elytra");
+            worldCreator.generator(new ChunkGenerator() {
+            });
+            World elytraPvp = Bukkit.getServer().createWorld(worldCreator);
+
+            if (elytraPvp != null)
+                elytraPvp.setGameRule(GameRule.DO_MOB_SPAWNING, false);
+        }
+    }
+
+    @EventHandler
+    public void onDoors(PlayerInteractEvent e) {
+        Player p = e.getPlayer();
+        ExtendedPlayer extendedPlayer = ExtendedPlayer.from(p);
+        if (extendedPlayer.getGameState() == ExtendedPlayer.GameState.DEBUG) return;
+
+        if (e.getAction() == Action.RIGHT_CLICK_BLOCK) {
+            if (e.getClickedBlock() == null) return;
+
+            if (e.getClickedBlock().getBlockData() instanceof Door || e.getClickedBlock().getBlockData() instanceof TrapDoor) {
+                e.setCancelled(true);
+            }
+        }
     }
 }

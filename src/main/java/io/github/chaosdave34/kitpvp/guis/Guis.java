@@ -7,4 +7,5 @@ public class Guis {
     public static Gui COSMETICS = new CosmeticsGui();
     public static Gui PROJECTILE_TRAILS = new CosmeticSubMenuGui("Projectile Trails", KitPvp.INSTANCE.getCosmeticHandler().getProjectileTrails().values());
     public static Gui KILL_EFFECTS = new CosmeticSubMenuGui("Kill Effects", KitPvp.INSTANCE.getCosmeticHandler().getKillEffects().values());
+    public static Gui ELYTRA_KITS = new ElytraKitsGui();
 }

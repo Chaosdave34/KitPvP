@@ -2,9 +2,9 @@ package io.github.chaosdave34.kitpvp.listener;
 
 import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
-import io.papermc.paper.event.entity.EntityLoadCrossbowEvent;
 import io.github.chaosdave34.kitpvp.ExtendedPlayer;
 import io.github.chaosdave34.kitpvp.KitPvp;
+import io.papermc.paper.event.entity.EntityLoadCrossbowEvent;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Particle;
@@ -30,6 +30,8 @@ public class SpawnListener implements Listener {
     private Location turbine3;
     private Location turbine4;
 
+
+    // ALL Spawns
     @EventHandler
     public void onRespawnAnchorExplode(BlockExplodeEvent e) {
         if (e.getExplodedBlockState() == null) return;
@@ -53,29 +55,6 @@ public class SpawnListener implements Listener {
     }
 
     @EventHandler
-    public void onWorldLoad(WorldLoadEvent e) {
-        if (!e.getWorld().getName().equals("world")) return;
-
-        World world = e.getWorld();
-        turbine1 = new Location(world, 2.0, 120.0, 22.0);
-        turbine2 = new Location(world, -18.0, 120.0, 2.0);
-        turbine3 = new Location(world, 2.0, 120.0, -18.0);
-        turbine4 = new Location(world, 22.0, 120.0, 2.0);
-
-        new BukkitRunnable() {
-            @Override
-            public void run() {
-                world.spawnParticle(Particle.EXPLOSION_NORMAL, turbine1, 10, 2, 1, 2, 0);
-                world.spawnParticle(Particle.EXPLOSION_NORMAL, turbine2, 10, 2, 1, 2, 0);
-                world.spawnParticle(Particle.EXPLOSION_NORMAL, turbine3, 10, 2, 1, 2, 0);
-                world.spawnParticle(Particle.EXPLOSION_NORMAL, turbine4, 10, 2, 1, 2, 0);
-
-            }
-        }.runTaskTimer(KitPvp.INSTANCE, 0, 5);
-    }
-
-
-    @EventHandler
     public void onDamage(EntityDamageEvent e) {
         if (e.getEntity() instanceof Player p) {
             ExtendedPlayer extendedPlayer = ExtendedPlayer.from(p);
@@ -83,29 +62,6 @@ public class SpawnListener implements Listener {
                 // Kill Command
                 if (e.getCause() == EntityDamageEvent.DamageCause.KILL) return;
                 e.setCancelled(true);
-            }
-        }
-    }
-
-    @EventHandler
-    public void onPlayerMove(PlayerMoveEvent e) {
-        Player p = e.getPlayer();
-        ExtendedPlayer extendedPlayer = ExtendedPlayer.from(p);
-        if (extendedPlayer.inSpawn()) {
-            // Game enter
-            if (e.getTo().clone().subtract(0, 1, 0).getBlock().getType() != Material.AIR && e.getTo().getY() <= 105) {
-                extendedPlayer.setGameState(ExtendedPlayer.GameState.IN_GAME);
-                p.setFallDistance(0f);
-            }
-
-            // Turbine
-            Location loc = p.getLocation();
-            int d = 5;
-            if (loc.distance(turbine1) < d || loc.distance(turbine2) < d || loc.distance(turbine3) < d || loc.distance(turbine4) < d) {
-                Vector launchVector = p.getLocation().toVector().normalize();
-                launchVector.multiply(12);
-                launchVector.setY(0.75);
-                p.setVelocity(launchVector);
             }
         }
     }
@@ -224,5 +180,56 @@ public class SpawnListener implements Listener {
         }
     }
 
+    @EventHandler
+    public void onPlayerMove(PlayerMoveEvent e) {
+        Player p = e.getPlayer();
+        ExtendedPlayer extendedPlayer = ExtendedPlayer.from(p);
+        // Normal
+        if (extendedPlayer.getGameState() == ExtendedPlayer.GameState.SPAWN) {
+            // Game enter
+            if (e.getTo().clone().subtract(0, 1, 0).getBlock().getType() != Material.AIR && e.getTo().getY() <= 105) {
+                extendedPlayer.setGameState(ExtendedPlayer.GameState.IN_GAME);
+                p.setFallDistance(0f);
+            }
 
+            // Turbine
+            Location loc = p.getLocation();
+            int d = 5;
+            if (loc.distance(turbine1) < d || loc.distance(turbine2) < d || loc.distance(turbine3) < d || loc.distance(turbine4) < d) {
+                Vector launchVector = p.getLocation().toVector().normalize();
+                launchVector.multiply(12);
+                launchVector.setY(0.75);
+                p.setVelocity(launchVector);
+            }
+        }
+        // Elytra
+        else if (extendedPlayer.getGameState() == ExtendedPlayer.GameState.ELYTRA_SPAWN) {
+            if (e.getTo().getY() < 197) {
+                extendedPlayer.setGameState(ExtendedPlayer.GameState.ELYTRA_IN_GAME);
+            }
+        }
+    }
+
+    // Game Spawn
+    @EventHandler
+    public void onWorldLoad(WorldLoadEvent e) {
+        if (!e.getWorld().getName().equals("world")) return;
+
+        World world = e.getWorld();
+        turbine1 = new Location(world, 2.0, 120.0, 22.0);
+        turbine2 = new Location(world, -18.0, 120.0, 2.0);
+        turbine3 = new Location(world, 2.0, 120.0, -18.0);
+        turbine4 = new Location(world, 22.0, 120.0, 2.0);
+
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                world.spawnParticle(Particle.EXPLOSION_NORMAL, turbine1, 10, 2, 1, 2, 0);
+                world.spawnParticle(Particle.EXPLOSION_NORMAL, turbine2, 10, 2, 1, 2, 0);
+                world.spawnParticle(Particle.EXPLOSION_NORMAL, turbine3, 10, 2, 1, 2, 0);
+                world.spawnParticle(Particle.EXPLOSION_NORMAL, turbine4, 10, 2, 1, 2, 0);
+
+            }
+        }.runTaskTimer(KitPvp.INSTANCE, 0, 5);
+    }
 }

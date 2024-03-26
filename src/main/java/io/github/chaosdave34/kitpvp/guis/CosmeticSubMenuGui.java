@@ -33,7 +33,6 @@ public class CosmeticSubMenuGui extends Gui {
     protected @NonNull Inventory build(Player p, Inventory inventory) {
         ExtendedPlayer extendedPlayer = ExtendedPlayer.from(p);
 
-
         Component noneDisplayName = Component.text("None").decoration(TextDecoration.ITALIC, false);
         TextColor textColor = NamedTextColor.WHITE;
         boolean glint = false;
@@ -102,7 +101,6 @@ public class CosmeticSubMenuGui extends Gui {
         else if (e.getRawSlot() == rows * 9 - 5)
             e.getInventory().close();
 
-
         super.onInventoryClick(e);
         if (e.getClickedInventory() == null) return;
 
@@ -110,6 +108,7 @@ public class CosmeticSubMenuGui extends Gui {
         ExtendedPlayer extendedPlayer = ExtendedPlayer.from(p);
 
         if (e.getRawSlot() - 1 >= cosmetics.size() || cosmetics.isEmpty() || e.getRawSlot() == 0) return;
+
         Cosmetic cosmetic = cosmetics.stream().sorted(Comparator.comparingInt(Cosmetic::getLevelRequirement)).toList().get(e.getRawSlot() - 1);
 
         if (extendedPlayer.getLevel() < cosmetic.getLevelRequirement() || cosmetic.getId().equals(extendedPlayer.getProjectileTrailId()))

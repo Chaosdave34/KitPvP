@@ -3,10 +3,12 @@ package io.github.chaosdave34.kitpvp.listener;
 import io.github.chaosdave34.ghutils.utils.PDCUtils;
 import io.github.chaosdave34.kitpvp.ExtendedPlayer;
 import io.github.chaosdave34.kitpvp.KitPvp;
+import io.github.chaosdave34.kitpvp.damagetype.DamageTypes;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 import org.bukkit.Bukkit;
+import org.bukkit.damage.DamageType;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -29,7 +31,7 @@ public class GamePlayerDeathListener implements Listener {
 
             extendedPlayer.incrementTotalDeaths();
 
-            Bukkit.getScheduler().runTaskLater(KitPvp.INSTANCE, extendedPlayer::spawnPlayer, 1);
+            Bukkit.getScheduler().runTaskLater(KitPvp.INSTANCE, () -> extendedPlayer.spawn(), 1);
 
             e.setCancelled(true);
 
@@ -40,6 +42,8 @@ public class GamePlayerDeathListener implements Listener {
 
             EntityDamageEvent lastDamageEvent = p.getLastDamageCause();
             if (lastDamageEvent != null) {
+                DamageType damageType = lastDamageEvent.getDamageSource().getDamageType();
+
                 // Damage by Entity
                 if (lastDamageEvent instanceof EntityDamageByEntityEvent lastDamageByEntityEvent) {
                     Entity damager = lastDamageByEntityEvent.getDamager();
@@ -80,7 +84,12 @@ public class GamePlayerDeathListener implements Listener {
                             }
                         }
                     }
+                } else if (damageType == DamageTypes.LAND) {
+                    message = p.getName() + " tried to land";
+                } else if (damageType == DamageTypes.ESCAPE) {
+                    message = p.getName() + " tried to escape";
                 }
+
                 Bukkit.broadcast(Component.text("☠ ", NamedTextColor.RED)
                         .append(Component.text(message, NamedTextColor.GRAY)));
             }

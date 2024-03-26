@@ -1,29 +1,37 @@
 package io.github.chaosdave34.kitpvp.listener;
 
-import io.papermc.paper.event.entity.EntityMoveEvent;
-import lombok.Getter;
+import com.destroystokyo.paper.event.player.PlayerElytraBoostEvent;
 import io.github.chaosdave34.kitpvp.ExtendedPlayer;
 import io.github.chaosdave34.kitpvp.KitPvp;
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.Material;
+import io.github.chaosdave34.kitpvp.damagetype.DamageTypes;
+import io.github.chaosdave34.kitpvp.items.CustomItemHandler;
+import io.papermc.paper.event.entity.EntityLoadCrossbowEvent;
+import io.papermc.paper.event.entity.EntityMoveEvent;
+import lombok.Getter;
+import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.block.data.Waterlogged;
+import org.bukkit.damage.DamageSource;
+import org.bukkit.damage.DamageType;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.FallingBlock;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.*;
 import org.bukkit.event.player.*;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.CrossbowMeta;
+import org.bukkit.inventory.meta.FireworkMeta;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 
-import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class GameListener implements Listener {
@@ -31,92 +39,7 @@ public class GameListener implements Listener {
     private final Map<Location, Long> blocksToRemove = new ConcurrentHashMap<>();
     private BukkitTask blockRemoverTask;
 
-    public void startBlockRemover() {
-        if (blockRemoverTask == null || !Bukkit.getScheduler().isCurrentlyRunning(blockRemoverTask.getTaskId())) {
-            blockRemoverTask = new BlockRemover().runTaskTimer(KitPvp.INSTANCE, 0, 20);
-        }
-    }
-
-    @EventHandler
-    public void onBlockPlace(BlockPlaceEvent e) {
-        Player p = e.getPlayer();
-        if (ExtendedPlayer.from(p).inGame()) {
-            Block block = e.getBlock();
-
-            if (e.getBlock().getType() == Material.FIRE) return;
-
-            if (e.getBlock().getLocation().getY() > 105) {
-                e.setCancelled(true);
-                return;
-            }
-
-            block.setMetadata("placed_by_player", new FixedMetadataValue(KitPvp.INSTANCE, true));
-
-            blocksToRemove.put(block.getLocation(), System.currentTimeMillis());
-
-            startBlockRemover();
-        }
-    }
-
-    @EventHandler
-    public void onBlockBreak(BlockBreakEvent e) {
-        Player p = e.getPlayer();
-        if (ExtendedPlayer.from(p).inGame()) {
-            if (!e.getBlock().hasMetadata("placed_by_player")) {
-                if (e.getBlock().getType() == Material.FIRE) return;
-
-                blocksToRemove.remove(e.getBlock().getLocation());
-                e.setCancelled(true);
-            }
-            if (e.getBlock().getType() == Material.COBWEB) e.setDropItems(false);
-        }
-    }
-
-    @EventHandler
-    public void onGravityBlockChangeState(EntityChangeBlockEvent e) {
-        if (e.getEntity() instanceof FallingBlock fallingBlock) {
-            Block block = e.getBlock();
-
-            if (fallingBlock.hasMetadata("placed_by_player")) {
-                block.setMetadata("placed_by_player", new FixedMetadataValue(KitPvp.INSTANCE, true));
-                blocksToRemove.put(block.getLocation(), System.currentTimeMillis());
-            } else if (block.hasMetadata("placed_by_player")) {
-                fallingBlock.setMetadata("placed_by_player", new FixedMetadataValue(KitPvp.INSTANCE, true));
-                blocksToRemove.remove(block.getLocation());
-            }
-        }
-    }
-
-    @EventHandler
-    public void onBucketEmpty(PlayerBucketEmptyEvent e) {
-        Player p = e.getPlayer();
-        if (ExtendedPlayer.from(p).inGame()) {
-            Block block = e.getBlock();
-
-            if (e.getBlock().getLocation().getY() > 105) {
-                e.setCancelled(true);
-                return;
-            }
-
-            block.setMetadata("placed_by_player", new FixedMetadataValue(KitPvp.INSTANCE, true));
-
-            blocksToRemove.put(block.getLocation(), System.currentTimeMillis());
-
-            startBlockRemover();
-        }
-    }
-
-    @EventHandler
-    public void onBucketFill(PlayerBucketFillEvent e) {
-        Player p = e.getPlayer();
-        if (ExtendedPlayer.from(p).inGame()) {
-            if (!e.getBlock().hasMetadata("placed_by_player")) {
-                blocksToRemove.remove(e.getBlock().getLocation());
-                e.setCancelled(true);
-            }
-        }
-    }
-
+    // All
     @EventHandler
     public void onDrop(PlayerDropItemEvent e) {
         Player p = e.getPlayer();
@@ -188,6 +111,70 @@ public class GameListener implements Listener {
         }
     }
 
+    @EventHandler
+    public void onRespawnAnchor(PlayerInteractEvent e) {
+        Player p = e.getPlayer();
+        ExtendedPlayer extendedPlayer = ExtendedPlayer.from(p);
+        if (extendedPlayer.inGame()) {
+            if (e.getClickedBlock() != null) {
+                if (e.getClickedBlock().getType() == Material.RESPAWN_ANCHOR) {
+                    if (e.getClickedBlock().getLocation().getY() > 105)
+                        e.setCancelled(true);
+                }
+            }
+        }
+    }
+
+    @EventHandler
+    public void onRocketLaunch(PlayerInteractEvent e) {
+        Player p = e.getPlayer();
+
+        if (ExtendedPlayer.from(p).inGame()) {
+            if (e.getMaterial() == Material.FIREWORK_ROCKET && e.getAction() == Action.RIGHT_CLICK_BLOCK) {
+                e.setCancelled(true);
+            }
+        }
+    }
+
+    @EventHandler
+    public void onLoadCrossbow(EntityLoadCrossbowEvent e) {
+        if (e.getEntity() instanceof Player p) {
+            ExtendedPlayer extendedPlayer = ExtendedPlayer.from(p);
+            if (extendedPlayer.inGame()) {
+                if (e.getCrossbow().containsEnchantment(Enchantment.ARROW_INFINITE))
+                    e.setConsumeItem(false);
+
+                ItemStack crossbow = e.getCrossbow();
+                if (CustomItemHandler.ROCKET_LAUNCHER.getId().equals(CustomItemHandler.getCustomItemId(crossbow))
+                        || extendedPlayer.getGameState() == ExtendedPlayer.GameState.ELYTRA_IN_GAME) {
+
+                    Bukkit.getScheduler().runTaskLater(KitPvp.INSTANCE, () -> crossbow.editMeta(CrossbowMeta.class, crossbowMeta -> {
+
+                        List<ItemStack> projectiles = new ArrayList<>();
+
+                        for (ItemStack projectile : crossbowMeta.getChargedProjectiles()) {
+                            if (projectile.getType() == Material.FIREWORK_ROCKET) {
+                                projectile.editMeta(FireworkMeta.class, fireworkMeta -> {
+                                    Random random = new Random();
+                                    Color randomColor = Color.fromRGB(random.nextInt(256), random.nextInt(256), random.nextInt(256));
+                                    FireworkEffect.Type randomType = FireworkEffect.Type.values()[random.nextInt(FireworkEffect.Type.values().length)];
+
+                                    fireworkMeta.addEffect(FireworkEffect.builder().withColor(randomColor).with(randomType).build());
+                                });
+                                projectiles.add(projectile);
+                            }
+                        }
+                        crossbowMeta.setChargedProjectiles(projectiles);
+                        crossbow.setItemMeta(crossbowMeta);
+                    }), 1);
+
+
+                }
+            }
+        }
+    }
+
+    // KitPvP
     private class BlockRemover extends BukkitRunnable {
         @Override
         public void run() {
@@ -205,8 +192,7 @@ public class GameListener implements Listener {
                     if (block.getBlockData() instanceof Waterlogged waterlogged) {
                         waterlogged.setWaterlogged(false);
                         block.setBlockData(waterlogged);
-                    }
-                    else
+                    } else
                         block.setType(Material.AIR);
                     iterator.remove();
                 }
@@ -214,17 +200,150 @@ public class GameListener implements Listener {
         }
     }
 
+    public void startBlockRemover() {
+        if (blockRemoverTask == null || !Bukkit.getScheduler().isCurrentlyRunning(blockRemoverTask.getTaskId())) {
+            blockRemoverTask = new BlockRemover().runTaskTimer(KitPvp.INSTANCE, 0, 20);
+        }
+    }
+
     @EventHandler
-    public void onRespawnAnchor(PlayerInteractEvent e) {
+    public void onBlockPlace(BlockPlaceEvent e) {
         Player p = e.getPlayer();
-        ExtendedPlayer extendedPlayer = ExtendedPlayer.from(p);
-        if (extendedPlayer.inGame()) {
-            if (e.getClickedBlock() != null) {
-                if (e.getClickedBlock().getType() == Material.RESPAWN_ANCHOR) {
-                    if (e.getClickedBlock().getLocation().getY() > 105)
-                        e.setCancelled(true);
-                }
+        if (ExtendedPlayer.from(p).getGameState() == ExtendedPlayer.GameState.IN_GAME) {
+            Block block = e.getBlock();
+
+            if (e.getBlock().getType() == Material.FIRE) return;
+
+            if (e.getBlock().getLocation().getY() > 105) {
+                e.setCancelled(true);
+                return;
             }
+
+            block.setMetadata("placed_by_player", new FixedMetadataValue(KitPvp.INSTANCE, true));
+
+            blocksToRemove.put(block.getLocation(), System.currentTimeMillis());
+
+            startBlockRemover();
+        }
+    }
+
+    @EventHandler
+    public void onBlockBreak(BlockBreakEvent e) {
+        Player p = e.getPlayer();
+        if (ExtendedPlayer.from(p).getGameState() == ExtendedPlayer.GameState.IN_GAME) {
+            if (!e.getBlock().hasMetadata("placed_by_player")) {
+                if (e.getBlock().getType() == Material.FIRE) return;
+
+                blocksToRemove.remove(e.getBlock().getLocation());
+                e.setCancelled(true);
+            }
+            if (e.getBlock().getType() == Material.COBWEB) e.setDropItems(false);
+        }
+    }
+
+    @EventHandler
+    public void onGravityBlockChangeState(EntityChangeBlockEvent e) {
+        if (e.getEntity() instanceof FallingBlock fallingBlock) {
+            Block block = e.getBlock();
+
+            if (fallingBlock.hasMetadata("placed_by_player")) {
+                block.setMetadata("placed_by_player", new FixedMetadataValue(KitPvp.INSTANCE, true));
+                blocksToRemove.put(block.getLocation(), System.currentTimeMillis());
+            } else if (block.hasMetadata("placed_by_player")) {
+                fallingBlock.setMetadata("placed_by_player", new FixedMetadataValue(KitPvp.INSTANCE, true));
+                blocksToRemove.remove(block.getLocation());
+            }
+        }
+    }
+
+    @EventHandler
+    public void onBucketEmpty(PlayerBucketEmptyEvent e) {
+        Player p = e.getPlayer();
+        if (ExtendedPlayer.from(p).getGameState() == ExtendedPlayer.GameState.IN_GAME) {
+            Block block = e.getBlock();
+
+            if (e.getBlock().getLocation().getY() > 105) {
+                e.setCancelled(true);
+                return;
+            }
+
+            block.setMetadata("placed_by_player", new FixedMetadataValue(KitPvp.INSTANCE, true));
+
+            blocksToRemove.put(block.getLocation(), System.currentTimeMillis());
+
+            startBlockRemover();
+        }
+    }
+
+    @EventHandler
+    public void onBucketFill(PlayerBucketFillEvent e) {
+        Player p = e.getPlayer();
+        if (ExtendedPlayer.from(p).getGameState() == ExtendedPlayer.GameState.IN_GAME) {
+            if (!e.getBlock().hasMetadata("placed_by_player")) {
+                blocksToRemove.remove(e.getBlock().getLocation());
+                e.setCancelled(true);
+            }
+        }
+    }
+
+    // Elytra
+    @EventHandler
+    public void onBlockPlaceElytra(BlockPlaceEvent e) {
+        Player p = e.getPlayer();
+        if (ExtendedPlayer.from(p).getGameState() == ExtendedPlayer.GameState.ELYTRA_IN_GAME) {
+            e.setCancelled(true);
+        }
+    }
+
+    @EventHandler
+    public void onBlockBreakElytra(BlockBreakEvent e) {
+        Player p = e.getPlayer();
+        if (ExtendedPlayer.from(p).getGameState() == ExtendedPlayer.GameState.ELYTRA_IN_GAME) {
+            e.setCancelled(true);
+        }
+    }
+
+    @EventHandler
+    public void onBucketEmptyElytra(PlayerBucketEmptyEvent e) {
+        Player p = e.getPlayer();
+        if (ExtendedPlayer.from(p).getGameState() == ExtendedPlayer.GameState.ELYTRA_IN_GAME) {
+            e.setCancelled(true);
+        }
+    }
+
+    @EventHandler
+    public void onBucketFillElytra(PlayerBucketFillEvent e) {
+        Player p = e.getPlayer();
+        if (ExtendedPlayer.from(p).getGameState() == ExtendedPlayer.GameState.ELYTRA_IN_GAME) {
+            e.setCancelled(true);
+        }
+    }
+
+    @EventHandler
+    public void onPlayerMoveElytra(PlayerMoveEvent e) {
+        Player p = e.getPlayer();
+        if (ExtendedPlayer.from(p).getGameState() == ExtendedPlayer.GameState.ELYTRA_IN_GAME) {
+
+            Material blockBelow = e.getTo().clone().subtract(0, 1, 0).getBlock().getType();
+            List<Material> filterForBlockBelow = List.of(Material.GRASS_BLOCK, Material.SAND, Material.SPRUCE_LEAVES, Material.OAK_LEAVES);
+
+
+            if (e.getTo().getBlock().getType() == Material.WATER)
+                p.damage(Integer.MAX_VALUE, DamageSource.builder(DamageType.DROWN).build());
+
+            else if (filterForBlockBelow.contains(blockBelow))
+                p.damage(Integer.MAX_VALUE, DamageSource.builder(DamageTypes.LAND).build());
+
+            else if (e.getTo().getY() > 199)
+                p.damage(Integer.MAX_VALUE, DamageSource.builder(DamageTypes.ESCAPE).build());
+        }
+    }
+
+    @EventHandler
+    public void onRocketLaunch(PlayerElytraBoostEvent e) {
+        Player p = e.getPlayer();
+        if (ExtendedPlayer.from(p).getGameState() == ExtendedPlayer.GameState.ELYTRA_IN_GAME) {
+            e.setShouldConsume(false);
         }
     }
 }

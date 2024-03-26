@@ -1,7 +1,7 @@
 package io.github.chaosdave34.kitpvp.kits;
 
 import io.github.chaosdave34.ghutils.Utils;
-import io.github.chaosdave34.kitpvp.kits.impl.*;
+import io.github.chaosdave34.kitpvp.kits.impl.kitpvp.*;
 import lombok.Getter;
 
 import java.util.HashMap;
@@ -29,23 +29,23 @@ public class KitHandler {
     public static Kit DEVIL;
 
     public KitHandler() {
-        CLASSIC = createKit(new ClassicKit());
-        ZEUS = createKit(new ZeusKit());
-        TANK = createKit(new TankKit());
-        PROVOKER = createKit(new ProvokerKit());
-        ARCHER = createKit(new ArcherKit());
-        ARTILLERYMAN = createKit(new ArtilleryManKit());
-        ASSASSIN = createKit(new AssassinKit());
-        ENGINEER = createKit(new EngineerKit());
-        MAGICIAN = createKit(new MagicianKit());
-        VAMPIRE = createKit(new VampireKit());
-        CREEPER = createKit(new CreeperKit());
-        ENDERMAN = createKit(new EndermanKit());
-        POSEIDON = createKit(new PoseidonKit());
-        DEVIL = createKit(new DevilKit());
+        CLASSIC = registerKit(new ClassicKit());
+        ZEUS = registerKit(new ZeusKit());
+        TANK = registerKit(new TankKit());
+        PROVOKER = registerKit(new ProvokerKit());
+        ARCHER = registerKit(new ArcherKit());
+        ARTILLERYMAN = registerKit(new ArtilleryManKit());
+        ASSASSIN = registerKit(new AssassinKit());
+        ENGINEER = registerKit(new EngineerKit());
+        MAGICIAN = registerKit(new MagicianKit());
+        VAMPIRE = registerKit(new VampireKit());
+        CREEPER = registerKit(new CreeperKit());
+        ENDERMAN = registerKit(new EndermanKit());
+        POSEIDON = registerKit(new PoseidonKit());
+        DEVIL = registerKit(new DevilKit());
     }
 
-    private Kit createKit(Kit kit) {
+    private Kit registerKit(Kit kit) {
         kits.put(kit.getId(), kit);
         Utils.registerEvents(kit);
         return kit;

@@ -22,6 +22,12 @@ public class FakePlayers implements Listener {
     public static FakePlayer DEVIL_KIT;
 
     public static FakePlayer COSMETICS;
+    public static FakePlayer ELYTRA;
+
+    public static FakePlayer RETURN;
+    public static FakePlayer ELYTRA_COSMETICS;
+    public static FakePlayer ECLIPSE_PHOTON;
+    public static FakePlayer ELYTRA_KIT_SELECTOR;
 
     public static void create() {
         CLASSIC_KIT = new KitSelectorFakePlayer(KitHandler.CLASSIC, "world", new Location(null, -7.5, 120.0, 9.5, -90, 0));
@@ -40,6 +46,12 @@ public class FakePlayers implements Listener {
         POSEIDON_KIT = new KitSelectorFakePlayer(KitHandler.POSEIDON, "world", new Location(null, 10.5, 120.0, -5.5, 45, 0));
         DEVIL_KIT = new KitSelectorFakePlayer(KitHandler.DEVIL, "world", new Location(null, 8.5, 120.0, -7.5, 15, 0));
 
-        COSMETICS = new CosmeticsFakePlayer();
+        COSMETICS = new CosmeticsFakePlayer("world", new Location(null, 4.5, 120, 12.5, 180, 0));
+        ELYTRA = new ElytraFakePlayer();
+
+        ELYTRA_COSMETICS = new CosmeticsFakePlayer("world_elytra", new Location(null, 16.5, 200, 4.5, 135, 0));
+        RETURN = new ReturnFakePlayer();
+        ECLIPSE_PHOTON = new EclipsePhotonFakePlayer();
+        ELYTRA_KIT_SELECTOR = new ElytraKitSelectorFakePlayer();
     }
 }

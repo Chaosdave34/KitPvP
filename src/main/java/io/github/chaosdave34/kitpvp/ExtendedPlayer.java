@@ -1,17 +1,17 @@
 package io.github.chaosdave34.kitpvp;
 
-import io.github.chaosdave34.ghutils.utils.MathUtils;
-import lombok.Getter;
-import lombok.Setter;
 import io.github.chaosdave34.ghutils.GHUtils;
-;
+import io.github.chaosdave34.ghutils.utils.MathUtils;
 import io.github.chaosdave34.kitpvp.challenges.Challenge;
 import io.github.chaosdave34.kitpvp.companions.Companion;
 import io.github.chaosdave34.kitpvp.customevents.CustomEventHandler;
 import io.github.chaosdave34.kitpvp.events.PlayerSpawnEvent;
+import io.github.chaosdave34.kitpvp.kits.ElytraKitHandler;
 import io.github.chaosdave34.kitpvp.kits.Kit;
 import io.github.chaosdave34.kitpvp.kits.KitHandler;
 import io.github.chaosdave34.kitpvp.textdisplays.TextDisplays;
+import lombok.Getter;
+import lombok.Setter;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;
@@ -33,11 +33,15 @@ import org.bukkit.scoreboard.Scoreboard;
 
 import java.util.*;
 
+;
+
 @Getter
 @Setter
 public class ExtendedPlayer {
     private final UUID uuid;
     private String selectedKitId;
+    private String selectedElytraKitId;
+    private GameType lastGame;
 
     private transient GameState gameState;
     private transient Scoreboard scoreboard;
@@ -61,6 +65,7 @@ public class ExtendedPlayer {
     public ExtendedPlayer(Player p) {
         uuid = p.getUniqueId();
         gameState = GameState.SPAWN;
+        lastGame = GameType.NORMAL;
     }
 
     public static ExtendedPlayer from(UUID uuid) {
@@ -81,11 +86,11 @@ public class ExtendedPlayer {
     }
 
     public boolean inSpawn() {
-        return gameState == GameState.SPAWN;
+        return gameState == GameState.SPAWN || gameState == GameState.ELYTRA_SPAWN;
     }
 
     public boolean inGame() {
-        return gameState == GameState.IN_GAME;
+        return gameState == GameState.IN_GAME || gameState == GameState.ELYTRA_IN_GAME;
     }
 
     public void setSelectedKitId(String id) {
@@ -93,18 +98,40 @@ public class ExtendedPlayer {
         updateScoreboardLines();
     }
 
+    public void setSelectedElytraKitId(String id) {
+        selectedElytraKitId = id;
+        updateScoreboardLines();
+    }
+
     public Kit getSelectedKit() {
         return selectedKitId == null ? null : KitPvp.INSTANCE.getKitHandler().getKits().get(selectedKitId);
     }
 
-    public void spawnPlayer() {
+    public Kit getSelectedElytraKit() {
+        return selectedElytraKitId == null ? null : KitPvp.INSTANCE.getElytraKitHandler().getKits().get(selectedElytraKitId);
+    }
+
+    public void spawn(){
+        spawn(getLastGame());
+    }
+
+    public void spawn(GameType gameType) {
         Player p = getPlayer();
         if (p == null) return;
 
+        lastGame = gameType;
+        if (lastGame == null) lastGame = GameType.NORMAL;
+
+        if (lastGame == GameType.NORMAL) {
+            p.teleport(new Location(Bukkit.getWorld("world"), 2.0, 120.0, 10.0, 180, 0));
+            gameState = GameState.SPAWN;
+        } else if (lastGame == GameType.ELYTRA) {
+            p.teleport(new Location(Bukkit.getWorld("world_elytra"), 16.0, 200, 0.0, 90, 0));
+            gameState = GameState.ELYTRA_SPAWN;
+        }
+
         unmorph();
         removeCompanion();
-
-        p.teleport(new Location(Bukkit.getWorld("world"), 2.0, 120.0, 10.0, 180, 0));
 
         p.setFoodLevel(20);
         p.setSaturation(5);
@@ -118,8 +145,6 @@ public class ExtendedPlayer {
         killSteak = 0;
         combatCooldown = 0;
 
-        gameState = GameState.SPAWN;
-
         if (scoreboard == null) {
             scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
             Objective objective = scoreboard.registerNewObjective("default", Criteria.DUMMY, Component.text("KitPvP", NamedTextColor.YELLOW, TextDecoration.BOLD));
@@ -127,13 +152,16 @@ public class ExtendedPlayer {
             p.setScoreboard(scoreboard);
         }
 
-        updateScoreboardLines();
-
         if (getSelectedKit() == null) setSelectedKitId(KitHandler.CLASSIC.getId());
+        if (getSelectedElytraKit() == null) setSelectedElytraKitId(ElytraKitHandler.KNIGHT.getId());
 
-        getSelectedKit().apply(p);
+        if (lastGame == GameType.NORMAL)
+            getSelectedKit().apply(p);
+        else if (lastGame == GameType.ELYTRA)
+            getSelectedElytraKit().apply(p);
 
         new PlayerSpawnEvent(p).callEvent();
+        updateScoreboardLines();
     }
 
     public void updateDisplayName() {
@@ -158,7 +186,13 @@ public class ExtendedPlayer {
         objective.getScore("Level: " + getLevel()).setScore(6);
         objective.getScore("Missing XP: §b" + getMissingExperience()).setScore(5);
         objective.getScore("  ").setScore(4);
-        String kitName = getSelectedKit() == null ? "None" : getSelectedKit().getName();
+        String kitName = "None";
+        if (lastGame == GameType.NORMAL)
+            kitName = getSelectedKit() == null ? "None" : getSelectedKit().getName();
+
+        else if (lastGame == GameType.ELYTRA)
+            kitName = getSelectedElytraKitId() == null ? "None" : getSelectedElytraKit().getName();
+
         objective.getScore("Kit: " + kitName).setScore(3);
         objective.getScore("Kill Streak: " + killSteak).setScore(2);
         objective.getScore("   ").setScore(1);
@@ -363,11 +397,20 @@ public class ExtendedPlayer {
 
         if (gameState == GameState.IN_GAME)
             getPlayer().getInventory().addItem(getSelectedKit().getKillRewards());
+        else if (gameState == GameState.ELYTRA_IN_GAME)
+            getPlayer().getInventory().addItem(getSelectedElytraKit().getKillRewards());
+    }
+
+    public enum GameType {
+        NORMAL,
+        ELYTRA;
     }
 
     public enum GameState {
         SPAWN("§aIdle"),
+        ELYTRA_SPAWN("§aIdle"),
         IN_GAME("§eActive"),
+        ELYTRA_IN_GAME("§eActive"),
         DEBUG("§0Debug");
 
         private final String displayName;
