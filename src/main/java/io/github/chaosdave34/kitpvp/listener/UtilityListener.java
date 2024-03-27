@@ -13,6 +13,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.GameRule;
 import org.bukkit.World;
 import org.bukkit.WorldCreator;
+import org.bukkit.block.data.BlockData;
+import org.bukkit.block.data.type.DecoratedPot;
 import org.bukkit.block.data.type.Door;
 import org.bukkit.block.data.type.TrapDoor;
 import org.bukkit.entity.Player;
@@ -154,7 +156,7 @@ public class UtilityListener implements Listener {
     }
 
     @EventHandler
-    public void onDoors(PlayerInteractEvent e) {
+    public void onDoorsAndFlowerPots(PlayerInteractEvent e) {
         Player p = e.getPlayer();
         ExtendedPlayer extendedPlayer = ExtendedPlayer.from(p);
         if (extendedPlayer.getGameState() == ExtendedPlayer.GameState.DEBUG) return;
@@ -162,7 +164,8 @@ public class UtilityListener implements Listener {
         if (e.getAction() == Action.RIGHT_CLICK_BLOCK) {
             if (e.getClickedBlock() == null) return;
 
-            if (e.getClickedBlock().getBlockData() instanceof Door || e.getClickedBlock().getBlockData() instanceof TrapDoor) {
+            BlockData blockData = e.getClickedBlock().getBlockData();
+            if (blockData instanceof Door ||blockData instanceof TrapDoor || blockData instanceof DecoratedPot) {
                 e.setCancelled(true);
             }
         }
