@@ -54,7 +54,6 @@ public class VampireKit extends Kit {
     @Override
     public ItemStack[] getKillRewards() {
         return new ItemStack[]{
-                new ItemStack(Material.GOLDEN_APPLE),
                 new ItemStack(Material.RED_NETHER_BRICKS, 32),
         };
     }
