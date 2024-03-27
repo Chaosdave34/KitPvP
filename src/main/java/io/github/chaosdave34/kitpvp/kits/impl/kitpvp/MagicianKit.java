@@ -78,7 +78,7 @@ public class MagicianKit extends Kit {
 
             if (slot.getType() == Material.BOOK) {
                 p.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, -1, 3, false, false, false));
-                p.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, -1, 1, false, false, false));
+                p.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, -1, 0, false, false, false));
                 p.getInventory().setHelmet(new ItemStack(Material.AIR));
                 p.getInventory().setChestplate(new ItemStack(Material.AIR));
                 p.getInventory().setLeggings(new ItemStack(Material.AIR));
