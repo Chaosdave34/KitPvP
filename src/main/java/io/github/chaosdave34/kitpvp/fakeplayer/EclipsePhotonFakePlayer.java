@@ -4,7 +4,6 @@ import io.github.chaosdave34.ghutils.fakeplayer.FakePlayer;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.EquipmentSlot;
 import org.jetbrains.annotations.NotNull;
 
 public class EclipsePhotonFakePlayer extends FakePlayer {

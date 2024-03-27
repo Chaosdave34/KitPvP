@@ -4,7 +4,6 @@ import io.github.chaosdave34.ghutils.fakeplayer.FakePlayer;
 import io.github.chaosdave34.kitpvp.guis.Guis;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.EquipmentSlot;
 import org.jetbrains.annotations.NotNull;
 
 public class ElytraKitSelectorFakePlayer extends FakePlayer {

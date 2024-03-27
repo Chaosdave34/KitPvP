@@ -4,12 +4,11 @@ import io.github.chaosdave34.ghutils.fakeplayer.FakePlayer;
 import io.github.chaosdave34.kitpvp.ExtendedPlayer;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.EquipmentSlot;
 import org.jetbrains.annotations.NotNull;
 
 public class KitFakePlayer extends FakePlayer {
     public KitFakePlayer() {
-        super("KitPvP", "world_elytra", new Location(null ,16.5, 200, -2.5), 10, 0, true);
+        super("KitPvP", "world_elytra", new Location(null, 16.5, 200, -2.5), 10, 0, true);
     }
 
     @Override

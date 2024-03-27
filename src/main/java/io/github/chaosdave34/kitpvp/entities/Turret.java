@@ -4,6 +4,7 @@ import com.destroystokyo.paper.event.entity.EntityAddToWorldEvent;
 import io.github.chaosdave34.ghutils.entity.CustomEntity;
 import io.github.chaosdave34.ghutils.utils.PDCUtils;
 import io.github.chaosdave34.kitpvp.KitPvp;
+import io.github.chaosdave34.kitpvp.events.PlayerSpawnEvent;
 import io.github.chaosdave34.kitpvp.pathfindergoals.TurretRangedAttackGoal;
 import net.kyori.adventure.text.Component;
 import net.minecraft.world.entity.LivingEntity;
@@ -25,15 +26,19 @@ import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 public class Turret extends CustomEntity {
+    private final Map<UUID, UUID> turrets = new HashMap<>();
+
     public Turret() {
         super("turret");
     }
 
     public void spawn(Player p, Location location) {
-        p.getWorld().spawn(location, Husk.class, husk -> {
+        Husk turret =  p.getWorld().spawn(location, Husk.class, husk -> {
             husk.customName(Component.text("Turret 20/20"));
             husk.setCustomNameVisible(true);
 
@@ -53,7 +58,7 @@ public class Turret extends CustomEntity {
             PersistentDataContainer container = husk.getPersistentDataContainer();
             container.set(new NamespacedKey(KitPvp.INSTANCE, "custom_entity"), PersistentDataType.STRING, "turret");
         });
-
+        turrets.put(p.getUniqueId(), turret.getUniqueId());
     }
 
     @Override
@@ -86,8 +91,6 @@ public class Turret extends CustomEntity {
     public void onTurretDamage(EntityDamageEvent e) {
         if (e.getEntity() instanceof Monster entity) {
             if (checkCustomEntity(entity)) {
-
-
                 if (e.getDamage() == Float.MAX_VALUE) return;
 
                 if (e instanceof EntityDamageByEntityEvent damageEvent) {
@@ -134,5 +137,14 @@ public class Turret extends CustomEntity {
             firework.setVelocity(velocity);
         });
         mob.getWorld().playSound(mob.getLocation(), Sound.ENTITY_GENERIC_WIND_BURST, 1.0F, 0.4F);
+    }
+
+    @EventHandler
+    public void onOwnerDeath(PlayerSpawnEvent e) {
+        Player p = e.getPlayer();
+        if (turrets.containsKey(p.getUniqueId())) {
+            Entity entity =  Bukkit.getEntity(turrets.get(p.getUniqueId()));
+            if (entity != null) entity.remove();
+        }
     }
 }
