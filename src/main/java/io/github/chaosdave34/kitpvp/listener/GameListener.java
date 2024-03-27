@@ -234,6 +234,14 @@ public class GameListener implements Listener {
                 return;
             }
 
+            // Todo: replace with old block instead of cancelling
+            if (e.getBlockReplacedState().getType() != Material.AIR) {
+                if (!e.getBlockReplacedState().hasMetadata("placed_by_player")) {
+                    e.setCancelled(true);
+                    return;
+                }
+            }
+
             block.setMetadata("placed_by_player", new FixedMetadataValue(KitPvp.INSTANCE, true));
 
             blocksToRemove.put(block.getLocation(), System.currentTimeMillis());
