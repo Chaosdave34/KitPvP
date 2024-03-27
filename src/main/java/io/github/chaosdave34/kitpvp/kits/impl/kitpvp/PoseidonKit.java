@@ -49,7 +49,7 @@ public class PoseidonKit extends Kit {
     @Override
     public ItemStack[] getInventoryContent() {
         ItemStack riptideTrident = new ItemStack(Material.TRIDENT);
-        riptideTrident.addUnsafeEnchantment(Enchantment.RIPTIDE, 5);
+        riptideTrident.addEnchantment(Enchantment.RIPTIDE, 3);
 
         return new ItemStack[]{
                 CustomItemHandler.POSEIDONS_TRIDENT.build(),
