@@ -9,6 +9,7 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.World;
+import org.bukkit.block.Barrel;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -214,9 +215,9 @@ public class SpawnListener implements Listener {
 
 
     @EventHandler
-    public void onOpenInventory(InventoryOpenEvent e) {
+    public void onOpenBarrel(InventoryOpenEvent e) {
         Player p = (Player) e.getPlayer();
-        if (ExtendedPlayer.from(p).inSpawn()) e.setCancelled(true);
+        if (ExtendedPlayer.from(p).inSpawn() && e.getInventory().getHolder() instanceof Barrel) e.setCancelled(true);
     }
 
     // Game Spawn
