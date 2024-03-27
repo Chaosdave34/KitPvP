@@ -35,7 +35,7 @@ public class NukeAbility extends Ability {
 
         p.getWorld().spawnParticle(Particle.DRAGON_BREATH, location, 1500, 0, 70, 0, 0);
 
-        location.setY(200);
+        location.setY(110);
         p.getWorld().spawnEntity(location, EntityType.FIREBALL, CreatureSpawnEvent.SpawnReason.CUSTOM, (entity -> {
             Fireball fireball = (Fireball) entity;
             fireball.setMetadata("ability", new FixedMetadataValue(KitPvp.INSTANCE, id));
