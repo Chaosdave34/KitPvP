@@ -16,6 +16,7 @@ public class KnockerKit extends ElytraKit {
         bow.addEnchantment(Enchantment.ARROW_INFINITE,1 );
         bow.addEnchantment(Enchantment.ARROW_DAMAGE,  3);
         bow.addUnsafeEnchantment(Enchantment.ARROW_KNOCKBACK, 10);
+        bow.addUnsafeEnchantment(Enchantment.KNOCKBACK, 10);
 
         return new ItemStack[]{
                 bow,
