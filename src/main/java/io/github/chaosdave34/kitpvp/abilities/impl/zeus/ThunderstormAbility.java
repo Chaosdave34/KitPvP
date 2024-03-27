@@ -40,12 +40,12 @@ public class ThunderstormAbility extends Ability {
     public boolean onAbility(Player p) {
         Location location = p.getLocation();
 
-        int[] offsets_values = new int[]{-5, -3, 0, 3, 5};
+        double[] offsets_values = new double[]{-3.5, -1.5, 1.5, 3.5};
 
         List<Vector> offsets = new ArrayList<>();
 
-        for (int x : offsets_values) {
-            for (int z : offsets_values) {
+        for (double x : offsets_values) {
+            for (double z : offsets_values) {
                 if (x == 0 && z == 0) continue;
                 offsets.add(new Vector(x, -1, z));
             }
