@@ -30,7 +30,7 @@ public abstract class ElytraKit extends Kit {
     @Override
     public ItemStack getOffhandContent() {
          ItemStack firework = new ItemStack(Material.FIREWORK_ROCKET, 3);
-         firework.editMeta(FireworkMeta.class, fireworkMeta -> fireworkMeta.setPower(2));
+         firework.editMeta(FireworkMeta.class, fireworkMeta -> fireworkMeta.setPower(1));
 
         return firework;
     }
