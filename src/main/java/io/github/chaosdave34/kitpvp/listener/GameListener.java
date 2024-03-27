@@ -195,6 +195,7 @@ public class GameListener implements Listener {
 
     // KitPvP
     private class BlockRemover extends BukkitRunnable {
+        private static final int timer = 45;
         @Override
         public void run() {
             if (blocksToRemove.isEmpty()) {
@@ -206,7 +207,7 @@ public class GameListener implements Listener {
 
             while (iterator.hasNext()) {
                 Map.Entry<Location, Long> entry = iterator.next();
-                if (currentTime - entry.getValue() >= 30 * 1000) {
+                if (currentTime - entry.getValue() >= timer * 1000) {
                     Block block = entry.getKey().getBlock();
                     if (block.getBlockData() instanceof Waterlogged waterlogged) {
                         waterlogged.setWaterlogged(false);
