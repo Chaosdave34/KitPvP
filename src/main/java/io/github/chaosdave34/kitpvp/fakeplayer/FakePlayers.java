@@ -50,7 +50,7 @@ public class FakePlayers implements Listener {
         ELYTRA = new ElytraFakePlayer();
 
         ELYTRA_COSMETICS = new CosmeticsFakePlayer("world_elytra", new Location(null, 16.5, 200, 4.5, 135, 0));
-        RETURN = new ReturnFakePlayer();
+        RETURN = new KitFakePlayer();
         ECLIPSE_PHOTON = new EclipsePhotonFakePlayer();
         ELYTRA_KIT_SELECTOR = new ElytraKitSelectorFakePlayer();
     }

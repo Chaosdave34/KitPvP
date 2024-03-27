@@ -5,6 +5,7 @@ import io.github.chaosdave34.kitpvp.guis.Guis;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.EquipmentSlot;
+import org.jetbrains.annotations.NotNull;
 
 public class ElytraKitSelectorFakePlayer extends FakePlayer {
     public ElytraKitSelectorFakePlayer() {
@@ -12,12 +13,12 @@ public class ElytraKitSelectorFakePlayer extends FakePlayer {
     }
 
     @Override
-    public void onAttack(Player p) {
+    public void onAttack(@NotNull Player p) {
         Guis.ELYTRA_KITS.show(p);
     }
 
     @Override
-    public void onInteract(Player p, EquipmentSlot hand) {
+    public void onInteract(@NotNull Player p, @NotNull EquipmentSlot hand) {
         Guis.ELYTRA_KITS.show(p);
     }
 }

@@ -5,6 +5,7 @@ import net.kyori.adventure.text.Component;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.EquipmentSlot;
+import org.jetbrains.annotations.NotNull;
 
 public class EclipsePhotonFakePlayer extends FakePlayer {
     public EclipsePhotonFakePlayer() {
@@ -15,12 +16,12 @@ public class EclipsePhotonFakePlayer extends FakePlayer {
     }
 
     @Override
-    public void onAttack(Player p) {
+    public void onAttack(@NotNull Player p) {
         p.sendMessage(Component.text("Ich werde euren Server zerstüren!"));
     }
 
     @Override
-    public void onInteract(Player p, EquipmentSlot hand) {
+    public void onInteract(@NotNull Player p, @NotNull EquipmentSlot hand) {
         p.sendMessage(Component.text("Ich werde euren Server zerstüren!"));
     }
 }

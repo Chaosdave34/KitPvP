@@ -12,6 +12,7 @@ import org.bukkit.Location;
 import org.bukkit.craftbukkit.v1_20_R3.util.CraftVector;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.EquipmentSlot;
+import org.jetbrains.annotations.NotNull;
 
 ;
 
@@ -44,12 +45,12 @@ public class KitSelectorFakePlayer extends FakePlayer {
     }
 
     @Override
-    public void onAttack(Player p) {
+    public void onAttack(@NotNull Player p) {
         selectKit(p);
     }
 
     @Override
-    public void onInteract(Player p, EquipmentSlot hand) {
+    public void onInteract(@NotNull Player p, @NotNull EquipmentSlot hand) {
         selectKit(p);
     }
 
