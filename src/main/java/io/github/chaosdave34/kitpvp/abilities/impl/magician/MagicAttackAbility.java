@@ -6,6 +6,8 @@ import net.kyori.adventure.text.Component;
 import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.Particle;
+import org.bukkit.damage.DamageSource;
+import org.bukkit.damage.DamageType;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -33,7 +35,7 @@ public class MagicAttackAbility extends Ability {
 
         Entity target = p.getTargetEntity(8);
         if (target instanceof LivingEntity livingEntity) {
-            livingEntity.damage(4, p);
+            livingEntity.damage(4, DamageSource.builder(DamageType.MAGIC).withCausingEntity(p).build());
         }
         return true;
     }
