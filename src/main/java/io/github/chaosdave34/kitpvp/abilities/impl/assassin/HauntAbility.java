@@ -1,9 +1,11 @@
 package io.github.chaosdave34.kitpvp.abilities.impl.assassin;
 
+import io.github.chaosdave34.kitpvp.ExtendedPlayer;
 import io.github.chaosdave34.kitpvp.KitPvp;
 import io.github.chaosdave34.kitpvp.abilities.Ability;
 import io.github.chaosdave34.kitpvp.abilities.AbilityType;
 import io.github.chaosdave34.kitpvp.events.PlayerSpawnEvent;
+import io.github.chaosdave34.kitpvp.kits.Kit;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -63,6 +65,12 @@ public class HauntAbility extends Ability {
             p.removePotionEffect(PotionEffectType.SPEED);
             p.removePotionEffect(PotionEffectType.INVISIBILITY);
             p.removeScoreboardTag("haunt_ability");
+
+            Kit kit = ExtendedPlayer.from(p).getSelectedKit();
+            p.getInventory().setHelmet(kit.getHeadContent());
+            p.getInventory().setChestplate(kit.getChestContent());
+            p.getInventory().setLeggings(kit.getLegsContent());
+            p.getInventory().setBoots(kit.getFeetContent());
         }
     }
 }
