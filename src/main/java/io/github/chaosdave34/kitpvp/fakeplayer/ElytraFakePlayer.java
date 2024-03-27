@@ -7,6 +7,7 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 public class ElytraFakePlayer extends FakePlayer {
     public ElytraFakePlayer() {
@@ -16,12 +17,18 @@ public class ElytraFakePlayer extends FakePlayer {
     }
 
     @Override
-    public void onAttack(Player p) {
-        ExtendedPlayer.from(p).spawn(ExtendedPlayer.GameType.ELYTRA);
+    public void onAttack(@NotNull Player p) {
+        onClick(p);
     }
 
     @Override
-    public void onInteract(Player p, EquipmentSlot hand) {
-        ExtendedPlayer.from(p).spawn(ExtendedPlayer.GameType.ELYTRA);
+    public void onInteract(@NotNull Player p, @NotNull EquipmentSlot hand) {
+        onClick(p);
+    }
+
+    private void onClick(Player p) {
+        if (ExtendedPlayer.from(p).inSpawn()) {
+            ExtendedPlayer.from(p).spawn(ExtendedPlayer.GameType.ELYTRA);
+        }
     }
 }
