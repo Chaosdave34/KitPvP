@@ -4,6 +4,7 @@ import io.github.chaosdave34.kitpvp.KitPvp;
 import io.github.chaosdave34.kitpvp.abilities.Ability;
 import io.github.chaosdave34.kitpvp.abilities.AbilityType;
 import net.kyori.adventure.text.Component;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.World;
@@ -36,13 +37,16 @@ public class NukeAbility extends Ability {
         p.getWorld().spawnParticle(Particle.DRAGON_BREATH, location, 1500, 0, 70, 0, 0);
 
         location.setY(110);
-        p.getWorld().spawnEntity(location, EntityType.FIREBALL, CreatureSpawnEvent.SpawnReason.CUSTOM, (entity -> {
-            Fireball fireball = (Fireball) entity;
-            fireball.setMetadata("ability", new FixedMetadataValue(KitPvp.INSTANCE, id));
-            fireball.setYield(10);
-            fireball.setDirection(new Vector(0, -1, 0));
-            fireball.setShooter(p);
-        }));
+
+        Bukkit.getScheduler().runTaskLater(KitPvp.INSTANCE, () -> {
+            p.getWorld().spawnEntity(location, EntityType.FIREBALL, CreatureSpawnEvent.SpawnReason.CUSTOM, (entity -> {
+                Fireball fireball = (Fireball) entity;
+                fireball.setMetadata("ability", new FixedMetadataValue(KitPvp.INSTANCE, id));
+                fireball.setYield(10);
+                fireball.setDirection(new Vector(0, -1, 0));
+                fireball.setShooter(p);
+            }));
+        }, 20);
 
         return true;
     }
