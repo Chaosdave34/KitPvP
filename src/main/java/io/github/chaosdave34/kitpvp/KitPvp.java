@@ -111,7 +111,7 @@ public final class KitPvp extends JavaPlugin {
         registerCommand("msg", new MessageCommand(), new PlayerTabCompleter());
         registerCommand("loop", new LoopCommand(), new LoopTabCompleter());
         registerCommand("customitem", new CustomItemCommand(), new CustomItemTabCompleter());
-        registerCommand("debug", new DebugCommand());
+        registerCommand("gommemode", new GommeModeCommand());
         registerCommand("addexperience", new AddExperienceCommand(), new PlayerTabCompleter());
 
         // Create data folder

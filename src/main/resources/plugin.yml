@@ -22,7 +22,7 @@ commands:
     description: Give yourself a custom item
     usage: /<command> <item_id> <amount>
     permission: kitpvp.customitem
-  debug:
+  gommemode:
     description: Sets you into debug mode
     usage: /<command>
     permission: kitpvp.debug
