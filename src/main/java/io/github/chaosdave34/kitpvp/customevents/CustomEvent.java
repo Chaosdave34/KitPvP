@@ -33,7 +33,7 @@ public abstract class CustomEvent implements Listener {
         Bukkit.broadcast(Component.text("A new event has started: " + name + " for " + time));
 
         bossBar = BossBar.bossBar(Component.text(name + " " + time), 1, BossBar.Color.GREEN, BossBar.Overlay.PROGRESS);
-        world.showBossBar(bossBar);
+        Bukkit.getServer().showBossBar(bossBar);
 
         start();
 
@@ -44,7 +44,7 @@ public abstract class CustomEvent implements Listener {
             public void run() {
                 if (duration_left == 0 || cancelled) {
                     this.cancel();
-                    world.hideBossBar(bossBar);
+                    Bukkit.getServer().hideBossBar(bossBar);
                     stop();
                     KitPvp.INSTANCE.getCustomEventHandler().stopActiveEvent();
                 }
