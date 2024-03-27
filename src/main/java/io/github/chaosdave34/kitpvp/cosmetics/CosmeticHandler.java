@@ -1,10 +1,12 @@
 package io.github.chaosdave34.kitpvp.cosmetics;
 
-import lombok.Getter;
 import io.github.chaosdave34.kitpvp.ExtendedPlayer;
 import io.github.chaosdave34.kitpvp.KitPvp;
+import io.github.chaosdave34.kitpvp.cosmetics.impl.NoteProjectileTrail;
 import io.github.chaosdave34.kitpvp.cosmetics.impl.ShriekKillEffect;
 import io.github.chaosdave34.kitpvp.cosmetics.impl.SimpleKillEffect;
+import io.github.chaosdave34.kitpvp.cosmetics.impl.SimpleProjectileTrail;
+import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Particle;
@@ -56,25 +58,27 @@ public class CosmeticHandler implements Listener {
     public static KillEffect EXPLOSION_KILL_EFFECT;
 
     public CosmeticHandler() {
-        HEARTS_PROJECTILE_TRAIL = registerProjectileTrail(new ProjectileTrail("hearts", "Hearts", Particle.HEART, 1, Material.RED_DYE));
-        COMPOSTER_PROJECTILE_TRAIL = registerProjectileTrail(new ProjectileTrail("composter", "Composter", Particle.COMPOSTER, 2, Material.COMPOSTER));
-        ANGRY_VILLAGER_PROJECTILE_TRAIL = registerProjectileTrail(new ProjectileTrail("angry_villager", "Angry Villager", Particle.VILLAGER_ANGRY, 3, Material.VILLAGER_SPAWN_EGG));
-        BUBBLE_PROJECTILE_TRAIL = registerProjectileTrail(new ProjectileTrail("bubble", "Bubble", Particle.BUBBLE_POP, 4, Material.WATER_BUCKET));
-        CHERRY_LEAVES_PROJECTILE_TRAIL = registerProjectileTrail(new ProjectileTrail("cherry_blossom", "Cherry Blossom", Particle.CHERRY_LEAVES, 5, Material.CHERRY_LEAVES));
-        ELECTRIC_SPARK_PROJECTILE_TRAIL = registerProjectileTrail(new ProjectileTrail("electric_spark", "Electric Spark", Particle.ELECTRIC_SPARK, 6, Material.LIGHTNING_ROD));
-        ENCHANT_PROJECTILE_TRAIL = registerProjectileTrail(new ProjectileTrail("enchant", "Enchant", Particle.ENCHANTMENT_TABLE, 7, Material.ENCHANTING_TABLE));
-        FLAME_PROJECTILE_TRAIL = registerProjectileTrail(new ProjectileTrail("flame", "Flame", Particle.SMALL_FLAME, 8, Material.TORCH));
-        GLOW_PROJECTILE_TRAIL = registerProjectileTrail(new ProjectileTrail("glow", "Glow", Particle.GLOW, 9, Material.GLOW_INK_SAC));
-        NAUTILUS_PROJECTILE_TRAIL = registerProjectileTrail(new ProjectileTrail("nautilus", "Nautilus", Particle.NAUTILUS, 10, Material.NAUTILUS_SHELL));
-        NOTE_PROJECTILE_TRAIL = registerProjectileTrail(new ProjectileTrail("note", "Note", Particle.NOTE, 11, Material.NOTE_BLOCK));
-        SOUL_FIRE_PROJECTILE_TRAIL = registerProjectileTrail(new ProjectileTrail("soul_fire", "Soul Fire", Particle.SOUL_FIRE_FLAME, 12, Material.SOUL_LANTERN));
-        TOTEM_OF_UNDYING_PROJECTILE_TRAIL = registerProjectileTrail(new ProjectileTrail("totem_of_undying", "Totem of Undying", Particle.TOTEM, 13, Material.TOTEM_OF_UNDYING));
-        SNOWFLAKE_PROJECTILE_TRAIL = registerProjectileTrail(new ProjectileTrail("snowflake", "Snowflake", Particle.SNOWFLAKE, 14, Material.SNOWBALL));
-        SOUL_PROJECTILE_TRAIL = registerProjectileTrail(new ProjectileTrail("soul", "Soul", Particle.SOUL, 15, Material.SOUL_SAND));
-        SCULK_SOUL_PROJECTILE_TRAIL = registerProjectileTrail(new ProjectileTrail("sculk_soul", "Sculk Soul", Particle.SCULK_SOUL, 16, Material.SCULK_CATALYST));
-        SCULK_CHARGE_PROJECTILE_TRAIL = registerProjectileTrail(new ProjectileTrail("sculk_charge", "Sculk Charge", Particle.SCULK_CHARGE_POP, 17, Material.SCULK));
-        END_ROD_PROJECTILE_TRAIL = registerProjectileTrail(new ProjectileTrail("end_rod", "End Rod", Particle.END_ROD, 18, Material.END_ROD));
+        // Projectile Trails
+        HEARTS_PROJECTILE_TRAIL = registerProjectileTrail(new SimpleProjectileTrail("hearts", "Hearts", Particle.HEART, 1, Material.RED_DYE));
+        COMPOSTER_PROJECTILE_TRAIL = registerProjectileTrail(new SimpleProjectileTrail("composter", "Composter", Particle.COMPOSTER, 2, Material.COMPOSTER));
+        ANGRY_VILLAGER_PROJECTILE_TRAIL = registerProjectileTrail(new SimpleProjectileTrail("angry_villager", "Angry Villager", Particle.VILLAGER_ANGRY, 3, Material.VILLAGER_SPAWN_EGG));
+        BUBBLE_PROJECTILE_TRAIL = registerProjectileTrail(new SimpleProjectileTrail("bubble", "Bubble", Particle.BUBBLE_POP, 4, Material.WATER_BUCKET));
+        CHERRY_LEAVES_PROJECTILE_TRAIL = registerProjectileTrail(new SimpleProjectileTrail("cherry_blossom", "Cherry Blossom", Particle.CHERRY_LEAVES, 5, Material.CHERRY_LEAVES));
+        ELECTRIC_SPARK_PROJECTILE_TRAIL = registerProjectileTrail(new SimpleProjectileTrail("electric_spark", "Electric Spark", Particle.ELECTRIC_SPARK, 6, Material.LIGHTNING_ROD));
+        ENCHANT_PROJECTILE_TRAIL = registerProjectileTrail(new SimpleProjectileTrail("enchant", "Enchant", Particle.ENCHANTMENT_TABLE, 7, Material.ENCHANTING_TABLE));
+        FLAME_PROJECTILE_TRAIL = registerProjectileTrail(new SimpleProjectileTrail("flame", "Flame", Particle.SMALL_FLAME, 8, Material.TORCH));
+        GLOW_PROJECTILE_TRAIL = registerProjectileTrail(new SimpleProjectileTrail("glow", "Glow", Particle.GLOW, 9, Material.GLOW_INK_SAC));
+        NAUTILUS_PROJECTILE_TRAIL = registerProjectileTrail(new SimpleProjectileTrail("nautilus", "Nautilus", Particle.NAUTILUS, 10, Material.NAUTILUS_SHELL));
+        NOTE_PROJECTILE_TRAIL = registerProjectileTrail(new NoteProjectileTrail());
+        SOUL_FIRE_PROJECTILE_TRAIL = registerProjectileTrail(new SimpleProjectileTrail("soul_fire", "Soul Fire", Particle.SOUL_FIRE_FLAME, 12, Material.SOUL_LANTERN));
+        TOTEM_OF_UNDYING_PROJECTILE_TRAIL = registerProjectileTrail(new SimpleProjectileTrail("totem_of_undying", "Totem of Undying", Particle.TOTEM, 13, Material.TOTEM_OF_UNDYING));
+        SNOWFLAKE_PROJECTILE_TRAIL = registerProjectileTrail(new SimpleProjectileTrail("snowflake", "Snowflake", Particle.SNOWFLAKE, 14, Material.SNOWBALL));
+        SOUL_PROJECTILE_TRAIL = registerProjectileTrail(new SimpleProjectileTrail("soul", "Soul", Particle.SOUL, 15, Material.SOUL_SAND));
+        SCULK_SOUL_PROJECTILE_TRAIL = registerProjectileTrail(new SimpleProjectileTrail("sculk_soul", "Sculk Soul", Particle.SCULK_SOUL, 16, Material.SCULK_CATALYST));
+        SCULK_CHARGE_PROJECTILE_TRAIL = registerProjectileTrail(new SimpleProjectileTrail("sculk_charge", "Sculk Charge", Particle.SCULK_CHARGE_POP, 17, Material.SCULK));
+        END_ROD_PROJECTILE_TRAIL = registerProjectileTrail(new SimpleProjectileTrail("end_rod", "End Rod", Particle.END_ROD, 18, Material.END_ROD));
 
+        // Kill Effects
         SMOKE_KILL_EFFECT = registerKillEffect(new SimpleKillEffect("smoke", "Smoke", Particle.SMOKE_NORMAL, 1, Material.COAL));
         SHRIEK_KILL_EFFECT = registerKillEffect(new ShriekKillEffect());
         SONIC_BOOM_KILL_EFFECT = registerKillEffect(new SimpleKillEffect("sonic_boom", "Sonic Boom", Particle.SONIC_BOOM, 3, Material.WARDEN_SPAWN_EGG));
@@ -101,12 +105,12 @@ public class CosmeticHandler implements Listener {
             ExtendedPlayer extendedPlayer = ExtendedPlayer.from(p);
 
             if (extendedPlayer.getProjectileTrailId() != null) {
-                Particle particle = projectileTrails.get(extendedPlayer.getProjectileTrailId()).getParticle();
+                ProjectileTrail projectileTrail = projectileTrails.get(extendedPlayer.getProjectileTrailId());
 
                 BukkitTask task = new BukkitRunnable() {
                     @Override
                     public void run() {
-                        projectile.getWorld().spawnParticle(particle, projectile.getLocation(), 1, 0, 0, 0, 0);
+                        projectileTrail.playEffect(projectile.getLocation());
 
                         if (projectile instanceof Firework firework) {
                             if (firework.isDetonated()) this.cancel();
