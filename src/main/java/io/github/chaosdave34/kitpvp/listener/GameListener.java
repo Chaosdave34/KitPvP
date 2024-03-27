@@ -5,6 +5,7 @@ import io.github.chaosdave34.kitpvp.ExtendedPlayer;
 import io.github.chaosdave34.kitpvp.KitPvp;
 import io.github.chaosdave34.kitpvp.damagetype.DamageTypes;
 import io.github.chaosdave34.kitpvp.items.CustomItemHandler;
+import io.papermc.paper.event.block.BlockBreakBlockEvent;
 import io.papermc.paper.event.entity.EntityLoadCrossbowEvent;
 import io.papermc.paper.event.entity.EntityMoveEvent;
 import lombok.Getter;
@@ -21,6 +22,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.BlockFromToEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.*;
 import org.bukkit.event.inventory.InventoryOpenEvent;
@@ -247,9 +249,11 @@ public class GameListener implements Listener {
             if (!e.getBlock().hasMetadata("placed_by_player")) {
                 if (e.getBlock().getType() == Material.FIRE) return;
 
-                blocksToRemove.remove(e.getBlock().getLocation());
                 e.setCancelled(true);
+            } else {
+                blocksToRemove.remove(e.getBlock().getLocation());
             }
+
             if (e.getBlock().getType() == Material.COBWEB) e.setDropItems(false);
         }
     }
@@ -265,6 +269,31 @@ public class GameListener implements Listener {
             } else if (block.hasMetadata("placed_by_player")) {
                 fallingBlock.setMetadata("placed_by_player", new FixedMetadataValue(KitPvp.INSTANCE, true));
                 blocksToRemove.remove(block.getLocation());
+            }
+        }
+    }
+
+    @EventHandler
+    public void onBlockBreakCobWeb(BlockBreakBlockEvent e) {
+        if (e.getSource().getType() == Material.WATER) {
+            if (e.getBlock().getType() == Material.COBWEB) e.getDrops().clear();
+        }
+    }
+
+
+    @EventHandler
+    public void onBlockBreakGrass(BlockFromToEvent e) {
+        if (e.getBlock().getType() == Material.WATER) {
+            Block target = e.getToBlock();
+            if (target.getType() != Material.AIR) {
+
+                if (!target.hasMetadata("placed_by_player")) {
+                    if (target.getType() == Material.FIRE) return;
+
+                    e.setCancelled(true);
+                } else {
+                    blocksToRemove.remove(target.getLocation());
+                }
             }
         }
     }
@@ -293,8 +322,9 @@ public class GameListener implements Listener {
         Player p = e.getPlayer();
         if (ExtendedPlayer.from(p).getGameState() == ExtendedPlayer.GameState.IN_GAME) {
             if (!e.getBlock().hasMetadata("placed_by_player")) {
-                blocksToRemove.remove(e.getBlock().getLocation());
                 e.setCancelled(true);
+            } else {
+                blocksToRemove.remove(e.getBlock().getLocation());
             }
         }
     }

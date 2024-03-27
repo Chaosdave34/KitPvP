@@ -165,7 +165,7 @@ public class UtilityListener implements Listener {
             if (e.getClickedBlock() == null) return;
 
             BlockData blockData = e.getClickedBlock().getBlockData();
-            if (blockData instanceof Door ||blockData instanceof TrapDoor || blockData instanceof DecoratedPot) {
+            if (blockData instanceof Door || blockData instanceof TrapDoor || blockData instanceof DecoratedPot) {
                 e.setCancelled(true);
             }
         }
