@@ -5,7 +5,6 @@ import io.github.chaosdave34.kitpvp.ExtendedPlayer;
 import io.github.chaosdave34.kitpvp.guis.Guis;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.EquipmentSlot;
 import org.jetbrains.annotations.NotNull;
 
 public class CosmeticsFakePlayer extends FakePlayer {
@@ -19,7 +18,7 @@ public class CosmeticsFakePlayer extends FakePlayer {
     }
 
     @Override
-    public void onInteract(@NotNull Player p, @NotNull EquipmentSlot hand) {
+    public void onActualInteract(@NotNull Player p) {
         onClick(p);
     }
 

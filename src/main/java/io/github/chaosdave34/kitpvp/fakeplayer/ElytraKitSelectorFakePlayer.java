@@ -18,7 +18,7 @@ public class ElytraKitSelectorFakePlayer extends FakePlayer {
     }
 
     @Override
-    public void onInteract(@NotNull Player p, @NotNull EquipmentSlot hand) {
+    public void onActualInteract(@NotNull Player p) {
         Guis.ELYTRA_KITS.show(p);
     }
 }

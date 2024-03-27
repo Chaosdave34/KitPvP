@@ -22,7 +22,7 @@ public class ElytraFakePlayer extends FakePlayer {
     }
 
     @Override
-    public void onInteract(@NotNull Player p, @NotNull EquipmentSlot hand) {
+    public void onActualInteract(@NotNull Player p) {
         onClick(p);
     }
 
