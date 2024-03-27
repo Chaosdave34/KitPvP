@@ -8,7 +8,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 
-// todo: elytra kits
+// todo: elytra kits and randomize
 public class TenKillsWithKit extends Challenge {
     private final Kit kit;
 

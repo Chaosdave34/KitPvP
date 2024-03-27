@@ -47,6 +47,7 @@ public class CreeperKit extends Kit {
     public ItemStack[] getInventoryContent() {
         return new ItemStack[]{
                 CustomItemHandler.FIREBALL_SWORD.build(),
+                new ItemStack(Material.WATER_BUCKET),
         };
     }
 

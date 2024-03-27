@@ -70,6 +70,7 @@ public class DevilKit extends Kit { // Add special ability
         return new ItemStack[]{
                 new ItemStack(Material.GOLDEN_APPLE),
                 new ItemStack(Material.NETHERRACK, 32),
+                new ItemStack(Material.TWISTING_VINES, 2)
         };
     }
 
