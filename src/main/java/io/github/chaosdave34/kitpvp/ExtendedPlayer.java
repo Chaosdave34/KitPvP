@@ -106,7 +106,7 @@ public class ExtendedPlayer {
         return selectedElytraKitId == null ? null : KitPvp.INSTANCE.getElytraKitHandler().getKits().get(selectedElytraKitId);
     }
 
-    public void spawn(){
+    public void spawn() {
         spawn(getLastGame());
     }
 
@@ -158,7 +158,9 @@ public class ExtendedPlayer {
             getSelectedElytraKit().apply(p);
 
         new PlayerSpawnEvent(p).callEvent();
+
         updateScoreboardLines();
+        updateDisplayName();
 
         p.getWorld().getEntitiesByClass(Trident.class).forEach(trident -> {
             if (trident.getShooter() instanceof Player shooter)
@@ -169,12 +171,21 @@ public class ExtendedPlayer {
 
     public void updateDisplayName() {
         Player p = getPlayer();
-        p.displayName(Component.text("[")
+
+        String icon = "";
+        if (getLastGame() == GameType.NORMAL) icon = "⚔";
+        else if (getLastGame() == GameType.ELYTRA) icon = "\uD83D\uDEE1";
+
+        Component name = Component.text(icon)
+                .append(Component.text(" ["))
                 .append(Component.text(getLevel()))
                 .append(Component.text("] "))
-                .append(p.name()));
+                .append(p.name());
 
-        p.playerListName(p.displayName());
+        if (p.displayName().equals(name)) return;
+
+        p.displayName(name);
+        p.playerListName(name);
     }
 
     public void updateScoreboardLines() {
