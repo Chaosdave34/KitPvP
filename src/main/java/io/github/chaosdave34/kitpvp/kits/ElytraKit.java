@@ -68,6 +68,5 @@ public abstract class ElytraKit extends Kit {
         }
 
         extendedPlayer.removeCompanion();
-        extendedPlayer.spawnCompanion();
     }
 }
