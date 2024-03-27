@@ -19,6 +19,7 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.entity.ProjectileLaunchEvent;
+import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.event.player.*;
 import org.bukkit.event.world.WorldLoadEvent;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -208,6 +209,13 @@ public class SpawnListener implements Listener {
                 extendedPlayer.setGameState(ExtendedPlayer.GameState.ELYTRA_IN_GAME);
             }
         }
+    }
+
+
+    @EventHandler
+    public void onOpenInventory(InventoryOpenEvent e) {
+        Player p = (Player) e.getPlayer();
+        if (ExtendedPlayer.from(p).inSpawn()) e.setCancelled(true);
     }
 
     // Game Spawn
