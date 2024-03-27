@@ -181,6 +181,12 @@ public class GameListener implements Listener {
         if (e.getInventory() instanceof AnvilInventory) e.setCancelled(true);
     }
 
+    @EventHandler
+    public void onEntityDeath(EntityDeathEvent e) {
+        e.setDroppedExp(0);
+        e.getDrops().clear();
+    }
+
     // KitPvP
     private class BlockRemover extends BukkitRunnable {
         @Override
