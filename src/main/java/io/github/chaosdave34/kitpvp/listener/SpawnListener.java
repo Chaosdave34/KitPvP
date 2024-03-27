@@ -84,7 +84,7 @@ public class SpawnListener implements Listener {
                 out.writeUTF("amusementpark");
                 p.sendPluginMessage(KitPvp.INSTANCE, "BungeeCord", out.toByteArray());
 
-                p.teleport(new Location(Bukkit.getWorld("world"), -12.0, 120, 16.0, -135, 0));
+                p.teleport(new Location(Bukkit.getWorld("world"), -12.0, 120, 16.0));
                 p.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 20 * 3, 4));
                 p.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 20 * 3, 4));
             }
