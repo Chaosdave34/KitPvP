@@ -169,7 +169,10 @@ public class GameListener implements Listener {
                                 projectiles.add(projectile);
                             }
                         }
-                        crossbowMeta.setChargedProjectiles(projectiles);
+
+                        if (!projectiles.isEmpty())
+                            crossbowMeta.setChargedProjectiles(projectiles);
+
                         crossbow.setItemMeta(crossbowMeta);
                     }), 1);
 
