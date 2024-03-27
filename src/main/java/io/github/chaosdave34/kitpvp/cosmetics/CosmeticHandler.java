@@ -116,7 +116,7 @@ public class CosmeticHandler implements Listener {
                             this.cancel();
                         }
                     }
-                }.runTaskTimer(KitPvp.INSTANCE, 0, 2);
+                }.runTaskTimer(KitPvp.INSTANCE, 0, 1);
 
                 activeProjectiles.put(projectile.getEntityId(), task.getTaskId());
             }
