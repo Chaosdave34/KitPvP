@@ -14,7 +14,7 @@ public class RocketLauncherKit extends ElytraKit {
     public ItemStack[] getInventoryContent() {
         ItemStack crossbow = new ItemStack(Material.CROSSBOW);
         crossbow.addUnsafeEnchantment(Enchantment.ARROW_INFINITE, 1);
-        crossbow.addUnsafeEnchantment(Enchantment.QUICK_CHARGE, 5);
+        crossbow.addEnchantment(Enchantment.QUICK_CHARGE, 3);
 
         return new ItemStack[]{
                 crossbow,
