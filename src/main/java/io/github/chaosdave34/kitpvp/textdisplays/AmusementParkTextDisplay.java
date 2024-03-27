@@ -11,11 +11,14 @@ import java.util.List;
 
 public class AmusementParkTextDisplay extends TextDisplay {
     public AmusementParkTextDisplay() {
-        super("world", new Location(null, -11.0, 120.5, 15.0), 1);
+        super("world", new Location(null, -11.0, 120.5, 15.0), 2);
     }
 
     @Override
     public @NotNull List<Component> getLines(Player p) {
-        return List.of(Component.literal("Amusement Park").withStyle(ChatFormatting.BOLD));
+        return List.of(
+                Component.literal("Amusement Park").withStyle(ChatFormatting.BOLD),
+                Component.literal("(whitelist)")
+        );
     }
 }

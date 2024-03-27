@@ -5,10 +5,7 @@ import com.google.common.io.ByteStreams;
 import io.github.chaosdave34.kitpvp.ExtendedPlayer;
 import io.github.chaosdave34.kitpvp.KitPvp;
 import io.papermc.paper.event.entity.EntityLoadCrossbowEvent;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.Particle;
-import org.bukkit.World;
+import org.bukkit.*;
 import org.bukkit.block.Barrel;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -23,6 +20,8 @@ import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.event.player.*;
 import org.bukkit.event.world.WorldLoadEvent;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
@@ -80,11 +79,14 @@ public class SpawnListener implements Listener {
 
         if (extendedPlayer.inSpawn()) {
             if (e.getCause() == PlayerTeleportEvent.TeleportCause.END_PORTAL) {
-
                 ByteArrayDataOutput out = ByteStreams.newDataOutput();
                 out.writeUTF("Connect");
                 out.writeUTF("amusementpark");
                 p.sendPluginMessage(KitPvp.INSTANCE, "BungeeCord", out.toByteArray());
+
+                p.teleport(new Location(Bukkit.getWorld("world"), -12.0, 120, 16.0, -135, 0));
+                p.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 20 * 3, 4));
+                p.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 20 * 3, 4));
             }
         }
     }
