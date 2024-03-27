@@ -14,40 +14,37 @@ public class ZeusKit extends Kit {
 
     @Override
     public ItemStack getHeadContent() {
-        ItemStack leatherHelmet = new ItemStack(Material.LEATHER_HELMET);
-        leatherHelmet.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2);
-        setLeatherArmorColor(leatherHelmet, Color.YELLOW);
-        return leatherHelmet;
+        ItemStack goldenHelmet = new ItemStack(Material.GOLDEN_HELMET);
+        goldenHelmet.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2);
+        return goldenHelmet;
     }
 
     @Override
     public ItemStack getChestContent() {
-        ItemStack leatherChestplate = new ItemStack(Material.LEATHER_CHESTPLATE);
-        leatherChestplate.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2);
-        setLeatherArmorColor(leatherChestplate, Color.YELLOW);
-        return leatherChestplate;
+        ItemStack goldenChestplate = new ItemStack(Material.GOLDEN_CHESTPLATE);
+        goldenChestplate.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2);
+        return goldenChestplate;
     }
 
     @Override
     public ItemStack getLegsContent() {
-        ItemStack leatherLeggings = new ItemStack(Material.LEATHER_LEGGINGS);
-        leatherLeggings.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2);
-        setLeatherArmorColor(leatherLeggings, Color.YELLOW);
-        return leatherLeggings;
+        ItemStack goldenLeggings = new ItemStack(Material.GOLDEN_LEGGINGS);
+        goldenLeggings.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2);
+        setLeatherArmorColor(goldenLeggings, Color.YELLOW);
+        return goldenLeggings;
     }
 
     @Override
     public ItemStack getFeetContent() {
-        ItemStack leatherBoots = new ItemStack(Material.LEATHER_BOOTS);
-        leatherBoots.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2);
-        setLeatherArmorColor(leatherBoots, Color.YELLOW);
-        return leatherBoots;
+        ItemStack goldenBoots = new ItemStack(Material.GOLDEN_BOOTS);
+        goldenBoots.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2);
+        return goldenBoots;
     }
 
     @Override
     public ItemStack[] getInventoryContent() {
         return new ItemStack[]{
-                new ItemStack(Material.DIAMOND_SWORD),
+                new ItemStack(Material.IRON_SWORD),
                 CustomItemHandler.LIGHTNING_WAND.build(),
                 new ItemStack(Material.ENCHANTED_GOLDEN_APPLE),
                 new ItemStack(Material.WATER_BUCKET),
