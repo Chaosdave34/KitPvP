@@ -21,6 +21,7 @@ import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.entity.*;
 import org.bukkit.event.entity.CreatureSpawnEvent;
+import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scoreboard.Criteria;
@@ -137,7 +138,9 @@ public class ExtendedPlayer {
         p.setFireTicks(0);
         p.setFreezeTicks(0);
 
+        p.setItemOnCursor(null);
         p.clearActiveItem();
+        p.closeInventory(InventoryCloseEvent.Reason.DEATH);
 
         killSteak = 0;
         combatCooldown = 0;

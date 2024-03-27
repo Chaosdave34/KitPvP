@@ -36,8 +36,6 @@ import java.util.HexFormat;
 import java.util.List;
 import java.util.UUID;
 
-;
-
 public class UtilityListener implements Listener {
     @EventHandler
     public void onJoin(PlayerJoinEvent e) {

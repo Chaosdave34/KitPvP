@@ -38,15 +38,13 @@ public class NukeAbility extends Ability {
 
         location.setY(110);
 
-        Bukkit.getScheduler().runTaskLater(KitPvp.INSTANCE, () -> {
-            p.getWorld().spawnEntity(location, EntityType.FIREBALL, CreatureSpawnEvent.SpawnReason.CUSTOM, (entity -> {
-                Fireball fireball = (Fireball) entity;
-                fireball.setMetadata("ability", new FixedMetadataValue(KitPvp.INSTANCE, id));
-                fireball.setYield(10);
-                fireball.setDirection(new Vector(0, -1, 0));
-                fireball.setShooter(p);
-            }));
-        }, 20);
+        Bukkit.getScheduler().runTaskLater(KitPvp.INSTANCE, () -> p.getWorld().spawnEntity(location, EntityType.FIREBALL, CreatureSpawnEvent.SpawnReason.CUSTOM, (entity -> {
+            Fireball fireball = (Fireball) entity;
+            fireball.setMetadata("ability", new FixedMetadataValue(KitPvp.INSTANCE, id));
+            fireball.setYield(10);
+            fireball.setDirection(new Vector(0, -1, 0));
+            fireball.setShooter(p);
+        })), 20);
 
         return true;
     }

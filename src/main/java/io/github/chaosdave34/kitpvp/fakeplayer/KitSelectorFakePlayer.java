@@ -14,8 +14,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.EquipmentSlot;
 import org.jetbrains.annotations.NotNull;
 
-;
-
 public class KitSelectorFakePlayer extends FakePlayer {
     private final Kit kit;
 
