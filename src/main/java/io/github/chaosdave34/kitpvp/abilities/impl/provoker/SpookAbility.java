@@ -25,7 +25,7 @@ public class SpookAbility extends Ability {
         return createSimpleDescription(
                 "Places a pumpkin on the",
                 "player you are looking at",
-                "in a 20 block radius."
+                "in a 20 block radius for 5s."
         );
     }
 
@@ -45,7 +45,7 @@ public class SpookAbility extends Ability {
             Bukkit.getScheduler().runTaskLater(KitPvp.INSTANCE, () -> {
                 ExtendedPlayer extendedTargetPlayer = ExtendedPlayer.from(player);
                 player.getInventory().setHelmet(extendedTargetPlayer.getSelectedKit().getHeadContent());
-            }, 10 * 20);
+            }, 5 * 20);
 
             return true;
         }
