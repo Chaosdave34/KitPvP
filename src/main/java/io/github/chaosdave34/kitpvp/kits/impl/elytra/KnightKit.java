@@ -7,7 +7,7 @@ import org.bukkit.inventory.ItemStack;
 
 public class KnightKit extends ElytraKit {
     public KnightKit() {
-        super("elytra_knight", "Knight", Material.STONE_SWORD);
+        super("elytra_knight", "Knight", Material.IRON_SWORD);
     }
 
     @Override
@@ -16,7 +16,7 @@ public class KnightKit extends ElytraKit {
         bow.addEnchantment(Enchantment.ARROW_INFINITE, 1);
         bow.addEnchantment(Enchantment.ARROW_DAMAGE, 3);
 
-        ItemStack stoneSword = new ItemStack(Material.STONE_SWORD);
+        ItemStack stoneSword = new ItemStack(Material.IRON_SWORD);
         stoneSword.addEnchantment(Enchantment.DAMAGE_ALL, 1);
 
         return new ItemStack[]{
