@@ -35,7 +35,6 @@ public abstract class Companion {
     public org.bukkit.entity.Mob createCompanion(Player owner) {
         PathfinderMob companion = createVanillaMob(((CraftWorld) owner.getLocation().getWorld()).getHandle());
         companion.setPos(CraftVector.toNMS(owner.getLocation().toVector()));
-        companion.setInvulnerable(true);
 
         companion.getAttributes().registerAttribute(Attributes.ATTACK_DAMAGE);
         AttributeInstance attribute = companion.getAttribute(Attributes.ATTACK_DAMAGE);
@@ -86,4 +85,5 @@ public abstract class Companion {
 
         return companion;
     }
+
 }

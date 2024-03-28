@@ -285,7 +285,7 @@ public class ExtendedPlayer {
 
     private void checkHighestKillStreakHighscore(GameType gameType) {
         Map<UUID, Integer> highestKillStreaks = KitPvp.INSTANCE.getHighestKillStreaks(gameType);
-        if (highestKillStreaks.size() < 5 || getLevel() > Collections.min(highestKillStreaks.values())) {
+        if ((highestKillStreaks.size() < 5 && !highestKillStreaks.containsKey(uuid) )|| getKillStreak() > Collections.min(highestKillStreaks.values())) {
 
             if (highestKillStreaks.size() == 5 && !highestKillStreaks.containsKey(uuid)) {
                 for (UUID key : highestKillStreaks.keySet()) {
@@ -296,8 +296,13 @@ public class ExtendedPlayer {
                 }
             }
 
-            highestKillStreaks.put(uuid, getLevel());
-            GHUtils.getTextDisplayHandler().updateTextDisplayForAll(TextDisplays.HIGHEST_KILL_STREAKS_ELYTRA);
+            highestKillStreaks.put(uuid, getKillStreak());
+
+            if (gameType == GameType.KITS) {
+                GHUtils.getTextDisplayHandler().updateTextDisplayForAll(TextDisplays.HIGHEST_KILL_STREAKS_KITS);
+            } else if (gameType == GameType.ELYTRA) {
+                GHUtils.getTextDisplayHandler().updateTextDisplayForAll(TextDisplays.HIGHEST_KILL_STREAKS_ELYTRA);
+            }
         }
     }
 
@@ -427,6 +432,13 @@ public class ExtendedPlayer {
         }
     }
 
+    public void reviveCompanion() {
+        if (companion != null) {
+            removeCompanion();
+            spawnCompanion();
+        }
+    }
+
     public void removeCompanion() {
         if (this.companion != null) {
             companion.remove();
@@ -476,8 +488,9 @@ public class ExtendedPlayer {
 
         ExtendedPlayer extendedVictim = from(victim);
         int xpReward = 10 + (int) (extendedVictim.getLevel() * 0.25);
-        if (KitPvp.INSTANCE.getCustomEventHandler().getActiveEvent() == CustomEventHandler.DOUBLE_COINS_AND_EXPERIENCE_EVENT)
+        if (KitPvp.INSTANCE.getCustomEventHandler().getActiveEvent() == CustomEventHandler.DOUBLE_COINS_AND_EXPERIENCE_EVENT) {
             xpReward *= 2;
+        }
 
         int coinReward = (int) (xpReward * 1.5);
 
@@ -496,10 +509,13 @@ public class ExtendedPlayer {
                 .append(Component.text("+" + coinReward + " coins", NamedTextColor.GOLD));
         p.sendActionBar(info);
 
-        if (gameState == GameState.IN_GAME)
+        reviveCompanion();
+
+        if (gameState == GameState.IN_GAME) {
             p.getInventory().addItem(getSelectedKit().getKillRewards());
-        else if (gameState == GameState.ELYTRA_IN_GAME)
+        } else if (gameState == GameState.ELYTRA_IN_GAME) {
             p.getInventory().addItem(getSelectedElytraKit().getKillRewards());
+        }
     }
 
     public void claimBounty(Player claimer) {

@@ -98,13 +98,11 @@ public final class KitPvp extends JavaPlugin {
         PluginManager pluginManager = getServer().getPluginManager();
 
         pluginManager.registerEvents(new UtilityListener(), this);
-
         pluginManager.registerEvents(new SpawnListener(), this);
-
         pluginManager.registerEvents(gameListener, this);
         pluginManager.registerEvents(new GamePlayerDeathListener(), this);
-
         pluginManager.registerEvents(abilityHandler, this);
+        pluginManager.registerEvents(companionHandler, this);
         pluginManager.registerEvents(cosmeticHandler, this);
         pluginManager.registerEvents(customEventHandler, this);
 

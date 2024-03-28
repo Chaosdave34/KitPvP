@@ -20,10 +20,10 @@ public class InfoTextDisplay extends TextDisplay {
                 Component.literal("Info:").withStyle(ChatFormatting.BOLD, ChatFormatting.GOLD),
                 Component.literal("- Use /spawn to respawn"),
                 Component.literal("- Placed blocks disappear"),
-                Component.literal("after 5 seconds"),
+                Component.literal("after 45 seconds"),
                 Component.literal("- Killing a player rewards you with"),
                 Component.literal("consumable items (depending on your kit)"),
-                Component.literal("- You gain XP for killing players")
+                Component.literal("- You gain XP and coins for killing players")
         );
     }
 }

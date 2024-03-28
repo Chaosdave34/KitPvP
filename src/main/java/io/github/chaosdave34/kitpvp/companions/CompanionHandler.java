@@ -1,9 +1,20 @@
 package io.github.chaosdave34.kitpvp.companions;
 
+import io.github.chaosdave34.ghutils.utils.PDCUtils;
+import io.github.chaosdave34.kitpvp.ExtendedPlayer;
 import io.github.chaosdave34.kitpvp.companions.impl.AllayCompanion;
 import io.github.chaosdave34.kitpvp.companions.impl.ZombifiedPiglinCompanion;
+import net.kyori.adventure.sound.Sound;
+import org.bukkit.entity.Pose;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDeathEvent;
+import org.jetbrains.annotations.NotNull;
 
-public class CompanionHandler{
+import java.util.UUID;
+
+public class CompanionHandler implements Listener {
     public static Companion ALLAY;
     public static Companion ZOMBIFIED_PIGLIN;
 
@@ -14,5 +25,37 @@ public class CompanionHandler{
 
     private Companion registerCompanion(Companion companion) {
         return companion;
+    }
+
+    @EventHandler
+    public void onCompanionDeath(EntityDeathEvent e) {
+        org.bukkit.entity.@NotNull LivingEntity entity = e.getEntity();
+        if (entity.hasMetadata("companion")) {
+            e.setCancelled(true);
+
+            entity.playSound(Sound.sound(org.bukkit.Sound.ENTITY_PIGLIN_DEATH, Sound.Source.HOSTILE, 1, 1));
+
+            entity.setAI(false);
+            entity.setSilent(true);
+            entity.setPose(Pose.SLEEPING);
+            entity.setInvulnerable(true);
+        }
+    }
+
+    @EventHandler
+    public void onCompanionDamage(EntityDamageByEntityEvent e) {
+        if (e.getEntity().hasMetadata("companion")) {
+            UUID ownerUUID = PDCUtils.getOwner(e.getEntity());
+
+            if (ownerUUID != null && ExtendedPlayer.from(ownerUUID).inSpawn())
+                e.setCancelled(true);
+
+            else if (e.getDamager().getUniqueId().equals(ownerUUID))
+                e.setCancelled(true);
+
+            else if (e.getDamageSource().getCausingEntity().getUniqueId().equals(ownerUUID))
+                e.setCancelled(true);
+
+        }
     }
 }
