@@ -29,7 +29,7 @@ public abstract class Challenge implements Listener {
 
         if (getProgress(p) == amount - 1) {
             int xpReward = 50;
-            if (KitPvp.INSTANCE.getCustomEventHandler().getActiveEvent() == CustomEventHandler.DOUBLE_EXPERIENCE_EVENT)
+            if (KitPvp.INSTANCE.getCustomEventHandler().getActiveEvent() == CustomEventHandler.DOUBLE_COINS_AND_EXPERIENCE_EVENT)
                 xpReward *= 2;
 
             p.sendMessage(Component.text("You have completed a daily challenge! +" + xpReward + "XP"));

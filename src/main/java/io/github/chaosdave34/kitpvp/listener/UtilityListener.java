@@ -92,8 +92,10 @@ public class UtilityListener implements Listener {
                 Component.text("- Feel free to report bugs and post feature requests in the #kitpvp channel on the discord server.", NamedTextColor.AQUA),
                 Component.text("- ", NamedTextColor.AQUA)
                         .append(Component.text("Daily Challenges", NamedTextColor.GRAY).decorate(TextDecoration.ITALIC))
-                        .append(Component.text(" and ", NamedTextColor.AQUA))
+                        .append(Component.text(", ", NamedTextColor.AQUA))
                         .append(Component.text("Companions", NamedTextColor.GRAY).decorate(TextDecoration.ITALIC))
+                        .append(Component.text(" and ", NamedTextColor.AQUA))
+                        .append(Component.text("Bounties", NamedTextColor.GRAY).decorate(TextDecoration.ITALIC))
                         .append(Component.text(" have been enabled. You may experience strange or unexpected behaviour.", NamedTextColor.AQUA))
         );
 

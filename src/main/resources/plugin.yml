@@ -14,6 +14,9 @@ commands:
   msg:
     description: Send a player a message
     usage: /<command> <player> <message>
+  bounty:
+    description: Place a bounty on a player
+    usage: /<command> <player> <bounty>
   loop:
     description: Loop command
     usage: /<command> <amount> <period> <command>
@@ -30,6 +33,10 @@ commands:
     description: Adds experience to the player
     usage: /<command> <player> <amount>
     permission: kitpvp.addexperience
+  addcoins:
+    description: Adds coins to the player
+    usage: /<command> <player> <amount>
+    permission: kitpvp.addcoins
 permissions:
   bukkit.command.version:
     default: op

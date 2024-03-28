@@ -39,6 +39,10 @@ public class ExtendedPlayer {
     private String selectedElytraKitId;
     private GameType lastGame;
 
+    private int experiencePoints;
+    private int coins;
+    private int bounty;
+
     private transient GameState gameState;
     private transient Scoreboard scoreboard;
     private transient int combatCooldown;
@@ -50,8 +54,6 @@ public class ExtendedPlayer {
     private int highestKillStreak;
     private int totalKills;
     private int totalDeaths;
-
-    private int experiencePoints;
 
     private String projectileTrailId;
     private String killEffectId;
@@ -185,9 +187,13 @@ public class ExtendedPlayer {
                 .append(Component.text("] "))
                 .append(p.name());
 
-        if (p.displayName().equals(name)) return;
+        if (!p.displayName().equals(name)) {
+            p.displayName(name);
+        }
 
-        p.displayName(name);
+        if (bounty > 0) {
+            name = name.append(Component.space().append(Component.text(bounty, NamedTextColor.GOLD)));
+        }
         p.playerListName(name);
     }
 
@@ -200,8 +206,9 @@ public class ExtendedPlayer {
 
         scoreboard.getEntries().forEach((entry) -> scoreboard.resetScores(entry));
 
-        objective.getScore("Level: " + getLevel()).setScore(6);
-        objective.getScore("Missing XP: §b" + getMissingExperience()).setScore(5);
+        objective.getScore("Level: " + getLevel()).setScore(7);
+        objective.getScore("Missing XP: §b" + getMissingExperience()).setScore(6);
+        objective.getScore("Coins: §6" + getCoins()).setScore(5);
         objective.getScore("  ").setScore(4);
         String kitName = "None";
         if (lastGame == GameType.NORMAL)
@@ -244,8 +251,10 @@ public class ExtendedPlayer {
     public void incrementKillStreak() {
         killSteak++;
 
-        if (killSteak % 5 == 0)
+        if (killSteak % 5 == 0) {
             Bukkit.broadcast(getPlayer().displayName().append(Component.text(" has reached a kill streak of " + killSteak)));
+            receivedBounty(killSteak / 5 * 50);
+        }
 
         if (killSteak > highestKillStreak) {
             highestKillStreak = killSteak;
@@ -268,10 +277,8 @@ public class ExtendedPlayer {
                 highestKillstreaks.put(uuid, getLevel());
 
                 GHUtils.getTextDisplayHandler().updateTextDisplayForAll(TextDisplays.HIGHEST_KILLSTREAKS);
-
             }
         }
-
         updateScoreboardLines();
     }
 
@@ -312,7 +319,6 @@ public class ExtendedPlayer {
                 highestLevels.put(uuid, getLevel());
 
                 GHUtils.getTextDisplayHandler().updateTextDisplayForAll(TextDisplays.HIGHEST_LEVELS);
-
             }
         }
     }
@@ -338,6 +344,20 @@ public class ExtendedPlayer {
         if (level == 2) return 20;
         level -= 1;
         return level * 20 + (MathUtils.binomialCoefficient(level, 2) * 5);
+    }
+
+    public void addCoins(int amount) {
+        coins += amount;
+        updateScoreboardLines();
+    }
+
+    public boolean purchase(int amount) {
+        if (amount <= coins) {
+            coins -= amount;
+            updateScoreboardLines();
+            return true;
+        }
+        return false;
     }
 
     public void morph(EntityType entityType) {
@@ -401,21 +421,58 @@ public class ExtendedPlayer {
         combatCooldown = 5;
     }
 
+    public void receivedBounty(int amount) {
+        Component message;
+        if (bounty == 0) {
+            message = Component.text("A bounty of " + amount + " coins has been placed on " + getPlayer().getName() + ".");
+        } else {
+            message = Component.text("The bounty on " + getPlayer().getName() + " has been increased by " + amount + " coins to a total of " + bounty + amount + " coins.");
+        }
+
+        Bukkit.broadcast(message);
+        bounty += amount;
+
+        updateDisplayName();
+    }
+
     public void killedPlayer(Player victim) {
         incrementKillStreak();
         incrementTotalKills();
 
-        ExtendedPlayer extendedTarget = from(victim);
-        int xpReward = 10 + (int) (extendedTarget.getLevel() * 0.25);
-        if (KitPvp.INSTANCE.getCustomEventHandler().getActiveEvent() == CustomEventHandler.DOUBLE_EXPERIENCE_EVENT)
+        ExtendedPlayer extendedVictim = from(victim);
+        int xpReward = 10 + (int) (extendedVictim.getLevel() * 0.25);
+        if (KitPvp.INSTANCE.getCustomEventHandler().getActiveEvent() == CustomEventHandler.DOUBLE_COINS_AND_EXPERIENCE_EVENT)
             xpReward *= 2;
 
+        int coinReward = (int) (xpReward * 1.5);
+
+        if (extendedVictim.getBounty() > 0) {
+            coinReward += extendedVictim.getBounty();
+            extendedVictim.claimBounty(getPlayer());
+        }
+
         addExperiencePoints(xpReward);
+        addCoins(coinReward);
+
+        Player p = getPlayer();
+        Component info = Component.text("Killed " + victim.getName() + ": ")
+                .append(Component.text("+" + xpReward + "XP", NamedTextColor.AQUA))
+                .append(Component.space())
+                .append(Component.text("+" + coinReward + " coins", NamedTextColor.GOLD));
+        p.sendActionBar(info);
 
         if (gameState == GameState.IN_GAME)
-            getPlayer().getInventory().addItem(getSelectedKit().getKillRewards());
+            p.getInventory().addItem(getSelectedKit().getKillRewards());
         else if (gameState == GameState.ELYTRA_IN_GAME)
-            getPlayer().getInventory().addItem(getSelectedElytraKit().getKillRewards());
+            p.getInventory().addItem(getSelectedElytraKit().getKillRewards());
+    }
+
+    public void claimBounty(Player claimer) {
+        Bukkit.broadcast(Component.text("The bounty on " + getPlayer().getName() + " has been claimed by " + claimer.getName() + "."));
+
+        bounty = 0;
+
+        updateDisplayName();
     }
 
     public enum GameType {

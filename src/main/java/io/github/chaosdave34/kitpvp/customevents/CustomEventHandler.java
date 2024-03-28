@@ -20,14 +20,14 @@ public class CustomEventHandler implements Listener {
     private CustomEvent activeEvent;
     private boolean enabled;
 
-    public static CustomEvent DOUBLE_EXPERIENCE_EVENT;
+    public static CustomEvent DOUBLE_COINS_AND_EXPERIENCE_EVENT;
     public static CustomEvent HALVED_COOLDOWN_EVENT;
     public static CustomEvent SUPPLY_DROP_EVENT;
 
     public CustomEventHandler() {
         enabled = false;
 
-        DOUBLE_EXPERIENCE_EVENT = registerCustomEvent(new SimpleEvent("2x Experience", 5 * 60));
+        DOUBLE_COINS_AND_EXPERIENCE_EVENT = registerCustomEvent(new SimpleEvent("2x Experience & Coins", 5 * 60));
         HALVED_COOLDOWN_EVENT = registerCustomEvent(new SimpleEvent("Halved Ability Cooldown", 5 * 60));
         SUPPLY_DROP_EVENT = registerCustomEvent(new SupplyDropEvent());
     }

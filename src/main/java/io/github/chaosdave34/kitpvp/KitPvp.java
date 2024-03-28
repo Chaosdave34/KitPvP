@@ -109,10 +109,14 @@ public final class KitPvp extends JavaPlugin {
         // Registering Commands
         registerCommand("spawn", new SpawnCommand());
         registerCommand("msg", new MessageCommand(), new PlayerTabCompleter());
+        registerCommand("bounty", new BountyCommand(), new PlayerTabCompleter());
+
+        //Admin Commands
         registerCommand("loop", new LoopCommand(), new LoopTabCompleter());
         registerCommand("customitem", new CustomItemCommand(), new CustomItemTabCompleter());
         registerCommand("gommemode", new GommeModeCommand());
         registerCommand("addexperience", new AddExperienceCommand(), new PlayerTabCompleter());
+        registerCommand("addcoins", new AddCoinsCommand(), new PlayerTabCompleter());
 
         // Create data folder
         getDataFolder().mkdir();
@@ -129,12 +133,15 @@ public final class KitPvp extends JavaPlugin {
 
     private void registerCommand(String name, CommandExecutor executor, TabCompleter tabCompleter) {
         PluginCommand command = getCommand(name);
-        if (command == null) return;
+        if (command == null) {
+            getLogger().warning("Failed to register command " + name + "!");
+            return;
+        }
 
         command.setExecutor(executor);
         command.setTabCompleter(tabCompleter);
     }
-    
+
     public ExtendedPlayer getExtendedPlayer(Player p) {
         return extendedPlayers.get(p.getUniqueId());
     }
