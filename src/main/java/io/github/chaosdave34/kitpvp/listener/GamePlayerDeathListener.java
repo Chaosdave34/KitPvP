@@ -82,7 +82,6 @@ public class GamePlayerDeathListener implements Listener {
                     }
                     // Companion
                     else if (damager.hasMetadata("companion")) {
-                        Bukkit.getLogger().info("metadata");
                         UUID ownerUUID = PDCUtils.getOwner(damager);
                         if (ownerUUID != null) {
                             Player companionOwner = Bukkit.getPlayer(ownerUUID);

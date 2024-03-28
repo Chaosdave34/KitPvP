@@ -33,8 +33,6 @@ public class SupplyDropEvent extends CustomEvent {
 
         location = new Location(Bukkit.getWorld("world"), x + 0.5, 200, z + 0.5);
 
-        Bukkit.getLogger().info(location.toString());
-
         location.getWorld().spawnEntity(location, EntityType.FALLING_BLOCK, CreatureSpawnEvent.SpawnReason.CUSTOM, entity -> {
             FallingBlock fallingBlock = ((FallingBlock) entity);
 

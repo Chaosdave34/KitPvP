@@ -7,8 +7,6 @@ import lombok.Getter;
 import java.util.HashMap;
 import java.util.Map;
 
-;
-
 @Getter
 public class KitHandler {
     private final Map<String, Kit> kits = new HashMap<>();

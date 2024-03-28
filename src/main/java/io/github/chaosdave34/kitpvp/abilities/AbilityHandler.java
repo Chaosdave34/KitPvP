@@ -37,8 +37,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
-;
-
 public class AbilityHandler implements Listener {
     public HashMap<String, Ability> abilities = new HashMap<>();
 

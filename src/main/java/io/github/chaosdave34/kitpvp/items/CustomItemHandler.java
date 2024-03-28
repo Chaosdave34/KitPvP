@@ -27,8 +27,6 @@ import org.jetbrains.annotations.Nullable;
 import java.util.HashMap;
 import java.util.Map;
 
-;
-
 public class CustomItemHandler {
     public Map<String, CustomItem> ID_MAP = new HashMap<>();
 
