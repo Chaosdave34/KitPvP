@@ -51,6 +51,7 @@ public class EngineerKit extends Kit {
         return new ItemStack[]{
                 new ItemStack(Material.COBWEB, 8),
                 new ItemStack(Material.COBBLESTONE, 32),
+                new ItemStack(Material.GOLDEN_APPLE),
         };
     }
 }
