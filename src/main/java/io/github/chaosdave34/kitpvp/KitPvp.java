@@ -110,6 +110,7 @@ public final class KitPvp extends JavaPlugin {
         registerCommand("spawn", new SpawnCommand());
         registerCommand("msg", new MessageCommand(), new PlayerTabCompleter());
         registerCommand("bounty", new BountyCommand(), new PlayerTabCompleter());
+        registerCommand("discord", new DiscordCommand());
 
         //Admin Commands
         registerCommand("loop", new LoopCommand(), new LoopTabCompleter());

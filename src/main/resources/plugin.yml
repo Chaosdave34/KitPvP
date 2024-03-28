@@ -17,6 +17,9 @@ commands:
   bounty:
     description: Place a bounty on a player
     usage: /<command> <player> <bounty>
+  discord:
+    description: Get discord link
+    usage: /<discord>
   loop:
     description: Loop command
     usage: /<command> <amount> <period> <command>
