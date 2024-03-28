@@ -38,6 +38,10 @@ dependencies {
 }
 
 tasks {
+    testClasses {
+        dependsOn(shadowJar)
+    }
+
     // Configure reobfJar to run when invoking the build task
     assemble {
         dependsOn(reobfJar)
@@ -79,7 +83,6 @@ tasks {
 
     shadowJar {
         // helper function to relocate a package into our package
-
         fun reloc(pkg: String) = relocate(pkg, group + rootProject.name + "dependency.$pkg")
 
         // relocate cloud and it's transitive dependencies

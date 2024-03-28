@@ -2,6 +2,7 @@ package io.github.chaosdave34.kitpvp.items;
 
 import io.github.chaosdave34.ghutils.Utils;
 import io.github.chaosdave34.ghutils.utils.PDCUtils;
+import io.github.chaosdave34.kitpvp.items.impl.archer.Leap;
 import io.github.chaosdave34.kitpvp.items.impl.artilleryman.Jetpack;
 import io.github.chaosdave34.kitpvp.items.impl.artilleryman.RocketLauncher;
 import io.github.chaosdave34.kitpvp.items.impl.assassin.AssassinSword;
@@ -48,6 +49,7 @@ public class CustomItemHandler {
     public static CustomItem ASSASSIN_SWORD;
     public static CustomItem ROCKET_LAUNCHER;
     public static CustomItem TURRET;
+    public static CustomItem LEAP;
 
     public CustomItemHandler() {
         FIREBALL_SWORD = registerItem(new FireballSword());
@@ -67,6 +69,7 @@ public class CustomItemHandler {
         ASSASSIN_SWORD = registerItem(new AssassinSword());
         ROCKET_LAUNCHER = registerItem(new RocketLauncher());
         TURRET = registerItem(new TurretItem());
+        LEAP = registerItem(new Leap());
     }
 
     private CustomItem registerItem(CustomItem item) {

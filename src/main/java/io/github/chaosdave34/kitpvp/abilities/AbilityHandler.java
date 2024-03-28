@@ -4,6 +4,7 @@ import io.github.chaosdave34.ghutils.Utils;
 import io.github.chaosdave34.ghutils.persistentdatatypes.StringArrayPersistentDataType;
 import io.github.chaosdave34.kitpvp.ExtendedPlayer;
 import io.github.chaosdave34.kitpvp.KitPvp;
+import io.github.chaosdave34.kitpvp.abilities.impl.archer.LeapAbility;
 import io.github.chaosdave34.kitpvp.abilities.impl.artilleryman.EnhanceAbility;
 import io.github.chaosdave34.kitpvp.abilities.impl.assassin.HauntAbility;
 import io.github.chaosdave34.kitpvp.abilities.impl.creeper.ExplodeAbility;
@@ -57,9 +58,9 @@ public class AbilityHandler implements Listener {
     public static Ability STORM;
     public static Ability SEISMIC_WAVE;
     public static Ability FORTIFY;
-    public static Ability MAGIC_ATTACK;
     public static Ability ENHANCE;
     public static Ability TURRET;
+    public static Ability LEAP;
 
     public AbilityHandler() {
         FIREBALL = registerAbility(new FireballAbility());
@@ -80,6 +81,7 @@ public class AbilityHandler implements Listener {
         FORTIFY = registerAbility(new FortifyAbility());
         ENHANCE = registerAbility(new EnhanceAbility());
         TURRET = registerAbility(new TurretAbility());
+        LEAP = registerAbility(new LeapAbility());
     }
 
     public Ability registerAbility(Ability ability) {

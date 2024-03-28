@@ -1,6 +1,7 @@
 package io.github.chaosdave34.kitpvp.kits.impl.kits;
 
 import com.mojang.datafixers.util.Pair;
+import io.github.chaosdave34.kitpvp.items.CustomItemHandler;
 import io.github.chaosdave34.kitpvp.kits.Kit;
 import org.bukkit.Color;
 import org.bukkit.Material;
@@ -56,6 +57,7 @@ public class ArcherKit extends Kit {
         return new ItemStack[]{
                 stoneSword,
                 bow,
+                CustomItemHandler.LEAP.build(),
                 new ItemStack(Material.ARROW),
                 new ItemStack(Material.WATER_BUCKET),
         };
