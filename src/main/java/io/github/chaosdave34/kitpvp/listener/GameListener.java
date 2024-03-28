@@ -25,10 +25,12 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockFromToEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.*;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.event.player.*;
 import org.bukkit.inventory.AnvilInventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.meta.CrossbowMeta;
 import org.bukkit.inventory.meta.FireworkMeta;
 import org.bukkit.metadata.FixedMetadataValue;
@@ -196,6 +198,7 @@ public class GameListener implements Listener {
     // KitPvP
     private class BlockRemover extends BukkitRunnable {
         private static final int timer = 45;
+
         @Override
         public void run() {
             if (blocksToRemove.isEmpty()) {
@@ -338,6 +341,18 @@ public class GameListener implements Listener {
                 e.setCancelled(true);
             } else {
                 blocksToRemove.remove(e.getBlock().getLocation());
+            }
+        }
+    }
+
+    @EventHandler
+    public void onModifyArmor(InventoryClickEvent e) {
+        Player p = (Player) e.getWhoClicked();
+        if (ExtendedPlayer.from(p).getGameState() == ExtendedPlayer.GameState.IN_GAME) {
+            if (e.getClickedInventory() instanceof PlayerInventory) {
+                if (e.getSlot() >= 36 && e.getSlot() < 40) {
+                    e.setCancelled(true);
+                }
             }
         }
     }

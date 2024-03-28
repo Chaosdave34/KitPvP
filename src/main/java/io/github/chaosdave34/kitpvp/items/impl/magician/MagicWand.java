@@ -63,11 +63,11 @@ public class MagicWand extends CustomItem {
             if (e.getAction().isLeftClick()) {
                 Location location = p.getEyeLocation().subtract(0, 0.25, 0);
                 if (p.getAttackCooldown() == 1) {
-                    for (int i = 0; i < 30; i++) {
+                    for (int i = 0; i < 40; i++) {
                         p.getWorld().spawnParticle(Particle.REDSTONE, location.clone().add(location.getDirection().clone().multiply(i * 0.2)), 1, 0, 0, 0, new Particle.DustOptions(Color.PURPLE, 1));
                     }
 
-                    Entity target = p.getTargetEntity(8);
+                    Entity target = p.getTargetEntity(10);
                     if (target instanceof LivingEntity livingEntity) {
                         livingEntity.damage(4, DamageSource.builder(DamageType.MAGIC).withDirectEntity(p).withCausingEntity(p).build());
                         p.playSound(p.getLocation(), Sound.ENTITY_ARROW_HIT_PLAYER, 1, 0.1f);

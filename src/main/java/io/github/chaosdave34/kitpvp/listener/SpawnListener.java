@@ -17,9 +17,11 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.entity.ProjectileLaunchEvent;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.event.player.*;
 import org.bukkit.event.world.WorldLoadEvent;
+import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -243,5 +245,17 @@ public class SpawnListener implements Listener {
 
             }
         }.runTaskTimer(KitPvp.INSTANCE, 0, 5);
+    }
+
+    @EventHandler
+    public void onModifyArmor(InventoryClickEvent e) {
+        Player p = (Player) e.getWhoClicked();
+        if (ExtendedPlayer.from(p).getGameState() == ExtendedPlayer.GameState.SPAWN) {
+            if (e.getClickedInventory() instanceof PlayerInventory) {
+                if (e.getSlot() >= 36 && e.getSlot() < 40) {
+                    e.setCancelled(true);
+                }
+            }
+        }
     }
 }
