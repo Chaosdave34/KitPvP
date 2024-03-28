@@ -1,6 +1,7 @@
 package io.github.chaosdave34.kitpvp.listener;
 
 import com.destroystokyo.paper.event.player.PlayerElytraBoostEvent;
+import com.mojang.datafixers.util.Pair;
 import io.github.chaosdave34.kitpvp.ExtendedPlayer;
 import io.github.chaosdave34.kitpvp.KitPvp;
 import io.github.chaosdave34.kitpvp.damagetype.DamageTypes;
@@ -12,11 +13,13 @@ import io.papermc.paper.event.entity.EntityMoveEvent;
 import lombok.Getter;
 import org.bukkit.*;
 import org.bukkit.block.Block;
-import org.bukkit.block.data.Waterlogged;
+import org.bukkit.block.data.BlockData;
 import org.bukkit.damage.DamageSource;
 import org.bukkit.damage.DamageType;
 import org.bukkit.enchantments.Enchantment;
-import org.bukkit.entity.*;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.FallingBlock;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
@@ -41,7 +44,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class GameListener implements Listener {
     @Getter
-    private final Map<Location, Long> blocksToRemove = new ConcurrentHashMap<>();
+    private final Map<Location, Pair<Long, BlockData>> blocksToRemove = new ConcurrentHashMap<>();
     private BukkitTask blockRemoverTask;
 
     // All
@@ -205,17 +208,13 @@ public class GameListener implements Listener {
             }
 
             long currentTime = System.currentTimeMillis();
-            Iterator<Map.Entry<Location, Long>> iterator = blocksToRemove.entrySet().iterator();
+            Iterator<Map.Entry<Location, Pair<Long, BlockData>>> iterator = blocksToRemove.entrySet().iterator();
 
             while (iterator.hasNext()) {
-                Map.Entry<Location, Long> entry = iterator.next();
-                if (currentTime - entry.getValue() >= timer * 1000) {
+                Map.Entry<Location, Pair<Long, BlockData>> entry = iterator.next();
+                if (currentTime - entry.getValue().getFirst() >= timer * 1000) {
                     Block block = entry.getKey().getBlock();
-                    if (block.getBlockData() instanceof Waterlogged waterlogged) {
-                        waterlogged.setWaterlogged(false);
-                        block.setBlockData(waterlogged);
-                    } else
-                        block.setType(Material.AIR);
+                    block.setBlockData(entry.getValue().getSecond());
                     iterator.remove();
                 }
             }
@@ -241,17 +240,9 @@ public class GameListener implements Listener {
                 return;
             }
 
-            // Todo: replace with old block instead of cancelling
-            if (e.getBlockReplacedState().getType() != Material.AIR) {
-                if (!e.getBlockReplacedState().hasMetadata("placed_by_player")) {
-                    e.setCancelled(true);
-                    return;
-                }
-            }
-
             block.setMetadata("placed_by_player", new FixedMetadataValue(KitPvp.INSTANCE, true));
 
-            blocksToRemove.put(block.getLocation(), System.currentTimeMillis());
+            blocksToRemove.put(block.getLocation(), new Pair<>(System.currentTimeMillis(), e.getBlockReplacedState().getBlockData()));
 
             startBlockRemover();
         }
@@ -280,7 +271,7 @@ public class GameListener implements Listener {
 
             if (fallingBlock.hasMetadata("placed_by_player")) {
                 block.setMetadata("placed_by_player", new FixedMetadataValue(KitPvp.INSTANCE, true));
-                blocksToRemove.put(block.getLocation(), System.currentTimeMillis());
+                blocksToRemove.put(block.getLocation(), new Pair<>(System.currentTimeMillis(), e.getBlock().getBlockData()));
             } else if (block.hasMetadata("placed_by_player")) {
                 fallingBlock.setMetadata("placed_by_player", new FixedMetadataValue(KitPvp.INSTANCE, true));
                 blocksToRemove.remove(block.getLocation());
@@ -325,7 +316,7 @@ public class GameListener implements Listener {
 
             block.setMetadata("placed_by_player", new FixedMetadataValue(KitPvp.INSTANCE, true));
 
-            blocksToRemove.put(block.getLocation(), System.currentTimeMillis());
+            blocksToRemove.put(block.getLocation(), new Pair<>(System.currentTimeMillis(), e.getBlock().getBlockData()));
 
             startBlockRemover();
         }
@@ -396,7 +387,6 @@ public class GameListener implements Listener {
             Material blockBelow = e.getTo().clone().subtract(0, 1, 0).getBlock().getType();
             List<Material> filterForBlockBelow = List.of(Material.GRASS_BLOCK, Material.SAND, Material.SPRUCE_LEAVES, Material.OAK_LEAVES);
 
-
             if (e.getTo().getBlock().getType() == Material.WATER)
                 p.damage(Float.MAX_VALUE, DamageSource.builder(DamageType.DROWN).build());
 
@@ -405,6 +395,8 @@ public class GameListener implements Listener {
 
             else if (e.getTo().getY() > 199)
                 p.damage(Float.MAX_VALUE, DamageSource.builder(DamageTypes.ESCAPE).build());
+
+            p.setGlowing(blockBelow == Material.GREEN_WOOL || e.getTo().clone().subtract(0, 2, 0).getBlock().getType() == Material.GREEN_WOOL);
         }
     }
 

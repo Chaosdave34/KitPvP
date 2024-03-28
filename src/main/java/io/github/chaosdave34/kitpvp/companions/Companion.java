@@ -54,14 +54,11 @@ public abstract class Companion {
         companion.targetSelector.addGoal(1, new CustomOwnerHurtByTarget(companion, owner));
         companion.targetSelector.addGoal(2, new CustomOwnerHurtTarget(companion, owner));
         companion.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(companion, net.minecraft.world.entity.player.Player.class, 10, true, true, livingEntity -> {
-            if (ExtendedPlayer.from(owner).inSpawn()) return false;
+            if (livingEntity.getUUID().equals(owner.getUniqueId())) return false;
 
-            if (!livingEntity.getUUID().equals(owner.getUniqueId())) {
-                if (livingEntity.getBukkitLivingEntity() instanceof Player player) {
-                    return ExtendedPlayer.from(player).inGame();
-                } else return true;
-            }
-            return false;
+            if (livingEntity.getBukkitLivingEntity() instanceof Player player) {
+                return ExtendedPlayer.from(player).inGame();
+            } else return true;
         }));
 
         CraftMob bukkitMob = companion.getBukkitMob();

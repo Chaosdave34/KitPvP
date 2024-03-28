@@ -153,10 +153,9 @@ public class ExtendedPlayer {
             Objective objective = scoreboard.registerNewObjective("default", Criteria.DUMMY, Component.text("KitPvP", NamedTextColor.YELLOW, TextDecoration.BOLD));
             objective.setDisplaySlot(DisplaySlot.SIDEBAR);
 
-            Objective hearts = scoreboard.registerNewObjective("hearts", Criteria.HEALTH, Component.text("health", NamedTextColor.RED));
-            hearts.setDisplaySlot(DisplaySlot.BELOW_NAME);
-
-            p.setScoreboard(scoreboard);
+//            Objective hearts = scoreboard.registerNewObjective("hearts", Criteria.HEALTH, Component.text("❤", NamedTextColor.RED));
+//            hearts.setDisplaySlot(DisplaySlot.BELOW_NAME);
+//            p.setScoreboard(scoreboard);
         }
 
         if (getSelectedKit() == null) setSelectedKitId(KitHandler.CLASSIC.getId());
