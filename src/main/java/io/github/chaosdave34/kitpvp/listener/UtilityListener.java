@@ -21,6 +21,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -170,6 +171,14 @@ public class UtilityListener implements Listener {
             if (blockData instanceof Door || blockData instanceof TrapDoor || blockData instanceof DecoratedPot) {
                 e.setCancelled(true);
             }
+        }
+    }
+
+    // All
+    @EventHandler
+    public void onDrop(PlayerDropItemEvent e) {
+        if (ExtendedPlayer.from(e.getPlayer()) == null) {
+            e.setCancelled(true);
         }
     }
 }

@@ -48,7 +48,7 @@ public class GameListener implements Listener {
     public void onDrop(PlayerDropItemEvent e) {
         Player p = e.getPlayer();
         ExtendedPlayer extendedPlayer = ExtendedPlayer.from(p);
-        if (extendedPlayer == null || extendedPlayer.inSpawn()) {
+        if (extendedPlayer.inGame()) {
             e.setCancelled(true);
         }
     }
