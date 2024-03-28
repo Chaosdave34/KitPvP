@@ -46,7 +46,6 @@ public class MagicianKit extends Kit {
     public ItemStack getFeetContent() {
         ItemStack leatherBoots = new ItemStack(Material.LEATHER_BOOTS);
         leatherBoots.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2);
-        leatherBoots.addEnchantment(Enchantment.PROTECTION_FALL, 4);
         setLeatherArmorColor(leatherBoots, Color.BLACK);
         return leatherBoots;
     }

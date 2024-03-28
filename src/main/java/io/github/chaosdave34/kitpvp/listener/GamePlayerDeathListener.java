@@ -70,19 +70,32 @@ public class GamePlayerDeathListener implements Listener {
                     // Turret
                     else if (damager instanceof Firework firework) {
                         if (firework.getShooter() instanceof Husk husk) {
-
-
                             UUID turretOwnerUUUID = PDCUtils.getOwner(husk);
                             if (turretOwnerUUUID != null) {
-                                message = name + " was killed by " + Bukkit.getOfflinePlayer(turretOwnerUUUID).getName() + "'s turret";
-
                                 Player turretOwner = Bukkit.getPlayer(turretOwnerUUUID);
                                 if (turretOwner != null) {
+                                    message = name + " was killed by " + turretOwner.getName() + "'s turret";
+
                                     ExtendedPlayer.from(turretOwner).killedPlayer(p);
                                     KitPvp.INSTANCE.getCosmeticHandler().triggerKillEffect(turretOwner, p);
                                 }
                             }
                         }
+                    }
+                    // Companion
+                    else if (damager.hasMetadata("companion")) {
+                        Bukkit.getLogger().info("metadata");
+                        UUID ownerUUID = PDCUtils.getOwner(damager);
+                        if (ownerUUID != null) {
+                            Player companionOwner = Bukkit.getPlayer(ownerUUID);
+                            if (companionOwner != null) {
+                                message = name + " was killed by " + companionOwner.getName() + "'s companion";
+
+                                ExtendedPlayer.from(companionOwner).killedPlayer(p);
+                                KitPvp.INSTANCE.getCosmeticHandler().triggerKillEffect(companionOwner, p);
+                            }
+                        }
+
                     }
                 } else if (damageType == DamageTypes.LAND) {
                     message = p.getName() + " tried to land";

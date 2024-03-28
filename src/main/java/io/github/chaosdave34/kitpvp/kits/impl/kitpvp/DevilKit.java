@@ -61,7 +61,6 @@ public class DevilKit extends Kit { // Add special ability
                 CustomItemHandler.DEVILS_SWORD.build(),
                 bow,
                 new ItemStack(Material.ARROW),
-                new ItemStack(Material.WATER_BUCKET),
         };
     }
 

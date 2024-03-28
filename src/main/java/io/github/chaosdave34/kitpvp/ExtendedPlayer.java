@@ -388,6 +388,7 @@ public class ExtendedPlayer {
 
         if (this.companion == null) {
             this.companion = comp.createCompanion(getPlayer());
+
             getPlayer().getWorld().addEntity(companion);
         }
     }
@@ -426,7 +427,7 @@ public class ExtendedPlayer {
         if (bounty == 0) {
             message = Component.text("A bounty of " + amount + " coins has been placed on " + getPlayer().getName() + ".");
         } else {
-            message = Component.text("The bounty on " + getPlayer().getName() + " has been increased by " + amount + " coins to a total of " + bounty + amount + " coins.");
+            message = Component.text("The bounty on " + getPlayer().getName() + " has been increased by " + amount + " coins to a total of " + (bounty + amount) + " coins.");
         }
 
         Bukkit.broadcast(message);

@@ -36,8 +36,8 @@ public class MagicAttackAbility extends Ability {
 
         Entity target = p.getTargetEntity(8);
         if (target instanceof LivingEntity livingEntity) {
-            livingEntity.damage(4, DamageSource.builder(DamageType.MAGIC).withCausingEntity(p).build());
-            p.playSound(p.getLocation(), Sound.ENTITY_ARROW_HIT_PLAYER, 1, 1);
+            livingEntity.damage(4, DamageSource.builder(DamageType.MAGIC).withDirectEntity(p).build());
+            p.playSound(p.getLocation(), Sound.ENTITY_ARROW_HIT_PLAYER, 1, 0.1f);
         }
         return true;
     }

@@ -20,6 +20,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.meta.FireworkMeta;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
@@ -141,6 +142,15 @@ public class Turret extends CustomEntity {
 
     @EventHandler
     public void onOwnerDeath(PlayerSpawnEvent e) {
+        Player p = e.getPlayer();
+        if (turrets.containsKey(p.getUniqueId())) {
+            Entity entity =  Bukkit.getEntity(turrets.get(p.getUniqueId()));
+            if (entity != null) entity.remove();
+        }
+    }
+
+    @EventHandler
+    public void onPlayerQuit(PlayerQuitEvent e) {
         Player p = e.getPlayer();
         if (turrets.containsKey(p.getUniqueId())) {
             Entity entity =  Bukkit.getEntity(turrets.get(p.getUniqueId()));

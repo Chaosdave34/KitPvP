@@ -8,8 +8,6 @@ import org.bukkit.entity.Player;
 
 import java.util.*;
 
-;
-
 public class ChallengesHandler {
     private final Map<String, Challenge> challenges = new HashMap<>();
 

@@ -88,15 +88,17 @@ public class UtilityListener implements Listener {
         extendedPlayer.updatePlayerListFooter();
 
         List<Component> messages = List.of(
-                Component.text("KitPvP is currently in closed beta!", NamedTextColor.AQUA),
-                Component.text("- Feel free to report bugs and post feature requests in the #kitpvp channel on the discord server.", NamedTextColor.AQUA),
-                Component.text("- ", NamedTextColor.AQUA)
+                Component.text("=================================================", NamedTextColor.GREEN),
+                Component.text("KitPvP is currently in closed beta!", NamedTextColor.GREEN),
+                Component.text("- Feel free to report bugs and post feature requests in the #kitpvp channel on the discord server.", NamedTextColor.GREEN),
+                Component.text("- ", NamedTextColor.GREEN)
                         .append(Component.text("Daily Challenges", NamedTextColor.GRAY).decorate(TextDecoration.ITALIC))
-                        .append(Component.text(", ", NamedTextColor.AQUA))
+                        .append(Component.text(", ", NamedTextColor.GREEN))
                         .append(Component.text("Companions", NamedTextColor.GRAY).decorate(TextDecoration.ITALIC))
-                        .append(Component.text(" and ", NamedTextColor.AQUA))
+                        .append(Component.text(" and ", NamedTextColor.GREEN))
                         .append(Component.text("Bounties", NamedTextColor.GRAY).decorate(TextDecoration.ITALIC))
-                        .append(Component.text(" have been enabled. You may experience strange or unexpected behaviour.", NamedTextColor.AQUA))
+                        .append(Component.text(" have been enabled. You may experience strange or unexpected behaviour.", NamedTextColor.GREEN)),
+                Component.text("=================================================", NamedTextColor.GREEN)
         );
 
         Bukkit.getScheduler().runTaskLater(KitPvp.INSTANCE, () -> messages.forEach(p::sendMessage), 10);

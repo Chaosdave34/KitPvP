@@ -1,6 +1,8 @@
 package io.github.chaosdave34.kitpvp.companions;
 
+import io.github.chaosdave34.ghutils.utils.PDCUtils;
 import io.github.chaosdave34.kitpvp.ExtendedPlayer;
+import io.github.chaosdave34.kitpvp.KitPvp;
 import io.github.chaosdave34.kitpvp.pathfindergoals.CustomFollowOwnerGoal;
 import io.github.chaosdave34.kitpvp.pathfindergoals.CustomMeleeAttackGoal;
 import io.github.chaosdave34.kitpvp.pathfindergoals.CustomOwnerHurtByTarget;
@@ -14,8 +16,10 @@ import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.level.Level;
 import org.bukkit.Location;
 import org.bukkit.craftbukkit.v1_20_R3.CraftWorld;
+import org.bukkit.craftbukkit.v1_20_R3.entity.CraftMob;
 import org.bukkit.craftbukkit.v1_20_R3.util.CraftVector;
 import org.bukkit.entity.Player;
+import org.bukkit.metadata.FixedMetadataValue;
 
 public abstract class Companion {
     protected final String name;
@@ -56,14 +60,16 @@ public abstract class Companion {
             if (!livingEntity.getUUID().equals(owner.getUniqueId())) {
                 if (livingEntity.getBukkitLivingEntity() instanceof Player player) {
                     return ExtendedPlayer.from(player).inGame();
-                }
-                else return true;
+                } else return true;
             }
             return false;
         }));
 
+        CraftMob bukkitMob = companion.getBukkitMob();
+        bukkitMob.setMetadata("companion", new FixedMetadataValue(KitPvp.INSTANCE, true));
+        PDCUtils.setOwner(bukkitMob, owner.getUniqueId());
 
-        return companion.getBukkitMob();
+        return bukkitMob;
     }
 
     public PathfinderMob createDummyCompanion(Location location) {
