@@ -152,6 +152,10 @@ public class ExtendedPlayer {
             scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
             Objective objective = scoreboard.registerNewObjective("default", Criteria.DUMMY, Component.text("KitPvP", NamedTextColor.YELLOW, TextDecoration.BOLD));
             objective.setDisplaySlot(DisplaySlot.SIDEBAR);
+
+            Objective hearts = scoreboard.registerNewObjective("hearts", Criteria.HEALTH, Component.text("health", NamedTextColor.RED));
+            hearts.setDisplaySlot(DisplaySlot.BELOW_NAME);
+
             p.setScoreboard(scoreboard);
         }
 
@@ -285,7 +289,7 @@ public class ExtendedPlayer {
 
     private void checkHighestKillStreakHighscore(GameType gameType) {
         Map<UUID, Integer> highestKillStreaks = KitPvp.INSTANCE.getHighestKillStreaks(gameType);
-        if ((highestKillStreaks.size() < 5 && !highestKillStreaks.containsKey(uuid) )|| getKillStreak() > Collections.min(highestKillStreaks.values())) {
+        if ((highestKillStreaks.size() < 5 && !highestKillStreaks.containsKey(uuid)) || getKillStreak() > Collections.min(highestKillStreaks.values())) {
 
             if (highestKillStreaks.size() == 5 && !highestKillStreaks.containsKey(uuid)) {
                 for (UUID key : highestKillStreaks.keySet()) {
