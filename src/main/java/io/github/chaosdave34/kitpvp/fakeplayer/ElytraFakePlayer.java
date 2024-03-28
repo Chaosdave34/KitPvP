@@ -11,7 +11,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class ElytraFakePlayer extends FakePlayer {
     public ElytraFakePlayer() {
-        super("ElytraPvP", "world", new Location(null, -1.5, 120, 6.5), -45, 0, true);
+        super("Elytra", "world", new Location(null, -1.5, 120, 6.5), -45, 0, true);
 
         equipment.put(EquipmentSlot.CHEST, new ItemStack(Material.ELYTRA));
     }

@@ -5,7 +5,7 @@ import io.github.chaosdave34.kitpvp.KitPvp;
 import io.github.chaosdave34.kitpvp.abilities.Ability;
 import io.github.chaosdave34.kitpvp.abilities.AbilityType;
 import io.github.chaosdave34.kitpvp.kits.Kit;
-import io.github.chaosdave34.kitpvp.kits.impl.kitpvp.TankKit;
+import io.github.chaosdave34.kitpvp.kits.impl.kits.TankKit;
 import net.kyori.adventure.text.Component;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.PlayerInventory;
@@ -43,11 +43,11 @@ public class FortifyAbility extends Ability {
         }
 
         new BukkitRunnable() {
-            final int checkDeath = extendedPlayer.getTotalDeaths();
+            final int checkDeath = extendedPlayer.getTotalDeaths(ExtendedPlayer.GameType.KITS);
 
             @Override
             public void run() {
-                if (checkDeath == extendedPlayer.getTotalDeaths()) {
+                if (checkDeath == extendedPlayer.getTotalDeaths(ExtendedPlayer.GameType.KITS)) {
                     Kit selectedKit = extendedPlayer.getSelectedKit();
                     inventory.setHelmet(selectedKit.getHeadContent());
                     inventory.setChestplate(selectedKit.getChestContent());

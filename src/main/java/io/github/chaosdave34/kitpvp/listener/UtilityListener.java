@@ -66,13 +66,18 @@ public class UtilityListener implements Listener {
         extendedPlayer.updateDisplayName();
 
         // Highscores
-        if (KitPvp.INSTANCE.getHighestKillstreaks().size() < 5) {
-            KitPvp.INSTANCE.getHighestKillstreaks().put(p.getUniqueId(), extendedPlayer.getHighestKillStreak());
-            GHUtils.getTextDisplayHandler().updateTextDisplayForAll(TextDisplays.HIGHEST_KILLSTREAKS);
+        if (KitPvp.INSTANCE.getHighestKillStreaksKits().size() < 5) {
+            KitPvp.INSTANCE.getHighestKillStreaksKits().put(p.getUniqueId(), extendedPlayer.getHighestKillStreak(ExtendedPlayer.GameType.KITS));
+            GHUtils.getTextDisplayHandler().updateTextDisplayForAll(TextDisplays.HIGHEST_KILL_STREAKS_KITS);
         }
+        if (KitPvp.INSTANCE.getHighestKillStreaksElytra().size() < 5) {
+            KitPvp.INSTANCE.getHighestKillStreaksElytra().put(p.getUniqueId(), extendedPlayer.getHighestKillStreak(ExtendedPlayer.GameType.ELYTRA));
+            GHUtils.getTextDisplayHandler().updateTextDisplayForAll(TextDisplays.HIGHEST_KILL_STREAKS_ELYTRA);
+        }
+
         if (KitPvp.INSTANCE.getHighestLevels().size() < 5) {
             KitPvp.INSTANCE.getHighestLevels().put(p.getUniqueId(), extendedPlayer.getLevel());
-            GHUtils.getTextDisplayHandler().updateTextDisplayForAll(TextDisplays.HIGHEST_LEVELS);
+            GHUtils.getTextDisplayHandler().updateTextDisplayForAll(TextDisplays.HIGHEST_LEVELS_KITS);
         }
 
         // player list header

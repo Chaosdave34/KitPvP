@@ -32,10 +32,10 @@ public class EnhanceAbility extends Ability {
         ItemStack crossbow = p.getInventory().getItemInMainHand();
         crossbow.addUnsafeEnchantment(Enchantment.QUICK_CHARGE, 5);
         new BukkitRunnable() {
-            final int checkDeath = extendedPlayer.getTotalDeaths();
+            final int checkDeath = extendedPlayer.getTotalDeaths(ExtendedPlayer.GameType.KITS);
             @Override
             public void run() {
-                if (checkDeath == extendedPlayer.getTotalDeaths()) {
+                if (checkDeath == extendedPlayer.getTotalDeaths(ExtendedPlayer.GameType.KITS)) {
                     crossbow.addUnsafeEnchantment(Enchantment.QUICK_CHARGE, 3);
                 }
             }

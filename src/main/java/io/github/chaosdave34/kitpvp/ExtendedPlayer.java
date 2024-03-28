@@ -37,7 +37,7 @@ public class ExtendedPlayer {
     private final UUID uuid;
     private String selectedKitId;
     private String selectedElytraKitId;
-    private GameType lastGame;
+    private GameType currentGame;
 
     private int experiencePoints;
     private int coins;
@@ -50,10 +50,11 @@ public class ExtendedPlayer {
     private transient Entity morph;
     private transient Mob companion;
 
-    private transient int killSteak;
-    private int highestKillStreak;
-    private int totalKills;
-    private int totalDeaths;
+    private transient int killStreak;
+
+    private Map<GameType, Integer> highestKillStreaks;
+    private Map<GameType, Integer> totalKills;
+    private Map<GameType, Integer> totalDeaths;
 
     private String projectileTrailId;
     private String killEffectId;
@@ -63,7 +64,7 @@ public class ExtendedPlayer {
     public ExtendedPlayer(Player p) {
         uuid = p.getUniqueId();
         gameState = GameState.SPAWN;
-        lastGame = GameType.NORMAL;
+        currentGame = GameType.KITS;
     }
 
     public static ExtendedPlayer from(UUID uuid) {
@@ -110,7 +111,7 @@ public class ExtendedPlayer {
     }
 
     public void spawn() {
-        spawn(getLastGame());
+        spawn(getCurrentGame());
     }
 
     public void spawn(GameType gameType) {
@@ -119,13 +120,13 @@ public class ExtendedPlayer {
 
         p.setGameMode(GameMode.SURVIVAL);
 
-        lastGame = gameType;
-        if (lastGame == null) lastGame = GameType.NORMAL;
+        currentGame = gameType;
+        if (currentGame == null) currentGame = GameType.KITS;
 
-        if (lastGame == GameType.NORMAL) {
+        if (currentGame == GameType.KITS) {
             p.teleport(new Location(Bukkit.getWorld("world"), 2.0, 120.0, 10.0, 180, 0));
             gameState = GameState.SPAWN;
-        } else if (lastGame == GameType.ELYTRA) {
+        } else if (currentGame == GameType.ELYTRA) {
             p.teleport(new Location(Bukkit.getWorld("world_elytra"), 16.0, 200, 0.0, 90, 0));
             gameState = GameState.ELYTRA_SPAWN;
         }
@@ -144,7 +145,7 @@ public class ExtendedPlayer {
         p.clearActiveItem();
         p.closeInventory(InventoryCloseEvent.Reason.DEATH);
 
-        killSteak = 0;
+        killStreak = 0;
         combatCooldown = 0;
 
         if (scoreboard == null) {
@@ -157,9 +158,9 @@ public class ExtendedPlayer {
         if (getSelectedKit() == null) setSelectedKitId(KitHandler.CLASSIC.getId());
         if (getSelectedElytraKit() == null) setSelectedElytraKitId(ElytraKitHandler.KNIGHT.getId());
 
-        if (lastGame == GameType.NORMAL)
+        if (currentGame == GameType.KITS)
             getSelectedKit().apply(p);
-        else if (lastGame == GameType.ELYTRA)
+        else if (currentGame == GameType.ELYTRA)
             getSelectedElytraKit().apply(p);
 
         new PlayerSpawnEvent(p).callEvent();
@@ -178,8 +179,8 @@ public class ExtendedPlayer {
         Player p = getPlayer();
 
         String icon = "";
-        if (getLastGame() == GameType.NORMAL) icon = "⚔";
-        else if (getLastGame() == GameType.ELYTRA) icon = "\uD83D\uDEE1";
+        if (getCurrentGame() == GameType.KITS) icon = "⚔";
+        else if (getCurrentGame() == GameType.ELYTRA) icon = "\uD83D\uDEE1";
 
         Component name = Component.text(icon)
                 .append(Component.text(" ["))
@@ -211,14 +212,14 @@ public class ExtendedPlayer {
         objective.getScore("Coins: §6" + getCoins()).setScore(5);
         objective.getScore("  ").setScore(4);
         String kitName = "None";
-        if (lastGame == GameType.NORMAL)
+        if (currentGame == GameType.KITS)
             kitName = getSelectedKit() == null ? "None" : getSelectedKit().getName();
 
-        else if (lastGame == GameType.ELYTRA)
+        else if (currentGame == GameType.ELYTRA)
             kitName = getSelectedElytraKitId() == null ? "None" : getSelectedElytraKit().getName();
 
         objective.getScore("Kit: " + kitName).setScore(3);
-        objective.getScore("Kill Streak: " + killSteak).setScore(2);
+        objective.getScore("Kill Streak: " + killStreak).setScore(2);
         objective.getScore("   ").setScore(1);
         objective.getScore("Status: " + (combatCooldown > 0 ? "§cFighting" : getGameState().displayName)).setScore(0);
     }
@@ -249,47 +250,82 @@ public class ExtendedPlayer {
     }
 
     public void incrementKillStreak() {
-        killSteak++;
+        killStreak++;
 
-        if (killSteak % 5 == 0) {
-            Bukkit.broadcast((Component.text(getPlayer().getName() + " has reached a kill streak of " + killSteak)));
-            receivedBounty(killSteak / 5 * 100);
+        if (killStreak % 5 == 0) {
+            Bukkit.broadcast((Component.text(getPlayer().getName() + " has reached a kill streak of " + killStreak)));
+            receivedBounty(killStreak / 5 * 100);
         }
 
-        if (killSteak > highestKillStreak) {
-            highestKillStreak = killSteak;
-            GHUtils.getTextDisplayHandler().updateTextDisplay(getPlayer(), TextDisplays.PERSONAL_STATISTICS);
-
-            Map<UUID, Integer> highestKillstreaks = KitPvp.INSTANCE.getHighestKillstreaks();
-
-
-            if (highestKillstreaks.size() < 5 || getLevel() > Collections.min(highestKillstreaks.values())) {
-
-                if (highestKillstreaks.size() == 5 && !highestKillstreaks.containsKey(uuid)) {
-                    for (UUID key : highestKillstreaks.keySet()) {
-                        if (Objects.equals(highestKillstreaks.get(key), Collections.min(highestKillstreaks.values()))) {
-                            highestKillstreaks.remove(key);
-                            break;
-                        }
-                    }
-                }
-
-                highestKillstreaks.put(uuid, getLevel());
-
-                GHUtils.getTextDisplayHandler().updateTextDisplayForAll(TextDisplays.HIGHEST_KILLSTREAKS);
-            }
+        if (killStreak > highestKillStreaks.get(currentGame)) {
+            highestKillStreaks.put(currentGame, killStreak);
+            updatePersonalStatisticsDisplay(currentGame);
         }
+
+        checkHighestKillStreakHighscore(currentGame);
         updateScoreboardLines();
     }
 
+    private void updatePersonalStatisticsDisplay(GameType gameType) {
+        switch (gameType) {
+            case KITS ->
+                    GHUtils.getTextDisplayHandler().updateTextDisplay(getPlayer(), TextDisplays.PERSONAL_STATISTICS_KITS);
+            case ELYTRA ->
+                    GHUtils.getTextDisplayHandler().updateTextDisplay(getPlayer(), TextDisplays.PERSONAL_STATISTICS_ELYTRA);
+        }
+    }
+
+    public int getHighestKillStreak(GameType gameType) {
+        if (highestKillStreaks == null) highestKillStreaks = new HashMap<>();
+
+        if (!highestKillStreaks.containsKey(gameType)) highestKillStreaks.put(gameType, 0);
+
+        return highestKillStreaks.get(gameType);
+    }
+
+    private void checkHighestKillStreakHighscore(GameType gameType) {
+        Map<UUID, Integer> highestKillStreaks = KitPvp.INSTANCE.getHighestKillStreaks(gameType);
+        if (highestKillStreaks.size() < 5 || getLevel() > Collections.min(highestKillStreaks.values())) {
+
+            if (highestKillStreaks.size() == 5 && !highestKillStreaks.containsKey(uuid)) {
+                for (UUID key : highestKillStreaks.keySet()) {
+                    if (Objects.equals(highestKillStreaks.get(key), Collections.min(highestKillStreaks.values()))) {
+                        highestKillStreaks.remove(key);
+                        break;
+                    }
+                }
+            }
+
+            highestKillStreaks.put(uuid, getLevel());
+            GHUtils.getTextDisplayHandler().updateTextDisplayForAll(TextDisplays.HIGHEST_KILL_STREAKS_ELYTRA);
+        }
+    }
+
+    public int getTotalKills(GameType gameType) {
+        if (totalKills == null) totalKills = new HashMap<>();
+
+        if (!totalKills.containsKey(gameType)) totalKills.put(gameType, 0);
+
+        return totalKills.get(gameType);
+    }
+
     public void incrementTotalKills() {
-        totalKills++;
-        GHUtils.getTextDisplayHandler().updateTextDisplay(getPlayer(), TextDisplays.PERSONAL_STATISTICS);
+        totalKills.put(currentGame, totalKills.get(currentGame) + 1);
+        updatePersonalStatisticsDisplay(currentGame);
+    }
+
+    public int getTotalDeaths(GameType gameType) {
+        if (totalDeaths == null) totalDeaths = new HashMap<>();
+
+
+        if (!totalDeaths.containsKey(gameType)) totalDeaths.put(gameType, 0);
+
+        return totalDeaths.get(gameType);
     }
 
     public void incrementTotalDeaths() {
-        totalDeaths++;
-        GHUtils.getTextDisplayHandler().updateTextDisplay(getPlayer(), TextDisplays.PERSONAL_STATISTICS);
+        totalDeaths.put(currentGame, totalDeaths.get(currentGame) + 1);
+        updatePersonalStatisticsDisplay(currentGame);
     }
 
     public void addExperiencePoints(int amount) {
@@ -304,9 +340,7 @@ public class ExtendedPlayer {
 
             Map<UUID, Integer> highestLevels = KitPvp.INSTANCE.getHighestLevels();
 
-
             if (highestLevels.size() < 5 || getLevel() > Collections.min(highestLevels.values())) {
-
                 if (highestLevels.size() == 5 && !highestLevels.containsKey(uuid)) {
                     for (UUID key : highestLevels.keySet()) {
                         if (Objects.equals(highestLevels.get(key), Collections.min(highestLevels.values()))) {
@@ -318,7 +352,7 @@ public class ExtendedPlayer {
 
                 highestLevels.put(uuid, getLevel());
 
-                GHUtils.getTextDisplayHandler().updateTextDisplayForAll(TextDisplays.HIGHEST_LEVELS);
+                GHUtils.getTextDisplayHandler().updateTextDisplayForAll(TextDisplays.HIGHEST_LEVELS_KITS);
             }
         }
     }
@@ -477,7 +511,7 @@ public class ExtendedPlayer {
     }
 
     public enum GameType {
-        NORMAL,
+        KITS,
         ELYTRA
     }
 

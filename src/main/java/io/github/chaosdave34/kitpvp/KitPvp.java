@@ -42,8 +42,10 @@ public final class KitPvp extends JavaPlugin {
     public static KitPvp INSTANCE;
 
     private final Map<UUID, ExtendedPlayer> extendedPlayers = new HashMap<>();
+    // Todo improve getters for highscores
+    private final Map<UUID, Integer> highestKillStreaksKits = new HashMap<>();
+    private final Map<UUID, Integer> highestKillStreaksElytra = new HashMap<>();
 
-    private final Map<UUID, Integer> highestKillstreaks = new HashMap<>();
     private final Map<UUID, Integer> highestLevels = new HashMap<>();
 
     private AbilityHandler abilityHandler;
@@ -125,7 +127,9 @@ public final class KitPvp extends JavaPlugin {
 
         // load high scores
         highestLevels.putAll(loadHighescore("highestLevels"));
-        highestKillstreaks.putAll(loadHighescore("highestKillstreaks"));
+
+        highestKillStreaksKits.putAll(loadHighescore("highestKillStreaksKits"));
+        highestKillStreaksElytra.putAll(loadHighescore("highestKillStreaksElytra"));
     }
 
     private void registerCommand(String name, CommandExecutor executor) {
@@ -143,6 +147,7 @@ public final class KitPvp extends JavaPlugin {
         command.setTabCompleter(tabCompleter);
     }
 
+    // Extended players
     public ExtendedPlayer getExtendedPlayer(Player p) {
         return extendedPlayers.get(p.getUniqueId());
     }
@@ -167,32 +172,12 @@ public final class KitPvp extends JavaPlugin {
         extendedPlayers.remove(p.getUniqueId());
     }
 
-    @Override
-    public void onDisable() {
-        saveHighscores();
-
-        for (ExtendedPlayer extendedPlayer : extendedPlayers.values()) {
-            extendedPlayer.unmorph();
-            extendedPlayer.removeCompanion();
-            JsonUtils.writeObjectToFile(new File(getDataFolder(), "player_data/" + extendedPlayer.getPlayer().getUniqueId() + ".json"), extendedPlayer);
-        }
-
-        for (Location location : gameListener.getBlocksToRemove().keySet()) {
-            Block block = location.getBlock();
-            if (block.getBlockData() instanceof Waterlogged waterlogged) {
-                waterlogged.setWaterlogged(false);
-                block.setBlockData(waterlogged);
-            } else
-                block.setType(Material.AIR);
-        }
-
-        if (customEventHandler.getActiveEvent() != null)
-            customEventHandler.getActiveEvent().stop();
-    }
-
+    // Highscores
     public void saveHighscores() {
         JsonUtils.writeObjectToFile(new File(getDataFolder(), "highestLevels"), highestLevels);
-        JsonUtils.writeObjectToFile(new File(getDataFolder(), "highestKillstreaks"), highestKillstreaks);
+
+        JsonUtils.writeObjectToFile(new File(getDataFolder(), "highestKillStreaksKits"), highestKillStreaksKits);
+        JsonUtils.writeObjectToFile(new File(getDataFolder(), "highestKillStreaksElytra"), highestKillStreaksElytra);
     }
 
     private Map<UUID, Integer> loadHighescore(String name) {
@@ -224,5 +209,37 @@ public final class KitPvp extends JavaPlugin {
         }
         return Collections.emptyMap();
     }
+
+    public Map<UUID, Integer> getHighestKillStreaks(ExtendedPlayer.GameType gameType) {
+        return switch (gameType) {
+            case KITS -> highestKillStreaksKits;
+            case ELYTRA -> highestKillStreaksElytra;
+        };
+    }
+
+
+    @Override
+    public void onDisable() {
+        saveHighscores();
+
+        for (ExtendedPlayer extendedPlayer : extendedPlayers.values()) {
+            extendedPlayer.unmorph();
+            extendedPlayer.removeCompanion();
+            JsonUtils.writeObjectToFile(new File(getDataFolder(), "player_data/" + extendedPlayer.getPlayer().getUniqueId() + ".json"), extendedPlayer);
+        }
+
+        for (Location location : gameListener.getBlocksToRemove().keySet()) {
+            Block block = location.getBlock();
+            if (block.getBlockData() instanceof Waterlogged waterlogged) {
+                waterlogged.setWaterlogged(false);
+                block.setBlockData(waterlogged);
+            } else
+                block.setType(Material.AIR);
+        }
+
+        if (customEventHandler.getActiveEvent() != null)
+            customEventHandler.getActiveEvent().stop();
+    }
+
 
 }

@@ -1,4 +1,4 @@
-package io.github.chaosdave34.kitpvp.kits.impl.kitpvp;
+package io.github.chaosdave34.kitpvp.kits.impl.kits;
 
 import com.mojang.datafixers.util.Pair;
 import io.github.chaosdave34.kitpvp.kits.Kit;

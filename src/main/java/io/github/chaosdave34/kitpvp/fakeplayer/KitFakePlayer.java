@@ -13,11 +13,11 @@ public class KitFakePlayer extends FakePlayer {
 
     @Override
     public void onAttack(@NotNull Player p) {
-        ExtendedPlayer.from(p).spawn(ExtendedPlayer.GameType.NORMAL);
+        ExtendedPlayer.from(p).spawn(ExtendedPlayer.GameType.KITS);
     }
 
     @Override
     public void onActualInteract(@NotNull Player p) {
-        ExtendedPlayer.from(p).spawn(ExtendedPlayer.GameType.NORMAL);
+        ExtendedPlayer.from(p).spawn(ExtendedPlayer.GameType.KITS);
     }
 }

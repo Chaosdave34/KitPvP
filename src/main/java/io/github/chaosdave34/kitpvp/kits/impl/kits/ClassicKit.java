@@ -1,20 +1,18 @@
-package io.github.chaosdave34.kitpvp.kits.impl.kitpvp;
+package io.github.chaosdave34.kitpvp.kits.impl.kits;
 
-import io.github.chaosdave34.kitpvp.companions.Companion;
-import io.github.chaosdave34.kitpvp.companions.CompanionHandler;
-import io.github.chaosdave34.kitpvp.items.CustomItemHandler;
 import io.github.chaosdave34.kitpvp.kits.Kit;
 import org.bukkit.Material;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 
-public class AssassinKit extends Kit {
-    public AssassinKit() {
-        super("assassin", "Assassin");
+public class ClassicKit extends Kit {
+    public ClassicKit() {
+        super("classic", "Classic");
     }
 
     @Override
     public ItemStack getHeadContent() {
-        return new ItemStack(Material.CHAINMAIL_HELMET);
+        return new ItemStack(Material.IRON_HELMET);
     }
 
     @Override
@@ -24,18 +22,29 @@ public class AssassinKit extends Kit {
 
     @Override
     public ItemStack getLegsContent() {
-        return new ItemStack(Material.CHAINMAIL_LEGGINGS);
+        return new ItemStack(Material.IRON_LEGGINGS);
     }
 
     @Override
     public ItemStack getFeetContent() {
-        return new ItemStack(Material.CHAINMAIL_BOOTS);
+        return new ItemStack(Material.IRON_BOOTS);
+    }
+
+    @Override
+    public ItemStack getOffhandContent() {
+        return new ItemStack(Material.SHIELD);
     }
 
     @Override
     public ItemStack[] getInventoryContent() {
+        ItemStack bow = new ItemStack(Material.BOW);
+        bow.addEnchantment(Enchantment.ARROW_INFINITE, 1);
+
         return new ItemStack[]{
-                CustomItemHandler.ASSASSIN_SWORD.build(),
+                new ItemStack(Material.DIAMOND_SWORD),
+                new ItemStack(Material.IRON_AXE),
+                bow,
+                new ItemStack(Material.ARROW),
                 new ItemStack(Material.WATER_BUCKET),
         };
     }
@@ -46,10 +55,5 @@ public class AssassinKit extends Kit {
                 new ItemStack(Material.GOLDEN_APPLE),
                 new ItemStack(Material.COBBLESTONE, 32),
         };
-    }
-
-    @Override
-    public Companion getCompanion() {
-        return CompanionHandler.ALLAY;
     }
 }

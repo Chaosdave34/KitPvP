@@ -1,4 +1,4 @@
-package io.github.chaosdave34.kitpvp.kits.impl.kitpvp;
+package io.github.chaosdave34.kitpvp.kits.impl.kits;
 
 import io.github.chaosdave34.kitpvp.items.CustomItemHandler;
 import io.github.chaosdave34.kitpvp.kits.Kit;

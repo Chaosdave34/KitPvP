@@ -1,7 +1,7 @@
 package io.github.chaosdave34.kitpvp.kits;
 
 import io.github.chaosdave34.ghutils.Utils;
-import io.github.chaosdave34.kitpvp.kits.impl.kitpvp.*;
+import io.github.chaosdave34.kitpvp.kits.impl.kits.*;
 import lombok.Getter;
 
 import java.util.HashMap;
