@@ -23,7 +23,7 @@ public class CustomOwnerHurtByTarget extends TargetGoal {
 
     @Override
     public boolean canUse() {
-        if (owner == null || !owner.equals(owner.getLastHurtByMob())) {
+        if (owner == null || owner.equals(owner.getLastHurtByMob())) {
             return false;
         } else {
             this.ownerLastHurtBy = owner.getLastHurtByMob();
