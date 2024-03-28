@@ -4,6 +4,7 @@ import com.destroystokyo.paper.event.entity.EntityAddToWorldEvent;
 import io.github.chaosdave34.ghutils.entity.CustomEntity;
 import io.github.chaosdave34.ghutils.utils.PDCUtils;
 import io.github.chaosdave34.kitpvp.KitPvp;
+import io.github.chaosdave34.kitpvp.events.EntityReceiveDamageByEntityEvent;
 import io.github.chaosdave34.kitpvp.events.PlayerSpawnEvent;
 import io.github.chaosdave34.kitpvp.pathfindergoals.TurretRangedAttackGoal;
 import net.kyori.adventure.text.Component;
@@ -18,7 +19,6 @@ import org.bukkit.craftbukkit.v1_20_R3.inventory.CraftItemStack;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.CreatureSpawnEvent;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.meta.FireworkMeta;
@@ -39,7 +39,7 @@ public class Turret extends CustomEntity {
     }
 
     public void spawn(Player p, Location location) {
-        Husk turret =  p.getWorld().spawn(location, Husk.class, husk -> {
+        Husk turret = p.getWorld().spawn(location, Husk.class, husk -> {
             husk.customName(Component.text("Turret 20/20"));
             husk.setCustomNameVisible(true);
 
@@ -87,17 +87,28 @@ public class Turret extends CustomEntity {
         }
     }
 
+    @EventHandler
+    public void onDamageByOwner(EntityReceiveDamageByEntityEvent e) {
+        if (e.getEntity() instanceof org.bukkit.entity.LivingEntity entity) {
+            if (checkCustomEntity(entity)) {
+                if (e.getDamager() instanceof Player p) {
+                    if (p.getUniqueId().equals(PDCUtils.getOwner(entity))) {
+                        e.setCancelled(true);
+                    }
+                }
+            }
+        }
+    }
 
     @EventHandler
-    public void onTurretDamage(EntityDamageEvent e) {
-        if (e.getEntity() instanceof Monster entity) {
+    public void onDamage(EntityDamageEvent e) {
+        if (e.getEntity() instanceof org.bukkit.entity.LivingEntity entity) {
             if (checkCustomEntity(entity)) {
                 if (e.getDamage() == Float.MAX_VALUE) return;
 
-                if (e instanceof EntityDamageByEntityEvent damageEvent) {
-                    if (damageEvent.getDamager().getUniqueId().equals(PDCUtils.getOwner(entity))) {
-                        e.setCancelled(true);
-                    }
+                if (e.getCause() == EntityDamageEvent.DamageCause.FIRE || e.getCause() == EntityDamageEvent.DamageCause.FIRE_TICK || e.getCause() == EntityDamageEvent.DamageCause.DROWNING) {
+                    e.setCancelled(true);
+                    return;
                 }
 
                 e.setDamage(1);
@@ -144,7 +155,7 @@ public class Turret extends CustomEntity {
     public void onOwnerDeath(PlayerSpawnEvent e) {
         Player p = e.getPlayer();
         if (turrets.containsKey(p.getUniqueId())) {
-            Entity entity =  Bukkit.getEntity(turrets.get(p.getUniqueId()));
+            Entity entity = Bukkit.getEntity(turrets.get(p.getUniqueId()));
             if (entity != null) entity.remove();
         }
     }
@@ -153,7 +164,7 @@ public class Turret extends CustomEntity {
     public void onPlayerQuit(PlayerQuitEvent e) {
         Player p = e.getPlayer();
         if (turrets.containsKey(p.getUniqueId())) {
-            Entity entity =  Bukkit.getEntity(turrets.get(p.getUniqueId()));
+            Entity entity = Bukkit.getEntity(turrets.get(p.getUniqueId()));
             if (entity != null) entity.remove();
         }
     }

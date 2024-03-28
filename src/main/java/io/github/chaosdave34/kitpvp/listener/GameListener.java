@@ -4,6 +4,7 @@ import com.destroystokyo.paper.event.player.PlayerElytraBoostEvent;
 import io.github.chaosdave34.kitpvp.ExtendedPlayer;
 import io.github.chaosdave34.kitpvp.KitPvp;
 import io.github.chaosdave34.kitpvp.damagetype.DamageTypes;
+import io.github.chaosdave34.kitpvp.events.EntityDealDamageEvent;
 import io.github.chaosdave34.kitpvp.items.CustomItemHandler;
 import io.papermc.paper.event.block.BlockBreakBlockEvent;
 import io.papermc.paper.event.entity.EntityLoadCrossbowEvent;
@@ -15,9 +16,7 @@ import org.bukkit.block.data.Waterlogged;
 import org.bukkit.damage.DamageSource;
 import org.bukkit.damage.DamageType;
 import org.bukkit.enchantments.Enchantment;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.FallingBlock;
-import org.bukkit.entity.Player;
+import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
@@ -109,7 +108,7 @@ public class GameListener implements Listener {
     }
 
     @EventHandler
-    public void onDealDamage(EntityDamageByEntityEvent e) {
+    public void onDealDamage(EntityDealDamageEvent e) {
         if (e.getDamager() instanceof Player damager) {
             ExtendedPlayer extendedDamager = ExtendedPlayer.from(damager);
             if (extendedDamager.inGame()) {
@@ -296,7 +295,6 @@ public class GameListener implements Listener {
         }
     }
 
-
     @EventHandler
     public void onBlockBreakGrass(BlockFromToEvent e) {
         if (e.getBlock().getType() == Material.WATER) {
@@ -400,13 +398,13 @@ public class GameListener implements Listener {
 
 
             if (e.getTo().getBlock().getType() == Material.WATER)
-                p.damage(Integer.MAX_VALUE, DamageSource.builder(DamageType.DROWN).build());
+                p.damage(Float.MAX_VALUE, DamageSource.builder(DamageType.DROWN).build());
 
             else if (filterForBlockBelow.contains(blockBelow))
-                p.damage(Integer.MAX_VALUE, DamageSource.builder(DamageTypes.LAND).build());
+                p.damage(Float.MAX_VALUE, DamageSource.builder(DamageTypes.LAND).build());
 
             else if (e.getTo().getY() > 199)
-                p.damage(Integer.MAX_VALUE, DamageSource.builder(DamageTypes.ESCAPE).build());
+                p.damage(Float.MAX_VALUE, DamageSource.builder(DamageTypes.ESCAPE).build());
         }
     }
 

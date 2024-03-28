@@ -4,11 +4,11 @@ import io.github.chaosdave34.ghutils.utils.PDCUtils;
 import io.github.chaosdave34.kitpvp.ExtendedPlayer;
 import io.github.chaosdave34.kitpvp.companions.impl.AllayCompanion;
 import io.github.chaosdave34.kitpvp.companions.impl.ZombifiedPiglinCompanion;
+import io.github.chaosdave34.kitpvp.events.EntityReceiveDamageByEntityEvent;
 import net.kyori.adventure.sound.Sound;
 import org.bukkit.entity.Pose;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.jetbrains.annotations.NotNull;
 
@@ -43,19 +43,16 @@ public class CompanionHandler implements Listener {
     }
 
     @EventHandler
-    public void onCompanionDamage(EntityDamageByEntityEvent e) {
+    public void onCompanionDamage(EntityReceiveDamageByEntityEvent e) {
         if (e.getEntity().hasMetadata("companion")) {
+
             UUID ownerUUID = PDCUtils.getOwner(e.getEntity());
 
             if (ownerUUID != null && ExtendedPlayer.from(ownerUUID).inSpawn())
                 e.setCancelled(true);
 
-            else if (e.getDamager().getUniqueId().equals(ownerUUID))
+            if (e.getDamager().getUniqueId().equals(ownerUUID))
                 e.setCancelled(true);
-
-            else if (e.getDamageSource().getCausingEntity().getUniqueId().equals(ownerUUID))
-                e.setCancelled(true);
-
         }
     }
 }

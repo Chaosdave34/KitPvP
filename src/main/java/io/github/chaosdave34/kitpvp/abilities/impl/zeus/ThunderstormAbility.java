@@ -60,8 +60,12 @@ public class ThunderstormAbility extends Ability {
             public void run() {
                 if (iterator.hasNext()) {
                     Location targetLocation = location.clone().add(iterator.next());
+
                     location.getWorld().spawnEntity(targetLocation, EntityType.LIGHTNING, CreatureSpawnEvent.SpawnReason.CUSTOM, (entity) -> {
-                        ((LightningStrike) entity).setCausingPlayer(p);
+                        LightningStrike lightningStrike = ((LightningStrike) entity);
+                        lightningStrike.setCausingPlayer(p);
+                        lightningStrike.setFlashCount(1);
+
                         entity.setMetadata("ability", new FixedMetadataValue(KitPvp.INSTANCE, id));
                     });
                 } else this.cancel();

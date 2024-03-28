@@ -179,7 +179,6 @@ public class UtilityListener implements Listener {
         }
     }
 
-    // All
     @EventHandler
     public void onDrop(PlayerDropItemEvent e) {
         if (ExtendedPlayer.from(e.getPlayer()) == null) {

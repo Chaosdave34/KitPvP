@@ -15,10 +15,7 @@ import io.github.chaosdave34.kitpvp.fakeplayer.FakePlayers;
 import io.github.chaosdave34.kitpvp.items.CustomItemHandler;
 import io.github.chaosdave34.kitpvp.kits.ElytraKitHandler;
 import io.github.chaosdave34.kitpvp.kits.KitHandler;
-import io.github.chaosdave34.kitpvp.listener.GameListener;
-import io.github.chaosdave34.kitpvp.listener.GamePlayerDeathListener;
-import io.github.chaosdave34.kitpvp.listener.SpawnListener;
-import io.github.chaosdave34.kitpvp.listener.UtilityListener;
+import io.github.chaosdave34.kitpvp.listener.*;
 import io.github.chaosdave34.kitpvp.textdisplays.TextDisplays;
 import lombok.Getter;
 import org.bukkit.*;
@@ -105,6 +102,7 @@ public final class KitPvp extends JavaPlugin {
         pluginManager.registerEvents(companionHandler, this);
         pluginManager.registerEvents(cosmeticHandler, this);
         pluginManager.registerEvents(customEventHandler, this);
+        pluginManager.registerEvents(new EntityDamageListener(), this);
 
         // Registering Commands
         registerCommand("spawn", new SpawnCommand());

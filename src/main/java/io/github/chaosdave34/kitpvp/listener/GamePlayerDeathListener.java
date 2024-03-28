@@ -8,6 +8,7 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 import org.bukkit.Bukkit;
+import org.bukkit.damage.DamageSource;
 import org.bukkit.damage.DamageType;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
@@ -40,7 +41,8 @@ public class GamePlayerDeathListener implements Listener {
 
             EntityDamageEvent lastDamageEvent = p.getLastDamageCause();
             if (lastDamageEvent != null) {
-                DamageType damageType = lastDamageEvent.getDamageSource().getDamageType();
+                DamageSource damageSource = lastDamageEvent.getDamageSource();
+                DamageType damageType = damageSource.getDamageType();
 
                 // Damage by Entity
                 if (lastDamageEvent instanceof EntityDamageByEntityEvent lastDamageByEntityEvent) {
@@ -49,14 +51,12 @@ public class GamePlayerDeathListener implements Listener {
                     // Kill Effect
                     if (damager instanceof Player killer) {
                         ExtendedPlayer.from(killer).killedPlayer(p);
-                        KitPvp.INSTANCE.getCosmeticHandler().triggerKillEffect(killer, p);
                     } else if (damager instanceof Projectile projectile && projectile.getShooter() instanceof Player killer) {
                         ExtendedPlayer.from(killer).killedPlayer(p);
-                        KitPvp.INSTANCE.getCosmeticHandler().triggerKillEffect(killer, p);
                     }
 
                     // Lightning
-                    if (damager instanceof LightningStrike lightningStrike) {
+                    else if (damager instanceof LightningStrike lightningStrike) {
                         if (lightningStrike.getCausingPlayer() != null) {
                             Player killer = lightningStrike.getCausingPlayer();
                             message = name + " was killed by " + killer.getName() + " with lightning";
@@ -66,7 +66,7 @@ public class GamePlayerDeathListener implements Listener {
                         }
                     }
                     // Turret
-                    else if (damager instanceof Firework firework) {
+                    if (damager instanceof Firework firework) {
                         if (firework.getShooter() instanceof Husk husk) {
                             UUID turretOwnerUUUID = PDCUtils.getOwner(husk);
                             if (turretOwnerUUUID != null) {
@@ -95,9 +95,9 @@ public class GamePlayerDeathListener implements Listener {
 
                     }
                 } else if (damageType == DamageTypes.LAND) {
-                    message = p.getName() + " tried to land";
+                    message = name + " tried to land";
                 } else if (damageType == DamageTypes.ESCAPE) {
-                    message = p.getName() + " tried to escape";
+                    message = name + " tried to escape";
                 }
 
                 Bukkit.broadcast(Component.text("☠ ", NamedTextColor.RED)

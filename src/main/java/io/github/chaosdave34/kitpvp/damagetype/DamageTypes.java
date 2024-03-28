@@ -22,11 +22,11 @@ public class DamageTypes {
         registry = CraftRegistry.getMinecraftRegistry(Registries.DAMAGE_TYPE);
         ReflectionUtils.unfreezeRegistry(registry);
 
-        LAND = registerdamageType(new net.minecraft.world.damagesource.DamageType("land", DamageScaling.NEVER, 0, DamageEffects.HURT), "land");
-        ESCAPE = registerdamageType(new net.minecraft.world.damagesource.DamageType("escape", DamageScaling.NEVER, 0, DamageEffects.HURT), "escape");
+        LAND = registerDamageType(new net.minecraft.world.damagesource.DamageType("land", DamageScaling.NEVER, 0, DamageEffects.HURT), "land");
+        ESCAPE = registerDamageType(new net.minecraft.world.damagesource.DamageType("escape", DamageScaling.NEVER, 0, DamageEffects.HURT), "escape");
     }
 
-    private DamageType registerdamageType(net.minecraft.world.damagesource.DamageType damageType, String id) {
+    private DamageType registerDamageType(net.minecraft.world.damagesource.DamageType damageType, String id) {
         registry.createIntrusiveHolder(damageType);
         Registry.register(registry, NamespacedKey.minecraft(id).asString(), damageType);
 

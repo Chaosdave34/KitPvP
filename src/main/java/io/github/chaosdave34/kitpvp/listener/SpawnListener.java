@@ -4,6 +4,7 @@ import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
 import io.github.chaosdave34.kitpvp.ExtendedPlayer;
 import io.github.chaosdave34.kitpvp.KitPvp;
+import io.github.chaosdave34.kitpvp.events.EntityDealDamageEvent;
 import io.papermc.paper.event.entity.EntityLoadCrossbowEvent;
 import org.bukkit.*;
 import org.bukkit.block.Barrel;
@@ -64,6 +65,16 @@ public class SpawnListener implements Listener {
             if (extendedPlayer.inSpawn()) {
                 // Kill Command
                 if (e.getCause() == EntityDamageEvent.DamageCause.KILL) return;
+                e.setCancelled(true);
+            }
+        }
+    }
+
+    @EventHandler
+    public void onDealDamage(EntityDealDamageEvent e) {
+        if (e.getDamager() instanceof Player p) {
+            ExtendedPlayer extendedPlayer = ExtendedPlayer.from(p);
+            if (extendedPlayer.inSpawn()) {
                 e.setCancelled(true);
             }
         }

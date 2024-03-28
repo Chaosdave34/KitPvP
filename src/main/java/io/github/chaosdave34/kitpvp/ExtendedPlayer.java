@@ -516,6 +516,8 @@ public class ExtendedPlayer {
         } else if (gameState == GameState.ELYTRA_IN_GAME) {
             p.getInventory().addItem(getSelectedElytraKit().getKillRewards());
         }
+
+        KitPvp.INSTANCE.getCosmeticHandler().triggerKillEffect(getPlayer(), p);
     }
 
     public void claimBounty(Player claimer) {

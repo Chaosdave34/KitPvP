@@ -41,7 +41,10 @@ public class LightningAbility extends Ability {
 
             Location targetLocation = livingEntity.getLocation();
             targetLocation.getWorld().spawnEntity(targetLocation, EntityType.LIGHTNING, CreatureSpawnEvent.SpawnReason.CUSTOM, (entity) -> {
-                ((LightningStrike) entity).setCausingPlayer(p);
+                LightningStrike lightningStrike = ((LightningStrike) entity);
+                lightningStrike.setCausingPlayer(p);
+                lightningStrike.setFlashCount(1);
+
                 entity.setMetadata("ability", new FixedMetadataValue(KitPvp.INSTANCE, id));
             });
             return true;

@@ -4,6 +4,7 @@ import io.github.chaosdave34.kitpvp.ExtendedPlayer;
 import io.github.chaosdave34.kitpvp.KitPvp;
 import io.github.chaosdave34.kitpvp.abilities.Ability;
 import io.github.chaosdave34.kitpvp.abilities.AbilityType;
+import io.github.chaosdave34.kitpvp.events.EntityDealDamageEvent;
 import io.github.chaosdave34.kitpvp.events.PlayerSpawnEvent;
 import io.github.chaosdave34.kitpvp.kits.Kit;
 import net.kyori.adventure.text.Component;
@@ -11,7 +12,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -49,8 +49,8 @@ public class HauntAbility extends Ability {
     }
 
     @EventHandler
-    public void onPlayerAttack(EntityDamageByEntityEvent e) {
-        if (e.getEntity() instanceof Player && e.getDamager() instanceof Player damager) {
+    public void onPlayerAttack(EntityDealDamageEvent e) {
+        if (e.getDamager() instanceof Player damager) {
             removeEffects(damager);
         }
     }
