@@ -161,7 +161,7 @@ public class SpawnListener implements Listener {
     public void onDrop(PlayerDropItemEvent e) {
         Player p = e.getPlayer();
         ExtendedPlayer extendedPlayer = ExtendedPlayer.from(p);
-        if (extendedPlayer.inSpawn()) {
+        if (extendedPlayer != null && extendedPlayer.inSpawn()) {
             e.setCancelled(true);
         }
     }

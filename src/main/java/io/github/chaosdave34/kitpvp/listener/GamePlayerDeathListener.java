@@ -18,8 +18,6 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 
 import java.util.UUID;
 
-;
-
 public class GamePlayerDeathListener implements Listener {
     @EventHandler
     public void onDeath(PlayerDeathEvent e) {
