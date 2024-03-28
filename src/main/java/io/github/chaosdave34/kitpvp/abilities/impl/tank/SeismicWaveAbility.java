@@ -146,9 +146,8 @@ public class SeismicWaveAbility extends Ability {
 
         p.getNearbyEntities(3, 3, 3).forEach(target -> {
             if (target instanceof Player targetPlayer) {
-                p.knockback(5, p.getX(), p.getZ());
-                targetPlayer.damage(6, p);
-                targetPlayer.playSound(location, Sound.ENTITY_GENERIC_BIG_FALL, 1, 0.1f);
+                targetPlayer.knockback(3, p.getX(), p.getZ());
+                targetPlayer.damage(10, p);
             }
         });
 
