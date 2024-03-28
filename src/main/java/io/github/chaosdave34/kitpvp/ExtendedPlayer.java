@@ -252,8 +252,8 @@ public class ExtendedPlayer {
         killSteak++;
 
         if (killSteak % 5 == 0) {
-            Bukkit.broadcast(getPlayer().displayName().append(Component.text(" has reached a kill streak of " + killSteak)));
-            receivedBounty(killSteak / 5 * 50);
+            Bukkit.broadcast((Component.text(getPlayer().getName() + " has reached a kill streak of " + killSteak)));
+            receivedBounty(killSteak / 5 * 100);
         }
 
         if (killSteak > highestKillStreak) {
