@@ -14,7 +14,6 @@ import io.github.chaosdave34.kitpvp.abilities.impl.engineer.TrapAbility;
 import io.github.chaosdave34.kitpvp.abilities.impl.engineer.TurretAbility;
 import io.github.chaosdave34.kitpvp.abilities.impl.magician.DebuffAbility;
 import io.github.chaosdave34.kitpvp.abilities.impl.magician.LevitateAbility;
-import io.github.chaosdave34.kitpvp.abilities.impl.magician.MagicAttackAbility;
 import io.github.chaosdave34.kitpvp.abilities.impl.poseidon.StormAbility;
 import io.github.chaosdave34.kitpvp.abilities.impl.provoker.NukeAbility;
 import io.github.chaosdave34.kitpvp.abilities.impl.provoker.SpookAbility;
@@ -79,7 +78,6 @@ public class AbilityHandler implements Listener {
         STORM = registerAbility(new StormAbility());
         SEISMIC_WAVE = registerAbility(new SeismicWaveAbility());
         FORTIFY = registerAbility(new FortifyAbility());
-        MAGIC_ATTACK = registerAbility(new MagicAttackAbility());
         ENHANCE = registerAbility(new EnhanceAbility());
         TURRET = registerAbility(new TurretAbility());
     }

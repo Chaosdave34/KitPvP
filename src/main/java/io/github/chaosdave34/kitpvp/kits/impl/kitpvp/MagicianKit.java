@@ -71,25 +71,24 @@ public class MagicianKit extends Kit {
     public void onSlotChange(PlayerItemHeldEvent e) {
         Player p = e.getPlayer();
         ExtendedPlayer extendedPlayer = ExtendedPlayer.from(p);
-        if (extendedPlayer.getSelectedKitId().equals(getId()) && extendedPlayer.inGame()) {
+        if (extendedPlayer.getSelectedKitId().equals(getId()) && extendedPlayer.getGameState() == ExtendedPlayer.GameState.IN_GAME) {
             ItemStack slot = p.getInventory().getItem(e.getNewSlot());
-            if (slot == null) return;
 
-            if (slot.getType() == Material.BOOK) {
-                p.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, -1, 3, false, false, false));
-                p.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, -1, 0, false, false, false));
-                p.getInventory().setHelmet(new ItemStack(Material.AIR));
-                p.getInventory().setChestplate(new ItemStack(Material.AIR));
-                p.getInventory().setLeggings(new ItemStack(Material.AIR));
-                p.getInventory().setBoots(new ItemStack(Material.AIR));
-            }
-            else {
+            // Todo: improve this
+            if (slot == null || slot.getType() != Material.BOOK) {
                 p.removePotionEffect(PotionEffectType.SPEED);
                 p.removePotionEffect(PotionEffectType.INVISIBILITY);
                 p.getInventory().setHelmet(getHeadContent());
                 p.getInventory().setChestplate(getChestContent());
                 p.getInventory().setLeggings(getLegsContent());
                 p.getInventory().setBoots(getFeetContent());
+            } else {
+                p.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, -1, 3, false, false, false));
+                p.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, -1, 0, false, false, false));
+                p.getInventory().setHelmet(new ItemStack(Material.AIR));
+                p.getInventory().setChestplate(new ItemStack(Material.AIR));
+                p.getInventory().setLeggings(new ItemStack(Material.AIR));
+                p.getInventory().setBoots(new ItemStack(Material.AIR));
             }
         }
     }
