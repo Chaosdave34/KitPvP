@@ -46,7 +46,6 @@ public class ZeusKit extends Kit {
         return new ItemStack[]{
                 new ItemStack(Material.IRON_SWORD),
                 CustomItemHandler.LIGHTNING_WAND.build(),
-                new ItemStack(Material.ENCHANTED_GOLDEN_APPLE),
                 new ItemStack(Material.WATER_BUCKET),
         };
     }
