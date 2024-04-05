@@ -48,7 +48,7 @@ public class GamePlayerDeathListener implements Listener {
                 if (lastDamageEvent instanceof EntityDamageByEntityEvent lastDamageByEntityEvent) {
                     Entity damager = lastDamageByEntityEvent.getDamager();
 
-                    // Kill Effect
+                    // Kill Credits
                     if (damager instanceof Player killer) {
                         ExtendedPlayer.from(killer).killedPlayer(p);
                     } else if (damager instanceof Projectile projectile && projectile.getShooter() instanceof Player killer) {
@@ -62,7 +62,6 @@ public class GamePlayerDeathListener implements Listener {
                             message = name + " was killed by " + killer.getName() + " with lightning";
 
                             ExtendedPlayer.from(killer).killedPlayer(p);
-                            KitPvp.INSTANCE.getCosmeticHandler().triggerKillEffect(killer, p);
                         }
                     }
                     // Turret
@@ -92,7 +91,12 @@ public class GamePlayerDeathListener implements Listener {
                                 KitPvp.INSTANCE.getCosmeticHandler().triggerKillEffect(companionOwner, p);
                             }
                         }
+                    }
 
+                    // Missing death messages
+                    // Magic Wand / Magic damage by item
+                    if (lastDamageByEntityEvent.getCause() == EntityDamageEvent.DamageCause.MAGIC) {
+                        message = name + "was killed by " + damager.getName() + " using magic";
                     }
                 } else if (damageType == DamageTypes.LAND) {
                     message = name + " tried to land";
