@@ -64,7 +64,7 @@ public class MagicianKit extends Kit {
     @Override
     public ItemStack[] getKillRewards() {
         ItemStack splashPotion = new ItemStack(Material.SPLASH_POTION, 2);
-        splashPotion.editMeta(PotionMeta.class, potionMeta -> potionMeta.setBasePotionType(PotionType.STRONG_HEALING));
+        splashPotion.editMeta(PotionMeta.class, potionMeta -> potionMeta.setBasePotionType(PotionType.INSTANT_HEAL));
 
         return new ItemStack[]{
                 splashPotion,

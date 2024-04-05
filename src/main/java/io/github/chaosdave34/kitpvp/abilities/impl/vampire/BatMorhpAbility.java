@@ -3,9 +3,9 @@ package io.github.chaosdave34.kitpvp.abilities.impl.vampire;
 import io.github.chaosdave34.kitpvp.ExtendedPlayer;
 import io.github.chaosdave34.kitpvp.KitPvp;
 import io.github.chaosdave34.kitpvp.abilities.Ability;
+import io.github.chaosdave34.kitpvp.abilities.AbilityRunnable;
 import io.github.chaosdave34.kitpvp.abilities.AbilityType;
 import net.kyori.adventure.text.Component;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
@@ -29,10 +29,13 @@ public class BatMorhpAbility extends Ability {
         ExtendedPlayer extendedPlayer = ExtendedPlayer.from(p);
         extendedPlayer.morph(EntityType.BAT);
 
-        Bukkit.getScheduler().runTaskLater(KitPvp.INSTANCE, () -> {
-            Entity vehicle = p.getVehicle();
-            if (vehicle != null) vehicle.removePassenger(p);
-        }, 10 * 20);
+        new AbilityRunnable(extendedPlayer) {
+            @Override
+            public void runInGame() {
+                Entity vehicle = p.getVehicle();
+                if (vehicle != null) vehicle.removePassenger(p);
+            }
+        }.runTaskLater(KitPvp.INSTANCE, 10 * 20);
 
         return true;
     }

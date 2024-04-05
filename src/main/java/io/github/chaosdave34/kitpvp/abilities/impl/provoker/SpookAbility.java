@@ -3,9 +3,9 @@ package io.github.chaosdave34.kitpvp.abilities.impl.provoker;
 import io.github.chaosdave34.kitpvp.ExtendedPlayer;
 import io.github.chaosdave34.kitpvp.KitPvp;
 import io.github.chaosdave34.kitpvp.abilities.Ability;
+import io.github.chaosdave34.kitpvp.abilities.AbilityRunnable;
 import io.github.chaosdave34.kitpvp.abilities.AbilityType;
 import net.kyori.adventure.text.Component;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Entity;
@@ -34,19 +34,16 @@ public class SpookAbility extends Ability {
         Entity target = p.getTargetEntity(10);
         if (target instanceof Player player) {
 
-                if (ExtendedPlayer.from(player).inSpawn())
-                    return false;
-
+            if (ExtendedPlayer.from(player).inSpawn())
+                return false;
 
             ItemStack pumpkin = new ItemStack(Material.CARVED_PUMPKIN);
             pumpkin.addEnchantment(Enchantment.BINDING_CURSE, 1);
             player.getInventory().setHelmet(pumpkin);
 
-            Bukkit.getScheduler().runTaskLater(KitPvp.INSTANCE, () -> {
-                ExtendedPlayer extendedTargetPlayer = ExtendedPlayer.from(player);
-                player.getInventory().setHelmet(extendedTargetPlayer.getSelectedKit().getHeadContent());
-            }, 5 * 20);
+            ExtendedPlayer extendedTargetPlayer = ExtendedPlayer.from(p);
 
+            AbilityRunnable.runTaskLater(KitPvp.INSTANCE, () -> player.getInventory().setHelmet(extendedTargetPlayer.getSelectedKit().getHeadContent()), extendedTargetPlayer, 5 * 20);
             return true;
         }
         return false;

@@ -3,12 +3,11 @@ package io.github.chaosdave34.kitpvp.abilities.impl.assassin;
 import io.github.chaosdave34.kitpvp.ExtendedPlayer;
 import io.github.chaosdave34.kitpvp.KitPvp;
 import io.github.chaosdave34.kitpvp.abilities.Ability;
+import io.github.chaosdave34.kitpvp.abilities.AbilityRunnable;
 import io.github.chaosdave34.kitpvp.abilities.AbilityType;
 import io.github.chaosdave34.kitpvp.events.EntityDealDamageEvent;
-import io.github.chaosdave34.kitpvp.events.PlayerSpawnEvent;
 import io.github.chaosdave34.kitpvp.kits.Kit;
 import net.kyori.adventure.text.Component;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -37,14 +36,13 @@ public class HauntAbility extends Ability {
     public boolean onAbility(Player p) {
         p.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 5 * 10, 9));
         p.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 5 * 10, 0));
-        p.addScoreboardTag("haunt_ability");
 
         p.getInventory().setHelmet(new ItemStack(Material.AIR));
         p.getInventory().setChestplate(new ItemStack(Material.AIR));
         p.getInventory().setLeggings(new ItemStack(Material.AIR));
         p.getInventory().setBoots(new ItemStack(Material.AIR));
 
-        Bukkit.getScheduler().runTaskLater(KitPvp.INSTANCE, () -> removeEffects(p), 5 * 20);
+        AbilityRunnable.runTaskLater(KitPvp.INSTANCE, () -> removeEffects(p), p, 5 * 20);
         return true;
     }
 
@@ -55,22 +53,14 @@ public class HauntAbility extends Ability {
         }
     }
 
-    @EventHandler
-    public void onSpawn(PlayerSpawnEvent e) {
-        removeEffects(e.getPlayer());
-    }
-
     private void removeEffects(Player p) {
-        if (p.getScoreboardTags().contains("haunt_ability")) {
-            p.removePotionEffect(PotionEffectType.SPEED);
-            p.removePotionEffect(PotionEffectType.INVISIBILITY);
-            p.removeScoreboardTag("haunt_ability");
+        p.removePotionEffect(PotionEffectType.SPEED);
+        p.removePotionEffect(PotionEffectType.INVISIBILITY);
 
-            Kit kit = ExtendedPlayer.from(p).getSelectedKit();
-            p.getInventory().setHelmet(kit.getHeadContent());
-            p.getInventory().setChestplate(kit.getChestContent());
-            p.getInventory().setLeggings(kit.getLegsContent());
-            p.getInventory().setBoots(kit.getFeetContent());
-        }
+        Kit kit = ExtendedPlayer.from(p).getSelectedKit();
+        p.getInventory().setHelmet(kit.getHeadContent());
+        p.getInventory().setChestplate(kit.getChestContent());
+        p.getInventory().setLeggings(kit.getLegsContent());
+        p.getInventory().setBoots(kit.getFeetContent());
     }
 }
