@@ -9,6 +9,7 @@ import io.github.chaosdave34.kitpvp.items.impl.assassin.AssassinSword;
 import io.github.chaosdave34.kitpvp.items.impl.creeper.CreeperLeggings;
 import io.github.chaosdave34.kitpvp.items.impl.creeper.FireballSword;
 import io.github.chaosdave34.kitpvp.items.impl.devil.DevilsSword;
+import io.github.chaosdave34.kitpvp.items.impl.enderman.DragonsCharge;
 import io.github.chaosdave34.kitpvp.items.impl.enderman.EnderSword;
 import io.github.chaosdave34.kitpvp.items.impl.engineer.TrapWand;
 import io.github.chaosdave34.kitpvp.items.impl.engineer.TurretItem;
@@ -48,6 +49,7 @@ public class CustomItemHandler {
     public static CustomItem ROCKET_LAUNCHER;
     public static CustomItem TURRET;
     public static CustomItem LEAP;
+    public static CustomItem DRAGONS_CHARGE;
 
     public CustomItemHandler() {
         FIREBALL_SWORD = registerItem(new FireballSword());
@@ -68,6 +70,7 @@ public class CustomItemHandler {
         ROCKET_LAUNCHER = registerItem(new RocketLauncher());
         TURRET = registerItem(new TurretItem());
         LEAP = registerItem(new Leap());
+        DRAGONS_CHARGE = registerItem(new DragonsCharge());
     }
 
     private CustomItem registerItem(CustomItem item) {

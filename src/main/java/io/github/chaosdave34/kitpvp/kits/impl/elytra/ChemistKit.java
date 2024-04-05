@@ -36,7 +36,6 @@ public class ChemistKit extends ElytraKit {
             potionMeta.displayName(Component.text("Splash Potion of Harming").decoration(TextDecoration.ITALIC, false));
         });
 
-
         return new ItemStack[]{
                 potion,
         };
