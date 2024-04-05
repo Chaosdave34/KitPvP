@@ -242,7 +242,10 @@ public class GameListener implements Listener {
 
             block.setMetadata("placed_by_player", new FixedMetadataValue(KitPvp.INSTANCE, true));
 
-            blocksToRemove.put(block.getLocation(), new Pair<>(System.currentTimeMillis(), e.getBlockReplacedState().getBlockData()));
+            if (e.getBlockReplacedState().hasMetadata("placed_by_player"))
+                blocksToRemove.put(block.getLocation(), new Pair<>(System.currentTimeMillis(), Material.AIR.createBlockData()));
+            else
+                blocksToRemove.put(block.getLocation(), new Pair<>(System.currentTimeMillis(), e.getBlockReplacedState().getBlockData()));
 
             startBlockRemover();
         }
@@ -316,7 +319,10 @@ public class GameListener implements Listener {
 
             block.setMetadata("placed_by_player", new FixedMetadataValue(KitPvp.INSTANCE, true));
 
-            blocksToRemove.put(block.getLocation(), new Pair<>(System.currentTimeMillis(), e.getBlock().getBlockData()));
+            if (e.getBlock().hasMetadata("placed_by_player"))
+                blocksToRemove.put(block.getLocation(), new Pair<>(System.currentTimeMillis(), Material.AIR.createBlockData()));
+            else
+                blocksToRemove.put(block.getLocation(), new Pair<>(System.currentTimeMillis(), e.getBlock().getBlockData()));
 
             startBlockRemover();
         }
