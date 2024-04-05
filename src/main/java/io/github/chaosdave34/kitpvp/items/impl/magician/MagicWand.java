@@ -41,7 +41,7 @@ public class MagicWand extends CustomItem {
 
     @Override
     public @NotNull List<Ability> getAbilities() {
-        return List.of(AbilityHandler.DEBUFF, AbilityHandler.LEVITATE);
+        return List.of(AbilityHandler.SHUFFLE, AbilityHandler.LEVITATE);
     }
 
 

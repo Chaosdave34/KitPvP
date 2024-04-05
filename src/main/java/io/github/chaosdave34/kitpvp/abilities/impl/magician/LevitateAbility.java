@@ -5,8 +5,6 @@ import io.github.chaosdave34.kitpvp.abilities.Ability;
 import io.github.chaosdave34.kitpvp.abilities.AbilityType;
 import net.kyori.adventure.text.Component;
 import org.bukkit.entity.Player;
-import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -30,7 +28,7 @@ public class LevitateAbility extends Ability {
         p.getNearbyEntities(10, 10, 10).forEach(entity -> {
             if (entity instanceof Player target) {
                 if (ExtendedPlayer.from(target).inGame()) {
-                    target.addPotionEffect(new PotionEffect(PotionEffectType.LEVITATION, 5 * 20, 9));
+                    target.setVelocity(target.getVelocity().setY(5));
                 }
             }
         });

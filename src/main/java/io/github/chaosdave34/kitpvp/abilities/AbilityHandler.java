@@ -14,7 +14,7 @@ import io.github.chaosdave34.kitpvp.abilities.impl.enderman.EnderAttackAbility;
 import io.github.chaosdave34.kitpvp.abilities.impl.engineer.AnvilAbility;
 import io.github.chaosdave34.kitpvp.abilities.impl.engineer.TrapAbility;
 import io.github.chaosdave34.kitpvp.abilities.impl.engineer.TurretAbility;
-import io.github.chaosdave34.kitpvp.abilities.impl.magician.DebuffAbility;
+import io.github.chaosdave34.kitpvp.abilities.impl.magician.ShuffleAbility;
 import io.github.chaosdave34.kitpvp.abilities.impl.magician.LevitateAbility;
 import io.github.chaosdave34.kitpvp.abilities.impl.poseidon.StormAbility;
 import io.github.chaosdave34.kitpvp.abilities.impl.provoker.NukeAbility;
@@ -47,7 +47,7 @@ public class AbilityHandler implements Listener {
     public static Ability THUNDERSTORM;
     public static Ability HAUNT;
     public static Ability LEVITATE;
-    public static Ability DEBUFF;
+    public static Ability SHUFFLE;
     public static Ability BAT_MORPH;
     public static Ability NUKE;
     public static Ability SPOOK;
@@ -69,7 +69,7 @@ public class AbilityHandler implements Listener {
         THUNDERSTORM = registerAbility(new ThunderstormAbility());
         HAUNT = registerAbility(new HauntAbility());
         LEVITATE = registerAbility(new LevitateAbility());
-        DEBUFF = registerAbility(new DebuffAbility());
+        SHUFFLE = registerAbility(new ShuffleAbility());
         BAT_MORPH = registerAbility(new BatMorhpAbility());
         NUKE = registerAbility(new NukeAbility());
         SPOOK = registerAbility(new SpookAbility());

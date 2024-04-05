@@ -10,8 +10,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerItemHeldEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.bukkit.potion.PotionType;
 
 public class MagicianKit extends Kit {
     public MagicianKit() {
@@ -61,8 +63,11 @@ public class MagicianKit extends Kit {
 
     @Override
     public ItemStack[] getKillRewards() {
+        ItemStack splashPotion = new ItemStack(Material.SPLASH_POTION, 2);
+        splashPotion.editMeta(PotionMeta.class, potionMeta -> potionMeta.setBasePotionType(PotionType.STRONG_HEALING));
+
         return new ItemStack[]{
-                new ItemStack(Material.GOLDEN_APPLE),
+                splashPotion,
                 new ItemStack(Material.GILDED_BLACKSTONE, 32),
         };
     }

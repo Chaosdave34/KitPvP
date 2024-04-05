@@ -1,15 +1,11 @@
 package io.github.chaosdave34.kitpvp.kits.impl.elytra;
 
 import io.github.chaosdave34.kitpvp.kits.ElytraKit;
-import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.TextDecoration;
-import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.PotionMeta;
-import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
+import org.bukkit.potion.PotionType;
 
 public class ChemistKit extends ElytraKit {
     public ChemistKit() {
@@ -30,11 +26,7 @@ public class ChemistKit extends ElytraKit {
     @Override
     public ItemStack[] getKillRewards() {
         ItemStack potion = new ItemStack(Material.SPLASH_POTION, 5);
-        potion.editMeta(PotionMeta.class, potionMeta -> {
-            potionMeta.addCustomEffect(new PotionEffect(PotionEffectType.HARM, 1, 1), true);
-            potionMeta.setColor(Color.MAROON);
-            potionMeta.displayName(Component.text("Splash Potion of Harming").decoration(TextDecoration.ITALIC, false));
-        });
+        potion.editMeta(PotionMeta.class, potionMeta -> potionMeta.setBasePotionType(PotionType.STRONG_HARMING));
 
         return new ItemStack[]{
                 potion,
