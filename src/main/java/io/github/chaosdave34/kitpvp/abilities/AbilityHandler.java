@@ -9,6 +9,7 @@ import io.github.chaosdave34.kitpvp.abilities.impl.artilleryman.EnhanceAbility;
 import io.github.chaosdave34.kitpvp.abilities.impl.assassin.HauntAbility;
 import io.github.chaosdave34.kitpvp.abilities.impl.creeper.ExplodeAbility;
 import io.github.chaosdave34.kitpvp.abilities.impl.creeper.FireballAbility;
+import io.github.chaosdave34.kitpvp.abilities.impl.devil.FireStormAbility;
 import io.github.chaosdave34.kitpvp.abilities.impl.enderman.DragonFireballAbility;
 import io.github.chaosdave34.kitpvp.abilities.impl.enderman.EnderAttackAbility;
 import io.github.chaosdave34.kitpvp.abilities.impl.engineer.AnvilAbility;
@@ -62,6 +63,7 @@ public class AbilityHandler implements Listener {
     public static Ability TURRET;
     public static Ability LEAP;
     public static Ability DRAGON_FIREBALL;
+    public static Ability FIRE_STORM;
 
     public AbilityHandler() {
         FIREBALL = registerAbility(new FireballAbility());
@@ -84,6 +86,7 @@ public class AbilityHandler implements Listener {
         TURRET = registerAbility(new TurretAbility());
         LEAP = registerAbility(new LeapAbility());
         DRAGON_FIREBALL = registerAbility(new DragonFireballAbility());
+        FIRE_STORM = registerAbility(new FireStormAbility());
     }
 
     public Ability registerAbility(Ability ability) {
