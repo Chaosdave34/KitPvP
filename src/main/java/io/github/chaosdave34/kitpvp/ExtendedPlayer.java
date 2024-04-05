@@ -141,7 +141,7 @@ public class ExtendedPlayer {
         p.setFireTicks(0);
         p.setFreezeTicks(0);
 
-        p.setGlowing(true);
+        p.setGlowing(false);
 
         p.setItemOnCursor(null);
         p.clearActiveItem();
