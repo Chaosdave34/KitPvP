@@ -67,7 +67,7 @@ public class Jetpack extends CustomItem {
 
                 } else {
                     if (!refillTasks.containsKey(p.getUniqueId())) {
-                        BukkitTask task = new RefillTask(p).runTaskTimer(KitPvp.INSTANCE, 10, 10);
+                        BukkitTask task = new RefillTask(p).runTaskTimer(KitPvp.INSTANCE, 20, 20);
                         refillTasks.put(p.getUniqueId(), task.getTaskId());
                     }
                 }
