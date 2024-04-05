@@ -104,6 +104,8 @@ public class CosmeticHandler implements Listener {
         if (e.getEntity().getShooter() instanceof Player p) {
             ExtendedPlayer extendedPlayer = ExtendedPlayer.from(p);
 
+            if (extendedPlayer.inSpawn()) return;
+
             if (extendedPlayer.getProjectileTrailId() != null) {
                 ProjectileTrail projectileTrail = projectileTrails.get(extendedPlayer.getProjectileTrailId());
 
