@@ -154,10 +154,7 @@ public class ExtendedPlayer {
             scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
             Objective objective = scoreboard.registerNewObjective("default", Criteria.DUMMY, Component.text("KitPvP", NamedTextColor.YELLOW, TextDecoration.BOLD));
             objective.setDisplaySlot(DisplaySlot.SIDEBAR);
-
-//            Objective hearts = scoreboard.registerNewObjective("hearts", Criteria.HEALTH, Component.text("❤", NamedTextColor.RED));
-//            hearts.setDisplaySlot(DisplaySlot.BELOW_NAME);
-//            p.setScoreboard(scoreboard);
+            p.setScoreboard(scoreboard);
         }
 
         if (getSelectedKit() == null) setSelectedKitId(KitHandler.CLASSIC.getId());
