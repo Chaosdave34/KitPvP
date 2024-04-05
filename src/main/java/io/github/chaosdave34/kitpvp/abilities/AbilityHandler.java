@@ -32,6 +32,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerToggleSneakEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataContainer;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -97,7 +98,7 @@ public class AbilityHandler implements Listener {
         return ability;
     }
 
-    public List<Ability> getItemAbilities(ItemStack itemStack) {
+    public @NotNull List<Ability> getItemAbilities(ItemStack itemStack) {
         PersistentDataContainer container = itemStack.getItemMeta().getPersistentDataContainer();
         NamespacedKey key = new NamespacedKey(KitPvp.INSTANCE, "abilities");
 
@@ -110,11 +111,8 @@ public class AbilityHandler implements Listener {
             for (String id : abilities) {
                 abilityList.add(this.abilities.get(id));
             }
-
             return abilityList;
-
         }
-
         return Collections.emptyList();
     }
 
@@ -130,25 +128,28 @@ public class AbilityHandler implements Listener {
         NamespacedKey key = new NamespacedKey(KitPvp.INSTANCE, "abilities");
 
         if (container.has(key)) {
-            String[] abilities = container.get(key, new StringArrayPersistentDataType());
-            if (abilities == null) return;
-            for (String id : abilities) {
-                if (this.abilities.containsKey(id)) {
-                    Ability ability = this.abilities.get(id);
+            List<Ability> abilities = getItemAbilities(e.getItem());
+            List<AbilityType> abilityTypes = abilities.stream().map(Ability::getType).toList();
 
-                    switch (ability.getType()) {
-                        case RIGHT_CLICK -> {
-                            if (e.getAction().isRightClick()) ability.handleAbility(p);
+            for (Ability ability : abilities) {
+                switch (ability.getType()) {
+                    case RIGHT_CLICK -> {
+                        if (e.getAction().isRightClick()) {
+                            if (abilityTypes.contains(AbilityType.SNEAK_RIGHT_CLICK) && p.isSneaking()) return;
+                            ability.handleAbility(p);
                         }
-                        case LEFT_CLICK -> {
-                            if (e.getAction().isLeftClick()) ability.handleAbility(p);
+                    }
+                    case LEFT_CLICK -> {
+                        if (e.getAction().isLeftClick()) {
+                            if (abilityTypes.contains(AbilityType.SNEAK_LEFT_CLICK) && p.isSneaking()) return;
+                            ability.handleAbility(p);
                         }
-                        case SNEAK_RIGHT_CLICK -> {
-                            if (e.getAction().isRightClick() && p.isSneaking()) ability.handleAbility(p);
-                        }
-                        case SNEAK_LEFT_CLICK -> {
-                            if (e.getAction().isLeftClick() && p.isSneaking()) ability.handleAbility(p);
-                        }
+                    }
+                    case SNEAK_RIGHT_CLICK -> {
+                        if (e.getAction().isRightClick() && p.isSneaking()) ability.handleAbility(p);
+                    }
+                    case SNEAK_LEFT_CLICK -> {
+                        if (e.getAction().isLeftClick() && p.isSneaking()) ability.handleAbility(p);
                     }
                 }
             }
