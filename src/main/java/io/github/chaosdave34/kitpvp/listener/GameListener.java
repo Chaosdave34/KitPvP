@@ -21,6 +21,7 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.FallingBlock;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
@@ -100,21 +101,21 @@ public class GameListener implements Listener {
         }
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.MONITOR)
     public void onDamage(EntityDamageEvent e) {
         if (e.getEntity() instanceof Player p) {
             ExtendedPlayer extendedPlayer = ExtendedPlayer.from(p);
-            if (extendedPlayer.inGame()) {
+            if (extendedPlayer.inGame() && !e.isCancelled()) {
                 extendedPlayer.enterCombat();
             }
         }
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.MONITOR)
     public void onDealDamage(EntityDealDamageEvent e) {
         if (e.getDamager() instanceof Player damager) {
             ExtendedPlayer extendedDamager = ExtendedPlayer.from(damager);
-            if (extendedDamager.inGame()) {
+            if (extendedDamager.inGame() && !e.isCancelled()) {
                 extendedDamager.enterCombat();
             }
         }

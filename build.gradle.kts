@@ -1,5 +1,7 @@
 plugins {
     `java-library`
+    kotlin("jvm") version "1.9.23"
+
     id("io.papermc.paperweight.userdev") version "1.5.11"
     id("xyz.jpenilla.run-paper") version "2.2.3" // Adds runServer and runMojangMappedServer tasks for testing
 
@@ -83,9 +85,9 @@ tasks {
 
     shadowJar {
         // helper function to relocate a package into our package
-        fun reloc(pkg: String) = relocate(pkg, group + rootProject.name + "dependency.$pkg")
+        fun relocate(pkg: String) = relocate(pkg, group + rootProject.name + "dependency.$pkg")
 
         // relocate cloud and it's transitive dependencies
-        reloc("io.github.chaosdave34.ghutils")
+        relocate("io.github.chaosdave34.ghutils")
     }
 }

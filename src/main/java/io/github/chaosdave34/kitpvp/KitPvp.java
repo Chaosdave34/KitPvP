@@ -39,7 +39,7 @@ public final class KitPvp extends JavaPlugin {
     public static KitPvp INSTANCE;
 
     private final Map<UUID, ExtendedPlayer> extendedPlayers = new HashMap<>();
-    // Todo improve getters for highscores
+    // Todo improve getters for high scores
     private final Map<UUID, Integer> highestKillStreaksKits = new HashMap<>();
     private final Map<UUID, Integer> highestKillStreaksElytra = new HashMap<>();
 
