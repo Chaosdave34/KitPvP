@@ -25,22 +25,20 @@ import java.util.*
 import java.util.function.Consumer
 import kotlin.math.roundToInt
 
-class ExtendedPlayer(player: Player) {
-    val uuid = player.uniqueId
-
+class ExtendedPlayer(val uuid: UUID) {
     var selectedKitId: String
         private set
     var selectedElytraKitId: String
         private set
     var currentGame: GameType
 
-    var experiencePoints: Int
-    var coins: Int
-    var bounty: Int
+    private var experiencePoints: Int
+    private var coins: Int
+    private var bounty: Int
 
-    var highestKillStreaks: MutableMap<GameType, Int>
-    var totalKills: MutableMap<GameType, Int>
-    var totalDeaths: MutableMap<GameType, Int>
+    private var highestKillStreaks: MutableMap<GameType, Int>
+    private var totalKills: MutableMap<GameType, Int>
+    private var totalDeaths: MutableMap<GameType, Int>
 
     var projectileTrailId: String? = null
     var killEffectId: String? = null
@@ -266,7 +264,7 @@ class ExtendedPlayer(player: Player) {
         }
     }
 
-    fun incrementsKillStreak() {
+    private fun incrementsKillStreak() {
         killStreak++
 
         if (killStreak % 5 == 0) {

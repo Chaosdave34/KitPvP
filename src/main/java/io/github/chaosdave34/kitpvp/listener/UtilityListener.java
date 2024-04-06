@@ -21,7 +21,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
-import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -45,7 +44,7 @@ public class UtilityListener implements Listener {
         Component message = Component.text(p.getName() + " joined the party!", NamedTextColor.DARK_GRAY);
         e.joinMessage(message);
 
-        KitPvp.INSTANCE.createExtendedPlayer(p);
+        KitPvp.INSTANCE.createExtendedPlayer(p.getUniqueId());
 
         ExtendedPlayer extendedPlayer = ExtendedPlayer.from(p);
 
@@ -117,7 +116,7 @@ public class UtilityListener implements Listener {
         ExtendedPlayer extendedPlayer = ExtendedPlayer.from(p);
         extendedPlayer.unMorph();
         extendedPlayer.removeCompanion();
-        KitPvp.INSTANCE.removeExtendedPlayer(p);
+        KitPvp.INSTANCE.removeExtendedPlayer(p.getUniqueId());
 
         Component message = Component.text(p.getName() + " left!", NamedTextColor.DARK_GRAY);
         e.quitMessage(message);
@@ -179,10 +178,4 @@ public class UtilityListener implements Listener {
         }
     }
 
-    @EventHandler
-    public void onDrop(PlayerDropItemEvent e) {
-        if (ExtendedPlayer.from(e.getPlayer()) == null) {
-            e.setCancelled(true);
-        }
-    }
 }
