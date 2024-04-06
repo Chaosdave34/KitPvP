@@ -203,10 +203,10 @@ public class SpawnListener implements Listener {
         Player p = e.getPlayer();
         ExtendedPlayer extendedPlayer = ExtendedPlayer.from(p);
         // Normal
-        if (extendedPlayer.getGameState() == ExtendedPlayer.GameState.SPAWN) {
+        if (extendedPlayer.getGameState() == ExtendedPlayer.GameState.KITS_SPAWN) {
             // Game enter
             if (e.getTo().clone().subtract(0, 1, 0).getBlock().getType() != Material.AIR && e.getTo().getY() <= 105) {
-                extendedPlayer.setGameState(ExtendedPlayer.GameState.IN_GAME);
+                extendedPlayer.setGameState(ExtendedPlayer.GameState.KITS_IN_GAME);
                 p.setFallDistance(0f);
             }
 
@@ -261,7 +261,7 @@ public class SpawnListener implements Listener {
     @EventHandler
     public void onModifyArmor(InventoryClickEvent e) {
         Player p = (Player) e.getWhoClicked();
-        if (ExtendedPlayer.from(p).getGameState() == ExtendedPlayer.GameState.SPAWN) {
+        if (ExtendedPlayer.from(p).getGameState() == ExtendedPlayer.GameState.KITS_SPAWN) {
             if (e.getClickedInventory() instanceof PlayerInventory) {
                 if (e.getSlot() >= 36 && e.getSlot() < 40) {
                     e.setCancelled(true);

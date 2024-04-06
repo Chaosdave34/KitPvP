@@ -115,7 +115,7 @@ public class UtilityListener implements Listener {
         Player p = e.getPlayer();
 
         ExtendedPlayer extendedPlayer = ExtendedPlayer.from(p);
-        extendedPlayer.unmorph();
+        extendedPlayer.unMorph();
         extendedPlayer.removeCompanion();
         KitPvp.INSTANCE.removeExtendedPlayer(p);
 

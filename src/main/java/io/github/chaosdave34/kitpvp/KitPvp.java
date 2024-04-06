@@ -144,8 +144,8 @@ public final class KitPvp extends JavaPlugin {
     }
 
     // Extended players
-    public ExtendedPlayer getExtendedPlayer(Player p) {
-        return extendedPlayers.get(p.getUniqueId());
+    public ExtendedPlayer getExtendedPlayer(UUID uuid) {
+        return extendedPlayers.get(uuid);
     }
 
     public void createExtendedPlayer(Player p) {
@@ -161,7 +161,7 @@ public final class KitPvp extends JavaPlugin {
     }
 
     public void removeExtendedPlayer(Player p) {
-        ExtendedPlayer extendedPlayer = getExtendedPlayer(p);
+        ExtendedPlayer extendedPlayer = getExtendedPlayer(p.getUniqueId());
 
         JsonUtils.writeObjectToFile(new File(getDataFolder(), "player_data/" + p.getUniqueId() + ".json"), extendedPlayer);
 
@@ -219,7 +219,7 @@ public final class KitPvp extends JavaPlugin {
         saveHighscores();
 
         for (ExtendedPlayer extendedPlayer : extendedPlayers.values()) {
-            extendedPlayer.unmorph();
+            extendedPlayer.unMorph();
             extendedPlayer.removeCompanion();
             JsonUtils.writeObjectToFile(new File(getDataFolder(), "player_data/" + extendedPlayer.getPlayer().getUniqueId() + ".json"), extendedPlayer);
         }

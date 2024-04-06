@@ -81,8 +81,7 @@ public class GameListener implements Listener {
             ExtendedPlayer extendedPlayer = ExtendedPlayer.from(p);
             if (extendedPlayer.inGame()) {
                 if (p.getUniqueId().equals(extendedPlayer.getUuid())) {
-                    if (extendedPlayer.getMorph() == null) return;
-                    extendedPlayer.unmorph();
+                    extendedPlayer.unMorph();
                 }
             }
         }
@@ -231,7 +230,7 @@ public class GameListener implements Listener {
     @EventHandler
     public void onBlockPlace(BlockPlaceEvent e) {
         Player p = e.getPlayer();
-        if (ExtendedPlayer.from(p).getGameState() == ExtendedPlayer.GameState.IN_GAME) {
+        if (ExtendedPlayer.from(p).getGameState() == ExtendedPlayer.GameState.KITS_IN_GAME) {
             Block block = e.getBlock();
 
             if (e.getBlock().getType() == Material.FIRE) return;
@@ -255,7 +254,7 @@ public class GameListener implements Listener {
     @EventHandler
     public void onBlockBreak(BlockBreakEvent e) {
         Player p = e.getPlayer();
-        if (ExtendedPlayer.from(p).getGameState() == ExtendedPlayer.GameState.IN_GAME) {
+        if (ExtendedPlayer.from(p).getGameState() == ExtendedPlayer.GameState.KITS_IN_GAME) {
             if (!e.getBlock().hasMetadata("placed_by_player")) {
                 if (e.getBlock().getType() == Material.FIRE) return;
 
@@ -310,7 +309,7 @@ public class GameListener implements Listener {
     @EventHandler
     public void onBucketEmpty(PlayerBucketEmptyEvent e) {
         Player p = e.getPlayer();
-        if (ExtendedPlayer.from(p).getGameState() == ExtendedPlayer.GameState.IN_GAME) {
+        if (ExtendedPlayer.from(p).getGameState() == ExtendedPlayer.GameState.KITS_IN_GAME) {
             Block block = e.getBlock();
 
             if (e.getBlock().getLocation().getY() > 105) {
@@ -332,7 +331,7 @@ public class GameListener implements Listener {
     @EventHandler
     public void onBucketFill(PlayerBucketFillEvent e) {
         Player p = e.getPlayer();
-        if (ExtendedPlayer.from(p).getGameState() == ExtendedPlayer.GameState.IN_GAME) {
+        if (ExtendedPlayer.from(p).getGameState() == ExtendedPlayer.GameState.KITS_IN_GAME) {
             if (!e.getBlock().hasMetadata("placed_by_player")) {
                 e.setCancelled(true);
             } else {
@@ -344,7 +343,7 @@ public class GameListener implements Listener {
     @EventHandler
     public void onModifyArmor(InventoryClickEvent e) {
         Player p = (Player) e.getWhoClicked();
-        if (ExtendedPlayer.from(p).getGameState() == ExtendedPlayer.GameState.IN_GAME) {
+        if (ExtendedPlayer.from(p).getGameState() == ExtendedPlayer.GameState.KITS_IN_GAME) {
             if (e.getClickedInventory() instanceof PlayerInventory) {
                 if (e.getSlot() >= 36 && e.getSlot() < 40) {
                     e.setCancelled(true);

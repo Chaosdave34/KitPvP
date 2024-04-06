@@ -62,6 +62,10 @@ public abstract class CustomEvent implements Listener {
         }.runTaskTimer(KitPvp.INSTANCE, 0, 20);
     }
 
+    public boolean isActive() {
+        return this == KitPvp.INSTANCE.getCustomEventHandler().getActiveEvent();
+    }
+
     public void start() {
     }
 

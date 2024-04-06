@@ -76,7 +76,7 @@ public class MagicianKit extends Kit {
     public void onSlotChange(PlayerItemHeldEvent e) {
         Player p = e.getPlayer();
         ExtendedPlayer extendedPlayer = ExtendedPlayer.from(p);
-        if (extendedPlayer.getSelectedKitId().equals(getId()) && extendedPlayer.getGameState() == ExtendedPlayer.GameState.IN_GAME) {
+        if (extendedPlayer.getSelectedKitId().equals(getId()) && extendedPlayer.getGameState() == ExtendedPlayer.GameState.KITS_IN_GAME) {
             ItemStack slot = p.getInventory().getItem(e.getNewSlot());
 
             // Todo: improve this
