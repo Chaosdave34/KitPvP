@@ -86,7 +86,7 @@ public class UtilityListener implements Listener {
         LocalDate lastLoginDate = Instant.ofEpochMilli(p.getLastLogin()).atZone(ZoneId.systemDefault()).toLocalDate();
         LocalDate today = LocalDate.now();
 
-        if (!lastLoginDate.isEqual(today) || extendedPlayer.getDailyChallenges() == null || extendedPlayer.getDailyChallenges().isEmpty()) {
+        if (!lastLoginDate.isEqual(today) || extendedPlayer.getDailyChallenges().isEmpty()) {
             extendedPlayer.updateDailyChallenges();
         }
 

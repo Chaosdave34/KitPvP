@@ -451,11 +451,12 @@ class ExtendedPlayer(val uuid: UUID) {
 
             object : BukkitRunnable() {
                 override fun run() {
-                    if (combatCooldown == 0) {
+                    combatCooldown--
+                    if (combatCooldown < 0) {
                         this.cancel()
                         updateScoreboardLines()
+                        combatCooldown = 0
                     }
-                    combatCooldown--
                 }
             }.runTaskTimer(KitPvp.INSTANCE, 0, 20)
 
