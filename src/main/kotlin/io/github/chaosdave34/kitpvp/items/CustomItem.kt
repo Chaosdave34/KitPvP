@@ -1,4 +1,4 @@
-package io.github.chaosdave34.kitpvp.items;
+package io.github.chaosdave34.kitpvp.items
 
 import io.github.chaosdave34.ghutils.persistentdatatypes.UUIDPersistentDataType
 import io.github.chaosdave34.ghutils.utils.PDCUtils
@@ -22,7 +22,7 @@ import org.bukkit.inventory.meta.ItemMeta
 import org.bukkit.inventory.meta.LeatherArmorMeta
 import java.util.*
 
-abstract class CustomItem @JvmOverloads constructor(val material: Material, val id: String, val stackable: Boolean = true, val preventPlacingAndUsing: Boolean = false) :
+abstract class CustomItem @JvmOverloads constructor(val material: Material, val id: String, private val stackable: Boolean = true, private val preventPlacingAndUsing: Boolean = false) :
     Listener {
     abstract fun getName(): Component
 
@@ -66,7 +66,7 @@ abstract class CustomItem @JvmOverloads constructor(val material: Material, val 
         val enchantmentLore: MutableList<Component> = mutableListOf()
 
         for ((enchantment, level) in itemStack.enchantments) {
-            val component = enchantment.displayName(level).decoration(TextDecoration.ITALIC, false)
+            val component = enchantment.displayName(level).color(NamedTextColor.BLUE).decoration(TextDecoration.ITALIC, false)
             enchantmentLore.add(component)
         }
 
@@ -123,6 +123,8 @@ abstract class CustomItem @JvmOverloads constructor(val material: Material, val 
             if (event.action == Action.LEFT_CLICK_BLOCK || event.action == Action.RIGHT_CLICK_BLOCK) event.isCancelled = true
         }
     }
+
+    fun ItemStack.isThisCustomItem() = id == CustomItemHandler.getCustomItemId(this)
 
     protected fun setLeatherArmorColor(leatherArmor: ItemStack, color: Color) {
         leatherArmor.editMeta(LeatherArmorMeta::class.java) { leatherArmorMeta: LeatherArmorMeta -> leatherArmorMeta.setColor(color) }

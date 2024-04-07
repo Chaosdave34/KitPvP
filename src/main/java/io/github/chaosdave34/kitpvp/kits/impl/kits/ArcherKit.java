@@ -57,6 +57,7 @@ public class ArcherKit extends Kit {
         return new ItemStack[]{
                 stoneSword,
                 bow,
+                CustomItemHandler.LONG_BOW.build(),
                 CustomItemHandler.LEAP.build(),
                 new ItemStack(Material.ARROW),
                 new ItemStack(Material.WATER_BUCKET),

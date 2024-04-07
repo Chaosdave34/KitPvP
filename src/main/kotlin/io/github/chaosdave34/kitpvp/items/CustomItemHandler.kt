@@ -3,6 +3,7 @@ package io.github.chaosdave34.kitpvp.items
 import io.github.chaosdave34.ghutils.Utils
 import io.github.chaosdave34.ghutils.utils.PDCUtils
 import io.github.chaosdave34.kitpvp.items.impl.archer.Leap
+import io.github.chaosdave34.kitpvp.items.impl.archer.LongBow
 import io.github.chaosdave34.kitpvp.items.impl.artilleryman.Jetpack
 import io.github.chaosdave34.kitpvp.items.impl.artilleryman.RocketLauncher
 import io.github.chaosdave34.kitpvp.items.impl.assassin.AssassinSword
@@ -89,6 +90,9 @@ class CustomItemHandler {
         lateinit var ZEUS_SWORD: CustomItem
 
         @JvmStatic
+        lateinit var LONG_BOW: CustomItem
+
+        @JvmStatic
         fun getCustomItemId(itemStack: ItemStack): String = PDCUtils.getId(itemStack.itemMeta) ?: ""
     }
 
@@ -113,6 +117,7 @@ class CustomItemHandler {
         LEAP = registerItem(Leap())
         DRAGONS_CHARGE = registerItem(DragonsCharge())
         ZEUS_SWORD = registerItem(ZeusSword())
+        LONG_BOW = registerItem(LongBow())
     }
 
     private fun registerItem(item: CustomItem): CustomItem {
