@@ -3,7 +3,7 @@ package io.github.chaosdave34.kitpvp.abilities.impl.devil;
 import io.github.chaosdave34.kitpvp.KitPvp;
 import io.github.chaosdave34.kitpvp.abilities.Ability;
 import io.github.chaosdave34.kitpvp.abilities.AbilityRunnable;
-import io.github.chaosdave34.kitpvp.abilities.AbilityType;
+
 import net.kyori.adventure.text.Component;
 import org.bukkit.Location;
 import org.bukkit.Particle;
@@ -18,7 +18,7 @@ import java.util.List;
 
 public class FireStormAbility extends Ability {
     public FireStormAbility() {
-        super("fire_storm", "Fire Storm", AbilityType.RIGHT_CLICK, 20);
+        super("fire_storm", "Fire Storm", Type.RIGHT_CLICK, 20);
     }
 
     @Override
@@ -30,8 +30,8 @@ public class FireStormAbility extends Ability {
     }
 
     @Override
-    public boolean onAbility(Player p) {
-        new AbilityRunnable(p) {
+    public boolean onAbility(@NotNull Player player) {
+        new AbilityRunnable(player) {
             int counter = 0;
 
             @Override
@@ -40,14 +40,14 @@ public class FireStormAbility extends Ability {
 
                 if (counter == 10 * 20) cancel();
 
-                for (Entity entity : p.getNearbyEntities(3, 3, 3)) {
+                for (Entity entity : player.getNearbyEntities(3, 3, 3)) {
                     if (entity instanceof LivingEntity livingEntity) {
-                        livingEntity.damage(2, DamageSource.builder(DamageType.ON_FIRE).withDirectEntity(p).withCausingEntity(p).build());
+                        livingEntity.damage(2, DamageSource.builder(DamageType.ON_FIRE).withDirectEntity(player).withCausingEntity(player).build());
                         livingEntity.setFireTicks(15);
                     }
                 }
 
-                Location location = p.getLocation();
+                Location location = player.getLocation();
                 for (int positionCounter = 0; positionCounter < 6; positionCounter++) {
                     Location position = location.clone();
 

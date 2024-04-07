@@ -2,7 +2,7 @@ package io.github.chaosdave34.kitpvp.abilities.impl.zeus;
 
 import io.github.chaosdave34.kitpvp.KitPvp;
 import io.github.chaosdave34.kitpvp.abilities.Ability;
-import io.github.chaosdave34.kitpvp.abilities.AbilityType;
+
 import net.kyori.adventure.text.Component;
 import org.bukkit.Location;
 import org.bukkit.entity.EntityType;
@@ -25,7 +25,7 @@ import java.util.List;
 public class ThunderstormAbility extends Ability {
 
     public ThunderstormAbility() {
-        super("thunderstorm", "Thunderstorm", AbilityType.LEFT_CLICK, 30);
+        super("thunderstorm", "Thunderstorm", Type.LEFT_CLICK, 30);
     }
 
     @Override
@@ -66,7 +66,7 @@ public class ThunderstormAbility extends Ability {
                         lightningStrike.setCausingPlayer(p);
                         lightningStrike.setFlashCount(1);
 
-                        entity.setMetadata("ability", new FixedMetadataValue(KitPvp.INSTANCE, id));
+                        entity.setMetadata("ability", new FixedMetadataValue(KitPvp.INSTANCE, getId()));
                     });
                 } else this.cancel();
             }
@@ -79,7 +79,7 @@ public class ThunderstormAbility extends Ability {
     public void onLightningImpact(EntityDamageByEntityEvent e) {
         if (e.getEntity() instanceof Player p && e.getDamager() instanceof LightningStrike lightningStrike) {
             if (lightningStrike.hasMetadata("ability")) {
-                if (id.equals(lightningStrike.getMetadata("ability").get(0).value())) {
+                if (getId().equals(lightningStrike.getMetadata("ability").get(0).value())) {
                     if (p.equals(lightningStrike.getCausingPlayer())) {
                         e.setCancelled(true);
                     }
@@ -93,7 +93,7 @@ public class ThunderstormAbility extends Ability {
     public void onSetFire(BlockIgniteEvent e) {
         if (e.getIgnitingEntity() instanceof LightningStrike lightningStrike) {
             if (lightningStrike.hasMetadata("ability")) {
-                if (id.equals(lightningStrike.getMetadata("ability").get(0).value())) {
+                if (getId().equals(lightningStrike.getMetadata("ability").get(0).value())) {
                     e.setCancelled(true);
                 }
             }

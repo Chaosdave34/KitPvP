@@ -3,7 +3,7 @@ package io.github.chaosdave34.kitpvp.abilities.impl.tank;
 import io.github.chaosdave34.ghutils.utils.MathUtils;
 import io.github.chaosdave34.kitpvp.KitPvp;
 import io.github.chaosdave34.kitpvp.abilities.Ability;
-import io.github.chaosdave34.kitpvp.abilities.AbilityType;
+
 import net.kyori.adventure.text.Component;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -25,7 +25,7 @@ import java.util.List;
 
 public class SeismicWaveAbility extends Ability {
     public SeismicWaveAbility() {
-        super("seismic_wave", "Seismic Wave", AbilityType.SNEAK, 30);
+        super("seismic_wave", "Seismic Wave", Type.SNEAK, 30);
     }
 
     @Override

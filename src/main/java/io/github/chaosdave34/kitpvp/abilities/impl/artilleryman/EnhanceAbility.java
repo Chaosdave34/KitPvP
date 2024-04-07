@@ -4,7 +4,7 @@ import io.github.chaosdave34.kitpvp.ExtendedPlayer;
 import io.github.chaosdave34.kitpvp.KitPvp;
 import io.github.chaosdave34.kitpvp.abilities.Ability;
 import io.github.chaosdave34.kitpvp.abilities.AbilityRunnable;
-import io.github.chaosdave34.kitpvp.abilities.AbilityType;
+
 import net.kyori.adventure.text.Component;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
@@ -15,7 +15,7 @@ import java.util.List;
 
 public class EnhanceAbility extends Ability {
     public EnhanceAbility() {
-        super("enhance", "Enhance", AbilityType.LEFT_CLICK, 60);
+        super("enhance", "Enhance", Type.LEFT_CLICK, 60);
     }
 
     @Override

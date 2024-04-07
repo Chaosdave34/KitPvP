@@ -2,7 +2,6 @@ package io.github.chaosdave34.kitpvp.abilities.impl.provoker;
 
 import io.github.chaosdave34.kitpvp.KitPvp;
 import io.github.chaosdave34.kitpvp.abilities.Ability;
-import io.github.chaosdave34.kitpvp.abilities.AbilityType;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -22,7 +21,7 @@ import java.util.List;
 
 public class NukeAbility extends Ability {
     public NukeAbility() {
-        super("nuke", "Nuke", AbilityType.RIGHT_CLICK, 120);
+        super("nuke", "Nuke", Type.RIGHT_CLICK, 120);
     }
 
     @Override
@@ -40,7 +39,7 @@ public class NukeAbility extends Ability {
 
         Bukkit.getScheduler().runTaskLater(KitPvp.INSTANCE, () -> p.getWorld().spawnEntity(location, EntityType.FIREBALL, CreatureSpawnEvent.SpawnReason.CUSTOM, (entity -> {
             Fireball fireball = (Fireball) entity;
-            fireball.setMetadata("ability", new FixedMetadataValue(KitPvp.INSTANCE, id));
+            fireball.setMetadata("ability", new FixedMetadataValue(KitPvp.INSTANCE, getId()));
             fireball.setYield(10);
             fireball.setDirection(new Vector(0, -1, 0));
             fireball.setShooter(p);
@@ -53,7 +52,7 @@ public class NukeAbility extends Ability {
     public void onImpact(EntityExplodeEvent e) {
         if (e.getEntity() instanceof Fireball fireball) {
             if (fireball.hasMetadata("ability")) {
-                if (id.equals(fireball.getMetadata("ability").get(0).value())) {
+                if (getId().equals(fireball.getMetadata("ability").get(0).value())) {
                     e.blockList().removeIf(block -> !block.hasMetadata("placed_by_player"));
 
                     World world = e.getEntity().getWorld();

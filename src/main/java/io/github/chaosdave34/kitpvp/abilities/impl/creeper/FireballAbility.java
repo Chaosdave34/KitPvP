@@ -2,7 +2,7 @@ package io.github.chaosdave34.kitpvp.abilities.impl.creeper;
 
 import io.github.chaosdave34.kitpvp.KitPvp;
 import io.github.chaosdave34.kitpvp.abilities.Ability;
-import io.github.chaosdave34.kitpvp.abilities.AbilityType;
+
 import net.kyori.adventure.text.Component;
 import org.bukkit.Location;
 import org.bukkit.entity.EntityType;
@@ -19,7 +19,7 @@ import java.util.List;
 public class FireballAbility extends Ability {
 
     public FireballAbility() {
-        super("fireball", "Fireball", AbilityType.RIGHT_CLICK, 10);
+        super("fireball", "Fireball", Type.RIGHT_CLICK, 10);
     }
 
     @Override
@@ -35,7 +35,7 @@ public class FireballAbility extends Ability {
             fireball.setDirection(p.getLocation().getDirection().multiply(1.5));
             fireball.setYield(2);
             fireball.setShooter(p);
-            fireball.setMetadata("ability", new FixedMetadataValue(KitPvp.INSTANCE, id));
+            fireball.setMetadata("ability", new FixedMetadataValue(KitPvp.INSTANCE, getId()));
         });
         return true;
     }
@@ -44,7 +44,7 @@ public class FireballAbility extends Ability {
     public void onExplosion(EntityExplodeEvent e) {
         if (e.getEntity() instanceof Fireball fireball) {
             if (fireball.hasMetadata("ability")) {
-                if (id.equals(fireball.getMetadata("ability").get(0).value())) {
+                if (getId().equals(fireball.getMetadata("ability").get(0).value())) {
                     e.blockList().removeIf(block -> !block.hasMetadata("placed_by_player"));
                 }
             }

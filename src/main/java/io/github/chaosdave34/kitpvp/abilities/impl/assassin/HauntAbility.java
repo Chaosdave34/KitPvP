@@ -4,7 +4,6 @@ import io.github.chaosdave34.kitpvp.ExtendedPlayer;
 import io.github.chaosdave34.kitpvp.KitPvp;
 import io.github.chaosdave34.kitpvp.abilities.Ability;
 import io.github.chaosdave34.kitpvp.abilities.AbilityRunnable;
-import io.github.chaosdave34.kitpvp.abilities.AbilityType;
 import io.github.chaosdave34.kitpvp.events.EntityDealDamageEvent;
 import io.github.chaosdave34.kitpvp.kits.Kit;
 import net.kyori.adventure.text.Component;
@@ -20,7 +19,7 @@ import java.util.List;
 
 public class HauntAbility extends Ability {
     public HauntAbility() {
-        super("haunt", "Haunt", AbilityType.RIGHT_CLICK, 60);
+        super("haunt", "Haunt", Type.RIGHT_CLICK, 60);
     }
 
     @Override
@@ -36,6 +35,7 @@ public class HauntAbility extends Ability {
     public boolean onAbility(Player p) {
         p.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 5 * 10, 9));
         p.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 5 * 10, 0));
+        p.addScoreboardTag("haunt_ability");
 
         p.getInventory().setHelmet(new ItemStack(Material.AIR));
         p.getInventory().setChestplate(new ItemStack(Material.AIR));
@@ -49,13 +49,18 @@ public class HauntAbility extends Ability {
     @EventHandler
     public void onPlayerAttack(EntityDealDamageEvent e) {
         if (e.getDamager() instanceof Player damager) {
-            removeEffects(damager);
+            ExtendedPlayer extendedPlayer = ExtendedPlayer.from(damager);
+            if (extendedPlayer.getGameState() == ExtendedPlayer.GameState.KITS_IN_GAME && damager.getScoreboardTags().contains("haunt_ability")) {
+                removeEffects(damager);
+            }
         }
     }
 
     private void removeEffects(Player p) {
         p.removePotionEffect(PotionEffectType.SPEED);
         p.removePotionEffect(PotionEffectType.INVISIBILITY);
+
+        p.removeScoreboardTag("haunt_ability");
 
         Kit kit = ExtendedPlayer.from(p).getSelectedKit();
         p.getInventory().setHelmet(kit.getHeadContent());

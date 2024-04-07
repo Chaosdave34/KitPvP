@@ -1,7 +1,7 @@
 package io.github.chaosdave34.kitpvp.abilities.impl.poseidon;
 
 import io.github.chaosdave34.kitpvp.abilities.Ability;
-import io.github.chaosdave34.kitpvp.abilities.AbilityType;
+
 import net.kyori.adventure.text.Component;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
@@ -11,7 +11,7 @@ import java.util.List;
 
 public class StormAbility extends Ability {
     public StormAbility() {
-        super("storm", "Storm", AbilityType.SNEAK_RIGHT_CLICK, 120);
+        super("storm", "Storm", Type.SNEAK_RIGHT_CLICK, 120);
     }
 
     @Override

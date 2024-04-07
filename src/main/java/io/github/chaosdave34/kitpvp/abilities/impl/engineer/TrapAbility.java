@@ -2,7 +2,7 @@ package io.github.chaosdave34.kitpvp.abilities.impl.engineer;
 
 import io.github.chaosdave34.kitpvp.ExtendedPlayer;
 import io.github.chaosdave34.kitpvp.abilities.Ability;
-import io.github.chaosdave34.kitpvp.abilities.AbilityType;
+
 import net.kyori.adventure.text.Component;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
@@ -15,7 +15,7 @@ import java.util.List;
 
 public class TrapAbility extends Ability {
     public TrapAbility() {
-        super("trap", "Trap", AbilityType.LEFT_CLICK, 10);
+        super("trap", "Trap", Type.LEFT_CLICK, 10);
     }
 
     @Override

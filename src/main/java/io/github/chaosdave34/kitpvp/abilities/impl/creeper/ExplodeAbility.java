@@ -3,7 +3,7 @@ package io.github.chaosdave34.kitpvp.abilities.impl.creeper;
 import io.github.chaosdave34.ghutils.persistentdatatypes.StringArrayPersistentDataType;
 import io.github.chaosdave34.kitpvp.KitPvp;
 import io.github.chaosdave34.kitpvp.abilities.Ability;
-import io.github.chaosdave34.kitpvp.abilities.AbilityType;
+
 import net.kyori.adventure.text.Component;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
@@ -17,7 +17,7 @@ import java.util.List;
 
 public class ExplodeAbility extends Ability {
     public ExplodeAbility() {
-        super("explode", "Explode", AbilityType.SNEAK, 25);
+        super("explode", "Explode", Type.SNEAK, 25);
     }
 
     @Override
@@ -45,7 +45,7 @@ public class ExplodeAbility extends Ability {
                     if (abilities == null) return;
 
                     for (String id : abilities) {
-                        if (this.id.equals(id)) {
+                        if (getId().equals(id)) {
                             e.blockList().removeIf(block -> !block.hasMetadata("placed_by_player"));
                             return;
                         }

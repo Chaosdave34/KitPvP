@@ -2,7 +2,7 @@ package io.github.chaosdave34.kitpvp.abilities.impl.enderman;
 
 import io.github.chaosdave34.kitpvp.ExtendedPlayer;
 import io.github.chaosdave34.kitpvp.abilities.Ability;
-import io.github.chaosdave34.kitpvp.abilities.AbilityType;
+
 import net.kyori.adventure.text.Component;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
@@ -15,7 +15,7 @@ import java.util.List;
 
 public class EnderAttackAbility extends Ability {
     public EnderAttackAbility() {
-        super("ender_attack", "Ender Attack", AbilityType.RIGHT_CLICK, 15);
+        super("ender_attack", "Ender Attack", Type.RIGHT_CLICK, 15);
     }
 
     @Override

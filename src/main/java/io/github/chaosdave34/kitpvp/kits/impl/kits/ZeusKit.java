@@ -43,11 +43,9 @@ public class ZeusKit extends Kit {
 
     @Override
     public ItemStack[] getInventoryContent() {
-        ItemStack goldenSword = new ItemStack(Material.GOLDEN_SWORD);
-        goldenSword.addEnchantment(Enchantment.DAMAGE_ALL, 2);
 
         return new ItemStack[]{
-                goldenSword,
+                CustomItemHandler.ZEUS_SWORD.build(),
                 CustomItemHandler.LIGHTNING_WAND.build(),
                 new ItemStack(Material.WATER_BUCKET),
         };

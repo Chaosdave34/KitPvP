@@ -2,7 +2,7 @@ package io.github.chaosdave34.kitpvp.abilities.impl.enderman;
 
 import io.github.chaosdave34.kitpvp.KitPvp;
 import io.github.chaosdave34.kitpvp.abilities.Ability;
-import io.github.chaosdave34.kitpvp.abilities.AbilityType;
+
 import net.kyori.adventure.text.Component;
 import org.bukkit.Location;
 import org.bukkit.entity.AreaEffectCloud;
@@ -20,7 +20,7 @@ import java.util.List;
 public class DragonFireballAbility extends Ability {
 
     public DragonFireballAbility() {
-        super("dragon_fireball", "Dragon Fireball", AbilityType.RIGHT_CLICK, 20);
+        super("dragon_fireball", "Dragon Fireball", Type.RIGHT_CLICK, 20);
     }
 
     @Override
@@ -35,7 +35,7 @@ public class DragonFireballAbility extends Ability {
             DragonFireball fireball = (DragonFireball) entity;
             fireball.setDirection(p.getLocation().getDirection().multiply(1.5));
             fireball.setShooter(p);
-            fireball.setMetadata("ability", new FixedMetadataValue(KitPvp.INSTANCE, id));
+            fireball.setMetadata("ability", new FixedMetadataValue(KitPvp.INSTANCE, getId()));
         });
         return true;
     }

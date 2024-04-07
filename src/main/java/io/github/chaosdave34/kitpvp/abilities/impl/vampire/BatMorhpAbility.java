@@ -4,7 +4,7 @@ import io.github.chaosdave34.kitpvp.ExtendedPlayer;
 import io.github.chaosdave34.kitpvp.KitPvp;
 import io.github.chaosdave34.kitpvp.abilities.Ability;
 import io.github.chaosdave34.kitpvp.abilities.AbilityRunnable;
-import io.github.chaosdave34.kitpvp.abilities.AbilityType;
+
 import net.kyori.adventure.text.Component;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
@@ -15,7 +15,7 @@ import java.util.List;
 
 public class BatMorhpAbility extends Ability {
     public BatMorhpAbility() {
-        super("bat_morph", "Bat Morph", AbilityType.RIGHT_CLICK, 30);
+        super("bat_morph", "Bat Morph", Type.RIGHT_CLICK, 30);
     }
 
 

@@ -4,7 +4,7 @@ import io.github.chaosdave34.kitpvp.ExtendedPlayer;
 import io.github.chaosdave34.kitpvp.KitPvp;
 import io.github.chaosdave34.kitpvp.abilities.Ability;
 import io.github.chaosdave34.kitpvp.abilities.AbilityRunnable;
-import io.github.chaosdave34.kitpvp.abilities.AbilityType;
+
 import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -17,7 +17,7 @@ import java.util.List;
 
 public class SpookAbility extends Ability {
     public SpookAbility() {
-        super("spook", "Spook", AbilityType.RIGHT_CLICK, 30);
+        super("spook", "Spook", Type.RIGHT_CLICK, 30);
     }
 
     @Override

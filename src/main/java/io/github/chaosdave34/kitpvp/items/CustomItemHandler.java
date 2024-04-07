@@ -21,6 +21,7 @@ import io.github.chaosdave34.kitpvp.items.impl.tank.TankAxe;
 import io.github.chaosdave34.kitpvp.items.impl.tank.TankBoots;
 import io.github.chaosdave34.kitpvp.items.impl.vampire.VampireSword;
 import io.github.chaosdave34.kitpvp.items.impl.zeus.LightningWand;
+import io.github.chaosdave34.kitpvp.items.zeus.ZeusSword;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -50,6 +51,7 @@ public class CustomItemHandler {
     public static CustomItem TURRET;
     public static CustomItem LEAP;
     public static CustomItem DRAGONS_CHARGE;
+    public static CustomItem ZEUS_SWORD;
 
     public CustomItemHandler() {
         FIREBALL_SWORD = registerItem(new FireballSword());
@@ -71,6 +73,7 @@ public class CustomItemHandler {
         TURRET = registerItem(new TurretItem());
         LEAP = registerItem(new Leap());
         DRAGONS_CHARGE = registerItem(new DragonsCharge());
+        ZEUS_SWORD = registerItem(new ZeusSword());
     }
 
     private CustomItem registerItem(CustomItem item) {

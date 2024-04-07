@@ -171,6 +171,13 @@ class ExtendedPlayer(val uuid: UUID) {
             }
         }
 
+        player.world.getEntitiesByClass(EnderPearl::class.java).forEach { pearl ->
+            run {
+                if (pearl.shooter is Player && pearl.shooter == player)
+                    pearl.remove()
+            }
+        }
+
         if (!this::scoreboard.isInitialized) {
             scoreboard = Bukkit.getScoreboardManager().newScoreboard
             val objective = scoreboard.registerNewObjective("default", Criteria.DUMMY, Component.text("KitPvP", NamedTextColor.YELLOW, TextDecoration.BOLD))
@@ -505,8 +512,8 @@ class ExtendedPlayer(val uuid: UUID) {
         addExperiencePoints(xpReward)
         addCoins(coinReward)
 
-        val info: Component = Component.text("Killed (${victim.name}): ")
-            .append(Component.text("+($xpReward)XP ", NamedTextColor.AQUA))
+        val info: Component = Component.text("Killed ${victim.name}: ")
+            .append(Component.text("+{$xpReward}XP ", NamedTextColor.AQUA))
             .append(Component.text("+$coinReward coins", NamedTextColor.GOLD))
         player.sendActionBar(info)
 
