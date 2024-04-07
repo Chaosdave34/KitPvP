@@ -25,8 +25,8 @@ public class CustomItemCommand implements CommandExecutor {
                 }
             }
 
-            if (KitPvp.INSTANCE.getCustomItemHandler().ID_MAP.containsKey(args[0])) {
-                CustomItem customItem = KitPvp.INSTANCE.getCustomItemHandler().ID_MAP.get(args[0]);
+            if (KitPvp.INSTANCE.getCustomItemHandler().getCustomItems().containsKey(args[0])) {
+                CustomItem customItem = KitPvp.INSTANCE.getCustomItemHandler().getCustomItems().get(args[0]);
                 ItemStack item = customItem.build(amount);
                 p.getInventory().addItem(item);
 

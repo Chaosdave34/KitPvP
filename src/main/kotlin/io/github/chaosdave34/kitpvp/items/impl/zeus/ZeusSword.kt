@@ -1,4 +1,4 @@
-package io.github.chaosdave34.kitpvp.items.zeus
+package io.github.chaosdave34.kitpvp.items.impl.zeus
 
 import io.github.chaosdave34.kitpvp.abilities.Ability
 import io.github.chaosdave34.kitpvp.abilities.AbilityHandler

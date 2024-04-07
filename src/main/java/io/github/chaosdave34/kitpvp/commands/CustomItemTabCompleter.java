@@ -17,7 +17,7 @@ public class CustomItemTabCompleter implements TabCompleter {
     public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (args.length == 1) {
             List<String> completions = new ArrayList<>();
-            StringUtil.copyPartialMatches(args[0], KitPvp.INSTANCE.getCustomItemHandler().ID_MAP.keySet(), completions);
+            StringUtil.copyPartialMatches(args[0], KitPvp.INSTANCE.getCustomItemHandler().getCustomItems().keySet(), completions);
             return completions;
         }
 
