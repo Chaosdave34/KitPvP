@@ -16,7 +16,7 @@ class EntityReceiveDamageByEntityEvent(
     var damage: Double,
     var damageEvent: EntityDamageEvent
 ) : Event(), Cancellable {
-    private var cancelled = damageEvent.isCancelled;
+    private var cancelled = damageEvent.isCancelled
 
     override fun getHandlers(): HandlerList {
         return handlerList
@@ -29,7 +29,7 @@ class EntityReceiveDamageByEntityEvent(
         fun getHandlerList(): HandlerList = handlerList
     }
 
-    override fun isCancelled() = cancelled;
+    override fun isCancelled() = cancelled
 
     override fun setCancelled(cancel: Boolean) {
         cancelled = cancel

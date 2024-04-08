@@ -1,6 +1,5 @@
 package io.github.chaosdave34.kitpvp.events
 
-import org.bukkit.Bukkit
 import org.bukkit.entity.Entity
 import org.bukkit.event.Cancellable
 import org.bukkit.event.Event
@@ -17,7 +16,7 @@ class EntityDealDamageEvent(
     var damage: Double,
     val damageEvent: EntityDamageEvent,
 ) : Event(), Cancellable {
-    private var cancelled = damageEvent.isCancelled;
+    private var cancelled = damageEvent.isCancelled
 
     override fun getHandlers(): HandlerList {
         return handlerList
@@ -30,7 +29,7 @@ class EntityDealDamageEvent(
         fun getHandlerList(): HandlerList = handlerList
     }
 
-    override fun isCancelled() = cancelled;
+    override fun isCancelled() = cancelled
 
     override fun setCancelled(cancel: Boolean) {
         cancelled = cancel

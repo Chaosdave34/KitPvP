@@ -30,7 +30,7 @@ class Turret : CustomEntity("turret") {
     private val turrets: MutableMap<UUID, UUID> = mutableMapOf()
 
     override fun spawn(player: Player, location: Location) {
-        val turret = player.world.spawn<Husk>(location, Husk::class.java) { husk: Husk ->
+        val turret = player.world.spawn(location, Husk::class.java) { husk: Husk ->
             husk.customName(Component.text("Turret 10/10"))
             husk.isCustomNameVisible = true
 

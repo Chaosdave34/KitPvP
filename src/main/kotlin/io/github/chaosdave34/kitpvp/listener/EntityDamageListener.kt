@@ -15,9 +15,9 @@ class EntityDamageListener : Listener {
         val damageSource = event.damageSource
 
         val receiveDamageEvent = if (damageSource.causingEntity != null) {
-            EntityReceiveDamageByEntityEvent(event.entity, damageSource.causingEntity!!, event.damage, event);
+            EntityReceiveDamageByEntityEvent(event.entity, damageSource.causingEntity!!, event.damage, event)
         } else if (damageSource.directEntity != null) {
-            EntityReceiveDamageByEntityEvent(event.entity, damageSource.directEntity!!, event.damage, event);
+            EntityReceiveDamageByEntityEvent(event.entity, damageSource.directEntity!!, event.damage, event)
         } else {
             return
         }
