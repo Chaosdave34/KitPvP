@@ -20,7 +20,7 @@ import org.bukkit.inventory.EquipmentSlot
 import org.bukkit.inventory.ItemStack
 import java.util.*
 
-class MagicWand : CustomItem(Material.END_ROD, "magic_wand", false) {
+class MagicWand : CustomItem(Material.END_ROD, "magic_wand", false, true) {
     override fun getName(): Component = createSimpleItemName("Magic Wand")
 
     override fun getDescription(): List<Component> = createSimpleDescription("Feel the magic flow through cour body.")

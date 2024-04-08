@@ -505,7 +505,7 @@ class ExtendedPlayer(val uuid: UUID) {
         addCoins(coinReward)
 
         val info: Component = Component.text("Killed ${victim.name}: ")
-            .append(Component.text("+{$xpReward}XP ", NamedTextColor.AQUA))
+            .append(Component.text("+${xpReward}XP ", NamedTextColor.AQUA))
             .append(Component.text("+$coinReward coins", NamedTextColor.GOLD))
         player.sendActionBar(info)
 

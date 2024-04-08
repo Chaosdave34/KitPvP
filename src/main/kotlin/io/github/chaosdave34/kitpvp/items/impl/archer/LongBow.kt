@@ -21,7 +21,7 @@ class LongBow : CustomItem(Material.BOW, "long_bow") {
 
     override fun additionalModifications(itemStack: ItemStack) {
         itemStack.addEnchantment(Enchantment.ARROW_INFINITE, 1)
-        itemStack.addEnchantment(Enchantment.ARROW_DAMAGE, 3)
+        itemStack.addEnchantment(Enchantment.ARROW_DAMAGE, 5)
         itemStack.addEnchantment(Enchantment.ARROW_KNOCKBACK, 2)
     }
 

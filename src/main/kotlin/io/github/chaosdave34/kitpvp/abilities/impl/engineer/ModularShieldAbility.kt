@@ -24,13 +24,15 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent
 import org.bukkit.event.entity.EntityDamageEvent
 import org.bukkit.event.player.PlayerMoveEvent
 import org.bukkit.event.player.PlayerQuitEvent
+import org.bukkit.potion.PotionEffect
+import org.bukkit.potion.PotionEffectType
 import org.bukkit.scoreboard.Team
 import java.util.*
 
 class ModularShieldAbility : Ability("modular_shield", "Modular Shield", Type.RIGHT_CLICK, 20) {
     private var activeShield: MutableMap<UUID, Creeper> = mutableMapOf()
 
-    override fun getDescription(): List<Component> = createSimpleDescription("Activate your shield for 4s.")
+    override fun getDescription(): List<Component> = createSimpleDescription("Activate your shield for 6s.")
 
     override fun onAbility(player: Player): Boolean {
         val creeper = Creeper(EntityType.CREEPER, (player as CraftPlayer).handle.level())
@@ -53,7 +55,9 @@ class ModularShieldAbility : Ability("modular_shield", "Modular Shield", Type.RI
         team.addEntities(player, creeper.bukkitEntity)
         team.setOption(Team.Option.COLLISION_RULE, Team.OptionStatus.NEVER)
 
-        AbilityRunnable.runTaskLater(KitPvp.INSTANCE, { disableShield(player) }, player, 8 * 20)
+        player.addPotionEffect(PotionEffect(PotionEffectType.SLOW, 6 * 20, 0))
+
+        AbilityRunnable.runTaskLater(KitPvp.INSTANCE, { disableShield(player) }, player, 6 * 20)
 
         return true
     }
@@ -96,12 +100,12 @@ class ModularShieldAbility : Ability("modular_shield", "Modular Shield", Type.RI
             if (event.isCancelled) return
 
             if (activeShield.contains(player.uniqueId)) {
-                event.isCancelled = true
+                event.damage *= 0.6
 
                 if (event is EntityDamageByEntityEvent && event.isCritical)
-                    player.playSound(player, org.bukkit.Sound.BLOCK_END_PORTAL_FRAME_FILL, SoundCategory.PLAYERS, 1f, 0.5f)
+                    player.world.playSound(player, org.bukkit.Sound.BLOCK_END_PORTAL_FRAME_FILL, SoundCategory.PLAYERS, 1f, 0.5f)
                 else
-                    player.playSound(player, org.bukkit.Sound.BLOCK_END_PORTAL_FRAME_FILL, SoundCategory.PLAYERS, 1f, 0f)
+                    player.world.playSound(player, org.bukkit.Sound.BLOCK_END_PORTAL_FRAME_FILL, SoundCategory.PLAYERS, 1f, 0f)
 
             }
         }

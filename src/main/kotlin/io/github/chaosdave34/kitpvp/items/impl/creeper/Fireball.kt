@@ -6,7 +6,7 @@ import io.github.chaosdave34.kitpvp.items.CustomItem
 import net.kyori.adventure.text.Component
 import org.bukkit.Material
 
-class Fireball : CustomItem(Material.FIRE_CHARGE, "fireball", false,false) {
+class Fireball : CustomItem(Material.FIRE_CHARGE, "fireball", false,true) {
 
     override fun getName(): Component = createSimpleItemName("Fireball")
 

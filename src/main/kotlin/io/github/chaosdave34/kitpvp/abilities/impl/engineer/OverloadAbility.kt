@@ -26,7 +26,7 @@ class OverloadAbility : Ability("overload", "Overload", Type.RIGHT_CLICK, 25) {
 
         player.health = maxHealth.value * currentHealthPercentage
 
-        player.addPotionEffect(PotionEffect(PotionEffectType.INCREASE_DAMAGE, 8 * 20, 2))
+        player.addPotionEffect(PotionEffect(PotionEffectType.INCREASE_DAMAGE, 8 * 20, 1))
 
         player.isGlowing = true
 
