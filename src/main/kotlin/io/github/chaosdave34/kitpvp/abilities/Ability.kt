@@ -6,7 +6,6 @@ import io.github.chaosdave34.kitpvp.KitPvp
 import io.github.chaosdave34.kitpvp.customevents.CustomEventHandler
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
-import net.kyori.adventure.text.format.TextDecoration
 import org.bukkit.GameMode
 import org.bukkit.NamespacedKey
 import org.bukkit.entity.Entity
@@ -71,7 +70,7 @@ abstract class Ability(val id: String, val name: String, val type: Type, val coo
         }
     }
 
-    protected fun checkTargetIfPlayer(target: Entity): Boolean = (target is Player && ExtendedPlayer.from(target).inGame()) || target !is Player
+    protected fun Entity.checkTargetIfPlayer(): Boolean = (this is Player && ExtendedPlayer.from(this).inGame()) || this !is Player
 
     enum class Type(val displayName: String) {
         RIGHT_CLICK("RIGHT CLICK"),

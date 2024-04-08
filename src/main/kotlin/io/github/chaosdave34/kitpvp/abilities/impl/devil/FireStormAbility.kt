@@ -25,7 +25,7 @@ class FireStormAbility : Ability("fire_storm", "Fire Storm", Type.RIGHT_CLICK, 2
                 if (counter == delay * 20) cancel()
 
                 player.getNearbyEntities(3.0, 3.0, 3.0).forEach { entity ->
-                    if (entity is LivingEntity) {
+                    if (entity is LivingEntity && entity.checkTargetIfPlayer()) {
                         entity.damage(2.0, DamageSource.builder(DamageType.ON_FIRE).withDirectEntity(player).withCausingEntity(player).build())
                         entity.setFireTicks(20)
                     }

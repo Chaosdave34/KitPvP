@@ -165,17 +165,13 @@ class ExtendedPlayer(val uuid: UUID) {
         combatCooldown = 0
 
         player.world.getEntitiesByClass(Trident::class.java).forEach { trident ->
-            run {
-                if (trident.shooter is Player && trident.shooter == player)
-                    trident.remove()
-            }
+            if (trident.shooter is Player && trident.shooter == player)
+                trident.remove()
         }
 
         player.world.getEntitiesByClass(EnderPearl::class.java).forEach { pearl ->
-            run {
-                if (pearl.shooter is Player && pearl.shooter == player)
-                    pearl.remove()
-            }
+            if (pearl.shooter is Player && pearl.shooter == player)
+                pearl.remove()
         }
 
         if (!this::scoreboard.isInitialized) {
@@ -247,11 +243,9 @@ class ExtendedPlayer(val uuid: UUID) {
         var footer = Component.newline().append(Component.text("Daily Challenges:", NamedTextColor.GREEN))
 
         dailyChallenges.forEach { challengeId ->
-            run {
-                val challenge = KitPvp.INSTANCE.challengesHandler.getChallenge(challengeId)
-                val textColor = if (challenge.getProgress(player) == challenge.amount) NamedTextColor.GREEN else NamedTextColor.WHITE
-                footer = footer.append(Component.newline()).append(Component.text("${challenge.name} ${challenge.progress[player]}/${challenge.amount}", textColor))
-            }
+            val challenge = KitPvp.INSTANCE.challengesHandler.getChallenge(challengeId)
+            val textColor = if (challenge.getProgress(player) == challenge.amount) NamedTextColor.GREEN else NamedTextColor.WHITE
+            footer = footer.append(Component.newline()).append(Component.text("${challenge.name} ${challenge.progress[player]}/${challenge.amount}", textColor))
         }
 
         player.sendPlayerListFooter(footer)
@@ -407,10 +401,8 @@ class ExtendedPlayer(val uuid: UUID) {
         val player = getPlayer() ?: return
         player.gameMode = GameMode.SPECTATOR
         morph = player.world.spawnEntity(player.location, entityType, CreatureSpawnEvent.SpawnReason.CUSTOM) { entity ->
-            run {
-                entity.setMetadata("morph", FixedMetadataValue(KitPvp.INSTANCE, player.uniqueId))
-                entity.addPassenger(player)
-            }
+            entity.setMetadata("morph", FixedMetadataValue(KitPvp.INSTANCE, player.uniqueId))
+            entity.addPassenger(player)
         }
     }
 

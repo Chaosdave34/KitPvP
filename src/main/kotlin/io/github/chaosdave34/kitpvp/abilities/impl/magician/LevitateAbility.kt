@@ -9,10 +9,8 @@ class LevitateAbility : Ability("levitate", "Levitate", Type.RIGHT_CLICK, 20) {
 
     override fun onAbility(player: Player): Boolean {
         player.getNearbyEntities(10.0, 10.0, 10.0).forEach { target ->
-            run {
-                if (checkTargetIfPlayer(target)) {
-                    target.velocity = target.velocity.setY(5)
-                }
+            if (target.checkTargetIfPlayer()) {
+                target.velocity = target.velocity.setY(5)
             }
         }
         return true

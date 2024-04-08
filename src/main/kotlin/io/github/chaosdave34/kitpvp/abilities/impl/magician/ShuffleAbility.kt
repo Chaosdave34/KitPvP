@@ -10,7 +10,7 @@ class ShuffleAbility : Ability("shuffle", "Shuffle", Type.SNEAK_RIGHT_CLICK, 10)
 
     override fun onAbility(player: Player): Boolean {
         val target = player.getTargetEntity(8)
-        if (target is HumanEntity && checkTargetIfPlayer(target)) {
+        if (target is HumanEntity && target.checkTargetIfPlayer()) {
             val inventory = target.inventory
             val shuffledContent = mutableListOf(*inventory.contents)
             shuffledContent.shuffle()

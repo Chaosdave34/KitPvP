@@ -6,7 +6,6 @@ import org.bukkit.Color
 import org.bukkit.Material
 import org.bukkit.enchantments.Enchantment
 import org.bukkit.inventory.ItemStack
-import org.bukkit.inventory.meta.PotionMeta
 import org.bukkit.potion.PotionEffectType
 
 class ArcherKit : Kit("archer", "Archer") {
