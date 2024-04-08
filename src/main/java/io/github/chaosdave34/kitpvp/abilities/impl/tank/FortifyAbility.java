@@ -34,7 +34,7 @@ public class FortifyAbility extends Ability {
         ExtendedPlayer extendedPlayer = ExtendedPlayer.from(p);
         PlayerInventory inventory = p.getInventory();
 
-        if (extendedPlayer.getSelectedKit() instanceof TankKit tankKit) {
+        if (extendedPlayer.getSelectedKitsKit() instanceof TankKit tankKit) {
             inventory.setHelmet(tankKit.getFortifiedHeadContent());
             inventory.setChestplate(tankKit.getFortifiedChestContent());
             inventory.setLeggings(tankKit.getFortifiedLegsContent());
@@ -47,7 +47,7 @@ public class FortifyAbility extends Ability {
             @Override
             public void run() {
                 if (checkDeath == extendedPlayer.getTotalDeaths(ExtendedPlayer.GameType.KITS)) {
-                    Kit selectedKit = extendedPlayer.getSelectedKit();
+                    Kit selectedKit = extendedPlayer.getSelectedKitsKit();
                     inventory.setHelmet(selectedKit.getHeadContent());
                     inventory.setChestplate(selectedKit.getChestContent());
                     inventory.setLeggings(selectedKit.getLegsContent());

@@ -62,7 +62,7 @@ public class HauntAbility extends Ability {
 
         p.removeScoreboardTag("haunt_ability");
 
-        Kit kit = ExtendedPlayer.from(p).getSelectedKit();
+        Kit kit = ExtendedPlayer.from(p).getSelectedKitsKit();
         p.getInventory().setHelmet(kit.getHeadContent());
         p.getInventory().setChestplate(kit.getChestContent());
         p.getInventory().setLeggings(kit.getLegsContent());

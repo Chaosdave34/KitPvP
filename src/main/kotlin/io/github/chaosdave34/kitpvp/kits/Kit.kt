@@ -63,7 +63,7 @@ abstract class Kit(val id: String, val name: String) : Listener, ItemUtilities {
         extendedPlayer.spawnCompanion()
     }
 
-    open fun isSelected(player: Player): Boolean = id == ExtendedPlayer.from(player).selectedKitId
+    open fun isSelected(player: Player): Boolean = id == ExtendedPlayer.from(player).selectedKitsKitId
 
     open fun isActive(player: Player): Boolean = isSelected(player) && ExtendedPlayer.from(player).gameState == ExtendedPlayer.GameState.KITS_IN_GAME
 }

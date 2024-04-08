@@ -26,7 +26,7 @@ import java.util.function.Consumer
 import kotlin.math.roundToInt
 
 class ExtendedPlayer(val uuid: UUID) {
-    var selectedKitId: String
+    var selectedKitsKitId: String
         private set
     var selectedElytraKitId: String
         private set
@@ -69,7 +69,7 @@ class ExtendedPlayer(val uuid: UUID) {
 
     // Set default values
     init {
-        selectedKitId = KitHandler.CLASSIC.id
+        selectedKitsKitId = KitHandler.CLASSIC.id
         selectedElytraKitId = ElytraKitHandler.KNIGHT.id
         currentGame = GameType.KITS
 
@@ -104,8 +104,8 @@ class ExtendedPlayer(val uuid: UUID) {
 
     fun inGame() = gameState == GameState.KITS_IN_GAME || gameState == GameState.ELYTRA_IN_GAME
 
-    fun getSelectedKit(): Kit {
-        val kit = KitPvp.INSTANCE.kitHandler.kits[selectedKitId]
+    fun getSelectedKitsKit(): Kit {
+        val kit = KitPvp.INSTANCE.kitHandler.kits[selectedKitsKitId]
 
         if (kit == null) {
             setSelectedKitId(KitHandler.CLASSIC.id)
@@ -126,7 +126,7 @@ class ExtendedPlayer(val uuid: UUID) {
     }
 
     fun setSelectedKitId(kitId: String) {
-        selectedKitId = kitId
+        selectedKitsKitId = kitId
         updateScoreboardLines()
     }
 
@@ -189,7 +189,7 @@ class ExtendedPlayer(val uuid: UUID) {
             GameType.KITS -> {
                 player.teleport(Location(Bukkit.getWorld("world"), 2.0, 120.0, 10.0, 180f, 0f))
                 gameState = GameState.KITS_SPAWN
-                getSelectedKit().apply(player)
+                getSelectedKitsKit().apply(player)
             }
 
             GameType.ELYTRA -> {
@@ -231,7 +231,7 @@ class ExtendedPlayer(val uuid: UUID) {
         objective.getScore(" ").score = 4
 
         val kitName = when (currentGame) {
-            GameType.KITS -> getSelectedKit().name
+            GameType.KITS -> getSelectedKitsKit().name
             GameType.ELYTRA -> getSelectedElytraKit().name
         }
         objective.getScore("Kit: $kitName").score = 3
@@ -427,7 +427,7 @@ class ExtendedPlayer(val uuid: UUID) {
     fun spawnCompanion() {
         val player = getPlayer() ?: return
 
-        val comp = getSelectedKit().getCompanion()
+        val comp = getSelectedKitsKit().getCompanion()
         if (comp == null) {
             if (companion != null) removeCompanion()
             return
@@ -518,7 +518,7 @@ class ExtendedPlayer(val uuid: UUID) {
         player.sendActionBar(info)
 
         when (currentGame) {
-            GameType.KITS -> player.inventory.addItem(*getSelectedKit().getKillRewards())
+            GameType.KITS -> player.inventory.addItem(*getSelectedKitsKit().getKillRewards())
             GameType.ELYTRA -> player.inventory.addItem(*getSelectedElytraKit().getKillRewards())
         }
 

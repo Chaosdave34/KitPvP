@@ -140,7 +140,7 @@ public class SeismicWaveAbility extends Ability {
             }
         }.runTaskTimer(KitPvp.INSTANCE, 10, 1);
 
-        p.playSound(location, Sound.ENTITY_GENERIC_BIG_FALL, 1, 0.1f);
+        p.getWorld().playSound(location, Sound.ENTITY_GENERIC_BIG_FALL, 1, 0.1f);
         p.setVelocity(p.getVelocity().add(new Vector(0, -2, 0)));
 
         p.getNearbyEntities(3, 3, 3).forEach(target -> {

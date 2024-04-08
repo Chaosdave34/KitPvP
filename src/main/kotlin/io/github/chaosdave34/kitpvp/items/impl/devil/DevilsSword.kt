@@ -12,7 +12,7 @@ class DevilsSword: CustomItem(Material.IRON_SWORD, "devils_sword") {
     override fun getName(): Component = createSimpleItemName("Devil's Sword")
 
     override fun additionalModifications(itemStack: ItemStack) {
-        itemStack.addUnsafeEnchantment(Enchantment.FIRE_ASPECT, 3)
+        itemStack.addUnsafeEnchantment(Enchantment.FIRE_ASPECT, 1)
         setCustomModelData(itemStack, 1)
     }
 

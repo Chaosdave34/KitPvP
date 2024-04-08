@@ -55,7 +55,7 @@ public class KitSelectorFakePlayer extends FakePlayer {
     private void selectKit(Player p) {
         if (ExtendedPlayer.from(p).inGame()) return;
 
-        if (ExtendedPlayer.from(p).getSelectedKit() == kit) {
+        if (ExtendedPlayer.from(p).getSelectedKitsKit() == kit) {
             p.sendMessage(Component.text("You have already selected this kit!", NamedTextColor.GRAY));
         } else {
 

@@ -14,6 +14,7 @@ import org.bukkit.potion.PotionEffectType
 import org.bukkit.potion.PotionType
 
 class MagicianKit : Kit("magician", "Magician") {
+
     override fun getHeadContent(): ItemStack {
         val leatherHelmet = ItemStack(Material.LEATHER_HELMET)
         leatherHelmet.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2)

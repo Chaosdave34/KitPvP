@@ -89,10 +89,8 @@ public class TurretRangedAttackGoal extends Goal {
         if (--this.attackTime == 0) {
 
             float f = (float) Math.sqrt(d) / this.attackRadius;
-            float g = Mth.clamp(f, 0.1F, 1.0F);
 
-            ((Turret) CustomEntities.TURRET).performRangedAttack(this.mob.getBukkitMob(), this.target, g);
-
+            ((Turret) CustomEntities.TURRET).performRangedAttack(this.mob.getBukkitMob(), this.target);
 
             this.attackTime = Mth.floor(f * (float) (this.attackIntervalMax - this.attackIntervalMin) + (float) this.attackIntervalMin);
         } else if (this.attackTime < 0) {

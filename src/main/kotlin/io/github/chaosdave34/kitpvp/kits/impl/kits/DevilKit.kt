@@ -11,6 +11,7 @@ import org.bukkit.inventory.ItemStack
 
 class DevilKit : Kit("devil", "Devil") {
     override fun getHeadContent(): ItemStack {
+
         val leatherHelmet = ItemStack(Material.LEATHER_HELMET)
         leatherHelmet.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2)
         leatherHelmet.addUnsafeEnchantment(Enchantment.PROTECTION_FIRE, 4)

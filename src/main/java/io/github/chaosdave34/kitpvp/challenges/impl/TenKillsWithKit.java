@@ -21,7 +21,7 @@ public class TenKillsWithKit extends Challenge {
     public void onKill(PlayerDeathEvent e) {
         if (e.getEntity().getLastDamageCause() instanceof EntityDamageByEntityEvent damageEvent) {
             if (damageEvent.getDamager() instanceof Player p) {
-                if (ExtendedPlayer.from(p).getSelectedKit() == kit)
+                if (ExtendedPlayer.from(p).getSelectedKitsKit() == kit)
                     incrementProgress(p);
             }
         }

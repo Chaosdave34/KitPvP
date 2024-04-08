@@ -33,7 +33,7 @@ public class CompanionHandler implements Listener {
         if (entity.hasMetadata("companion")) {
             e.setCancelled(true);
 
-            entity.playSound(Sound.sound(org.bukkit.Sound.ENTITY_PIGLIN_DEATH, Sound.Source.HOSTILE, 1, 1));
+            entity.getWorld().playSound(Sound.sound(org.bukkit.Sound.ENTITY_PIGLIN_DEATH, Sound.Source.HOSTILE, 1, 1));
 
             entity.setAI(false);
             entity.setSilent(true);

@@ -43,7 +43,7 @@ public class SpookAbility extends Ability {
 
             ExtendedPlayer extendedTargetPlayer = ExtendedPlayer.from(p);
 
-            AbilityRunnable.runTaskLater(KitPvp.INSTANCE, () -> player.getInventory().setHelmet(extendedTargetPlayer.getSelectedKit().getHeadContent()), extendedTargetPlayer, 5 * 20);
+            AbilityRunnable.runTaskLater(KitPvp.INSTANCE, () -> player.getInventory().setHelmet(extendedTargetPlayer.getSelectedKitsKit().getHeadContent()), extendedTargetPlayer, 5 * 20);
             return true;
         }
         return false;
