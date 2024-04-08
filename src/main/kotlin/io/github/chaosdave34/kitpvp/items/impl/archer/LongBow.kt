@@ -23,6 +23,8 @@ class LongBow : CustomItem(Material.BOW, "long_bow") {
         itemStack.addEnchantment(Enchantment.ARROW_INFINITE, 1)
         itemStack.addEnchantment(Enchantment.ARROW_DAMAGE, 5)
         itemStack.addEnchantment(Enchantment.ARROW_KNOCKBACK, 2)
+
+        setCustomModelData(itemStack, 2)
     }
 
     @EventHandler
