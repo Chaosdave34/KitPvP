@@ -53,7 +53,7 @@ public class GameListener implements Listener {
     public void onDrop(PlayerDropItemEvent e) {
         Player p = e.getPlayer();
         ExtendedPlayer extendedPlayer = ExtendedPlayer.from(p);
-        if (extendedPlayer != null && extendedPlayer.inGame()) {
+        if (extendedPlayer.inGame()) {
             e.setCancelled(true);
         }
     }
@@ -188,7 +188,12 @@ public class GameListener implements Listener {
 
     @EventHandler
     public void onOpenAnvil(InventoryOpenEvent e) {
-        if (e.getInventory() instanceof AnvilInventory) e.setCancelled(true);
+        if (e.getPlayer() instanceof Player p) {
+            ExtendedPlayer extendedPlayer = ExtendedPlayer.from(p);
+            if (extendedPlayer.inGame()) {
+                if (e.getInventory() instanceof AnvilInventory) e.setCancelled(true);
+            }
+        }
     }
 
     @EventHandler

@@ -13,6 +13,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 public class EndermanKit extends Kit {
     public EndermanKit() {
@@ -56,7 +57,7 @@ public class EndermanKit extends Kit {
     }
 
     @Override
-    public ItemStack[] getInventoryContent() {
+    public ItemStack @NotNull [] getInventoryContent() {
         return new ItemStack[]{
                 CustomItemHandler.ENDER_SWORD.build(),
                 CustomItemHandler.DRAGONS_CHARGE.build(),
@@ -64,7 +65,7 @@ public class EndermanKit extends Kit {
     }
 
     @Override
-    public ItemStack[] getKillRewards() {
+    public ItemStack @NotNull [] getKillRewards() {
         return new ItemStack[]{
                 new ItemStack(Material.GOLDEN_APPLE),
                 new ItemStack(Material.END_STONE, 32),
@@ -74,10 +75,10 @@ public class EndermanKit extends Kit {
 
     @EventHandler
     public void onEnderPearlDamage(EntityDamageEvent e) {
-        if (e.getEntity() instanceof Player p) {
-            ExtendedPlayer extendedPlayer = ExtendedPlayer.from(p);
+        if (e.getEntity() instanceof Player player) {
+            ExtendedPlayer extendedPlayer = ExtendedPlayer.from(player);
             if (extendedPlayer.inGame()) {
-                if (id.equals(extendedPlayer.getSelectedKitId())) {
+                if (isSelected(player)) {
                     if (e.getCause() == EntityDamageEvent.DamageCause.PROJECTILE &&e.getDamageSource().getDamageType() == DamageType.FALL) { // Test for ender pearl damage
                         e.setCancelled(true);
                     }
@@ -88,12 +89,12 @@ public class EndermanKit extends Kit {
 
     @EventHandler
     public void inWater(PlayerMoveEvent e) {
-        Player p = e.getPlayer();
-        ExtendedPlayer extendedPlayer = ExtendedPlayer.from(p);
+        Player player = e.getPlayer();
+        ExtendedPlayer extendedPlayer = ExtendedPlayer.from(player);
         if (extendedPlayer.inGame()) {
-            if (id.equals(extendedPlayer.getSelectedKitId())) {
+            if (isSelected(player)) {
                 if (e.getTo().getBlock().getType() == Material.WATER) {
-                    p.damage(2, DamageSource.builder(DamageType.DROWN).build());
+                    player.damage(2, DamageSource.builder(DamageType.DROWN).build());
                 }
             }
         }

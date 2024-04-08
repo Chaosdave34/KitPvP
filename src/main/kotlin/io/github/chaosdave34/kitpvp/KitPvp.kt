@@ -85,6 +85,7 @@ class KitPvp : JavaPlugin() {
         // Setup world
         val overWorld = server.getWorld("world")
         overWorld?.setGameRule(GameRule.DO_MOB_SPAWNING, false)
+        overWorld?.setGameRule(GameRule.DO_FIRE_TICK, false)
 
         // Registering Listener
         val pluginManager = server.pluginManager

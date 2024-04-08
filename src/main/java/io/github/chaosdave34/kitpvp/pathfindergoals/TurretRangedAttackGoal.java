@@ -1,7 +1,7 @@
 package io.github.chaosdave34.kitpvp.pathfindergoals;
 
 import io.github.chaosdave34.kitpvp.entities.CustomEntities;
-import io.github.chaosdave34.kitpvp.entities.Turret;
+import io.github.chaosdave34.kitpvp.entities.impl.Turret;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;

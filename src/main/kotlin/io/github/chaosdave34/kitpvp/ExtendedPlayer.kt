@@ -427,7 +427,7 @@ class ExtendedPlayer(val uuid: UUID) {
     fun spawnCompanion() {
         val player = getPlayer() ?: return
 
-        val comp = getSelectedKit().companion
+        val comp = getSelectedKit().getCompanion()
         if (comp == null) {
             if (companion != null) removeCompanion()
             return
@@ -518,8 +518,8 @@ class ExtendedPlayer(val uuid: UUID) {
         player.sendActionBar(info)
 
         when (currentGame) {
-            GameType.KITS -> player.inventory.addItem(*getSelectedKit().killRewards)
-            GameType.ELYTRA -> player.inventory.addItem(*getSelectedElytraKit().killRewards)
+            GameType.KITS -> player.inventory.addItem(*getSelectedKit().getKillRewards())
+            GameType.ELYTRA -> player.inventory.addItem(*getSelectedElytraKit().getKillRewards())
         }
 
         reviveCompanion()

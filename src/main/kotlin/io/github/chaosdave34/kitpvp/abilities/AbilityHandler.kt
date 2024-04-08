@@ -12,8 +12,7 @@ import io.github.chaosdave34.kitpvp.abilities.impl.creeper.FireballAbility
 import io.github.chaosdave34.kitpvp.abilities.impl.devil.FireStormAbility
 import io.github.chaosdave34.kitpvp.abilities.impl.enderman.DragonFireballAbility
 import io.github.chaosdave34.kitpvp.abilities.impl.enderman.EnderAttackAbility
-import io.github.chaosdave34.kitpvp.abilities.impl.engineer.AnvilAbility
-import io.github.chaosdave34.kitpvp.abilities.impl.engineer.TrapAbility
+import io.github.chaosdave34.kitpvp.abilities.impl.engineer.ModularShieldAbility
 import io.github.chaosdave34.kitpvp.abilities.impl.engineer.TurretAbility
 import io.github.chaosdave34.kitpvp.abilities.impl.magician.LevitateAbility
 import io.github.chaosdave34.kitpvp.abilities.impl.magician.ShuffleAbility
@@ -65,12 +64,6 @@ class AbilityHandler : Listener {
         lateinit var SPOOK: Ability
 
         @JvmStatic
-        lateinit var ANVIL: Ability
-
-        @JvmStatic
-        lateinit var TRAP: Ability
-
-        @JvmStatic
         lateinit var EXPLODE: Ability
 
         @JvmStatic
@@ -102,6 +95,9 @@ class AbilityHandler : Listener {
 
         @JvmStatic
         lateinit var RAGE: Ability
+
+        @JvmStatic
+        lateinit var MODULAR_SHIELD: Ability
     }
 
     init {
@@ -114,8 +110,6 @@ class AbilityHandler : Listener {
         BAT_MORPH = registerAbility(BatMorhpAbility())
         NUKE = registerAbility(NukeAbility())
         SPOOK = registerAbility(SpookAbility())
-        ANVIL = registerAbility(AnvilAbility())
-        TRAP = registerAbility(TrapAbility())
         EXPLODE = registerAbility(ExplodeAbility())
         ENDER_ATTACK = registerAbility(EnderAttackAbility())
         STORM = registerAbility(StormAbility())
@@ -127,6 +121,7 @@ class AbilityHandler : Listener {
         DRAGON_FIREBALL = registerAbility(DragonFireballAbility())
         FIRE_STORM = registerAbility(FireStormAbility())
         RAGE = registerAbility(RageAbility())
+        MODULAR_SHIELD = registerAbility(ModularShieldAbility())
     }
 
     private fun registerAbility(ability: Ability): Ability {

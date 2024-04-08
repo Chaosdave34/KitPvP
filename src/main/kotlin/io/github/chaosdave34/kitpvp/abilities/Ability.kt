@@ -1,6 +1,7 @@
 package io.github.chaosdave34.kitpvp.abilities
 
 import io.github.chaosdave34.ghutils.persistentdatatypes.StringArrayPersistentDataType
+import io.github.chaosdave34.kitpvp.ExtendedPlayer
 import io.github.chaosdave34.kitpvp.KitPvp
 import io.github.chaosdave34.kitpvp.customevents.CustomEventHandler
 import net.kyori.adventure.text.Component
@@ -8,6 +9,7 @@ import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
 import org.bukkit.GameMode
 import org.bukkit.NamespacedKey
+import org.bukkit.entity.Entity
 import org.bukkit.entity.Player
 import org.bukkit.event.Listener
 import org.bukkit.inventory.ItemStack
@@ -73,6 +75,8 @@ abstract class Ability(val id: String, val name: String, val type: Type, val coo
         for (line in lines) componentList.add(Component.text(line, NamedTextColor.GRAY).decoration(TextDecoration.ITALIC, false))
         return componentList
     }
+
+    protected fun checkTargetIfPlayer(target : Entity) : Boolean = (target is Player && ExtendedPlayer.from(target).inGame()) || target !is Player
 
     enum class Type(val displayName: String) {
         RIGHT_CLICK("RIGHT CLICK"),

@@ -1,6 +1,5 @@
 package io.github.chaosdave34.kitpvp.kits.impl.kits;
 
-import com.mojang.datafixers.util.Pair;
 import io.github.chaosdave34.kitpvp.items.CustomItemHandler;
 import io.github.chaosdave34.kitpvp.kits.Kit;
 import org.bukkit.Color;
@@ -9,8 +8,9 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.potion.PotionEffectType;
+import org.jetbrains.annotations.NotNull;
 
-import java.util.List;
+import java.util.Map;
 
 public class ArcherKit extends Kit {
     public ArcherKit() {
@@ -42,7 +42,7 @@ public class ArcherKit extends Kit {
     }
 
     @Override
-    public ItemStack[] getInventoryContent() {
+    public ItemStack @NotNull [] getInventoryContent() {
         ItemStack bow = new ItemStack(Material.BOW);
         bow.addEnchantment(Enchantment.ARROW_INFINITE, 1);
 
@@ -65,7 +65,7 @@ public class ArcherKit extends Kit {
     }
 
     @Override
-    public ItemStack[] getKillRewards() {
+    public ItemStack @NotNull [] getKillRewards() {
         return new ItemStack[]{
                 new ItemStack(Material.GOLDEN_APPLE),
                 new ItemStack(Material.COBBLESTONE, 32),
@@ -73,7 +73,7 @@ public class ArcherKit extends Kit {
     }
 
     @Override
-    public List<Pair<PotionEffectType, Integer>> getPotionEffects() {
-        return List.of(Pair.of(PotionEffectType.JUMP, 2));
+    public @NotNull Map<PotionEffectType, Integer> getPotionEffects() {
+        return Map.of(PotionEffectType.JUMP, 2);
     }
 }

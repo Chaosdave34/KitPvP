@@ -1,4 +1,4 @@
-package io.github.chaosdave34.kitpvp.entities;
+package io.github.chaosdave34.kitpvp.entities.impl;
 
 import com.destroystokyo.paper.event.entity.EntityAddToWorldEvent;
 import io.github.chaosdave34.ghutils.entity.CustomEntity;
@@ -40,19 +40,19 @@ public class Turret extends CustomEntity {
 
     public void spawn(Player p, Location location) {
         Husk turret = p.getWorld().spawn(location, Husk.class, husk -> {
-            husk.customName(Component.text("Turret 20/20"));
+            husk.customName(Component.text("Turret 10/10"));
             husk.setCustomNameVisible(true);
 
             husk.setBaby();
             husk.setSilent(true);
 
             AttributeInstance maxHealthAttribute = husk.getAttribute(Attribute.GENERIC_MAX_HEALTH);
-            if (maxHealthAttribute != null) maxHealthAttribute.setBaseValue(20);
+            if (maxHealthAttribute != null) maxHealthAttribute.setBaseValue(10);
 
             AttributeInstance kockbackResistanceAttribute = husk.getAttribute(Attribute.GENERIC_KNOCKBACK_RESISTANCE);
             if (kockbackResistanceAttribute != null) kockbackResistanceAttribute.setBaseValue(1);
 
-            husk.setHealth(20);
+            husk.setHealth(10);
 
             PDCUtils.setOwner(husk, p.getUniqueId());
 
@@ -112,7 +112,7 @@ public class Turret extends CustomEntity {
                 }
 
                 e.setDamage(1);
-                entity.customName(Component.text("Turret " + Math.round(entity.getHealth()) + "/20"));
+                entity.customName(Component.text("Turret " + Math.round(entity.getHealth()) + "/10"));
             }
         }
     }

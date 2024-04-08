@@ -1,4 +1,4 @@
-package io.github.chaosdave34.kitpvp.items.impl.zeus
+package io.github.chaosdave34.kitpvp.items.impl.devil
 
 import io.github.chaosdave34.kitpvp.abilities.Ability
 import io.github.chaosdave34.kitpvp.abilities.AbilityHandler
@@ -8,15 +8,13 @@ import org.bukkit.Material
 import org.bukkit.enchantments.Enchantment
 import org.bukkit.inventory.ItemStack
 
-class ZeusSword : CustomItem(Material.GOLDEN_SWORD, "zeus_sword") {
-
-    override fun getName(): Component = createSimpleItemName("Zeus' Sword")
+class DevilsSword: CustomItem(Material.IRON_SWORD, "devils_sword") {
+    override fun getName(): Component = createSimpleItemName("Devil's Sword")
 
     override fun additionalModifications(itemStack: ItemStack) {
-        itemStack.addEnchantment(Enchantment.DAMAGE_ALL, 2)
+        itemStack.addUnsafeEnchantment(Enchantment.FIRE_ASPECT, 3)
+        setCustomModelData(itemStack, 1)
     }
 
-    override fun getAbilities(): List<Ability> {
-        return listOf(AbilityHandler.RAGE)
-    }
+    override fun getAbilities(): List<Ability> = listOf(AbilityHandler.FIRE_STORM)
 }

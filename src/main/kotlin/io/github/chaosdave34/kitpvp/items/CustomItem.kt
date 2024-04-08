@@ -8,7 +8,6 @@ import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer
-import org.bukkit.Color
 import org.bukkit.Material
 import org.bukkit.NamespacedKey
 import org.bukkit.event.EventHandler
@@ -18,12 +17,11 @@ import org.bukkit.event.block.BlockPlaceEvent
 import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.inventory.ItemFlag
 import org.bukkit.inventory.ItemStack
-import org.bukkit.inventory.meta.ItemMeta
-import org.bukkit.inventory.meta.LeatherArmorMeta
+import utils.ItemUtilities
 import java.util.*
 
 abstract class CustomItem @JvmOverloads constructor(val material: Material, val id: String, private val stackable: Boolean = true, private val preventPlacingAndUsing: Boolean = false) :
-    Listener {
+    Listener, ItemUtilities {
     abstract fun getName(): Component
 
     open fun getDescription() = emptyList<Component>()
@@ -125,14 +123,6 @@ abstract class CustomItem @JvmOverloads constructor(val material: Material, val 
     }
 
     fun ItemStack.isThisCustomItem() = id == CustomItemHandler.getCustomItemId(this)
-
-    protected fun setLeatherArmorColor(leatherArmor: ItemStack, color: Color) {
-        leatherArmor.editMeta(LeatherArmorMeta::class.java) { leatherArmorMeta: LeatherArmorMeta -> leatherArmorMeta.setColor(color) }
-    }
-
-    protected fun setCustomModelData(itemStack: ItemStack, customModelData: Int) {
-        itemStack.editMeta { itemMeta: ItemMeta -> itemMeta.setCustomModelData(customModelData) }
-    }
 
     protected fun createSimpleItemName(name: String): Component {
         return Component.text(name).decoration(TextDecoration.ITALIC, false)
