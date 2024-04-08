@@ -30,7 +30,7 @@ public class FortifyAbility extends Ability {
     }
 
     @Override
-    public boolean onAbility(Player p) {
+    public boolean onAbility(@NotNull Player p) {
         ExtendedPlayer extendedPlayer = ExtendedPlayer.from(p);
         PlayerInventory inventory = p.getInventory();
 

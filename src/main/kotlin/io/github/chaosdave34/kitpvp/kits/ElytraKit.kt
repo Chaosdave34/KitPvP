@@ -48,7 +48,7 @@ abstract class ElytraKit(id: String, name: String, val icon: Material) : Kit(id,
         extendedPlayer.removeCompanion()
     }
 
-    override fun isSelected(player: Player): Boolean = id == ExtendedPlayer.from(player).selectedElytraKitId
+    override fun Player.isKitSelected(): Boolean = id == ExtendedPlayer.from(this).selectedElytraKitId
 
-    override fun isActive(player: Player): Boolean = isSelected(player) && ExtendedPlayer.from(player).gameState == ExtendedPlayer.GameState.ELYTRA_IN_GAME
+    override fun Player.isKitActive(): Boolean = isKitSelected() && ExtendedPlayer.from(this).gameState == ExtendedPlayer.GameState.ELYTRA_IN_GAME
 }

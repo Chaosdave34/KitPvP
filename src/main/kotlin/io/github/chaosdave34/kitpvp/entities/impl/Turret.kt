@@ -47,7 +47,7 @@ class Turret : CustomEntity("turret") {
 
             val container = husk.persistentDataContainer
             container.set(NamespacedKey(KitPvp.INSTANCE, "custom_entity"), PersistentDataType.STRING, "turret")
-        };
+        }
         turrets[player.uniqueId] = turret.uniqueId
     }
 

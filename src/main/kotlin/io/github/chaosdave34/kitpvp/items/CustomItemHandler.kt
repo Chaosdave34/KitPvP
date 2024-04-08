@@ -12,6 +12,7 @@ import io.github.chaosdave34.kitpvp.items.impl.creeper.FireballSword
 import io.github.chaosdave34.kitpvp.items.impl.devil.DevilsSword
 import io.github.chaosdave34.kitpvp.items.impl.enderman.DragonsCharge
 import io.github.chaosdave34.kitpvp.items.impl.enderman.EnderSword
+import io.github.chaosdave34.kitpvp.items.impl.engineer.EngineersSword
 import io.github.chaosdave34.kitpvp.items.impl.engineer.ModularShield
 import io.github.chaosdave34.kitpvp.items.impl.engineer.TurretItem
 import io.github.chaosdave34.kitpvp.items.impl.magician.MagicWand
@@ -93,6 +94,9 @@ class CustomItemHandler {
         lateinit var MODULAR_SHIELD: CustomItem
 
         @JvmStatic
+        lateinit var ENGINEERS_SWORD: CustomItem
+
+        @JvmStatic
         fun getCustomItemId(itemStack: ItemStack): String = PDCUtils.getId(itemStack.itemMeta) ?: ""
     }
 
@@ -117,7 +121,8 @@ class CustomItemHandler {
         DRAGONS_CHARGE = registerItem(DragonsCharge())
         ZEUS_SWORD = registerItem(ZeusSword())
         LONG_BOW = registerItem(LongBow())
-        MODULAR_SHIELD =registerItem(ModularShield())
+        MODULAR_SHIELD = registerItem(ModularShield())
+        ENGINEERS_SWORD = registerItem(EngineersSword())
     }
 
     private fun registerItem(item: CustomItem): CustomItem {

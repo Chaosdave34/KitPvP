@@ -78,7 +78,8 @@ public class EndermanKit extends Kit {
         if (e.getEntity() instanceof Player player) {
             ExtendedPlayer extendedPlayer = ExtendedPlayer.from(player);
             if (extendedPlayer.inGame()) {
-                if (isSelected(player)) {
+
+                if (isKitSelected(player)) {
                     if (e.getCause() == EntityDamageEvent.DamageCause.PROJECTILE &&e.getDamageSource().getDamageType() == DamageType.FALL) { // Test for ender pearl damage
                         e.setCancelled(true);
                     }
@@ -92,7 +93,7 @@ public class EndermanKit extends Kit {
         Player player = e.getPlayer();
         ExtendedPlayer extendedPlayer = ExtendedPlayer.from(player);
         if (extendedPlayer.inGame()) {
-            if (isSelected(player)) {
+            if (isKitSelected(player)) {
                 if (e.getTo().getBlock().getType() == Material.WATER) {
                     player.damage(2, DamageSource.builder(DamageType.DROWN).build());
                 }

@@ -27,10 +27,10 @@ import org.bukkit.event.player.PlayerQuitEvent
 import org.bukkit.scoreboard.Team
 import java.util.*
 
-class ModularShieldAbility : Ability("modular_shield", "Modular Shield", Type.RIGHT_CLICK, 30) {
+class ModularShieldAbility : Ability("modular_shield", "Modular Shield", Type.RIGHT_CLICK, 20) {
     private var activeShield: MutableMap<UUID, Creeper> = mutableMapOf()
 
-    override fun getDescription(): List<Component> = createSimpleDescription("Activate your shield for 8s.")
+    override fun getDescription(): List<Component> = createSimpleDescription("Activate your shield for 4s.")
 
     override fun onAbility(player: Player): Boolean {
         val creeper = Creeper(EntityType.CREEPER, (player as CraftPlayer).handle.level())

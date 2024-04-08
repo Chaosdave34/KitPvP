@@ -64,7 +64,7 @@ class MagicianKit : Kit("magician", "Magician") {
     @EventHandler
     fun onSlotChange(event: PlayerItemHeldEvent) {
         val player = event.player
-        if (isActive(player)) {
+        if (player.isKitActive()) {
             val slot: ItemStack? = player.inventory.getItem(event.newSlot)
 
             val inventory = player.inventory
