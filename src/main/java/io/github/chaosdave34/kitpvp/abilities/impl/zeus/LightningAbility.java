@@ -22,11 +22,7 @@ public class LightningAbility extends Ability {
 
     @Override
     public @NotNull List<Component> getDescription() {
-        return createSimpleDescription(
-                "Strikes a lightning bold",
-                "at the Enemy you are looking at",
-                "in a 10 block radius."
-        );
+        return createSimpleDescription("Strikes a lightning bold at the Enemy you are looking at in a 10 block radius.");
     }
 
     @Override

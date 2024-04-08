@@ -8,9 +8,7 @@ import org.bukkit.enchantments.Enchantment
 import org.bukkit.entity.Player
 
 class RageAbility : Ability("rage", "Rage", Type.RIGHT_CLICK, 20) {
-    override fun getDescription(): List<Component> {
-        return createSimpleDescription("RAGE!")
-    }
+    override fun getDescription(): List<Component> = createSimpleDescription("RAGE!")
 
     override fun onAbility(player: Player): Boolean {
         player.isGlowing = true

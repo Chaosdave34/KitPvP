@@ -7,11 +7,7 @@ import net.kyori.adventure.text.Component
 import org.bukkit.Material
 
 class Leap : CustomItem(Material.FEATHER, "leap") {
-    override fun getName(): Component {
-        return createSimpleItemName("Leap")
-    }
+    override fun getName(): Component = createSimpleItemName("Leap")
 
-    override fun getAbilities(): List<Ability> {
-        return listOf(AbilityHandler.LEAP)
-    }
+    override fun getAbilities(): List<Ability> = listOf(AbilityHandler.LEAP)
 }

@@ -14,11 +14,12 @@ import org.bukkit.entity.Player
 import org.bukkit.event.Listener
 import org.bukkit.inventory.ItemStack
 import org.bukkit.scheduler.BukkitRunnable
+import utils.Describable
 import java.util.*
 import kotlin.math.max
 
 
-abstract class Ability(val id: String, val name: String, val type: Type, val cooldown: Int) : Listener {
+abstract class Ability(val id: String, val name: String, val type: Type, val cooldown: Int) : Listener, Describable {
     private var playerCooldown: MutableMap<UUID, Long> = mutableMapOf()
 
     abstract fun getDescription(): List<Component>
@@ -70,13 +71,7 @@ abstract class Ability(val id: String, val name: String, val type: Type, val coo
         }
     }
 
-    protected fun createSimpleDescription(vararg lines: String): List<Component> {
-        val componentList: MutableList<Component> = ArrayList()
-        for (line in lines) componentList.add(Component.text(line, NamedTextColor.GRAY).decoration(TextDecoration.ITALIC, false))
-        return componentList
-    }
-
-    protected fun checkTargetIfPlayer(target : Entity) : Boolean = (target is Player && ExtendedPlayer.from(target).inGame()) || target !is Player
+    protected fun checkTargetIfPlayer(target: Entity): Boolean = (target is Player && ExtendedPlayer.from(target).inGame()) || target !is Player
 
     enum class Type(val displayName: String) {
         RIGHT_CLICK("RIGHT CLICK"),

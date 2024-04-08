@@ -5,12 +5,7 @@ import net.kyori.adventure.text.Component
 import org.bukkit.entity.Player
 
 class LeapAbility : Ability("leap", "Leap", Type.RIGHT_CLICK, 10) {
-    override fun getDescription(): List<Component> {
-        return createSimpleDescription(
-            "Leap into the direction",
-            "you are looking at."
-        )
-    }
+    override fun getDescription(): List<Component> = createSimpleDescription("Leap into the direction you are looking at.")
 
     override fun onAbility(player: Player): Boolean {
         val launchVector = player.eyeLocation.direction.normalize()

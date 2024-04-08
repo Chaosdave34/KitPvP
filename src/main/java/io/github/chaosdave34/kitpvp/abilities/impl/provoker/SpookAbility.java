@@ -22,11 +22,7 @@ public class SpookAbility extends Ability {
 
     @Override
     public @NotNull List<Component> getDescription() {
-        return createSimpleDescription(
-                "Places a pumpkin on the",
-                "player you are looking at",
-                "in a 20 block radius for 5s."
-        );
+        return createSimpleDescription("Places a pumpkin on the player you are looking at in a 20 block radius for 5s.");
     }
 
     @Override

@@ -24,11 +24,7 @@ public class HauntAbility extends Ability {
 
     @Override
     public @NotNull List<Component> getDescription() {
-        return createSimpleDescription(
-                "Gives you a speed boost and makes",
-                "you invisible for 5 seconds.",
-                "Runs out when you hit a player."
-        );
+        return createSimpleDescription("Gives you a speed boost and makes you invisible for 5 seconds. Runs out when you hit a player.");
     }
 
     @Override

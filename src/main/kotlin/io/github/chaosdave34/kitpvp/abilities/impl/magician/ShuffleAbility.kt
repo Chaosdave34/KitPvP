@@ -6,12 +6,7 @@ import org.bukkit.entity.HumanEntity
 import org.bukkit.entity.Player
 
 class ShuffleAbility : Ability("shuffle", "Shuffle", Type.SNEAK_RIGHT_CLICK, 10) {
-    override fun getDescription(): List<Component> {
-        return createSimpleDescription(
-            "Shuffles the inventory the enemy you",
-            "are looking at in a 8 block radius."
-        )
-    }
+    override fun getDescription(): List<Component> = createSimpleDescription("Shuffles the inventory the enemy you are looking at in a 8 block radius.")
 
     override fun onAbility(player: Player): Boolean {
         val target = player.getTargetEntity(8)

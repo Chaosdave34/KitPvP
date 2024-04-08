@@ -5,12 +5,7 @@ import net.kyori.adventure.text.Component
 import org.bukkit.entity.Player
 
 class LevitateAbility : Ability("levitate", "Levitate", Type.RIGHT_CLICK, 20) {
-    override fun getDescription(): List<Component> {
-        return createSimpleDescription(
-            "Let all enemies around you",
-            "float into air."
-        )
-    }
+    override fun getDescription(): List<Component> = createSimpleDescription("Let all enemies around you float into air.")
 
     override fun onAbility(player: Player): Boolean {
         player.getNearbyEntities(10.0, 10.0, 10.0).forEach { target ->

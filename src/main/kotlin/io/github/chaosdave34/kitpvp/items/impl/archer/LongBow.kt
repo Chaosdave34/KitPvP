@@ -17,7 +17,7 @@ import org.bukkit.inventory.meta.Damageable
 class LongBow : CustomItem(Material.BOW, "long_bow") {
     override fun getName(): Component = createSimpleItemName("Long Bow")
 
-    override fun getDescription(): List<Component> = createSimpleDescription("Increased damage but takes", "a while to recharge.")
+    override fun getDescription(): List<Component> = createSimpleDescription("Increased damage but takes a while to recharge.")
 
     override fun additionalModifications(itemStack: ItemStack) {
         itemStack.addEnchantment(Enchantment.ARROW_INFINITE, 1)

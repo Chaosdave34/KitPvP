@@ -17,11 +17,12 @@ import org.bukkit.event.block.BlockPlaceEvent
 import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.inventory.ItemFlag
 import org.bukkit.inventory.ItemStack
+import utils.Describable
 import utils.ItemUtilities
 import java.util.*
 
 abstract class CustomItem @JvmOverloads constructor(val material: Material, val id: String, private val stackable: Boolean = true, private val preventPlacingAndUsing: Boolean = false) :
-    Listener, ItemUtilities {
+    Listener, ItemUtilities, Describable {
     abstract fun getName(): Component
 
     open fun getDescription() = emptyList<Component>()
@@ -127,11 +128,4 @@ abstract class CustomItem @JvmOverloads constructor(val material: Material, val 
     protected fun createSimpleItemName(name: String): Component {
         return Component.text(name).decoration(TextDecoration.ITALIC, false)
     }
-
-    protected fun createSimpleDescription(vararg lines: String): List<Component> {
-        val componentList: MutableList<Component> = ArrayList()
-        for (line in lines) componentList.add(Component.text(line, NamedTextColor.GRAY).decoration(TextDecoration.ITALIC, false))
-        return componentList
-    }
-
 }

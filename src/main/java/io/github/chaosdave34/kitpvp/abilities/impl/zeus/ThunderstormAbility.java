@@ -30,10 +30,7 @@ public class ThunderstormAbility extends Ability {
 
     @Override
     public @NotNull List<Component> getDescription() {
-        return createSimpleDescription(
-                "Summons Lightning around you",
-                "in a 5 block radius."
-        );
+        return createSimpleDescription("Summons Lightning around you in a 5 block radius.");
     }
 
     @Override

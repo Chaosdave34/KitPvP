@@ -22,11 +22,7 @@ public class FortifyAbility extends Ability {
 
     @Override
     public @NotNull List<Component> getDescription() {
-        return createSimpleDescription(
-                "Upgrade your armor to enchanted",
-                "netherite for 10 seconds, but also",
-                "gain slowness."
-        );
+        return createSimpleDescription("Upgrade your armor to enchanted netherite for 10 seconds, but also gain slowness.");
     }
 
     @Override

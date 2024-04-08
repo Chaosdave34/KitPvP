@@ -10,12 +10,7 @@ import org.bukkit.entity.Player
 
 class EnhanceAbility: Ability("enhance", "Enhance", Type.LEFT_CLICK, 30) {
 
-    override fun getDescription(): List<Component> {
-        return createSimpleDescription(
-            "Instantly load your rocket launcher",
-            "for 3 seconds."
-        )
-    }
+    override fun getDescription(): List<Component> = createSimpleDescription("Instantly load your rocket launcher for 3 seconds.")
 
     override fun onAbility(player: Player): Boolean {
         val extendedPlayer = from(player)

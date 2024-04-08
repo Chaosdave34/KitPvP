@@ -30,10 +30,7 @@ public class SeismicWaveAbility extends Ability {
 
     @Override
     public @NotNull List<Component> getDescription() {
-        return createSimpleDescription(
-                "If in air create a seismic wave that",
-                "damages players and knocks them away."
-        );
+        return createSimpleDescription("If in air create a seismic wave that damages players and knocks them away.");
     }
 
     @SuppressWarnings("deprecation")

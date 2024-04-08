@@ -20,12 +20,7 @@ public class EnderAttackAbility extends Ability {
 
     @Override
     public @NotNull List<Component> getDescription() {
-        return createSimpleDescription(
-                "Teleports you behind the player",
-                "you are looking at in a 50",
-                "block radius. Gain speed and ",
-                "strength for 5 seconds."
-        );
+        return createSimpleDescription("Teleports you behind the player you are looking at in a 50 block radius. Gain speed and strength for 5 seconds.");
     }
 
     @Override
