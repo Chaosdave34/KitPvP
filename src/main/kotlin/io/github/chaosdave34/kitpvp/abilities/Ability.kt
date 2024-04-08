@@ -13,7 +13,7 @@ import org.bukkit.entity.Player
 import org.bukkit.event.Listener
 import org.bukkit.inventory.ItemStack
 import org.bukkit.scheduler.BukkitRunnable
-import utils.Describable
+import io.github.chaosdave34.kitpvp.utils.Describable
 import java.util.*
 import kotlin.math.max
 
@@ -71,6 +71,8 @@ abstract class Ability(val id: String, val name: String, val type: Type, val coo
     }
 
     protected fun Entity.checkTargetIfPlayer(): Boolean = (this is Player && ExtendedPlayer.from(this).inGame()) || this !is Player
+
+    protected fun ItemStack.hasThisAbility() : Boolean = (KitPvp.INSTANCE.abilityHandler.getItemAbilities(this).contains(KitPvp.INSTANCE.abilityHandler.abilities.get(id)))
 
     enum class Type(val displayName: String) {
         RIGHT_CLICK("RIGHT CLICK"),

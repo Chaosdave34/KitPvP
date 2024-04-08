@@ -1,4 +1,4 @@
-package utils
+package io.github.chaosdave34.kitpvp.utils
 
 import org.bukkit.Color
 import org.bukkit.inventory.ItemStack

@@ -11,7 +11,7 @@ import org.bukkit.inventory.ItemStack
 class EngineersSword : CustomItem(Material.STONE_SWORD, "engineers_sword") {
     override fun getName(): Component = createSimpleItemName("Engineer's Sword")
 
-    override fun getAbilities(): List<Ability> = listOf(AbilityHandler.OVERLOAD_ABILITY)
+    override fun getAbilities(): List<Ability> = listOf(AbilityHandler.OVERLOAD)
 
     override fun additionalModifications(itemStack: ItemStack) {
         itemStack.addEnchantment(Enchantment.DAMAGE_ALL, 2)

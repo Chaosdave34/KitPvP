@@ -8,7 +8,7 @@ import org.bukkit.event.Listener
 import org.bukkit.inventory.ItemStack
 import org.bukkit.potion.PotionEffect
 import org.bukkit.potion.PotionEffectType
-import utils.ItemUtilities
+import io.github.chaosdave34.kitpvp.utils.ItemUtilities
 
 abstract class Kit(val id: String, val name: String) : Listener, ItemUtilities {
 

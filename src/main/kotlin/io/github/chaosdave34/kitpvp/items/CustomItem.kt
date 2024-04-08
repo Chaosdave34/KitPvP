@@ -17,8 +17,8 @@ import org.bukkit.event.block.BlockPlaceEvent
 import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.inventory.ItemFlag
 import org.bukkit.inventory.ItemStack
-import utils.Describable
-import utils.ItemUtilities
+import io.github.chaosdave34.kitpvp.utils.Describable
+import io.github.chaosdave34.kitpvp.utils.ItemUtilities
 import java.util.*
 
 abstract class CustomItem @JvmOverloads constructor(val material: Material, val id: String, private val stackable: Boolean = true, private val preventPlacingAndUsing: Boolean = false) :

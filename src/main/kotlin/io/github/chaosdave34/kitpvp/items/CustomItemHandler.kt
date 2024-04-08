@@ -8,7 +8,8 @@ import io.github.chaosdave34.kitpvp.items.impl.artilleryman.Jetpack
 import io.github.chaosdave34.kitpvp.items.impl.artilleryman.RocketLauncher
 import io.github.chaosdave34.kitpvp.items.impl.assassin.AssassinSword
 import io.github.chaosdave34.kitpvp.items.impl.creeper.CreeperLeggings
-import io.github.chaosdave34.kitpvp.items.impl.creeper.FireballSword
+import io.github.chaosdave34.kitpvp.items.impl.creeper.CreeperSword
+import io.github.chaosdave34.kitpvp.items.impl.creeper.Fireball
 import io.github.chaosdave34.kitpvp.items.impl.devil.DevilsSword
 import io.github.chaosdave34.kitpvp.items.impl.enderman.DragonsCharge
 import io.github.chaosdave34.kitpvp.items.impl.enderman.EnderSword
@@ -31,7 +32,7 @@ class CustomItemHandler {
 
     companion object {
         @JvmStatic
-        lateinit var FIREBALL_SWORD: CustomItem
+        lateinit var FIREBALL: CustomItem
 
         @JvmStatic
         lateinit var LIGHTNING_WAND: CustomItem
@@ -97,11 +98,14 @@ class CustomItemHandler {
         lateinit var ENGINEERS_SWORD: CustomItem
 
         @JvmStatic
+        lateinit var CREEPER_SWORD: CustomItem
+
+        @JvmStatic
         fun getCustomItemId(itemStack: ItemStack): String = PDCUtils.getId(itemStack.itemMeta) ?: ""
     }
 
     init {
-        FIREBALL_SWORD = registerItem(FireballSword())
+        FIREBALL = registerItem(Fireball())
         LIGHTNING_WAND = registerItem(LightningWand())
         MAGIC_WAND = registerItem(MagicWand())
         VAMPIRE_SWORD = registerItem(VampireSword())
@@ -123,6 +127,7 @@ class CustomItemHandler {
         LONG_BOW = registerItem(LongBow())
         MODULAR_SHIELD = registerItem(ModularShield())
         ENGINEERS_SWORD = registerItem(EngineersSword())
+        CREEPER_SWORD = registerItem(CreeperSword())
     }
 
     private fun registerItem(item: CustomItem): CustomItem {

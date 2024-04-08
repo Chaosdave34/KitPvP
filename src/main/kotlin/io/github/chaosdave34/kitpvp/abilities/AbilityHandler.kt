@@ -7,6 +7,7 @@ import io.github.chaosdave34.kitpvp.KitPvp
 import io.github.chaosdave34.kitpvp.abilities.impl.archer.LeapAbility
 import io.github.chaosdave34.kitpvp.abilities.impl.artilleryman.EnhanceAbility
 import io.github.chaosdave34.kitpvp.abilities.impl.assassin.HauntAbility
+import io.github.chaosdave34.kitpvp.abilities.impl.creeper.ChargeAbility
 import io.github.chaosdave34.kitpvp.abilities.impl.creeper.ExplodeAbility
 import io.github.chaosdave34.kitpvp.abilities.impl.creeper.FireballAbility
 import io.github.chaosdave34.kitpvp.abilities.impl.devil.FireStormAbility
@@ -101,7 +102,10 @@ class AbilityHandler : Listener {
         lateinit var MODULAR_SHIELD: Ability
 
         @JvmStatic
-        lateinit var OVERLOAD_ABILITY: Ability
+        lateinit var OVERLOAD: Ability
+
+        @JvmStatic
+        lateinit var CHARGE: Ability
     }
 
     init {
@@ -126,7 +130,8 @@ class AbilityHandler : Listener {
         FIRE_STORM = registerAbility(FireStormAbility())
         RAGE = registerAbility(RageAbility())
         MODULAR_SHIELD = registerAbility(ModularShieldAbility())
-        OVERLOAD_ABILITY = registerAbility(OverloadAbility())
+        OVERLOAD = registerAbility(OverloadAbility())
+        CHARGE = registerAbility(ChargeAbility())
     }
 
     private fun registerAbility(ability: Ability): Ability {
