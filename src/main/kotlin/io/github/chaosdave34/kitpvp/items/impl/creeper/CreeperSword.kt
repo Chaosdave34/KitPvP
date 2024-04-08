@@ -5,9 +5,14 @@ import io.github.chaosdave34.kitpvp.abilities.AbilityHandler
 import io.github.chaosdave34.kitpvp.items.CustomItem
 import net.kyori.adventure.text.Component
 import org.bukkit.Material
+import org.bukkit.inventory.ItemStack
 
 class CreeperSword: CustomItem(Material.IRON_SWORD, "creeper_sword") {
     override fun getName(): Component = createSimpleItemName("Creeper Sword")
 
     override fun getAbilities(): List<Ability> = listOf(AbilityHandler.CHARGE)
+
+    override fun additionalModifications(itemStack: ItemStack) {
+        setCustomModelData(itemStack, 2)
+    }
 }
