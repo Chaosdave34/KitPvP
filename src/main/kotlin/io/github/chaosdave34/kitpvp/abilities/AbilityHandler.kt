@@ -173,7 +173,7 @@ class AbilityHandler : Listener {
         val key = NamespacedKey(KitPvp.INSTANCE, "abilities")
 
         if (container.has(key)) {
-            val abilities = getItemAbilities(event.item!!)
+            val abilities = getItemAbilities(item)
             val abilityTypes = abilities.stream().map(Ability::type).toList()
 
             for (ability in abilities) {

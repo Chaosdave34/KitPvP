@@ -140,20 +140,12 @@ class Turret : CustomEntity("turret") {
     }
 
     @EventHandler
-    fun onPlayerSpawn(e: PlayerSpawnEvent) {
-        val p = e.player
-        if (turrets.containsKey(p.uniqueId)) {
-            val entity = Bukkit.getEntity(turrets[p.uniqueId]!!)
-            entity?.remove()
-        }
+    fun onPlayerSpawn(event: PlayerSpawnEvent) {
+        turrets[event.player.uniqueId] ?.let { Bukkit.getEntity(it)?.remove() }
     }
 
     @EventHandler
-    fun onPlayerQuit(e: PlayerQuitEvent) {
-        val p = e.player
-        if (turrets.containsKey(p.uniqueId)) {
-            val entity = Bukkit.getEntity(turrets[p.uniqueId]!!)
-            entity?.remove()
-        }
+    fun onPlayerQuit(event: PlayerQuitEvent) {
+        turrets[event.player.uniqueId] ?.let { Bukkit.getEntity(it)?.remove() }
     }
 }

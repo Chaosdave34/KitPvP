@@ -52,7 +52,7 @@ abstract class Ability(val id: String, val name: String, val type: Type, val coo
 
                 object : BukkitRunnable() {
                     override fun run() {
-                        var currentCooldown = playerCooldown[player.uniqueId]!!
+                        var currentCooldown = playerCooldown[player.uniqueId] ?: return
                         currentCooldown--
                         playerCooldown[player.uniqueId] = currentCooldown
                         if (currentCooldown == 0L) {
