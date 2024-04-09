@@ -208,9 +208,10 @@ class KitPvp : JavaPlugin() {
         saveHighscores()
 
         for (extendedPlayer in extendedPlayers.values) {
+            val uuid = extendedPlayer.getPlayer()?.uniqueId ?: continue
             extendedPlayer.unMorph()
             extendedPlayer.removeCompanion()
-            JsonUtils.writeObjectToFile(File(dataFolder, "player_data/" + extendedPlayer.getPlayer()!!.uniqueId + ".json"), extendedPlayer)
+            JsonUtils.writeObjectToFile(File(dataFolder, "player_data/$uuid.json"), extendedPlayer)
         }
 
         val iterator: MutableIterator<Map.Entry<Location, Pair<Long, BlockData>>> = gameListener.blocksToRemove.entries.iterator()
