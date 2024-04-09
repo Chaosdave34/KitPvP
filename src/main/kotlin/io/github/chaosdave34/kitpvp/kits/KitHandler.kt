@@ -8,7 +8,7 @@ class KitHandler {
 
     companion object {
         @JvmStatic
-        lateinit var CLASSIC: Kit
+        lateinit var KNIGHT: Kit
 
         @JvmStatic
         lateinit var ZEUS: Kit
@@ -51,7 +51,7 @@ class KitHandler {
     }
 
     init {
-        CLASSIC = registerKit(ClassicKit())
+        KNIGHT = registerKit(KnightKit())
         ZEUS = registerKit(ZeusKit())
         TANK = registerKit(TankKit())
         PROVOKER = registerKit(ProvokerKit())

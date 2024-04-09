@@ -5,7 +5,7 @@ import org.bukkit.Material
 import org.bukkit.enchantments.Enchantment
 import org.bukkit.inventory.ItemStack as ItemStack
 
-class ClassicKit : Kit("classic", "Classic") {
+class KnightKit : Kit("knight", "Knight") {
 
     override fun getHeadContent(): ItemStack = ItemStack(Material.IRON_HELMET)
 
