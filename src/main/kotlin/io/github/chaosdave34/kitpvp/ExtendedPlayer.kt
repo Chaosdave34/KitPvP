@@ -69,7 +69,7 @@ class ExtendedPlayer(val uuid: UUID) {
 
     // Set default values
     init {
-        selectedKitsKitId = KitHandler.CLASSIC.id
+        selectedKitsKitId = KitHandler.KNIGHT.id
         selectedElytraKitId = ElytraKitHandler.KNIGHT.id
         currentGame = GameType.KITS
 
@@ -108,8 +108,8 @@ class ExtendedPlayer(val uuid: UUID) {
         val kit = KitPvp.INSTANCE.kitHandler.kits[selectedKitsKitId]
 
         if (kit == null) {
-            setSelectedKitId(KitHandler.CLASSIC.id)
-            return KitHandler.CLASSIC
+            setSelectedKitId(KitHandler.KNIGHT.id)
+            return KitHandler.KNIGHT
         }
 
         return kit
@@ -243,7 +243,7 @@ class ExtendedPlayer(val uuid: UUID) {
         var footer = Component.newline().append(Component.text("Daily Challenges:", NamedTextColor.GREEN))
 
         dailyChallenges.forEach { challengeId ->
-            val challenge = KitPvp.INSTANCE.challengesHandler.getChallenge(challengeId)
+            val challenge = KitPvp.INSTANCE.challengesHandler.getChallenge(challengeId) ?: return@forEach
             val textColor = if (challenge.getProgress(player) == challenge.amount) NamedTextColor.GREEN else NamedTextColor.WHITE
             footer = footer.append(Component.newline()).append(Component.text("${challenge.name} ${challenge.progress[player]}/${challenge.amount}", textColor))
         }

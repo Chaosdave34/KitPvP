@@ -13,6 +13,6 @@ class CreeperSword: CustomItem(Material.IRON_SWORD, "creeper_sword") {
     override fun getAbilities(): List<Ability> = listOf(AbilityHandler.CHARGE)
 
     override fun additionalModifications(itemStack: ItemStack) {
-        setCustomModelData(itemStack, 2)
+        itemStack.setCustomModelData(2)
     }
 }

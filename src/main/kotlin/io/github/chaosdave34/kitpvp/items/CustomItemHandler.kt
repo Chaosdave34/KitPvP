@@ -18,6 +18,7 @@ import io.github.chaosdave34.kitpvp.items.impl.engineer.ModularShield
 import io.github.chaosdave34.kitpvp.items.impl.engineer.TurretItem
 import io.github.chaosdave34.kitpvp.items.impl.magician.MagicWand
 import io.github.chaosdave34.kitpvp.items.impl.poseidon.PoseidonsTrident
+import io.github.chaosdave34.kitpvp.items.impl.poseidon.WaterBurst
 import io.github.chaosdave34.kitpvp.items.impl.provoker.NukeItem
 import io.github.chaosdave34.kitpvp.items.impl.provoker.SpookSword
 import io.github.chaosdave34.kitpvp.items.impl.tank.TankAxe
@@ -101,6 +102,9 @@ class CustomItemHandler {
         lateinit var CREEPER_SWORD: CustomItem
 
         @JvmStatic
+        lateinit var WATER_BURST : CustomItem
+
+        @JvmStatic
         fun getCustomItemId(itemStack: ItemStack): String = PDCUtils.getId(itemStack.itemMeta) ?: ""
     }
 
@@ -128,6 +132,7 @@ class CustomItemHandler {
         MODULAR_SHIELD = registerItem(ModularShield())
         ENGINEERS_SWORD = registerItem(EngineersSword())
         CREEPER_SWORD = registerItem(CreeperSword())
+        WATER_BURST = registerItem(WaterBurst())
     }
 
     private fun registerItem(item: CustomItem): CustomItem {

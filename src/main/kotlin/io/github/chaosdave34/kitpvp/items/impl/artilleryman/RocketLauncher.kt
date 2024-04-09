@@ -18,6 +18,6 @@ class RocketLauncher: CustomItem(Material.CROSSBOW, "rocket_launcher") {
         itemStack.addEnchantment(Enchantment.QUICK_CHARGE, 3)
         itemStack.addUnsafeEnchantment(Enchantment.ARROW_INFINITE, 1)
 
-        setCustomModelData(itemStack, 1)
+        itemStack.setCustomModelData(1)
     }
 }

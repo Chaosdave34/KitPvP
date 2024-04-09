@@ -19,6 +19,6 @@ class CreeperLeggings : CustomItem(Material.LEATHER_LEGGINGS, "creeper_leggings"
         itemStack.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2)
         itemStack.addUnsafeEnchantment(Enchantment.PROTECTION_EXPLOSIONS, 4)
 
-        setLeatherArmorColor(itemStack, Color.LIME)
+        itemStack.setLeatherArmorColor(Color.LIME)
     }
 }

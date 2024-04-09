@@ -18,28 +18,28 @@ class MagicianKit : Kit("magician", "Magician") {
     override fun getHeadContent(): ItemStack {
         val leatherHelmet = ItemStack(Material.LEATHER_HELMET)
         leatherHelmet.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2)
-        setLeatherArmorColor(leatherHelmet, Color.RED)
+        leatherHelmet.setLeatherArmorColor(Color.RED)
         return leatherHelmet
     }
 
     override fun getChestContent(): ItemStack {
         val leatherChestplate = ItemStack(Material.LEATHER_CHESTPLATE)
         leatherChestplate.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2)
-        setLeatherArmorColor(leatherChestplate, Color.NAVY)
+        leatherChestplate.setLeatherArmorColor(Color.NAVY)
         return leatherChestplate
     }
 
     override fun getLegsContent(): ItemStack {
         val leatherLeggings = ItemStack(Material.LEATHER_LEGGINGS)
         leatherLeggings.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2)
-        setLeatherArmorColor(leatherLeggings, Color.NAVY)
+        leatherLeggings.setLeatherArmorColor(Color.NAVY)
         return leatherLeggings
     }
 
     override fun getFeetContent(): ItemStack {
         val leatherBoots = ItemStack(Material.LEATHER_BOOTS)
         leatherBoots.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2)
-        setLeatherArmorColor(leatherBoots, Color.BLACK)
+        leatherBoots.setLeatherArmorColor(Color.BLACK)
         return leatherBoots
     }
 

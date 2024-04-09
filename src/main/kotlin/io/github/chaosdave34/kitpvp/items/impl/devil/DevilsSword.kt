@@ -13,7 +13,7 @@ class DevilsSword: CustomItem(Material.IRON_SWORD, "devils_sword") {
 
     override fun additionalModifications(itemStack: ItemStack) {
         itemStack.addUnsafeEnchantment(Enchantment.FIRE_ASPECT, 1)
-        setCustomModelData(itemStack, 1)
+        itemStack.setCustomModelData(1)
     }
 
     override fun getAbilities(): List<Ability> = listOf(AbilityHandler.FIRE_STORM)

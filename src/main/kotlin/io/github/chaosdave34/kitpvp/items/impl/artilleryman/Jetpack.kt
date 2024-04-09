@@ -31,7 +31,7 @@ class Jetpack : CustomItem(Material.LEATHER_CHESTPLATE, "jetpack") {
     override fun additionalModifications(itemStack: ItemStack) {
         itemStack.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2)
         itemStack.addUnsafeEnchantment(Enchantment.PROTECTION_EXPLOSIONS, 4)
-        setLeatherArmorColor(itemStack, Color.NAVY)
+        itemStack.setLeatherArmorColor(Color.NAVY)
     }
 
     @EventHandler
@@ -81,7 +81,7 @@ class Jetpack : CustomItem(Material.LEATHER_CHESTPLATE, "jetpack") {
                             if (player.velocity.y < 0) player.velocity = player.velocity.add(Vector(0.0, 0.1, 0.0))
                             else player.velocity = player.velocity.add(Vector(0.0, 0.3, 0.0))
 
-                            if (fuelUsedTime[player.uniqueId]?.let { System.currentTimeMillis() - it > 50 } != false) {
+                            if (fuelUsedTime[player.uniqueId]?.let { System.currentTimeMillis() - it > 25 } != false) {
                                 jetpackMeta.damage += 1
                                 jetpack.setItemMeta(jetpackMeta)
                                 fuelUsedTime[player.uniqueId] = System.currentTimeMillis()

@@ -82,7 +82,7 @@ class KitPvp : JavaPlugin() {
 
         Bukkit.clearRecipes()
 
-        // Setup world
+        // Setup worlds
         val overWorld = server.getWorld("world")
         overWorld?.setGameRule(GameRule.DO_MOB_SPAWNING, false)
         overWorld?.setGameRule(GameRule.DO_FIRE_TICK, false)

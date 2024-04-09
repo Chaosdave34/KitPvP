@@ -15,7 +15,7 @@ class DevilKit : Kit("devil", "Devil") {
         val leatherHelmet = ItemStack(Material.LEATHER_HELMET)
         leatherHelmet.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2)
         leatherHelmet.addUnsafeEnchantment(Enchantment.PROTECTION_FIRE, 4)
-        setLeatherArmorColor(leatherHelmet, Color.RED)
+        leatherHelmet.setLeatherArmorColor(Color.RED)
         return leatherHelmet
     }
 
@@ -23,7 +23,7 @@ class DevilKit : Kit("devil", "Devil") {
         val leatherChestplate = ItemStack(Material.LEATHER_CHESTPLATE)
         leatherChestplate.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2)
         leatherChestplate.addUnsafeEnchantment(Enchantment.PROTECTION_FIRE, 4)
-        setLeatherArmorColor(leatherChestplate, Color.RED)
+        leatherChestplate.setLeatherArmorColor(Color.RED)
         return leatherChestplate
     }
 
@@ -31,7 +31,7 @@ class DevilKit : Kit("devil", "Devil") {
         val leatherLeggings = ItemStack(Material.LEATHER_LEGGINGS)
         leatherLeggings.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2)
         leatherLeggings.addUnsafeEnchantment(Enchantment.PROTECTION_FIRE, 4)
-        setLeatherArmorColor(leatherLeggings, Color.RED)
+        leatherLeggings.setLeatherArmorColor(Color.RED)
         return leatherLeggings
     }
 
@@ -39,14 +39,14 @@ class DevilKit : Kit("devil", "Devil") {
         val leatherBoots = ItemStack(Material.LEATHER_BOOTS)
         leatherBoots.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2)
         leatherBoots.addUnsafeEnchantment(Enchantment.PROTECTION_FIRE, 4)
-        setLeatherArmorColor(leatherBoots, Color.RED)
+        leatherBoots.setLeatherArmorColor(Color.RED)
         return leatherBoots
     }
     override fun getInventoryContent(): Array<ItemStack?> {
         val bow = ItemStack(Material.BOW)
         bow.addEnchantment(Enchantment.ARROW_INFINITE, 1)
         bow.addEnchantment(Enchantment.ARROW_FIRE, 1)
-        setCustomModelData(bow, 1)
+        bow.setCustomModelData(1)
 
         return arrayOf(
             CustomItemHandler.DEVILS_SWORD.build(),

@@ -20,7 +20,7 @@ class CreeperKit : Kit("creeper", "Creeper") {
         val leatherChestplate = ItemStack(Material.LEATHER_CHESTPLATE)
         leatherChestplate.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2)
         leatherChestplate.addUnsafeEnchantment(Enchantment.PROTECTION_EXPLOSIONS, 4)
-        setLeatherArmorColor(leatherChestplate, Color.LIME)
+        leatherChestplate.setLeatherArmorColor(Color.LIME)
         return leatherChestplate
     }
 
@@ -30,7 +30,7 @@ class CreeperKit : Kit("creeper", "Creeper") {
         val leatherBoots = ItemStack(Material.LEATHER_BOOTS)
         leatherBoots.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2)
         leatherBoots.addUnsafeEnchantment(Enchantment.PROTECTION_EXPLOSIONS, 4)
-        setLeatherArmorColor(leatherBoots, Color.LIME)
+        leatherBoots.setLeatherArmorColor(Color.LIME)
         return leatherBoots
     }
 

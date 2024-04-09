@@ -19,6 +19,7 @@ import io.github.chaosdave34.kitpvp.abilities.impl.engineer.TurretAbility
 import io.github.chaosdave34.kitpvp.abilities.impl.magician.LevitateAbility
 import io.github.chaosdave34.kitpvp.abilities.impl.magician.ShuffleAbility
 import io.github.chaosdave34.kitpvp.abilities.impl.poseidon.StormAbility
+import io.github.chaosdave34.kitpvp.abilities.impl.poseidon.WaterBurstAbility
 import io.github.chaosdave34.kitpvp.abilities.impl.provoker.NukeAbility
 import io.github.chaosdave34.kitpvp.abilities.impl.provoker.SpookAbility
 import io.github.chaosdave34.kitpvp.abilities.impl.tank.FortifyAbility
@@ -106,6 +107,9 @@ class AbilityHandler : Listener {
 
         @JvmStatic
         lateinit var CHARGE: Ability
+
+        @JvmStatic
+        lateinit var WATER_BURST: Ability
     }
 
     init {
@@ -132,6 +136,7 @@ class AbilityHandler : Listener {
         MODULAR_SHIELD = registerAbility(ModularShieldAbility())
         OVERLOAD = registerAbility(OverloadAbility())
         CHARGE = registerAbility(ChargeAbility())
+        WATER_BURST = registerAbility(WaterBurstAbility())
     }
 
     private fun registerAbility(ability: Ability): Ability {

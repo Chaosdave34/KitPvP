@@ -30,7 +30,7 @@ public class FakePlayers implements Listener {
     public static FakePlayer ELYTRA_KIT_SELECTOR;
 
     public static void create() {
-        CLASSIC_KIT = new KitSelectorFakePlayer(KitHandler.CLASSIC, "world", new Location(null, -7.5, 120.0, 9.5, -90, 0));
+        CLASSIC_KIT = new KitSelectorFakePlayer(KitHandler.KNIGHT, "world", new Location(null, -7.5, 120.0, 9.5, -90, 0));
         ZEUS_KIT = new KitSelectorFakePlayer(KitHandler.ZEUS, "world", new Location(null, -7.5, 120.0, 6.5, -90, 0));
         TANK_KIT = new KitSelectorFakePlayer(KitHandler.TANK, "world", new Location(null, -8.5, 120.0, 3.5, -90, 0));
         PROVOKER_KIT = new KitSelectorFakePlayer(KitHandler.PROVOKER, "world", new Location(null, -8.5, 120.0, 0.5, -90, 0));

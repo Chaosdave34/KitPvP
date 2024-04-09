@@ -16,7 +16,7 @@ class ArtilleryManKit : Kit("artillery_man", "Artillery Man" ) {
         val leatherHelmet = ItemStack(Material.LEATHER_HELMET)
         leatherHelmet.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2)
         leatherHelmet.addUnsafeEnchantment(Enchantment.PROTECTION_EXPLOSIONS, 4)
-        setLeatherArmorColor(leatherHelmet, Color.NAVY)
+        leatherHelmet.setLeatherArmorColor(Color.NAVY)
         return leatherHelmet
     }
 
@@ -26,7 +26,7 @@ class ArtilleryManKit : Kit("artillery_man", "Artillery Man" ) {
         val leatherLeggings = ItemStack(Material.LEATHER_LEGGINGS)
         leatherLeggings.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2)
         leatherLeggings.addUnsafeEnchantment(Enchantment.PROTECTION_EXPLOSIONS, 4)
-        setLeatherArmorColor(leatherLeggings, Color.NAVY)
+        leatherLeggings.setLeatherArmorColor(Color.NAVY)
         return leatherLeggings
     }
 
@@ -35,7 +35,7 @@ class ArtilleryManKit : Kit("artillery_man", "Artillery Man" ) {
         leatherBoots.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2)
         leatherBoots.addUnsafeEnchantment(Enchantment.PROTECTION_EXPLOSIONS, 4)
         leatherBoots.addEnchantment(Enchantment.PROTECTION_FALL, 4)
-        setLeatherArmorColor(leatherBoots, Color.NAVY)
+        leatherBoots.setLeatherArmorColor(Color.NAVY)
         return leatherBoots
     }
 

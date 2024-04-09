@@ -2,7 +2,6 @@ package io.github.chaosdave34.kitpvp.kits.impl.kits
 
 import io.github.chaosdave34.kitpvp.items.CustomItemHandler
 import io.github.chaosdave34.kitpvp.kits.Kit
-import org.bukkit.Color
 import org.bukkit.Material
 import org.bukkit.enchantments.Enchantment
 import org.bukkit.inventory.ItemStack
@@ -24,7 +23,6 @@ class ZeusKit : Kit("zeus", "Zeus") {
     override fun getLegsContent(): ItemStack {
         val goldenLeggings = ItemStack(Material.GOLDEN_LEGGINGS)
         goldenLeggings.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2)
-        setLeatherArmorColor(goldenLeggings, Color.YELLOW)
         return goldenLeggings
     }
 

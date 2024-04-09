@@ -19,6 +19,8 @@ import org.bukkit.inventory.ItemFlag
 import org.bukkit.inventory.ItemStack
 import io.github.chaosdave34.kitpvp.utils.Describable
 import io.github.chaosdave34.kitpvp.utils.ItemUtilities
+import org.bukkit.entity.ThrowableProjectile
+import org.bukkit.event.entity.ProjectileLaunchEvent
 import java.util.*
 
 abstract class CustomItem @JvmOverloads constructor(val material: Material, val id: String, private val stackable: Boolean = true, private val preventPlacingAndUsing: Boolean = false) :
@@ -120,6 +122,14 @@ abstract class CustomItem @JvmOverloads constructor(val material: Material, val 
 
         if (preventPlacingAndUsing && id == CustomItemHandler.getCustomItemId(item)) {
             if (event.action == Action.LEFT_CLICK_BLOCK || event.action == Action.RIGHT_CLICK_BLOCK) event.isCancelled = true
+        }
+    }
+
+    @EventHandler
+    fun onLaunch(event: ProjectileLaunchEvent) {
+        val throwableProjectile = event.entity
+        if (throwableProjectile is ThrowableProjectile && throwableProjectile.item.isThisCustomItem()) {
+            if (preventPlacingAndUsing) event.isCancelled = true
         }
     }
 

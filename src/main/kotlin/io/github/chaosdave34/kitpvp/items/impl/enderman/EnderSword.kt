@@ -15,6 +15,6 @@ class EnderSword : CustomItem(Material.STONE_SWORD, "ender_sword") {
 
     override fun additionalModifications(itemStack: ItemStack) {
         itemStack.addEnchantment(Enchantment.DAMAGE_ALL, 3)
-        setCustomModelData(itemStack, 1)
+        itemStack.setCustomModelData(1)
     }
 }

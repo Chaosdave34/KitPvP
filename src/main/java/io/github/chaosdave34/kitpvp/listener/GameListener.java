@@ -11,6 +11,8 @@ import io.papermc.paper.event.block.BlockBreakBlockEvent;
 import io.papermc.paper.event.entity.EntityLoadCrossbowEvent;
 import io.papermc.paper.event.entity.EntityMoveEvent;
 import lombok.Getter;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.block.data.BlockData;
@@ -241,6 +243,7 @@ public class GameListener implements Listener {
             if (e.getBlock().getType() == Material.FIRE) return;
 
             if (e.getBlock().getLocation().getY() > 105) {
+                p.sendMessage(Component.text("You can't place blocks up here!", NamedTextColor.RED));
                 e.setCancelled(true);
                 return;
             }

@@ -11,13 +11,13 @@ import org.bukkit.potion.PotionEffectType
 class ArcherKit : Kit("archer", "Archer") {
     override fun getHeadContent(): ItemStack {
         val leatherHelmet = ItemStack(Material.LEATHER_HELMET)
-        setLeatherArmorColor(leatherHelmet, Color.GREEN)
+        leatherHelmet.setLeatherArmorColor(Color.GREEN)
         return leatherHelmet
     }
 
     override fun getChestContent(): ItemStack {
         val leatherChestplate = ItemStack(Material.LEATHER_CHESTPLATE)
-        setLeatherArmorColor(leatherChestplate, Color.GREEN)
+        leatherChestplate.setLeatherArmorColor(Color.GREEN)
         return leatherChestplate
     }
 
@@ -31,7 +31,7 @@ class ArcherKit : Kit("archer", "Archer") {
 
         val stoneSword = ItemStack(Material.STONE_SWORD)
         stoneSword.addEnchantment(Enchantment.KNOCKBACK, 2)
-        setCustomModelData(stoneSword, 2)
+        stoneSword.setCustomModelData(2)
 
         return arrayOf(
             stoneSword,

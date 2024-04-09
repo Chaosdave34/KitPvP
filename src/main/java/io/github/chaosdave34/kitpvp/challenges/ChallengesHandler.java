@@ -6,6 +6,7 @@ import io.github.chaosdave34.kitpvp.challenges.impl.TwentyFiveKillsChallenge;
 import io.github.chaosdave34.kitpvp.kits.KitHandler;
 import org.bukkit.entity.Player;
 
+import javax.annotation.Nullable;
 import java.util.*;
 
 public class ChallengesHandler {
@@ -18,7 +19,7 @@ public class ChallengesHandler {
 
     public ChallengesHandler() {
         TWENTY_FIVE_KILLS_CHALLENGE = registerChallenge(new TwentyFiveKillsChallenge());
-        TEN_KILLS_WITH_CLASSIC_KIT = registerChallenge(new TenKillsWithKit(KitHandler.CLASSIC));
+        TEN_KILLS_WITH_CLASSIC_KIT = registerChallenge(new TenKillsWithKit(KitHandler.KNIGHT));
         TEN_KILLS_WITH_TANK_KIT = registerChallenge(new TenKillsWithKit(KitHandler.TANK));
     }
 
@@ -28,6 +29,7 @@ public class ChallengesHandler {
         return challenge;
     }
 
+    @Nullable
     public Challenge getChallenge(String id) {
         return challenges.get(id);
     }

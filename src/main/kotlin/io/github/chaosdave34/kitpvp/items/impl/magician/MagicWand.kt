@@ -28,7 +28,7 @@ class MagicWand : CustomItem(Material.END_ROD, "magic_wand", false, true) {
     override fun getAbilities(): List<Ability> = listOf(AbilityHandler.LEVITATE, AbilityHandler.SHUFFLE)
 
     override fun additionalModifications(itemStack: ItemStack) {
-        setCustomModelData(itemStack, 1)
+        itemStack.setCustomModelData(1)
         itemStack.editMeta { itemMeta ->
             itemMeta.addAttributeModifier(
                 Attribute.GENERIC_ATTACK_SPEED,

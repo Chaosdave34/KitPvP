@@ -19,7 +19,7 @@ class EndermanKit : Kit("enderman", "Enderman") {
         val leatherHelmet = ItemStack(Material.LEATHER_HELMET)
         leatherHelmet.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2)
         leatherHelmet.addUnsafeEnchantment(Enchantment.PROTECTION_PROJECTILE, 10)
-        setLeatherArmorColor(leatherHelmet, Color.BLACK)
+        leatherHelmet.setLeatherArmorColor(Color.BLACK)
         return leatherHelmet
     }
 
@@ -27,7 +27,7 @@ class EndermanKit : Kit("enderman", "Enderman") {
         val leatherChestplate = ItemStack(Material.LEATHER_CHESTPLATE)
         leatherChestplate.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2)
         leatherChestplate.addUnsafeEnchantment(Enchantment.PROTECTION_PROJECTILE, 10)
-        setLeatherArmorColor(leatherChestplate, Color.BLACK)
+        leatherChestplate.setLeatherArmorColor(Color.BLACK)
         return leatherChestplate
     }
 
@@ -35,7 +35,7 @@ class EndermanKit : Kit("enderman", "Enderman") {
         val leatherLeggings = ItemStack(Material.LEATHER_LEGGINGS)
         leatherLeggings.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2)
         leatherLeggings.addUnsafeEnchantment(Enchantment.PROTECTION_PROJECTILE, 10)
-        setLeatherArmorColor(leatherLeggings, Color.BLACK)
+        leatherLeggings.setLeatherArmorColor(Color.BLACK)
         return leatherLeggings
     }
 
@@ -43,7 +43,7 @@ class EndermanKit : Kit("enderman", "Enderman") {
         val leatherBoots = ItemStack(Material.LEATHER_BOOTS)
         leatherBoots.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2)
         leatherBoots.addUnsafeEnchantment(Enchantment.PROTECTION_PROJECTILE, 10)
-        setLeatherArmorColor(leatherBoots, Color.BLACK)
+        leatherBoots.setLeatherArmorColor(Color.BLACK)
         return leatherBoots
     }
 

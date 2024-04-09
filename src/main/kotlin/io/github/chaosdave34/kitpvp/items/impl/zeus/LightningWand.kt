@@ -9,7 +9,5 @@ import org.bukkit.Material
 class LightningWand : CustomItem(Material.STICK, "lightning_wand", false) {
     override fun getName(): Component = createSimpleItemName("Lightning Wand")
 
-    override fun getDescription(): List<Component> = createSimpleDescription("Stolen from Zeus.")
-
     override fun getAbilities(): List<Ability> = listOf(AbilityHandler.LIGHTNING, AbilityHandler.THUNDERSTORM)
 }

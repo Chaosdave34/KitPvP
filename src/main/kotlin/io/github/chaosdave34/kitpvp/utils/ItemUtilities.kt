@@ -6,15 +6,11 @@ import org.bukkit.inventory.meta.ItemMeta
 import org.bukkit.inventory.meta.LeatherArmorMeta
 
 interface ItemUtilities {
-    fun setLeatherArmorColor(leatherArmor: ItemStack, color: Color?) {
-        leatherArmor.editMeta(LeatherArmorMeta::class.java) { leatherArmorMeta: LeatherArmorMeta ->
-            leatherArmorMeta.setColor(
-                color
-            )
-        }
+    fun ItemStack.setLeatherArmorColor(color: Color?) {
+        this.editMeta(LeatherArmorMeta::class.java) { leatherArmorMeta: LeatherArmorMeta -> leatherArmorMeta.setColor(color) }
     }
 
-    fun setCustomModelData(itemStack: ItemStack, customModelData: Int?) {
-        itemStack.editMeta { itemMeta: ItemMeta -> itemMeta.setCustomModelData(customModelData) }
+    fun ItemStack.setCustomModelData(customModelData: Int?) {
+        this.editMeta { itemMeta: ItemMeta -> itemMeta.setCustomModelData(customModelData) }
     }
 }
