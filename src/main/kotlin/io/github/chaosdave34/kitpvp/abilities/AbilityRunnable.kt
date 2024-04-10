@@ -14,6 +14,8 @@ abstract class AbilityRunnable(val uuid: UUID) : BukkitRunnable() {
     private val gameType: ExtendedPlayer.GameType = ExtendedPlayer.from(uuid).currentGame
     private val deathCount: Int = ExtendedPlayer.from(uuid).getTotalDeaths(gameType)
 
+    protected var i = 0
+
     override fun run() {
         val extendedPlayer = ExtendedPlayer.from(uuid)
         if (extendedPlayer.getPlayer() == null) return
@@ -21,6 +23,7 @@ abstract class AbilityRunnable(val uuid: UUID) : BukkitRunnable() {
         if (gameType != extendedPlayer.currentGame) cancel()
         if (deathCount != extendedPlayer.getTotalDeaths(gameType)) cancel()
         runInGame()
+        i++
     }
 
     abstract fun runInGame()

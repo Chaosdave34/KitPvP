@@ -30,8 +30,7 @@ class WaterBurstAbility : Ability("water_burst", "Water Burst", Type.RIGHT_CLICK
     fun onSnowballImpact(event: ProjectileHitEvent) {
         val snowball = event.entity
         if (snowball is Snowball && snowball.getMetadata("ability").contains(snowballMetadata)) {
-            val location = event.hitBlock?.location ?: return
-            location.add(0.0, 1.0, 0.0)
+            val location = event.hitBlock?.location?.add(0.0, 1.0, 0.0) ?: event.hitEntity?.location ?: return
 
             object : BukkitRunnable() {
                 var counter = 0

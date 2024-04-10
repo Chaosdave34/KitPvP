@@ -44,13 +44,11 @@ class LongBow : CustomItem(Material.BOW, "long_bow") {
                         bow.itemMeta = itemMeta
 
                         object : AbilityRunnable(extendedPlayer) {
-                            var i = 0
                             override fun runInGame() {
                                 bow.editMeta(Damageable::class.java) { damageable -> damageable.damage = 384 - (384.0 * (i / (10.0 * 20.0))).toInt() }
 
                                 if (i == 10 * 20) cancel()
 
-                                i++
                             }
                         }.runTaskTimer(KitPvp.INSTANCE, 0, 1)
                     }

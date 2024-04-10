@@ -6,25 +6,32 @@ import io.github.chaosdave34.kitpvp.ExtendedPlayer
 import io.github.chaosdave34.kitpvp.KitPvp
 import io.github.chaosdave34.kitpvp.textdisplays.TextDisplays
 import io.papermc.paper.event.player.AsyncChatEvent
+import io.papermc.paper.event.player.PlayerFlowerPotManipulateEvent
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
 import org.bukkit.Bukkit
 import org.bukkit.GameRule
+import org.bukkit.Material
 import org.bukkit.WorldCreator
 import org.bukkit.block.data.type.DaylightDetector
 import org.bukkit.block.data.type.DecoratedPot
 import org.bukkit.block.data.type.Door
 import org.bukkit.block.data.type.TrapDoor
+import org.bukkit.entity.Painting
+import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.block.Action
+import org.bukkit.event.entity.EntityDamageEvent
+import org.bukkit.event.hanging.HangingBreakEvent
 import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.event.player.PlayerJoinEvent
 import org.bukkit.event.player.PlayerQuitEvent
 import org.bukkit.event.world.WorldLoadEvent
 import org.bukkit.event.world.WorldSaveEvent
 import org.bukkit.generator.ChunkGenerator
+import java.awt.Paint
 import java.io.File
 import java.time.Instant
 import java.time.LocalDate
@@ -155,20 +162,37 @@ class UtilityListener : Listener {
 
             elytraPvp?.setGameRule(GameRule.DO_MOB_SPAWNING, false)
             elytraPvp?.setGameRule(GameRule.DO_FIRE_TICK, false)
+            elytraPvp?.setGameRule(GameRule.DO_WEATHER_CYCLE, false)
         }
     }
 
     @EventHandler
     fun onInteract(event: PlayerInteractEvent) {
         val player = event.player
-        val extendedPlayer = ExtendedPlayer.from(player)
-        if (extendedPlayer.gameState == ExtendedPlayer.GameState.DEBUG) return
+        if (ExtendedPlayer.from(player).gameState == ExtendedPlayer.GameState.DEBUG) return
 
+        val blockData = event.clickedBlock?.blockData
+        val material = event.clickedBlock?.type
         if (event.action == Action.RIGHT_CLICK_BLOCK) {
-            val blockData = event.clickedBlock?.blockData
-            if (blockData is Door || blockData is TrapDoor || blockData is DecoratedPot || blockData is DaylightDetector) {
+            if (blockData is Door || blockData is TrapDoor || material == Material.DAYLIGHT_DETECTOR) {
                 event.isCancelled = true
             }
         }
+    }
+
+    @EventHandler
+    fun onFlowerPotManipulate(event: PlayerFlowerPotManipulateEvent) {
+        val player = event.player
+        if (ExtendedPlayer.from(player).gameState == ExtendedPlayer.GameState.DEBUG) return
+
+        event.isCancelled = true
+    }
+
+    @EventHandler
+    fun onBreakPainting(event: HangingBreakEvent) {
+        val player = event.entity
+        if (player is Player && ExtendedPlayer.from(player).gameState == ExtendedPlayer.GameState.DEBUG) return
+
+        if (event.entity is Painting) event.isCancelled = true
     }
 }

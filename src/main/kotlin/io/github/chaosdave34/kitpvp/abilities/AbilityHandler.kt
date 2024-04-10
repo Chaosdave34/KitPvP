@@ -22,8 +22,8 @@ import io.github.chaosdave34.kitpvp.abilities.impl.poseidon.StormAbility
 import io.github.chaosdave34.kitpvp.abilities.impl.poseidon.WaterBurstAbility
 import io.github.chaosdave34.kitpvp.abilities.impl.provoker.NukeAbility
 import io.github.chaosdave34.kitpvp.abilities.impl.provoker.SpookAbility
-import io.github.chaosdave34.kitpvp.abilities.impl.tank.FortifyAbility
-import io.github.chaosdave34.kitpvp.abilities.impl.tank.SeismicWaveAbility
+import io.github.chaosdave34.kitpvp.abilities.impl.tank.TornadoAbility
+import io.github.chaosdave34.kitpvp.abilities.impl.tank.GroundSlamAbility
 import io.github.chaosdave34.kitpvp.abilities.impl.vampire.BatMorhpAbility
 import io.github.chaosdave34.kitpvp.abilities.impl.zeus.LightningAbility
 import io.github.chaosdave34.kitpvp.abilities.impl.zeus.RageAbility
@@ -76,10 +76,10 @@ class AbilityHandler : Listener {
         lateinit var STORM: Ability
 
         @JvmStatic
-        lateinit var SEISMIC_WAVE: Ability
+        lateinit var GROUND_SLAM: Ability
 
         @JvmStatic
-        lateinit var FORTIFY: Ability
+        lateinit var TORNADO: Ability
 
         @JvmStatic
         lateinit var ENHANCE: Ability
@@ -125,8 +125,8 @@ class AbilityHandler : Listener {
         EXPLODE = registerAbility(ExplodeAbility())
         ENDER_ATTACK = registerAbility(EnderAttackAbility())
         STORM = registerAbility(StormAbility())
-        SEISMIC_WAVE = registerAbility(SeismicWaveAbility())
-        FORTIFY = registerAbility(FortifyAbility())
+        GROUND_SLAM = registerAbility(GroundSlamAbility())
+        TORNADO = registerAbility(TornadoAbility())
         ENHANCE = registerAbility(EnhanceAbility())
         TURRET = registerAbility(TurretAbility())
         LEAP = registerAbility(LeapAbility())

@@ -98,6 +98,9 @@ public class GamePlayerDeathListener implements Listener {
                     if (lastDamageByEntityEvent.getCause() == EntityDamageEvent.DamageCause.MAGIC) {
                         message = name + "was killed by " + damager.getName() + " using magic";
                     }
+                    if (lastDamageByEntityEvent.getCause() == EntityDamageEvent.DamageCause.DROWNING) {
+                        message = name + "drowned by " + damager.getName();
+                    }
                 } else if (damageType == DamageTypes.LAND) {
                     message = name + " tried to land";
                 } else if (damageType == DamageTypes.ESCAPE) {
