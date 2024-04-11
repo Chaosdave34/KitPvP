@@ -14,16 +14,12 @@ import org.bukkit.Bukkit
 import org.bukkit.GameRule
 import org.bukkit.Material
 import org.bukkit.WorldCreator
-import org.bukkit.block.data.type.DaylightDetector
-import org.bukkit.block.data.type.DecoratedPot
 import org.bukkit.block.data.type.Door
 import org.bukkit.block.data.type.TrapDoor
 import org.bukkit.entity.Painting
-import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.block.Action
-import org.bukkit.event.entity.EntityDamageEvent
 import org.bukkit.event.hanging.HangingBreakEvent
 import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.event.player.PlayerJoinEvent
@@ -31,7 +27,6 @@ import org.bukkit.event.player.PlayerQuitEvent
 import org.bukkit.event.world.WorldLoadEvent
 import org.bukkit.event.world.WorldSaveEvent
 import org.bukkit.generator.ChunkGenerator
-import java.awt.Paint
 import java.io.File
 import java.time.Instant
 import java.time.LocalDate
@@ -57,7 +52,7 @@ class UtilityListener : Listener {
             UUID.fromString("9d309ee5-fcd8-4636-85cf-becfe3489018"),
             serverResourcePackUrl,
             HexFormat.of().parseHex(serverResourcePackSha1sum),
-            "FETT",
+            null,
             false
         )
 
@@ -72,16 +67,16 @@ class UtilityListener : Listener {
         extendedPlayer.updateDisplayName()
 
         // Highscores
-        if (KitPvp.INSTANCE.highestKillStreaksKits.size < 5) {
+        if (KitPvp.INSTANCE.highestKillStreaksKits.size < 5 && extendedPlayer.getHighestKillStreak(ExtendedPlayer.GameType.KITS) > 0) {
             KitPvp.INSTANCE.highestKillStreaksKits[player.uniqueId] = extendedPlayer.getHighestKillStreak(ExtendedPlayer.GameType.KITS)
             GHUtils.getTextDisplayHandler().updateTextDisplayForAll(TextDisplays.HIGHEST_KILL_STREAKS_KITS)
         }
-        if (KitPvp.INSTANCE.highestKillStreaksElytra.size < 5) {
+        if (KitPvp.INSTANCE.highestKillStreaksElytra.size < 5 && extendedPlayer.getHighestKillStreak(ExtendedPlayer.GameType.ELYTRA) > 0) {
             KitPvp.INSTANCE.highestKillStreaksElytra[player.uniqueId] = extendedPlayer.getHighestKillStreak(ExtendedPlayer.GameType.ELYTRA)
             GHUtils.getTextDisplayHandler().updateTextDisplayForAll(TextDisplays.HIGHEST_KILL_STREAKS_ELYTRA)
         }
 
-        if (KitPvp.INSTANCE.highestLevels.size < 5) {
+        if (KitPvp.INSTANCE.highestLevels.size < 5 && extendedPlayer.getLevel() != 0) {
             KitPvp.INSTANCE.highestLevels[player.uniqueId] = extendedPlayer.getLevel()
             GHUtils.getTextDisplayHandler().updateTextDisplayForAll(TextDisplays.HIGHEST_LEVELS_KITS)
         }
@@ -190,9 +185,6 @@ class UtilityListener : Listener {
 
     @EventHandler
     fun onBreakPainting(event: HangingBreakEvent) {
-        val player = event.entity
-        if (player is Player && ExtendedPlayer.from(player).gameState == ExtendedPlayer.GameState.DEBUG) return
-
         if (event.entity is Painting) event.isCancelled = true
     }
 }
