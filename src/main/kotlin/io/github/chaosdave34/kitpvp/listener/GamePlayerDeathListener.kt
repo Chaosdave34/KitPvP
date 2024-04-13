@@ -8,6 +8,7 @@ import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer
 import org.bukkit.Bukkit
+import org.bukkit.damage.DamageType
 import org.bukkit.entity.*
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
@@ -94,6 +95,12 @@ class GamePlayerDeathListener : Listener {
                 if (damageType == DamageTypes.BLACK_HOLE)
                     message = "$name was killed by ${damager.name}'s black hole"
 
+            } else if (damageType == DamageType.FALL) {
+                val cause = damageSource.causingEntity
+                if (cause is Player) {
+                    val extendedCause = ExtendedPlayer.from(cause)
+                    extendedCause.killedPlayer(player)
+                }
             } else if (damageType === DamageTypes.LAND)
                 message = "$name tried to land"
             else if (damageType === DamageTypes.ESCAPE)
