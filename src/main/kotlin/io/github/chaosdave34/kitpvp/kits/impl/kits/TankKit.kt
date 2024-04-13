@@ -9,11 +9,11 @@ class TankKit : Kit("tank", "Tank") {
 
     override fun getMaxHealth(): Double = 40.0
 
-    override fun getHeadContent(): ItemStack = ItemStack(Material.DIAMOND_HELMET)
+    override fun getHeadContent(): ItemStack = ItemStack(Material.IRON_HELMET)
 
-    override fun getChestContent(): ItemStack = ItemStack(Material.DIAMOND_CHESTPLATE)
+    override fun getChestContent(): ItemStack = ItemStack(Material.IRON_CHESTPLATE)
 
-    override fun getLegsContent(): ItemStack = ItemStack(Material.DIAMOND_LEGGINGS)
+    override fun getLegsContent(): ItemStack = ItemStack(Material.IRON_LEGGINGS)
 
     override fun getFeetContent(): ItemStack = CustomItemHandler.TANK_BOOTS.build()
 

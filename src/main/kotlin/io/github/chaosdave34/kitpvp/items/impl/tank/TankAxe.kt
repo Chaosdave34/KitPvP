@@ -7,7 +7,7 @@ import net.kyori.adventure.text.Component
 import org.bukkit.Material
 import org.bukkit.inventory.ItemStack
 
-class TankAxe : CustomItem(Material.IRON_AXE, "tank_axe") {
+class TankAxe : CustomItem(Material.STONE_AXE, "tank_axe") {
 
     override fun getName(): Component = createSimpleItemName("Tank Axe")
 

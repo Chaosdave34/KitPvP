@@ -6,7 +6,7 @@ import io.github.chaosdave34.kitpvp.items.CustomItem
 import net.kyori.adventure.text.Component
 import org.bukkit.Material
 
-class TankBoots : CustomItem(Material.DIAMOND_BOOTS, "tank_boots") {
+class TankBoots : CustomItem(Material.IRON_BOOTS, "tank_boots") {
 
     override fun getName(): Component = createSimpleItemName("Tank Boots")
 
