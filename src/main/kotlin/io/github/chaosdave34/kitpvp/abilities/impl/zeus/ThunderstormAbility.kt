@@ -71,12 +71,12 @@ class ThunderstormAbility : Ability("thunderstorm", "Thunderstorm", Type.LEFT_CL
     }
 
     @EventHandler
-    fun onSetFire(e: BlockIgniteEvent) {
-        val lightningStrike = e.ignitingEntity
+    fun onSetFire(event: BlockIgniteEvent) {
+        val lightningStrike = event.ignitingEntity
         if (lightningStrike is LightningStrike) {
             if (lightningStrike.hasMetadata("ability")) {
                 if (id == lightningStrike.getMetadata("ability").get(0).value()) {
-                    e.isCancelled = true
+                    event.isCancelled = true
                 }
             }
         }

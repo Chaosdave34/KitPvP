@@ -17,21 +17,21 @@ class CreeperKit : Kit("creeper", "Creeper") {
     }
 
     override fun getChestContent(): ItemStack {
-        val leatherChestplate = ItemStack(Material.LEATHER_CHESTPLATE)
-        leatherChestplate.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2)
-        leatherChestplate.addUnsafeEnchantment(Enchantment.PROTECTION_EXPLOSIONS, 4)
-        leatherChestplate.setLeatherArmorColor(Color.LIME)
-        return leatherChestplate
+        val chestplate = ItemStack(Material.LEATHER_CHESTPLATE)
+        chestplate.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2)
+        chestplate.addUnsafeEnchantment(Enchantment.PROTECTION_EXPLOSIONS, 4)
+        chestplate.setLeatherArmorColor(Color.LIME)
+        return chestplate
     }
 
     override fun getLegsContent(): ItemStack = CustomItemHandler.CREEPER_LEGGINGS.build()
 
     override fun getFeetContent(): ItemStack {
-        val leatherBoots = ItemStack(Material.LEATHER_BOOTS)
-        leatherBoots.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2)
-        leatherBoots.addUnsafeEnchantment(Enchantment.PROTECTION_EXPLOSIONS, 4)
-        leatherBoots.setLeatherArmorColor(Color.LIME)
-        return leatherBoots
+        val boots = ItemStack(Material.LEATHER_BOOTS)
+        boots.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2)
+        boots.addUnsafeEnchantment(Enchantment.PROTECTION_EXPLOSIONS, 4)
+        boots.setLeatherArmorColor(Color.LIME)
+        return boots
     }
 
     override fun getInventoryContent(): Array<ItemStack?> {

@@ -18,25 +18,25 @@ class PoseidonKit : Kit("poseidon", "Poseidon") {
     }
 
     override fun getChestContent(): ItemStack {
-        val leatherChestplate = ItemStack(Material.LEATHER_CHESTPLATE)
-        leatherChestplate.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2)
-        leatherChestplate.setLeatherArmorColor(Color.AQUA)
-        return leatherChestplate
+        val chestplate = ItemStack(Material.LEATHER_CHESTPLATE)
+        chestplate.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2)
+        chestplate.setLeatherArmorColor(Color.AQUA)
+        return chestplate
     }
 
     override fun getLegsContent(): ItemStack {
-        val leatherLeggings = ItemStack(Material.LEATHER_LEGGINGS)
-        leatherLeggings.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2)
-        leatherLeggings.setLeatherArmorColor(Color.AQUA)
-        return leatherLeggings
+        val leggings = ItemStack(Material.LEATHER_LEGGINGS)
+        leggings.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2)
+        leggings.setLeatherArmorColor(Color.AQUA)
+        return leggings
     }
 
     override fun getFeetContent(): ItemStack {
-        val leatherBoots = ItemStack(Material.LEATHER_BOOTS)
-        leatherBoots.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2)
-        leatherBoots.addEnchantment(Enchantment.DEPTH_STRIDER, 3)
-        leatherBoots.setLeatherArmorColor(Color.AQUA)
-        return leatherBoots
+        val boots = ItemStack(Material.LEATHER_BOOTS)
+        boots.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2)
+        boots.addEnchantment(Enchantment.DEPTH_STRIDER, 3)
+        boots.setLeatherArmorColor(Color.AQUA)
+        return boots
     }
 
     override fun getInventoryContent(): Array<ItemStack?> {

@@ -6,6 +6,7 @@ import io.github.chaosdave34.kitpvp.items.CustomItemHandler;
 import io.github.chaosdave34.kitpvp.kits.Kit;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 public class AssassinKit extends Kit {
     public AssassinKit() {
@@ -33,7 +34,7 @@ public class AssassinKit extends Kit {
     }
 
     @Override
-    public ItemStack[] getInventoryContent() {
+    public ItemStack @NotNull [] getInventoryContent() {
         return new ItemStack[]{
                 CustomItemHandler.ASSASSIN_SWORD.build(),
                 new ItemStack(Material.WATER_BUCKET),
@@ -41,7 +42,7 @@ public class AssassinKit extends Kit {
     }
 
     @Override
-    public ItemStack[] getKillRewards() {
+    public ItemStack @NotNull [] getKillRewards() {
         return new ItemStack[]{
                 new ItemStack(Material.GOLDEN_APPLE),
                 new ItemStack(Material.COBBLESTONE, 32),

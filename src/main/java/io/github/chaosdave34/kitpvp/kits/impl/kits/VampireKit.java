@@ -6,6 +6,7 @@ import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 public class VampireKit extends Kit {
     public VampireKit() {
@@ -14,45 +15,45 @@ public class VampireKit extends Kit {
 
     @Override
     public ItemStack getHeadContent() {
-        ItemStack leatherHelmet = new ItemStack(Material.LEATHER_HELMET);
-        leatherHelmet.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2);
-        setLeatherArmorColor(leatherHelmet, Color.RED);
-        return leatherHelmet;
+        ItemStack helmet = new ItemStack(Material.LEATHER_HELMET);
+        helmet.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2);
+        setLeatherArmorColor(helmet, Color.RED);
+        return helmet;
     }
 
     @Override
     public ItemStack getChestContent() {
-        ItemStack leatherChestplate = new ItemStack(Material.LEATHER_CHESTPLATE);
-        leatherChestplate.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2);
-        setLeatherArmorColor(leatherChestplate, Color.BLACK);
-        return leatherChestplate;
+        ItemStack chestplate = new ItemStack(Material.LEATHER_CHESTPLATE);
+        chestplate.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2);
+        setLeatherArmorColor(chestplate, Color.BLACK);
+        return chestplate;
     }
 
     @Override
     public ItemStack getLegsContent() {
-        ItemStack leatherLeggings = new ItemStack(Material.LEATHER_LEGGINGS);
-        leatherLeggings.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2);
-        setLeatherArmorColor(leatherLeggings, Color.BLACK);
-        return leatherLeggings;
+        ItemStack leggings = new ItemStack(Material.LEATHER_LEGGINGS);
+        leggings.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2);
+        setLeatherArmorColor(leggings, Color.BLACK);
+        return leggings;
     }
 
     @Override
     public ItemStack getFeetContent() {
-        ItemStack leatherBoots = new ItemStack(Material.LEATHER_BOOTS);
-        leatherBoots.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2);
-        setLeatherArmorColor(leatherBoots, Color.BLACK);
-        return leatherBoots;
+        ItemStack boots = new ItemStack(Material.LEATHER_BOOTS);
+        boots.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2);
+        setLeatherArmorColor(boots, Color.BLACK);
+        return boots;
     }
 
     @Override
-    public ItemStack[] getInventoryContent() {
+    public ItemStack @NotNull [] getInventoryContent() {
         return new ItemStack[]{
                 CustomItemHandler.VAMPIRE_SWORD.build(),
         };
     }
 
     @Override
-    public ItemStack[] getKillRewards() {
+    public ItemStack @NotNull [] getKillRewards() {
         return new ItemStack[]{
                 new ItemStack(Material.RED_NETHER_BRICKS, 32),
         };

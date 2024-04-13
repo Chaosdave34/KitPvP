@@ -30,22 +30,22 @@ class EntityDamageListener : Listener {
     }
 
     @EventHandler(priority = EventPriority.LOWEST)
-    fun onLightningStrike(e: EntityDamageByEntityEvent) {
-        val damager = e.damager
+    fun onLightningStrike(event: EntityDamageByEntityEvent) {
+        val damager = event.damager
         if (damager is LightningStrike) {
             val causingEntity = damager.causingEntity
             if (causingEntity != null) {
-                val receiveDamageEvent = EntityReceiveDamageByEntityEvent(e.entity, causingEntity, e.damage, e)
+                val receiveDamageEvent = EntityReceiveDamageByEntityEvent(event.entity, causingEntity, event.damage, event)
                 receiveDamageEvent.callEvent()
 
-                e.damage = receiveDamageEvent.damage
-                e.isCancelled = receiveDamageEvent.isCancelled
+                event.damage = receiveDamageEvent.damage
+                event.isCancelled = receiveDamageEvent.isCancelled
 
-                val dealDamageEvent = EntityDealDamageEvent(causingEntity, e.entity, e.damage, e)
+                val dealDamageEvent = EntityDealDamageEvent(causingEntity, event.entity, event.damage, event)
                 dealDamageEvent.callEvent()
 
-                e.damage = dealDamageEvent.damage
-                e.isCancelled = dealDamageEvent.isCancelled
+                event.damage = dealDamageEvent.damage
+                event.isCancelled = dealDamageEvent.isCancelled
             }
         }
     }

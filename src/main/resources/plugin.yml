@@ -5,7 +5,7 @@ main: io.github.chaosdave34.kitpvp.KitPvp
 description: $description
 load: STARTUP
 authors:
-  - Chaosdave34, Muawag, palul
+  - Chaosdave34, palul
 api-version: "$apiVersion"
 commands:
   spawn:

@@ -10,15 +10,15 @@ import org.bukkit.potion.PotionEffectType
 
 class ArcherKit : Kit("archer", "Archer") {
     override fun getHeadContent(): ItemStack {
-        val leatherHelmet = ItemStack(Material.LEATHER_HELMET)
-        leatherHelmet.setLeatherArmorColor(Color.GREEN)
-        return leatherHelmet
+        val helmet = ItemStack(Material.LEATHER_HELMET)
+        helmet.setLeatherArmorColor(Color.GREEN)
+        return helmet
     }
 
     override fun getChestContent(): ItemStack {
-        val leatherChestplate = ItemStack(Material.LEATHER_CHESTPLATE)
-        leatherChestplate.setLeatherArmorColor(Color.GREEN)
-        return leatherChestplate
+        val chestplate = ItemStack(Material.LEATHER_CHESTPLATE)
+        chestplate.setLeatherArmorColor(Color.GREEN)
+        return chestplate
     }
 
     override fun getLegsContent(): ItemStack = ItemStack(Material.CHAINMAIL_LEGGINGS)

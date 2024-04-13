@@ -19,8 +19,9 @@ import io.github.chaosdave34.kitpvp.items.impl.engineer.TurretItem
 import io.github.chaosdave34.kitpvp.items.impl.magician.MagicWand
 import io.github.chaosdave34.kitpvp.items.impl.poseidon.PoseidonsTrident
 import io.github.chaosdave34.kitpvp.items.impl.poseidon.WaterBurst
-import io.github.chaosdave34.kitpvp.items.impl.provoker.NukeItem
-import io.github.chaosdave34.kitpvp.items.impl.provoker.SpookSword
+import io.github.chaosdave34.kitpvp.items.impl.spacesoldier.AirstrikeRequester
+import io.github.chaosdave34.kitpvp.items.impl.spacesoldier.BlackHoleGenerator
+import io.github.chaosdave34.kitpvp.items.impl.spacesoldier.SpaceSword
 import io.github.chaosdave34.kitpvp.items.impl.tank.TankAxe
 import io.github.chaosdave34.kitpvp.items.impl.tank.TankBoots
 import io.github.chaosdave34.kitpvp.items.impl.vampire.VampireSword
@@ -45,10 +46,10 @@ class CustomItemHandler {
         lateinit var VAMPIRE_SWORD: CustomItem
 
         @JvmStatic
-        lateinit var NUKE: CustomItem
+        lateinit var AIRSTRIKE_REQUESTER: CustomItem
 
         @JvmStatic
-        lateinit var SPOOK_SWORD: CustomItem
+        lateinit var SPACE_SWORD: CustomItem
 
         @JvmStatic
         lateinit var CREEPER_LEGGINGS: CustomItem
@@ -102,7 +103,10 @@ class CustomItemHandler {
         lateinit var CREEPER_SWORD: CustomItem
 
         @JvmStatic
-        lateinit var WATER_BURST : CustomItem
+        lateinit var WATER_BURST: CustomItem
+
+        @JvmStatic
+        lateinit var BLACK_HOLE_GENERATOR: CustomItem
 
         @JvmStatic
         fun getCustomItemId(itemStack: ItemStack): String = PDCUtils.getId(itemStack.itemMeta) ?: ""
@@ -113,8 +117,8 @@ class CustomItemHandler {
         LIGHTNING_WAND = registerItem(LightningWand())
         MAGIC_WAND = registerItem(MagicWand())
         VAMPIRE_SWORD = registerItem(VampireSword())
-        NUKE = registerItem(NukeItem())
-        SPOOK_SWORD = registerItem(SpookSword())
+        AIRSTRIKE_REQUESTER = registerItem(AirstrikeRequester())
+        SPACE_SWORD = registerItem(SpaceSword())
         CREEPER_LEGGINGS = registerItem(CreeperLeggings())
         ENDER_SWORD = registerItem(EnderSword())
         POSEIDONS_TRIDENT = registerItem(PoseidonsTrident())
@@ -133,6 +137,7 @@ class CustomItemHandler {
         ENGINEERS_SWORD = registerItem(EngineersSword())
         CREEPER_SWORD = registerItem(CreeperSword())
         WATER_BURST = registerItem(WaterBurst())
+        BLACK_HOLE_GENERATOR = registerItem(BlackHoleGenerator())
     }
 
     private fun registerItem(item: CustomItem): CustomItem {

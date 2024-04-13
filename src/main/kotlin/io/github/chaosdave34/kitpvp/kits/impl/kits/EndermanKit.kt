@@ -16,35 +16,35 @@ import org.bukkit.inventory.ItemStack
 class EndermanKit : Kit("enderman", "Enderman") {
 
     override fun getHeadContent(): ItemStack {
-        val leatherHelmet = ItemStack(Material.LEATHER_HELMET)
-        leatherHelmet.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2)
-        leatherHelmet.addUnsafeEnchantment(Enchantment.PROTECTION_PROJECTILE, 10)
-        leatherHelmet.setLeatherArmorColor(Color.BLACK)
-        return leatherHelmet
+        val helmet = ItemStack(Material.LEATHER_HELMET)
+        helmet.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2)
+        helmet.addUnsafeEnchantment(Enchantment.PROTECTION_PROJECTILE, 10)
+        helmet.setLeatherArmorColor(Color.BLACK)
+        return helmet
     }
 
     override fun getChestContent(): ItemStack {
-        val leatherChestplate = ItemStack(Material.LEATHER_CHESTPLATE)
-        leatherChestplate.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2)
-        leatherChestplate.addUnsafeEnchantment(Enchantment.PROTECTION_PROJECTILE, 10)
-        leatherChestplate.setLeatherArmorColor(Color.BLACK)
-        return leatherChestplate
+        val chestplate = ItemStack(Material.LEATHER_CHESTPLATE)
+        chestplate.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2)
+        chestplate.addUnsafeEnchantment(Enchantment.PROTECTION_PROJECTILE, 10)
+        chestplate.setLeatherArmorColor(Color.BLACK)
+        return chestplate
     }
 
     override fun getLegsContent(): ItemStack {
-        val leatherLeggings = ItemStack(Material.LEATHER_LEGGINGS)
-        leatherLeggings.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2)
-        leatherLeggings.addUnsafeEnchantment(Enchantment.PROTECTION_PROJECTILE, 10)
-        leatherLeggings.setLeatherArmorColor(Color.BLACK)
-        return leatherLeggings
+        val leggings = ItemStack(Material.LEATHER_LEGGINGS)
+        leggings.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2)
+        leggings.addUnsafeEnchantment(Enchantment.PROTECTION_PROJECTILE, 10)
+        leggings.setLeatherArmorColor(Color.BLACK)
+        return leggings
     }
 
     override fun getFeetContent(): ItemStack {
-        val leatherBoots = ItemStack(Material.LEATHER_BOOTS)
-        leatherBoots.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2)
-        leatherBoots.addUnsafeEnchantment(Enchantment.PROTECTION_PROJECTILE, 10)
-        leatherBoots.setLeatherArmorColor(Color.BLACK)
-        return leatherBoots
+        val boots = ItemStack(Material.LEATHER_BOOTS)
+        boots.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2)
+        boots.addUnsafeEnchantment(Enchantment.PROTECTION_PROJECTILE, 10)
+        boots.setLeatherArmorColor(Color.BLACK)
+        return boots
     }
 
     override fun getInventoryContent(): Array<ItemStack?> {
@@ -75,10 +75,10 @@ class EndermanKit : Kit("enderman", "Enderman") {
     }
 
     @EventHandler
-    fun inWater(e: PlayerMoveEvent) {
-        val player = e.player
+    fun inWater(event: PlayerMoveEvent) {
+        val player = event.player
         if (player.isKitActive()) {
-            if (e.to.block.type == Material.WATER) {
+            if (event.to.block.type == Material.WATER) {
                 player.damage(1.0, DamageSource.builder(DamageType.DROWN).build())
             }
         }

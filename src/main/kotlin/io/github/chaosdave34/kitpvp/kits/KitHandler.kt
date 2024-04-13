@@ -54,7 +54,7 @@ class KitHandler {
         KNIGHT = registerKit(KnightKit())
         ZEUS = registerKit(ZeusKit())
         TANK = registerKit(TankKit())
-        PROVOKER = registerKit(ProvokerKit())
+        PROVOKER = registerKit(SpaceSoldierKit())
         ARCHER = registerKit(ArcherKit())
         ARTILLERYMAN = registerKit(ArtilleryManKit())
         ASSASSIN = registerKit(AssassinKit())

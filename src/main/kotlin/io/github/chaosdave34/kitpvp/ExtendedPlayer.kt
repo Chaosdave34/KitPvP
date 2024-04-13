@@ -485,6 +485,8 @@ class ExtendedPlayer(val uuid: UUID) {
     fun killedPlayer(victim: Player) {
         val player = getPlayer() ?: return
 
+        if (victim == getPlayer()) return
+
         incrementsKillStreak()
         incrementTotalKills()
 

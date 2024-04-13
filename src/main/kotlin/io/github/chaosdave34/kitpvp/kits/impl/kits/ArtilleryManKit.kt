@@ -13,30 +13,30 @@ import org.bukkit.inventory.meta.FireworkMeta
 class ArtilleryManKit : Kit("artillery_man", "Artillery Man" ) {
 
     override fun getHeadContent(): ItemStack {
-        val leatherHelmet = ItemStack(Material.LEATHER_HELMET)
-        leatherHelmet.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2)
-        leatherHelmet.addUnsafeEnchantment(Enchantment.PROTECTION_EXPLOSIONS, 4)
-        leatherHelmet.setLeatherArmorColor(Color.NAVY)
-        return leatherHelmet
+        val helmet = ItemStack(Material.LEATHER_HELMET)
+        helmet.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2)
+        helmet.addUnsafeEnchantment(Enchantment.PROTECTION_EXPLOSIONS, 4)
+        helmet.setLeatherArmorColor(Color.NAVY)
+        return helmet
     }
 
     override fun getChestContent(): ItemStack = CustomItemHandler.JETPACK.build()
 
     override fun getLegsContent(): ItemStack {
-        val leatherLeggings = ItemStack(Material.LEATHER_LEGGINGS)
-        leatherLeggings.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2)
-        leatherLeggings.addUnsafeEnchantment(Enchantment.PROTECTION_EXPLOSIONS, 4)
-        leatherLeggings.setLeatherArmorColor(Color.NAVY)
-        return leatherLeggings
+        val leggings = ItemStack(Material.LEATHER_LEGGINGS)
+        leggings.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2)
+        leggings.addUnsafeEnchantment(Enchantment.PROTECTION_EXPLOSIONS, 4)
+        leggings.setLeatherArmorColor(Color.NAVY)
+        return leggings
     }
 
     override fun getFeetContent(): ItemStack {
-        val leatherBoots = ItemStack(Material.LEATHER_BOOTS)
-        leatherBoots.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2)
-        leatherBoots.addUnsafeEnchantment(Enchantment.PROTECTION_EXPLOSIONS, 4)
-        leatherBoots.addEnchantment(Enchantment.PROTECTION_FALL, 4)
-        leatherBoots.setLeatherArmorColor(Color.NAVY)
-        return leatherBoots
+        val boots = ItemStack(Material.LEATHER_BOOTS)
+        boots.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2)
+        boots.addUnsafeEnchantment(Enchantment.PROTECTION_EXPLOSIONS, 4)
+        boots.addEnchantment(Enchantment.PROTECTION_FALL, 4)
+        boots.setLeatherArmorColor(Color.NAVY)
+        return boots
     }
 
     override fun getOffhandContent(): ItemStack {
@@ -61,11 +61,11 @@ class ArtilleryManKit : Kit("artillery_man", "Artillery Man" ) {
     }
 
     @EventHandler
-    fun onRocketLaunch(e: PlayerInteractEvent) {
-        val player = e.player
+    fun onRocketLaunch(event: PlayerInteractEvent) {
+        val player = event.player
         if (player.isKitActive()) {
-            if (e.material == Material.FIREWORK_ROCKET) {
-                e.isCancelled = true
+            if (event.material == Material.FIREWORK_ROCKET) {
+                event.isCancelled = true
             }
         }
     }

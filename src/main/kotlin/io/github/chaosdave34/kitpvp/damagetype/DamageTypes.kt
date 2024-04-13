@@ -20,6 +20,9 @@ class DamageTypes {
 
         @JvmStatic
         lateinit var ESCAPE: DamageType
+
+        @JvmStatic
+        lateinit var BLACK_HOLE: DamageType
     }
 
     init {
@@ -27,6 +30,7 @@ class DamageTypes {
 
         LAND = registerDamageType(NmsDamageType("land", DamageScaling.NEVER, 0f, DamageEffects.HURT), "land")
         ESCAPE = registerDamageType(NmsDamageType("escape", DamageScaling.NEVER, 0f, DamageEffects.HURT), "escape")
+        BLACK_HOLE = registerDamageType(NmsDamageType("black_hole", DamageScaling.NEVER, 0f, DamageEffects.HURT), "black_hole")
     }
 
     private fun registerDamageType(damageType: NmsDamageType, id: String): DamageType {

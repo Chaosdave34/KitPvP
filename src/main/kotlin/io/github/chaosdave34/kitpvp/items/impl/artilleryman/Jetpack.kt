@@ -1,6 +1,6 @@
 package io.github.chaosdave34.kitpvp.items.impl.artilleryman
 
-import io.github.chaosdave34.kitpvp.ExtendedPlayer.Companion.from
+import io.github.chaosdave34.kitpvp.ExtendedPlayer
 import io.github.chaosdave34.kitpvp.KitPvp
 import io.github.chaosdave34.kitpvp.events.PlayerSpawnEvent
 import io.github.chaosdave34.kitpvp.items.CustomItem
@@ -37,7 +37,7 @@ class Jetpack : CustomItem(Material.LEATHER_CHESTPLATE, "jetpack") {
     @EventHandler
     fun onSneak(event: PlayerToggleSneakEvent) {
         val player = event.player
-        val extendedPlayer = from(player)
+        val extendedPlayer = ExtendedPlayer.from(player)
 
         if (extendedPlayer.inGame()) {
             val jetpack = player.inventory.chestplate ?: return
@@ -65,7 +65,7 @@ class Jetpack : CustomItem(Material.LEATHER_CHESTPLATE, "jetpack") {
     @EventHandler
     fun onMove(event: PlayerMoveEvent) {
         val player = event.player
-        val extendedPlayer = from(player)
+        val extendedPlayer = ExtendedPlayer.from(player)
 
         if (extendedPlayer.inGame()) {
             val jetpack = player.inventory.chestplate ?: return

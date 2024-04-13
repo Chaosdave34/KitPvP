@@ -12,35 +12,35 @@ import org.bukkit.inventory.ItemStack
 class DevilKit : Kit("devil", "Devil") {
     override fun getHeadContent(): ItemStack {
 
-        val leatherHelmet = ItemStack(Material.LEATHER_HELMET)
-        leatherHelmet.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2)
-        leatherHelmet.addUnsafeEnchantment(Enchantment.PROTECTION_FIRE, 4)
-        leatherHelmet.setLeatherArmorColor(Color.RED)
-        return leatherHelmet
+        val helmet = ItemStack(Material.LEATHER_HELMET)
+        helmet.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2)
+        helmet.addUnsafeEnchantment(Enchantment.PROTECTION_FIRE, 4)
+        helmet.setLeatherArmorColor(Color.RED)
+        return helmet
     }
 
     override fun getChestContent(): ItemStack {
-        val leatherChestplate = ItemStack(Material.LEATHER_CHESTPLATE)
-        leatherChestplate.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2)
-        leatherChestplate.addUnsafeEnchantment(Enchantment.PROTECTION_FIRE, 4)
-        leatherChestplate.setLeatherArmorColor(Color.RED)
-        return leatherChestplate
+        val chestplate = ItemStack(Material.LEATHER_CHESTPLATE)
+        chestplate.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2)
+        chestplate.addUnsafeEnchantment(Enchantment.PROTECTION_FIRE, 4)
+        chestplate.setLeatherArmorColor(Color.RED)
+        return chestplate
     }
 
     override fun getLegsContent(): ItemStack {
-        val leatherLeggings = ItemStack(Material.LEATHER_LEGGINGS)
-        leatherLeggings.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2)
-        leatherLeggings.addUnsafeEnchantment(Enchantment.PROTECTION_FIRE, 4)
-        leatherLeggings.setLeatherArmorColor(Color.RED)
-        return leatherLeggings
+        val leggings = ItemStack(Material.LEATHER_LEGGINGS)
+        leggings.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2)
+        leggings.addUnsafeEnchantment(Enchantment.PROTECTION_FIRE, 4)
+        leggings.setLeatherArmorColor(Color.RED)
+        return leggings
     }
 
     override fun getFeetContent(): ItemStack {
-        val leatherBoots = ItemStack(Material.LEATHER_BOOTS)
-        leatherBoots.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2)
-        leatherBoots.addUnsafeEnchantment(Enchantment.PROTECTION_FIRE, 4)
-        leatherBoots.setLeatherArmorColor(Color.RED)
-        return leatherBoots
+        val boots = ItemStack(Material.LEATHER_BOOTS)
+        boots.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2)
+        boots.addUnsafeEnchantment(Enchantment.PROTECTION_FIRE, 4)
+        boots.setLeatherArmorColor(Color.RED)
+        return boots
     }
     override fun getInventoryContent(): Array<ItemStack?> {
         val bow = ItemStack(Material.BOW)

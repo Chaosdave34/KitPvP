@@ -2,7 +2,7 @@ package io.github.chaosdave34.kitpvp.abilities
 
 import io.github.chaosdave34.ghutils.Utils
 import io.github.chaosdave34.ghutils.persistentdatatypes.StringArrayPersistentDataType
-import io.github.chaosdave34.kitpvp.ExtendedPlayer.Companion.from
+import io.github.chaosdave34.kitpvp.ExtendedPlayer
 import io.github.chaosdave34.kitpvp.KitPvp
 import io.github.chaosdave34.kitpvp.abilities.impl.archer.LeapAbility
 import io.github.chaosdave34.kitpvp.abilities.impl.artilleryman.EnhanceAbility
@@ -20,10 +20,11 @@ import io.github.chaosdave34.kitpvp.abilities.impl.magician.LevitateAbility
 import io.github.chaosdave34.kitpvp.abilities.impl.magician.ShuffleAbility
 import io.github.chaosdave34.kitpvp.abilities.impl.poseidon.StormAbility
 import io.github.chaosdave34.kitpvp.abilities.impl.poseidon.WaterBurstAbility
-import io.github.chaosdave34.kitpvp.abilities.impl.provoker.NukeAbility
-import io.github.chaosdave34.kitpvp.abilities.impl.provoker.SpookAbility
-import io.github.chaosdave34.kitpvp.abilities.impl.tank.TornadoAbility
+import io.github.chaosdave34.kitpvp.abilities.impl.spacesoldier.AirstrikeAbility
+import io.github.chaosdave34.kitpvp.abilities.impl.spacesoldier.BlackHoleAbility
+import io.github.chaosdave34.kitpvp.abilities.impl.spacesoldier.DarknessAbility
 import io.github.chaosdave34.kitpvp.abilities.impl.tank.GroundSlamAbility
+import io.github.chaosdave34.kitpvp.abilities.impl.tank.TornadoAbility
 import io.github.chaosdave34.kitpvp.abilities.impl.vampire.BatMorhpAbility
 import io.github.chaosdave34.kitpvp.abilities.impl.zeus.LightningAbility
 import io.github.chaosdave34.kitpvp.abilities.impl.zeus.RageAbility
@@ -61,10 +62,10 @@ class AbilityHandler : Listener {
         lateinit var BAT_MORPH: Ability
 
         @JvmStatic
-        lateinit var NUKE: Ability
+        lateinit var AIRSTRIKE: Ability
 
         @JvmStatic
-        lateinit var SPOOK: Ability
+        lateinit var DARKNESS: Ability
 
         @JvmStatic
         lateinit var EXPLODE: Ability
@@ -110,6 +111,9 @@ class AbilityHandler : Listener {
 
         @JvmStatic
         lateinit var WATER_BURST: Ability
+
+        @JvmStatic
+        lateinit var BLACK_HOLE: Ability
     }
 
     init {
@@ -120,8 +124,8 @@ class AbilityHandler : Listener {
         LEVITATE = registerAbility(LevitateAbility())
         SHUFFLE = registerAbility(ShuffleAbility())
         BAT_MORPH = registerAbility(BatMorhpAbility())
-        NUKE = registerAbility(NukeAbility())
-        SPOOK = registerAbility(SpookAbility())
+        AIRSTRIKE = registerAbility(AirstrikeAbility())
+        DARKNESS = registerAbility(DarknessAbility())
         EXPLODE = registerAbility(ExplodeAbility())
         ENDER_ATTACK = registerAbility(EnderAttackAbility())
         STORM = registerAbility(StormAbility())
@@ -137,6 +141,7 @@ class AbilityHandler : Listener {
         OVERLOAD = registerAbility(OverloadAbility())
         CHARGE = registerAbility(ChargeAbility())
         WATER_BURST = registerAbility(WaterBurstAbility())
+        BLACK_HOLE = registerAbility(BlackHoleAbility())
     }
 
     private fun registerAbility(ability: Ability): Ability {
@@ -167,7 +172,7 @@ class AbilityHandler : Listener {
         val player = event.player
         val item = event.item ?: return
 
-        if (from(player).inSpawn()) return
+        if (ExtendedPlayer.from(player).inSpawn()) return
 
         val container = item.itemMeta.persistentDataContainer
         val key = NamespacedKey(KitPvp.INSTANCE, "abilities")
@@ -184,18 +189,22 @@ class AbilityHandler : Listener {
                             ability.handleAbility(player)
                         }
                     }
+
                     Ability.Type.LEFT_CLICK -> {
                         if (event.action.isLeftClick) {
                             if (abilityTypes.contains(Ability.Type.SNEAK_LEFT_CLICK) && player.isSneaking) return
                             ability.handleAbility(player)
                         }
                     }
+
                     Ability.Type.SNEAK_RIGHT_CLICK -> {
                         if (event.action.isRightClick && player.isSneaking) ability.handleAbility(player)
                     }
+
                     Ability.Type.SNEAK_LEFT_CLICK -> {
                         if (event.action.isLeftClick && player.isSneaking) ability.handleAbility(player)
                     }
+
                     else -> continue
                 }
             }
@@ -206,7 +215,7 @@ class AbilityHandler : Listener {
     fun onSneak(event: PlayerToggleSneakEvent) {
         val player = event.player
         if (!event.isSneaking) return
-        if (from(player).inSpawn()) return
+        if (ExtendedPlayer.from(player).inSpawn()) return
 
         for (armorContent in player.inventory.armorContents) {
             if (armorContent == null) continue

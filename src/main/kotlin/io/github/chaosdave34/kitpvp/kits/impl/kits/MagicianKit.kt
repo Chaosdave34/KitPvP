@@ -16,31 +16,31 @@ import org.bukkit.potion.PotionType
 class MagicianKit : Kit("magician", "Magician") {
 
     override fun getHeadContent(): ItemStack {
-        val leatherHelmet = ItemStack(Material.LEATHER_HELMET)
-        leatherHelmet.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2)
-        leatherHelmet.setLeatherArmorColor(Color.RED)
-        return leatherHelmet
+        val helmet = ItemStack(Material.LEATHER_HELMET)
+        helmet.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2)
+        helmet.setLeatherArmorColor(Color.RED)
+        return helmet
     }
 
     override fun getChestContent(): ItemStack {
-        val leatherChestplate = ItemStack(Material.LEATHER_CHESTPLATE)
-        leatherChestplate.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2)
-        leatherChestplate.setLeatherArmorColor(Color.NAVY)
-        return leatherChestplate
+        val chestplate = ItemStack(Material.LEATHER_CHESTPLATE)
+        chestplate.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2)
+        chestplate.setLeatherArmorColor(Color.NAVY)
+        return chestplate
     }
 
     override fun getLegsContent(): ItemStack {
-        val leatherLeggings = ItemStack(Material.LEATHER_LEGGINGS)
-        leatherLeggings.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2)
-        leatherLeggings.setLeatherArmorColor(Color.NAVY)
-        return leatherLeggings
+        val leggings = ItemStack(Material.LEATHER_LEGGINGS)
+        leggings.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2)
+        leggings.setLeatherArmorColor(Color.NAVY)
+        return leggings
     }
 
     override fun getFeetContent(): ItemStack {
-        val leatherBoots = ItemStack(Material.LEATHER_BOOTS)
-        leatherBoots.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2)
-        leatherBoots.setLeatherArmorColor(Color.BLACK)
-        return leatherBoots
+        val boots = ItemStack(Material.LEATHER_BOOTS)
+        boots.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2)
+        boots.setLeatherArmorColor(Color.BLACK)
+        return boots
     }
 
     override fun getInventoryContent(): Array<ItemStack?> {

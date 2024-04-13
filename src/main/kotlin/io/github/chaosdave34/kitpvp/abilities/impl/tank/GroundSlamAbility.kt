@@ -3,7 +3,6 @@ package io.github.chaosdave34.kitpvp.abilities.impl.tank
 import io.github.chaosdave34.kitpvp.KitPvp
 import io.github.chaosdave34.kitpvp.abilities.Ability
 import net.kyori.adventure.text.Component
-import org.bukkit.Location
 import org.bukkit.Sound
 import org.bukkit.entity.*
 import org.bukkit.event.entity.CreatureSpawnEvent
@@ -87,7 +86,7 @@ class GroundSlamAbility : Ability("ground_slam", "Ground Slam", Type.SNEAK, 10) 
                 }
                 i++
             }
-        }.runTaskTimer(KitPvp.INSTANCE, (height * 5.0.pow(1 / height)).toLong(), 1);
+        }.runTaskTimer(KitPvp.INSTANCE, (height * 5.0.pow(1 / height)).toLong(), 1)
 
         return true
     }
