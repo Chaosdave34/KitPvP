@@ -7,6 +7,8 @@ import net.kyori.adventure.text.Component
 import org.bukkit.Color
 import org.bukkit.Particle
 import org.bukkit.Particle.DustOptions
+import org.bukkit.Sound
+import org.bukkit.SoundCategory
 import org.bukkit.damage.DamageSource
 import org.bukkit.entity.LivingEntity
 import org.bukkit.entity.Player
@@ -16,7 +18,7 @@ import org.bukkit.event.entity.ProjectileHitEvent
 import org.bukkit.metadata.FixedMetadataValue
 import org.bukkit.scheduler.BukkitRunnable
 
-class BlackHoleAbility : Ability("black_hole", "Black Hole", Type.RIGHT_CLICK, 2) {
+class BlackHoleAbility : Ability("black_hole", "Black Hole", Type.RIGHT_CLICK, 25) {
     private val snowballMetadata = FixedMetadataValue(KitPvp.INSTANCE, id)
 
     override fun getDescription(): List<Component> = createSimpleDescription("Spawn a black hole.")
@@ -34,7 +36,8 @@ class BlackHoleAbility : Ability("black_hole", "Black Hole", Type.RIGHT_CLICK, 2
             val location = event.hitBlock?.location?.add(0.0, 1.0, 0.0) ?: event.hitEntity?.location ?: return
             location.add(0.0, 1.0, 0.0)
 
-            location.world.spawnParticle(Particle.EXPLOSION_NORMAL, location, 1)
+            location.world.spawnParticle(Particle.EXPLOSION_HUGE, location, 1)
+            location.world.playSound(location, Sound.ENTITY_GENERIC_EXPLODE, SoundCategory.HOSTILE, 1f, 1f)
 
             object : BukkitRunnable() {
                 var i = 0
@@ -53,7 +56,8 @@ class BlackHoleAbility : Ability("black_hole", "Black Hole", Type.RIGHT_CLICK, 2
 
                                 val shooter = snowball.shooter
                                 if (distanceSquared <= 2 && shooter is LivingEntity) {
-                                    val damageSource = DamageSource.builder(DamageTypes.BLACK_HOLE).withDirectEntity(shooter).withCausingEntity(shooter).withDamageLocation(location).build()
+                                    val damageSource = DamageSource.builder(DamageTypes.BLACK_HOLE).withDirectEntity(shooter).withCausingEntity(shooter)
+                                        .withDamageLocation(location).build()
                                     entity.damage(4.0, damageSource)
                                 }
 
