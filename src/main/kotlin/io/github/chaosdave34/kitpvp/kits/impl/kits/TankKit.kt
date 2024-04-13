@@ -17,8 +17,6 @@ class TankKit : Kit("tank", "Tank") {
 
     override fun getFeetContent(): ItemStack = CustomItemHandler.TANK_BOOTS.build()
 
-    override fun getOffhandContent(): ItemStack = ItemStack(Material.SHIELD)
-
     override fun getInventoryContent(): Array<ItemStack?> {
         return arrayOf(
             CustomItemHandler.TANK_AXE.build(),

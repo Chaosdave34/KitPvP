@@ -32,7 +32,7 @@ import java.util.*
 class ModularShieldAbility : Ability("modular_shield", "Modular Shield", Type.RIGHT_CLICK, 20) {
     private var activeShield: MutableMap<UUID, Creeper> = mutableMapOf()
 
-    override fun getDescription(): List<Component> = createSimpleDescription("Activate your shield for 6s.")
+    override fun getDescription(): List<Component> = createSimpleDescription("Activate your shield for 6s reducing damage by 60%.")
 
     override fun onAbility(player: Player): Boolean {
         val creeper = Creeper(EntityType.CREEPER, (player as CraftPlayer).handle.level())
@@ -100,7 +100,7 @@ class ModularShieldAbility : Ability("modular_shield", "Modular Shield", Type.RI
             if (event.isCancelled) return
 
             if (activeShield.contains(player.uniqueId)) {
-                event.damage *= 0.6
+                event.damage *= 0.4
 
                 if (event is EntityDamageByEntityEvent && event.isCritical)
                     player.world.playSound(player, org.bukkit.Sound.BLOCK_END_PORTAL_FRAME_FILL, SoundCategory.PLAYERS, 1f, 0.5f)

@@ -185,14 +185,14 @@ class AbilityHandler : Listener {
                 when (ability.type) {
                     Ability.Type.RIGHT_CLICK -> {
                         if (event.action.isRightClick) {
-                            if (abilityTypes.contains(Ability.Type.SNEAK_RIGHT_CLICK) && player.isSneaking) return
+                            if (abilityTypes.contains(Ability.Type.SNEAK_RIGHT_CLICK) && player.isSneaking) continue
                             ability.handleAbility(player)
                         }
                     }
 
                     Ability.Type.LEFT_CLICK -> {
                         if (event.action.isLeftClick) {
-                            if (abilityTypes.contains(Ability.Type.SNEAK_LEFT_CLICK) && player.isSneaking) return
+                            if (abilityTypes.contains(Ability.Type.SNEAK_LEFT_CLICK) && player.isSneaking) continue
                             ability.handleAbility(player)
                         }
                     }

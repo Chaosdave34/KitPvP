@@ -12,8 +12,11 @@ class ShuffleAbility : Ability("shuffle", "Shuffle", Type.SNEAK_RIGHT_CLICK, 10)
         val target = player.getTargetEntity(8)
         if (target is HumanEntity && target.checkTargetIfPlayer()) {
             val inventory = target.inventory
-            val shuffledContent = mutableListOf(*inventory.contents)
+            val content = mutableListOf(*inventory.contents)
+            val shuffledContent = content.subList(0, 36)
+            val rest = content.subList(36, content.size)
             shuffledContent.shuffle()
+            shuffledContent.addAll(rest)
             inventory.contents = shuffledContent.toTypedArray()
             return true
         }

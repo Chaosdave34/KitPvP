@@ -61,7 +61,7 @@ class BlackHoleAbility : Ability("black_hole", "Black Hole", Type.RIGHT_CLICK, 2
                                     entity.damage(4.0, damageSource)
                                 }
 
-                                val multiplier = 0.175 * (1 - distanceSquared / (5 * 5))
+                                val multiplier = 0.09 * (1 - distanceSquared / (5 * 5))
 
                                 direction.multiply(multiplier)
 
@@ -69,13 +69,12 @@ class BlackHoleAbility : Ability("black_hole", "Black Hole", Type.RIGHT_CLICK, 2
                                 currentVelocity.z = direction.z
 
                                 entity.velocity = currentVelocity
-
-                                if (i == 15 * 20) cancel()
-
-                                i++
                             }
                         }
                     }
+                    if (i == 15 * 20) cancel()
+
+                    i++
                 }
             }.runTaskTimer(KitPvp.INSTANCE, 10, 1)
         }

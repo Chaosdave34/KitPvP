@@ -467,7 +467,7 @@ class ExtendedPlayer(val uuid: UUID) {
         val message: Component = if (bounty == 0) {
             Component.text("A bounty of " + amount + " coins has been placed on " + getPlayer()?.name + ".")
         } else {
-            Component.text("The bounty on " + getPlayer()?.name + " has been increased by " + (bounty + amount) + " coins to a total of " + bounty + " coins.")
+            Component.text("The bounty on " + getPlayer()?.name + " has been increased by " + amount + " coins to a total of " + (bounty + amount) + " coins.")
         }
 
         bounty += amount
