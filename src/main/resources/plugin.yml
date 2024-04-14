@@ -22,7 +22,7 @@ commands:
     usage: /<discord>
   loop:
     description: Loop command
-    usage: /<command> <amount> <period> <command>
+    usage: /<command> <amount> <period> <cmd>
     permission: kitpvp.loop
   customitem:
     description: Give yourself a custom item

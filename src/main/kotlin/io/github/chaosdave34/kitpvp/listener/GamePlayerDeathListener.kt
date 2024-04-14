@@ -96,9 +96,10 @@ class GamePlayerDeathListener : Listener {
                     message = "$name was killed by ${damager.name}'s black hole"
 
             } else if (damageType == DamageType.FALL) {
-                val cause = damageSource.causingEntity
-                if (cause is Player) {
-                    val extendedCause = ExtendedPlayer.from(cause)
+                Bukkit.getLogger().info("fall")
+                val killer = player.killer
+                if (killer is Player) {
+                    val extendedCause = ExtendedPlayer.from(killer)
                     extendedCause.killedPlayer(player)
                 }
             } else if (damageType === DamageTypes.LAND)

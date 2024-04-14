@@ -16,7 +16,7 @@ class TornadoAbility : Ability("tornado", "Tornado", Type.RIGHT_CLICK, 15) {
         object : AbilityRunnable(player) {
             override fun runInGame() {
                 player.getNearbyEntities(4.0, 4.0, 4.0).forEach { entity ->
-                    val pullInVelocity = entity.location.subtract(player.location).toVector().normalize().multiply(-1)
+                    val pullInVelocity = entity.location.toVector().subtract(player.location.toVector()).normalize().multiply(-1.0)
 
                     entity.velocity = pullInVelocity
                 }
