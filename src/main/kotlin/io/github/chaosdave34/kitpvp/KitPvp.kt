@@ -50,7 +50,6 @@ class KitPvp : JavaPlugin() {
     lateinit var challengesHandler: ChallengesHandler
 
     private lateinit var damageTypes: DamageTypes
-    private lateinit var gameListener: GameListener
 
     companion object {
         @JvmStatic
@@ -72,8 +71,6 @@ class KitPvp : JavaPlugin() {
 
         damageTypes = DamageTypes()
 
-        gameListener = GameListener()
-
         TextDisplays.create()
         FakePlayers.create()
 
@@ -92,7 +89,7 @@ class KitPvp : JavaPlugin() {
 
         pluginManager.registerEvents(UtilityListener(), this)
         pluginManager.registerEvents(SpawnListener(), this)
-        pluginManager.registerEvents(gameListener, this)
+        pluginManager.registerEvents(GameListener(), this)
         pluginManager.registerEvents(GamePlayerDeathListener(), this)
         pluginManager.registerEvents(abilityHandler, this)
         pluginManager.registerEvents(companionHandler, this)
@@ -214,7 +211,7 @@ class KitPvp : JavaPlugin() {
             JsonUtils.writeObjectToFile(File(dataFolder, "player_data/$uuid.json"), extendedPlayer)
         }
 
-        val iterator: MutableIterator<Map.Entry<Location, Pair<Long, BlockData>>> = gameListener.blocksToRemove.entries.iterator()
+        val iterator: MutableIterator<Map.Entry<Location, Pair<Long, BlockData>>> = GameListener.blocksToRemove.entries.iterator()
 
         while (iterator.hasNext()) {
             val entry = iterator.next()

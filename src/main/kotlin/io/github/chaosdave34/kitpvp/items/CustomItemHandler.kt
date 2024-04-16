@@ -33,82 +33,32 @@ class CustomItemHandler {
     val customItems: MutableMap<String, CustomItem> = mutableMapOf()
 
     companion object {
-        @JvmStatic
         lateinit var FIREBALL: CustomItem
-
-        @JvmStatic
         lateinit var LIGHTNING_WAND: CustomItem
-
-        @JvmStatic
         lateinit var MAGIC_WAND: CustomItem
-
-        @JvmStatic
         lateinit var VAMPIRE_SWORD: CustomItem
-
-        @JvmStatic
         lateinit var AIRSTRIKE_REQUESTER: CustomItem
-
-        @JvmStatic
         lateinit var SPACE_SWORD: CustomItem
-
-        @JvmStatic
         lateinit var CREEPER_LEGGINGS: CustomItem
-
-        @JvmStatic
         lateinit var ENDER_SWORD: CustomItem
-
-        @JvmStatic
         lateinit var POSEIDONS_TRIDENT: CustomItem
-
-        @JvmStatic
         lateinit var DEVILS_SWORD: CustomItem
-
-        @JvmStatic
         lateinit var TANK_BOOTS: CustomItem
-
-        @JvmStatic
         lateinit var TANK_AXE: CustomItem
-
-        @JvmStatic
         lateinit var JETPACK: CustomItem
-
-        @JvmStatic
         lateinit var ASSASSIN_SWORD: CustomItem
-
-        @JvmStatic
         lateinit var ROCKET_LAUNCHER: CustomItem
-
-        @JvmStatic
         lateinit var TURRET: CustomItem
-
-        @JvmStatic
         lateinit var LEAP: CustomItem
-
-        @JvmStatic
         lateinit var DRAGONS_CHARGE: CustomItem
-
-        @JvmStatic
         lateinit var ZEUS_SWORD: CustomItem
-
-        @JvmStatic
         lateinit var LONG_BOW: CustomItem
-
-        @JvmStatic
         lateinit var MODULAR_SHIELD: CustomItem
-
-        @JvmStatic
         lateinit var ENGINEERS_SWORD: CustomItem
-
-        @JvmStatic
         lateinit var CREEPER_SWORD: CustomItem
-
-        @JvmStatic
         lateinit var WATER_BURST: CustomItem
-
-        @JvmStatic
         lateinit var BLACK_HOLE_GENERATOR: CustomItem
 
-        @JvmStatic
         fun getCustomItemId(itemStack: ItemStack): String = PDCUtils.getId(itemStack.itemMeta) ?: ""
     }
 

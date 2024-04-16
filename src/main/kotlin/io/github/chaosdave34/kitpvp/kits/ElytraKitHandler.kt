@@ -5,27 +5,17 @@ import io.github.chaosdave34.kitpvp.kits.impl.elytra.*
 
 class ElytraKitHandler {
     val kits: MutableMap<String, ElytraKit> = mutableMapOf()
-    
+
     companion object {
-        @JvmStatic
         lateinit var KNIGHT: ElytraKit
-        @JvmStatic
         lateinit var SNIPER: ElytraKit
-        @JvmStatic
         lateinit var PYRO: ElytraKit
-        @JvmStatic
         lateinit var TANK: ElytraKit
-        @JvmStatic
         lateinit var KNOCKER: ElytraKit
-        @JvmStatic
         lateinit var ROCKET_LAUNCHER: ElytraKit
-        @JvmStatic
         lateinit var POSEIDON: ElytraKit
-        @JvmStatic
         lateinit var TELEPORTER: ElytraKit
-        @JvmStatic
         lateinit var HEALER: ElytraKit
-        @JvmStatic
         lateinit var CHEMIST: ElytraKit
     }
 

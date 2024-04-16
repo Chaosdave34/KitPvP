@@ -7,46 +7,19 @@ class KitHandler {
     val kits: MutableMap<String, Kit> = mutableMapOf()
 
     companion object {
-        @JvmStatic
         lateinit var KNIGHT: Kit
-
-        @JvmStatic
         lateinit var ZEUS: Kit
-
-        @JvmStatic
         lateinit var TANK: Kit
-
-        @JvmStatic
         lateinit var PROVOKER: Kit
-
-        @JvmStatic
         lateinit var ARCHER: Kit
-
-        @JvmStatic
         lateinit var ARTILLERYMAN: Kit
-
-        @JvmStatic
         lateinit var ASSASSIN: Kit
-
-        @JvmStatic
         lateinit var ENGINEER: Kit
-
-        @JvmStatic
         lateinit var MAGICIAN: Kit
-
-        @JvmStatic
         lateinit var VAMPIRE: Kit
-
-        @JvmStatic
         lateinit var CREEPER: Kit
-
-        @JvmStatic
         lateinit var ENDERMAN: Kit
-
-        @JvmStatic
         lateinit var POSEIDON: Kit
-
-        @JvmStatic
         lateinit var DEVIL: Kit
     }
 

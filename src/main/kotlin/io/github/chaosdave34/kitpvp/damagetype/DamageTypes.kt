@@ -15,13 +15,8 @@ class DamageTypes {
     private var registry : Registry<NmsDamageType> = CraftRegistry.getMinecraftRegistry(Registries.DAMAGE_TYPE)
 
     companion object {
-        @JvmStatic
         lateinit var LAND: DamageType
-
-        @JvmStatic
         lateinit var ESCAPE: DamageType
-
-        @JvmStatic
         lateinit var BLACK_HOLE: DamageType
     }
 

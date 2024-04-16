@@ -29,7 +29,6 @@ abstract class AbilityRunnable(val uuid: UUID) : BukkitRunnable() {
     abstract fun runInGame()
 
     companion object {
-        @JvmStatic
         fun runTaskLater(plugin: Plugin, task: Runnable, extendedPlayer: ExtendedPlayer, delay: Long): BukkitTask {
             return object : AbilityRunnable(extendedPlayer) {
                 override fun runInGame() {
@@ -38,7 +37,6 @@ abstract class AbilityRunnable(val uuid: UUID) : BukkitRunnable() {
             }.runTaskLater(plugin, delay)
         }
 
-        @JvmStatic
         fun runTaskLater(plugin: Plugin, task: Runnable, player: Player, delay: Long): BukkitTask {
             return runTaskLater(plugin, task, ExtendedPlayer.from(player), delay)
         }

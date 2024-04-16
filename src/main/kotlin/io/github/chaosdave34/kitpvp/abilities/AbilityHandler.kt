@@ -25,7 +25,7 @@ import io.github.chaosdave34.kitpvp.abilities.impl.spacesoldier.BlackHoleAbility
 import io.github.chaosdave34.kitpvp.abilities.impl.spacesoldier.DarknessAbility
 import io.github.chaosdave34.kitpvp.abilities.impl.tank.GroundSlamAbility
 import io.github.chaosdave34.kitpvp.abilities.impl.tank.TornadoAbility
-import io.github.chaosdave34.kitpvp.abilities.impl.vampire.BatMorhpAbility
+import io.github.chaosdave34.kitpvp.abilities.impl.vampire.BatMorphAbility
 import io.github.chaosdave34.kitpvp.abilities.impl.zeus.LightningAbility
 import io.github.chaosdave34.kitpvp.abilities.impl.zeus.RageAbility
 import io.github.chaosdave34.kitpvp.abilities.impl.zeus.ThunderstormAbility
@@ -40,79 +40,30 @@ class AbilityHandler : Listener {
     val abilities: MutableMap<String, Ability> = mutableMapOf()
 
     companion object {
-        @JvmStatic
         lateinit var FIREBALL: Ability
-
-        @JvmStatic
         lateinit var LIGHTNING: Ability
-
-        @JvmStatic
         lateinit var THUNDERSTORM: Ability
-
-        @JvmStatic
         lateinit var HAUNT: Ability
-
-        @JvmStatic
         lateinit var LEVITATE: Ability
-
-        @JvmStatic
         lateinit var SHUFFLE: Ability
-
-        @JvmStatic
         lateinit var BAT_MORPH: Ability
-
-        @JvmStatic
         lateinit var AIRSTRIKE: Ability
-
-        @JvmStatic
         lateinit var DARKNESS: Ability
-
-        @JvmStatic
         lateinit var EXPLODE: Ability
-
-        @JvmStatic
         lateinit var ENDER_ATTACK: Ability
-
-        @JvmStatic
         lateinit var STORM: Ability
-
-        @JvmStatic
         lateinit var GROUND_SLAM: Ability
-
-        @JvmStatic
         lateinit var TORNADO: Ability
-
-        @JvmStatic
         lateinit var ENHANCE: Ability
-
-        @JvmStatic
         lateinit var TURRET: Ability
-
-        @JvmStatic
         lateinit var LEAP: Ability
-
-        @JvmStatic
         lateinit var DRAGON_FIREBALL: Ability
-
-        @JvmStatic
         lateinit var FIRE_STORM: Ability
-
-        @JvmStatic
         lateinit var RAGE: Ability
-
-        @JvmStatic
         lateinit var MODULAR_SHIELD: Ability
-
-        @JvmStatic
         lateinit var OVERLOAD: Ability
-
-        @JvmStatic
         lateinit var CHARGE: Ability
-
-        @JvmStatic
         lateinit var WATER_BURST: Ability
-
-        @JvmStatic
         lateinit var BLACK_HOLE: Ability
     }
 
@@ -123,7 +74,7 @@ class AbilityHandler : Listener {
         HAUNT = registerAbility(HauntAbility())
         LEVITATE = registerAbility(LevitateAbility())
         SHUFFLE = registerAbility(ShuffleAbility())
-        BAT_MORPH = registerAbility(BatMorhpAbility())
+        BAT_MORPH = registerAbility(BatMorphAbility())
         AIRSTRIKE = registerAbility(AirstrikeAbility())
         DARKNESS = registerAbility(DarknessAbility())
         EXPLODE = registerAbility(ExplodeAbility())

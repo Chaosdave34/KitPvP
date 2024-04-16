@@ -23,7 +23,7 @@ import org.bukkit.entity.ThrowableProjectile
 import org.bukkit.event.entity.ProjectileLaunchEvent
 import java.util.*
 
-abstract class CustomItem @JvmOverloads constructor(val material: Material, val id: String, private val stackable: Boolean = true, private val preventPlacingAndUsing: Boolean = false) :
+abstract class CustomItem(val material: Material, val id: String, private val stackable: Boolean = true, private val preventPlacingAndUsing: Boolean = false) :
     Listener, ItemUtilities, Describable {
     abstract fun getName(): Component
 
@@ -31,7 +31,6 @@ abstract class CustomItem @JvmOverloads constructor(val material: Material, val 
 
     open fun getAbilities() = emptyList<Ability>()
 
-    @JvmOverloads
     fun build(count: Int = 1): ItemStack {
         val itemStack = ItemStack(material, count)
         val itemMeta = itemStack.itemMeta
