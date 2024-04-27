@@ -50,7 +50,5 @@ class VampireKit : Kit("vampire", "Vampire") {
         )
     }
 
-    override fun getPotionEffects(): Map<PotionEffectType, Int> {
-        return mapOf(Pair(PotionEffectType.NIGHT_VISION, 0))
-    }
+    override fun getPotionEffects(): Map<PotionEffectType, Int> = mapOf(Pair(PotionEffectType.NIGHT_VISION, 0))
 }

@@ -4,32 +4,37 @@ import io.github.chaosdave34.ghutils.persistentdatatypes.UUIDPersistentDataType
 import io.github.chaosdave34.ghutils.utils.PDCUtils
 import io.github.chaosdave34.kitpvp.KitPvp
 import io.github.chaosdave34.kitpvp.abilities.Ability
+import io.github.chaosdave34.kitpvp.enchantments.CustomEnchantment
+import io.github.chaosdave34.kitpvp.utils.Describable
+import io.github.chaosdave34.kitpvp.utils.ItemUtilities
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer
 import org.bukkit.Material
 import org.bukkit.NamespacedKey
+import org.bukkit.entity.ThrowableProjectile
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.block.Action
 import org.bukkit.event.block.BlockPlaceEvent
+import org.bukkit.event.entity.ProjectileLaunchEvent
 import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.inventory.ItemFlag
 import org.bukkit.inventory.ItemStack
-import io.github.chaosdave34.kitpvp.utils.Describable
-import io.github.chaosdave34.kitpvp.utils.ItemUtilities
-import org.bukkit.entity.ThrowableProjectile
-import org.bukkit.event.entity.ProjectileLaunchEvent
+import org.bukkit.persistence.PersistentDataType
 import java.util.*
 
 abstract class CustomItem(val material: Material, val id: String, private val stackable: Boolean = true, private val preventPlacingAndUsing: Boolean = false) :
     Listener, ItemUtilities, Describable {
+
     abstract fun getName(): Component
 
     open fun getDescription() = emptyList<Component>()
 
     open fun getAbilities() = emptyList<Ability>()
+
+    open fun getCustomEnchantments() = mapOf<CustomEnchantment, Int>()
 
     fun build(count: Int = 1): ItemStack {
         val itemStack = ItemStack(material, count)
@@ -40,10 +45,16 @@ abstract class CustomItem(val material: Material, val id: String, private val st
 
         PDCUtils.setId(itemMeta, id)
 
-        if (!stackable) {
-            val container = itemMeta.persistentDataContainer
+        val container = itemMeta.persistentDataContainer
+
+        if (!stackable)
             container.set(NamespacedKey(KitPvp.INSTANCE, "uuid"), UUIDPersistentDataType(), UUID.randomUUID())
+
+        val enchantmentContainer = container.adapterContext.newPersistentDataContainer()
+        getCustomEnchantments().forEach { (enchantment, level) ->
+            enchantmentContainer.set(NamespacedKey(KitPvp.INSTANCE, enchantment.id), PersistentDataType.INTEGER, level)
         }
+        container.set(NamespacedKey(KitPvp.INSTANCE, "enchantments"), PersistentDataType.TAG_CONTAINER, enchantmentContainer)
 
         itemStack.itemMeta = itemMeta
 
@@ -68,6 +79,10 @@ abstract class CustomItem(val material: Material, val id: String, private val st
         for ((enchantment, level) in itemStack.enchantments) {
             val component = enchantment.displayName(level).color(NamedTextColor.BLUE).decoration(TextDecoration.ITALIC, false)
             enchantmentLore.add(component)
+        }
+
+        for ((enchantment, level) in getCustomEnchantments()) {
+            enchantmentLore.add(enchantment.getFullname(level).decoration(TextDecoration.ITALIC, false))
         }
 
         enchantmentLore.sortWith(Comparator.comparing { PlainTextComponentSerializer.plainText().serialize(it).lowercase() })
@@ -112,7 +127,8 @@ abstract class CustomItem(val material: Material, val id: String, private val st
 
     @EventHandler
     fun onBlockPlace(event: BlockPlaceEvent) {
-        if (preventPlacingAndUsing && id == CustomItemHandler.getCustomItemId(event.itemInHand)) event.isCancelled = true
+        if (preventPlacingAndUsing && id == CustomItemHandler.getCustomItemId(event.itemInHand)) event.isCancelled =
+            true
     }
 
     @EventHandler
@@ -120,7 +136,8 @@ abstract class CustomItem(val material: Material, val id: String, private val st
         val item = event.item ?: return
 
         if (preventPlacingAndUsing && id == CustomItemHandler.getCustomItemId(item)) {
-            if (event.action == Action.LEFT_CLICK_BLOCK || event.action == Action.RIGHT_CLICK_BLOCK) event.isCancelled = true
+            if (event.action == Action.LEFT_CLICK_BLOCK || event.action == Action.RIGHT_CLICK_BLOCK) event.isCancelled =
+                true
         }
     }
 
@@ -132,9 +149,9 @@ abstract class CustomItem(val material: Material, val id: String, private val st
         }
     }
 
-    fun ItemStack.isThisCustomItem() = id == CustomItemHandler.getCustomItemId(this)
-
     protected fun createSimpleItemName(name: String): Component {
         return Component.text(name).decoration(TextDecoration.ITALIC, false)
     }
+
+    fun ItemStack.isThisCustomItem() = id == CustomItemHandler.getCustomItemId(this)
 }

@@ -1,7 +1,6 @@
 package io.github.chaosdave34.kitpvp.abilities
 
 import io.github.chaosdave34.ghutils.Utils
-import io.github.chaosdave34.ghutils.persistentdatatypes.StringArrayPersistentDataType
 import io.github.chaosdave34.kitpvp.ExtendedPlayer
 import io.github.chaosdave34.kitpvp.KitPvp
 import io.github.chaosdave34.kitpvp.abilities.impl.archer.LeapAbility
@@ -35,6 +34,7 @@ import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.event.player.PlayerToggleSneakEvent
 import org.bukkit.inventory.ItemStack
+import org.bukkit.persistence.PersistentDataType
 
 class AbilityHandler : Listener {
     val abilities: MutableMap<String, Ability> = mutableMapOf()
@@ -106,7 +106,7 @@ class AbilityHandler : Listener {
         val key = NamespacedKey(KitPvp.INSTANCE, "abilities")
 
         if (container.has(key)) {
-            val abilities = container.get(key, StringArrayPersistentDataType()) ?: return emptyList()
+            val abilities = container.get(key, PersistentDataType.LIST.strings()) ?: return emptyList()
 
             val abilityList: MutableList<Ability> = ArrayList()
 
@@ -174,7 +174,7 @@ class AbilityHandler : Listener {
             val container = armorContent.itemMeta.persistentDataContainer
             val key = NamespacedKey(KitPvp.INSTANCE, "abilities")
             if (container.has(key)) {
-                val abilities = container.get(key, StringArrayPersistentDataType()) ?: return
+                val abilities = container.get(key, PersistentDataType.LIST.strings()) ?: return
                 for (id in abilities) {
                     if (this.abilities.containsKey(id)) {
                         val ability = this.abilities[id]

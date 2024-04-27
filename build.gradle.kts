@@ -1,4 +1,5 @@
 import xyz.jpenilla.resourcefactory.bukkit.BukkitPluginYaml
+import xyz.jpenilla.resourcefactory.bukkit.Permission
 
 plugins {
     `java-library`
@@ -108,4 +109,81 @@ bukkitPluginYaml {
     load = BukkitPluginYaml.PluginLoadOrder.STARTUP
     authors.addAll("Chaosdave34", "palul")
     apiVersion = "1.20"
+    commands {
+        register("spawn") {
+            description = "Teleports you back to the spawn"
+            usage = "/<command>"
+        }
+
+        register("msg") {
+            description = "Send a player a message"
+            usage = "/<command> <player> <message>"
+        }
+
+        register("bounty") {
+            description = "Place a bounty on a player"
+            usage = "/<command> <player> <bounty>"
+        }
+
+        register("discord") {
+            description = "Get discord link"
+            usage = "/<discord>"
+        }
+
+        register("loop") {
+            description = "Loop command"
+            usage = "/<command> <amount> <period> <cmd>"
+            permission = "kitpvp.loop"
+        }
+
+        register("customitem") {
+            description = "Give yourself a custom item"
+            usage = "/<command> <item_id> <amount>"
+            permission = "kitpvp.customitem"
+        }
+
+        register("gommemode") {
+            description = "Sets you into gomme mode"
+            usage = "/<command>"
+            permission = "kitpvp.gommemode"
+        }
+
+        register("addexperience") {
+            description = "Adds experience to the player"
+            usage = "/<command> <player> <amount>"
+            permission = "kitpvp.addexperience"
+        }
+
+        register("addcoins") {
+            description = "Adds coins to the player"
+            usage = "/<command> <player> <amount>"
+            permission = "kitpvp.addcoins"
+        }
+    }
+    permissions {
+        register("bukkit.command.version") {
+            default = Permission.Default.OP
+        }
+        register("bukkit.command.plugins") {
+            default = Permission.Default.OP
+        }
+        register("bukkit.command.help") {
+            default = Permission.Default.OP
+        }
+        register("minecraft.command.msg") {
+            default = Permission.Default.OP
+        }
+        register("minecraft.command.teammsg") {
+            default = Permission.Default.OP
+        }
+        register("minecraft.command.me") {
+            default = Permission.Default.OP
+        }
+        register("minecraft.command.trigger") {
+            default = Permission.Default.OP
+        }
+        register("minecraft.command.help") {
+            default = Permission.Default.OP
+        }
+    }
 }

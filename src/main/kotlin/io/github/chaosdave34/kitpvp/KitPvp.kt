@@ -12,6 +12,7 @@ import io.github.chaosdave34.kitpvp.companions.CompanionHandler
 import io.github.chaosdave34.kitpvp.cosmetics.CosmeticHandler
 import io.github.chaosdave34.kitpvp.customevents.CustomEventHandler
 import io.github.chaosdave34.kitpvp.damagetype.DamageTypes
+import io.github.chaosdave34.kitpvp.enchantments.EnchantmentHandler
 import io.github.chaosdave34.kitpvp.fakeplayer.FakePlayers
 import io.github.chaosdave34.kitpvp.items.CustomItemHandler
 import io.github.chaosdave34.kitpvp.kits.ElytraKitHandler
@@ -29,7 +30,7 @@ import org.bukkit.command.TabCompleter
 import org.bukkit.plugin.java.JavaPlugin
 import java.io.File
 import java.io.IOException
-import java.util.UUID
+import java.util.*
 
 @Getter
 class KitPvp : JavaPlugin() {
@@ -42,6 +43,7 @@ class KitPvp : JavaPlugin() {
     val highestLevels: MutableMap<UUID, Int> = mutableMapOf()
 
     lateinit var abilityHandler: AbilityHandler
+    lateinit var enchantmentHandler: EnchantmentHandler
     lateinit var customItemHandler: CustomItemHandler
     lateinit var kitHandler: KitHandler
     lateinit var elytraKitHandler: ElytraKitHandler
@@ -63,6 +65,7 @@ class KitPvp : JavaPlugin() {
         GHUtils.setPlugin(INSTANCE)
 
         abilityHandler = AbilityHandler()
+        enchantmentHandler = EnchantmentHandler()
         customItemHandler = CustomItemHandler()
         kitHandler = KitHandler()
         elytraKitHandler = ElytraKitHandler()

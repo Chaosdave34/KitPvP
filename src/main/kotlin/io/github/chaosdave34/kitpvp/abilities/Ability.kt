@@ -1,9 +1,9 @@
 package io.github.chaosdave34.kitpvp.abilities
 
-import io.github.chaosdave34.ghutils.persistentdatatypes.StringArrayPersistentDataType
 import io.github.chaosdave34.kitpvp.ExtendedPlayer
 import io.github.chaosdave34.kitpvp.KitPvp
 import io.github.chaosdave34.kitpvp.customevents.CustomEventHandler
+import io.github.chaosdave34.kitpvp.utils.Describable
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import org.bukkit.GameMode
@@ -12,8 +12,8 @@ import org.bukkit.entity.Entity
 import org.bukkit.entity.Player
 import org.bukkit.event.Listener
 import org.bukkit.inventory.ItemStack
+import org.bukkit.persistence.PersistentDataType
 import org.bukkit.scheduler.BukkitRunnable
-import io.github.chaosdave34.kitpvp.utils.Describable
 import java.util.*
 import kotlin.math.max
 
@@ -31,8 +31,9 @@ abstract class Ability(val id: String, val name: String, val type: Type, val coo
 
         val key = NamespacedKey(KitPvp.INSTANCE, "abilities")
 
-        val currentAbilities = container.get(key, StringArrayPersistentDataType())
-        container.set(key, StringArrayPersistentDataType(), currentAbilities?.plus(id) ?: arrayOf(id))
+        val currentAbilities = container.get(key, PersistentDataType.LIST.strings())?.toMutableList() ?: mutableListOf()
+        currentAbilities.add(id)
+        container.set(key, PersistentDataType.LIST.strings(), currentAbilities)
 
         itemStack.itemMeta = itemMeta
     }
