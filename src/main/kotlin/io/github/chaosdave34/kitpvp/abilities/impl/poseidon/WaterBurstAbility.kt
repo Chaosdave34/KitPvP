@@ -41,11 +41,11 @@ class WaterBurstAbility : Ability("water_burst", "Water Burst", Type.RIGHT_CLICK
                     if (counter < 5 * 20) {
                         if (counter % 5 == 0) {
                             val offset = counter / 50.0
-                            location.world.spawnParticle(Particle.WATER_SPLASH, location, (10 * offset).toInt(), offset, 0.0, offset, 0.0)
+                            location.world.spawnParticle(Particle.SPLASH, location, (10 * offset).toInt(), offset, 0.0, offset, 0.0)
                         }
                     } else if (counter < 6 * 20) {
                         for (i in 1..2)
-                            location.world.spawnParticle(Particle.WATER_SPLASH, location.add(0.0, 0.25, 0.0), 50, 2.0, 0.0, 2.0, 0.0)
+                            location.world.spawnParticle(Particle.SPLASH, location.add(0.0, 0.25, 0.0), 50, 2.0, 0.0, 2.0, 0.0)
 
                         if (counter == 5 * 20) {
                             location.getNearbyLivingEntities(3.5, 5.0, 3.5).forEach { livingEntity ->

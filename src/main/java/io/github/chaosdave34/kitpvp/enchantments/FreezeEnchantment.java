@@ -1,8 +1,8 @@
 package io.github.chaosdave34.kitpvp.enchantments;
 
 import io.github.chaosdave34.ghutils.enchantment.CustomEnchantment;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.item.enchantment.EnchantmentCategory;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -14,7 +14,7 @@ import org.bukkit.potion.PotionEffectType;
 
 public class FreezeEnchantment extends CustomEnchantment {
     public FreezeEnchantment() {
-        super("freeze", 3, "Freeze", EnchantmentCategory.WEAPON, EquipmentSlot.MAINHAND);
+        super("freeze", 3, "Freeze", ItemTags.WEAPON_ENCHANTABLE, EquipmentSlot.MAINHAND);
     }
 
     @EventHandler
@@ -25,7 +25,7 @@ public class FreezeEnchantment extends CustomEnchantment {
                 if (itemStack.containsEnchantment(CustomEnchantments.FREEZE)) {
                     int lvl = itemStack.getEnchantmentLevel(CustomEnchantments.FREEZE);
                     if (e.getEntity() instanceof LivingEntity entity) {
-                        entity.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, lvl * 20, 1, false, false));
+                        entity.addPotionEffect(new PotionEffect(PotionEffectType.SLOWNESS, lvl * 20, 1, false, false));
                     }
                 }
             }

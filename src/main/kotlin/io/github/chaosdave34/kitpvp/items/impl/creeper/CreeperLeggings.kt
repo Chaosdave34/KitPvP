@@ -16,8 +16,8 @@ class CreeperLeggings : CustomItem(Material.LEATHER_LEGGINGS, "creeper_leggings"
     override fun getAbilities(): List<Ability> = listOf(AbilityHandler.EXPLODE)
 
     override fun additionalModifications(itemStack: ItemStack) {
-        itemStack.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2)
-        itemStack.addUnsafeEnchantment(Enchantment.PROTECTION_EXPLOSIONS, 4)
+        itemStack.addEnchantment(Enchantment.PROTECTION, 2)
+        itemStack.addUnsafeEnchantment(Enchantment.BLAST_PROTECTION, 4)
 
         itemStack.setLeatherArmorColor(Color.LIME)
     }

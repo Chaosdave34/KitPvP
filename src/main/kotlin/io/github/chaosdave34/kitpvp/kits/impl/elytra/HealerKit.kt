@@ -9,8 +9,8 @@ class HealerKit : ElytraKit("elytra_healer", "Healer", Material.GOLDEN_APPLE) {
 
     override fun getInventoryContent(): Array<ItemStack?> {
         val bow = ItemStack(Material.BOW)
-        bow.addEnchantment(Enchantment.ARROW_INFINITE, 1)
-        bow.addEnchantment(Enchantment.ARROW_DAMAGE, 2)
+        bow.addEnchantment(Enchantment.INFINITY, 1)
+        bow.addEnchantment(Enchantment.POWER, 2)
 
         return arrayOf(
             bow,

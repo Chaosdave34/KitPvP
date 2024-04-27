@@ -10,25 +10,25 @@ class ZeusKit : Kit("zeus", "Zeus") {
 
     override fun getHeadContent(): ItemStack {
         val goldenHelmet = ItemStack(Material.GOLDEN_HELMET)
-        goldenHelmet.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2)
+        goldenHelmet.addEnchantment(Enchantment.PROTECTION, 2)
         return goldenHelmet
     }
 
     override fun getChestContent(): ItemStack {
         val goldenChestplate = ItemStack(Material.GOLDEN_CHESTPLATE)
-        goldenChestplate.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2)
+        goldenChestplate.addEnchantment(Enchantment.PROTECTION, 2)
         return goldenChestplate
     }
 
     override fun getLegsContent(): ItemStack {
         val goldenLeggings = ItemStack(Material.GOLDEN_LEGGINGS)
-        goldenLeggings.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2)
+        goldenLeggings.addEnchantment(Enchantment.PROTECTION, 2)
         return goldenLeggings
     }
 
     override fun getFeetContent(): ItemStack {
         val goldenBoots = ItemStack(Material.GOLDEN_BOOTS)
-        goldenBoots.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2)
+        goldenBoots.addEnchantment(Enchantment.PROTECTION, 2)
         return goldenBoots
     }
 

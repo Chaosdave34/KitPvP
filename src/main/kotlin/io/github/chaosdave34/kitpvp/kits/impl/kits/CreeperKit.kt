@@ -11,15 +11,15 @@ class CreeperKit : Kit("creeper", "Creeper") {
 
     override fun getHeadContent(): ItemStack {
         val creeperHead = ItemStack(Material.CREEPER_HEAD)
-        creeperHead.addUnsafeEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2)
-        creeperHead.addUnsafeEnchantment(Enchantment.PROTECTION_EXPLOSIONS, 4)
+        creeperHead.addUnsafeEnchantment(Enchantment.PROTECTION, 2)
+        creeperHead.addUnsafeEnchantment(Enchantment.BLAST_PROTECTION, 4)
         return creeperHead
     }
 
     override fun getChestContent(): ItemStack {
         val chestplate = ItemStack(Material.LEATHER_CHESTPLATE)
-        chestplate.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2)
-        chestplate.addUnsafeEnchantment(Enchantment.PROTECTION_EXPLOSIONS, 4)
+        chestplate.addEnchantment(Enchantment.PROTECTION, 2)
+        chestplate.addUnsafeEnchantment(Enchantment.BLAST_PROTECTION, 4)
         chestplate.setLeatherArmorColor(Color.LIME)
         return chestplate
     }
@@ -28,8 +28,8 @@ class CreeperKit : Kit("creeper", "Creeper") {
 
     override fun getFeetContent(): ItemStack {
         val boots = ItemStack(Material.LEATHER_BOOTS)
-        boots.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2)
-        boots.addUnsafeEnchantment(Enchantment.PROTECTION_EXPLOSIONS, 4)
+        boots.addEnchantment(Enchantment.PROTECTION, 2)
+        boots.addUnsafeEnchantment(Enchantment.BLAST_PROTECTION, 4)
         boots.setLeatherArmorColor(Color.LIME)
         return boots
     }

@@ -9,8 +9,8 @@ class TeleporterKit : ElytraKit("elytra_teleporter", "Teleporter", Material.ENDE
     override fun getInventoryContent(): Array<ItemStack?> {
 
         val bow = ItemStack(Material.BOW)
-        bow.addEnchantment(Enchantment.ARROW_INFINITE, 1)
-        bow.addEnchantment(Enchantment.ARROW_DAMAGE, 3)
+        bow.addEnchantment(Enchantment.INFINITY, 1)
+        bow.addEnchantment(Enchantment.POWER, 3)
 
         return arrayOf(
             bow,

@@ -17,7 +17,7 @@ class EnderAttackAbility : Ability("ender_attack", "Ender Attack", Type.RIGHT_CL
             player.teleport(target.getLocation().subtract(target.getLocation().direction))
 
             player.addPotionEffect(PotionEffect(PotionEffectType.SPEED, 5 * 20, 2))
-            player.addPotionEffect(PotionEffect(PotionEffectType.INCREASE_DAMAGE, 5 * 20, 0))
+            player.addPotionEffect(PotionEffect(PotionEffectType.STRENGTH, 5 * 20, 0))
 
             return true
         }

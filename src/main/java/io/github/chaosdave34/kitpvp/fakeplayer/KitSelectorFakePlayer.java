@@ -9,7 +9,7 @@ import net.kyori.adventure.text.format.NamedTextColor;
 import net.minecraft.world.entity.Mob;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.craftbukkit.v1_20_R3.util.CraftVector;
+import org.bukkit.craftbukkit.util.CraftVector;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.EquipmentSlot;
 import org.jetbrains.annotations.NotNull;
@@ -25,7 +25,7 @@ public class KitSelectorFakePlayer extends FakePlayer {
         equipment.put(EquipmentSlot.CHEST, kit.getChestContent());
         equipment.put(EquipmentSlot.LEGS, kit.getLegsContent());
         equipment.put(EquipmentSlot.FEET, kit.getFeetContent());
-        equipment.put(EquipmentSlot.HAND, kit.getInventoryContent()[0]);
+//        equipment.put(EquipmentSlot.HAND, kit.getInventoryContent()[0]);
         equipment.put(EquipmentSlot.OFF_HAND, kit.getOffhandContent());
     }
 

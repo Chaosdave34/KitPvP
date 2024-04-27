@@ -17,28 +17,28 @@ class MagicianKit : Kit("magician", "Magician") {
 
     override fun getHeadContent(): ItemStack {
         val helmet = ItemStack(Material.LEATHER_HELMET)
-        helmet.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2)
+        helmet.addEnchantment(Enchantment.PROTECTION, 2)
         helmet.setLeatherArmorColor(Color.RED)
         return helmet
     }
 
     override fun getChestContent(): ItemStack {
         val chestplate = ItemStack(Material.LEATHER_CHESTPLATE)
-        chestplate.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2)
+        chestplate.addEnchantment(Enchantment.PROTECTION, 2)
         chestplate.setLeatherArmorColor(Color.NAVY)
         return chestplate
     }
 
     override fun getLegsContent(): ItemStack {
         val leggings = ItemStack(Material.LEATHER_LEGGINGS)
-        leggings.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2)
+        leggings.addEnchantment(Enchantment.PROTECTION, 2)
         leggings.setLeatherArmorColor(Color.NAVY)
         return leggings
     }
 
     override fun getFeetContent(): ItemStack {
         val boots = ItemStack(Material.LEATHER_BOOTS)
-        boots.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2)
+        boots.addEnchantment(Enchantment.PROTECTION, 2)
         boots.setLeatherArmorColor(Color.BLACK)
         return boots
     }
@@ -53,7 +53,7 @@ class MagicianKit : Kit("magician", "Magician") {
 
     override fun getKillRewards(): Array<ItemStack> {
         val splashPotion = ItemStack(Material.SPLASH_POTION, 2)
-        splashPotion.editMeta(PotionMeta::class.java) { potionMeta: PotionMeta -> potionMeta.basePotionType = PotionType.INSTANT_HEAL }
+        splashPotion.editMeta(PotionMeta::class.java) { potionMeta: PotionMeta -> potionMeta.basePotionType = PotionType.HEALING }
 
         return arrayOf(
             splashPotion,

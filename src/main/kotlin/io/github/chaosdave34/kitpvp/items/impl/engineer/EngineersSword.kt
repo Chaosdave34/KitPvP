@@ -14,6 +14,6 @@ class EngineersSword : CustomItem(Material.STONE_SWORD, "engineers_sword") {
     override fun getAbilities(): List<Ability> = listOf(AbilityHandler.OVERLOAD)
 
     override fun additionalModifications(itemStack: ItemStack) {
-        itemStack.addEnchantment(Enchantment.DAMAGE_ALL, 2)
+        itemStack.addEnchantment(Enchantment.SHARPNESS, 2)
     }
 }

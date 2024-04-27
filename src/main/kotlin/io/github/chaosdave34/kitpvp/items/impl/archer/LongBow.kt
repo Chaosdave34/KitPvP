@@ -20,9 +20,9 @@ class LongBow : CustomItem(Material.BOW, "long_bow") {
     override fun getDescription(): List<Component> = createSimpleDescription("Increased damage but takes a while to recharge.")
 
     override fun additionalModifications(itemStack: ItemStack) {
-        itemStack.addEnchantment(Enchantment.ARROW_INFINITE, 1)
-        itemStack.addEnchantment(Enchantment.ARROW_DAMAGE, 5)
-        itemStack.addEnchantment(Enchantment.ARROW_KNOCKBACK, 2)
+        itemStack.addEnchantment(Enchantment.INFINITY, 1)
+        itemStack.addEnchantment(Enchantment.POWER, 5)
+        itemStack.addEnchantment(Enchantment.PUNCH, 2)
 
         itemStack.setCustomModelData(2)
     }

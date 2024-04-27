@@ -103,7 +103,7 @@ public class SupplyDropEvent extends CustomEvent {
     }
 
     private void spawnFlare(Location location) {
-        location.getWorld().spawnEntity(location.clone().add(0, 1, 0), EntityType.FIREWORK, CreatureSpawnEvent.SpawnReason.CUSTOM, entity -> {
+        location.getWorld().spawnEntity(location.clone().add(0, 1, 0), EntityType.FIREWORK_ROCKET, CreatureSpawnEvent.SpawnReason.CUSTOM, entity -> {
             Firework firework = ((Firework) entity);
 
             FireworkMeta fireworkMeta = firework.getFireworkMeta();

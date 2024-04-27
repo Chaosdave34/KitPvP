@@ -16,7 +16,7 @@ class RocketLauncher: CustomItem(Material.CROSSBOW, "rocket_launcher") {
     override fun additionalModifications(itemStack: ItemStack) {
         itemStack.addEnchantment(Enchantment.MULTISHOT, 1)
         itemStack.addEnchantment(Enchantment.QUICK_CHARGE, 1)
-        itemStack.addUnsafeEnchantment(Enchantment.ARROW_INFINITE, 1)
+        itemStack.addUnsafeEnchantment(Enchantment.INFINITY, 1)
 
         itemStack.setCustomModelData(1)
     }

@@ -2,6 +2,7 @@ package io.github.chaosdave34.kitpvp.kits
 
 import io.github.chaosdave34.kitpvp.ExtendedPlayer
 import io.github.chaosdave34.kitpvp.companions.Companion
+import io.github.chaosdave34.kitpvp.ultimates.Ultimate
 import org.bukkit.attribute.Attribute
 import org.bukkit.entity.Player
 import org.bukkit.event.Listener
@@ -31,6 +32,8 @@ abstract class Kit(val id: String, val name: String) : Listener, ItemUtilities {
     open fun getKillRewards(): Array<ItemStack> = arrayOf()
 
     open fun getPotionEffects(): Map<PotionEffectType, Int> = mapOf()
+
+    open fun getUltimate(): Ultimate? = null
 
     open fun getCompanion(): Companion? = null
 

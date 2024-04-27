@@ -27,7 +27,7 @@ class ArcherKit : Kit("archer", "Archer") {
 
     override fun getInventoryContent(): Array<ItemStack?> {
         val bow = ItemStack(Material.BOW)
-        bow.addEnchantment(Enchantment.ARROW_INFINITE, 1)
+        bow.addEnchantment(Enchantment.INFINITY, 1)
 
         val stoneSword = ItemStack(Material.STONE_SWORD)
         stoneSword.addEnchantment(Enchantment.KNOCKBACK, 2)
@@ -51,6 +51,6 @@ class ArcherKit : Kit("archer", "Archer") {
     }
 
     override fun getPotionEffects(): Map<PotionEffectType, Int> {
-        return mapOf(Pair(PotionEffectType.JUMP, 2))
+        return mapOf(Pair(PotionEffectType.JUMP_BOOST, 2))
     }
 }

@@ -13,39 +13,39 @@ class DevilKit : Kit("devil", "Devil") {
     override fun getHeadContent(): ItemStack {
 
         val helmet = ItemStack(Material.LEATHER_HELMET)
-        helmet.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2)
-        helmet.addUnsafeEnchantment(Enchantment.PROTECTION_FIRE, 4)
+        helmet.addEnchantment(Enchantment.PROTECTION, 2)
+        helmet.addUnsafeEnchantment(Enchantment.FIRE_PROTECTION, 4)
         helmet.setLeatherArmorColor(Color.RED)
         return helmet
     }
 
     override fun getChestContent(): ItemStack {
         val chestplate = ItemStack(Material.LEATHER_CHESTPLATE)
-        chestplate.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2)
-        chestplate.addUnsafeEnchantment(Enchantment.PROTECTION_FIRE, 4)
+        chestplate.addEnchantment(Enchantment.PROTECTION, 2)
+        chestplate.addUnsafeEnchantment(Enchantment.FIRE_PROTECTION, 4)
         chestplate.setLeatherArmorColor(Color.RED)
         return chestplate
     }
 
     override fun getLegsContent(): ItemStack {
         val leggings = ItemStack(Material.LEATHER_LEGGINGS)
-        leggings.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2)
-        leggings.addUnsafeEnchantment(Enchantment.PROTECTION_FIRE, 4)
+        leggings.addEnchantment(Enchantment.PROTECTION, 2)
+        leggings.addUnsafeEnchantment(Enchantment.FIRE_PROTECTION, 4)
         leggings.setLeatherArmorColor(Color.RED)
         return leggings
     }
 
     override fun getFeetContent(): ItemStack {
         val boots = ItemStack(Material.LEATHER_BOOTS)
-        boots.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2)
-        boots.addUnsafeEnchantment(Enchantment.PROTECTION_FIRE, 4)
+        boots.addEnchantment(Enchantment.PROTECTION, 2)
+        boots.addUnsafeEnchantment(Enchantment.FIRE_PROTECTION, 4)
         boots.setLeatherArmorColor(Color.RED)
         return boots
     }
     override fun getInventoryContent(): Array<ItemStack?> {
         val bow = ItemStack(Material.BOW)
-        bow.addEnchantment(Enchantment.ARROW_INFINITE, 1)
-        bow.addEnchantment(Enchantment.ARROW_FIRE, 1)
+        bow.addEnchantment(Enchantment.INFINITY, 1)
+        bow.addEnchantment(Enchantment.FLAME, 1)
         bow.setCustomModelData(1)
 
         return arrayOf(

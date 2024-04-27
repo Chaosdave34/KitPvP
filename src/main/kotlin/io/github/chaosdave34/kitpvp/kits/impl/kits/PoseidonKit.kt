@@ -11,29 +11,29 @@ class PoseidonKit : Kit("poseidon", "Poseidon") {
 
     override fun getHeadContent(): ItemStack {
         val turtleHelmet = ItemStack(Material.TURTLE_HELMET)
-        turtleHelmet.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2)
-        turtleHelmet.addEnchantment(Enchantment.OXYGEN, 3)
-        turtleHelmet.addEnchantment(Enchantment.WATER_WORKER, 1)
+        turtleHelmet.addEnchantment(Enchantment.PROTECTION, 2)
+        turtleHelmet.addEnchantment(Enchantment.RESPIRATION, 3)
+        turtleHelmet.addEnchantment(Enchantment.AQUA_AFFINITY, 1)
         return turtleHelmet
     }
 
     override fun getChestContent(): ItemStack {
         val chestplate = ItemStack(Material.LEATHER_CHESTPLATE)
-        chestplate.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2)
+        chestplate.addEnchantment(Enchantment.PROTECTION, 2)
         chestplate.setLeatherArmorColor(Color.AQUA)
         return chestplate
     }
 
     override fun getLegsContent(): ItemStack {
         val leggings = ItemStack(Material.LEATHER_LEGGINGS)
-        leggings.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2)
+        leggings.addEnchantment(Enchantment.PROTECTION, 2)
         leggings.setLeatherArmorColor(Color.AQUA)
         return leggings
     }
 
     override fun getFeetContent(): ItemStack {
         val boots = ItemStack(Material.LEATHER_BOOTS)
-        boots.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2)
+        boots.addEnchantment(Enchantment.PROTECTION, 2)
         boots.addEnchantment(Enchantment.DEPTH_STRIDER, 3)
         boots.setLeatherArmorColor(Color.AQUA)
         return boots

@@ -14,7 +14,7 @@ class EnderSword : CustomItem(Material.STONE_SWORD, "ender_sword") {
     override fun getAbilities(): List<Ability> = listOf(AbilityHandler.ENDER_ATTACK)
 
     override fun additionalModifications(itemStack: ItemStack) {
-        itemStack.addEnchantment(Enchantment.DAMAGE_ALL, 3)
+        itemStack.addEnchantment(Enchantment.SHARPNESS, 3)
         itemStack.setCustomModelData(1)
     }
 }

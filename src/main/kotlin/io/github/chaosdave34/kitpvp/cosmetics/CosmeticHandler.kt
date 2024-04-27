@@ -64,20 +64,20 @@ class CosmeticHandler : Listener{
         HEARTS_PROJECTILE_TRAIL = registerProjectileTrail(SimpleProjectileTrail("hearts", "Hearts", Particle.HEART, 1, Material.RED_DYE))
         COMPOSTER_PROJECTILE_TRAIL = registerProjectileTrail(SimpleProjectileTrail("composter", "Composter", Particle.COMPOSTER, 2, Material.COMPOSTER))
         ANGRY_VILLAGER_PROJECTILE_TRAIL =
-            registerProjectileTrail(SimpleProjectileTrail("angry_villager", "Angry Villager", Particle.VILLAGER_ANGRY, 3, Material.VILLAGER_SPAWN_EGG))
+            registerProjectileTrail(SimpleProjectileTrail("angry_villager", "Angry Villager", Particle.ANGRY_VILLAGER, 3, Material.VILLAGER_SPAWN_EGG))
         BUBBLE_PROJECTILE_TRAIL = registerProjectileTrail(SimpleProjectileTrail("bubble", "Bubble", Particle.BUBBLE_POP, 4, Material.WATER_BUCKET))
         CHERRY_LEAVES_PROJECTILE_TRAIL =
             registerProjectileTrail(SimpleProjectileTrail("cherry_blossom", "Cherry Blossom", Particle.CHERRY_LEAVES, 5, Material.CHERRY_LEAVES))
         ELECTRIC_SPARK_PROJECTILE_TRAIL =
             registerProjectileTrail(SimpleProjectileTrail("electric_spark", "Electric Spark", Particle.ELECTRIC_SPARK, 6, Material.LIGHTNING_ROD))
-        ENCHANT_PROJECTILE_TRAIL = registerProjectileTrail(SimpleProjectileTrail("enchant", "Enchant", Particle.ENCHANTMENT_TABLE, 7, Material.ENCHANTING_TABLE))
+        ENCHANT_PROJECTILE_TRAIL = registerProjectileTrail(SimpleProjectileTrail("enchant", "Enchant", Particle.ENCHANT, 7, Material.ENCHANTING_TABLE))
         FLAME_PROJECTILE_TRAIL = registerProjectileTrail(SimpleProjectileTrail("flame", "Flame", Particle.SMALL_FLAME, 8, Material.TORCH))
         GLOW_PROJECTILE_TRAIL = registerProjectileTrail(SimpleProjectileTrail("glow", "Glow", Particle.GLOW, 9, Material.GLOW_INK_SAC))
         NAUTILUS_PROJECTILE_TRAIL = registerProjectileTrail(SimpleProjectileTrail("nautilus", "Nautilus", Particle.NAUTILUS, 10, Material.NAUTILUS_SHELL))
         NOTE_PROJECTILE_TRAIL = registerProjectileTrail(NoteProjectileTrail())
         SOUL_FIRE_PROJECTILE_TRAIL = registerProjectileTrail(SimpleProjectileTrail("soul_fire", "Soul Fire", Particle.SOUL_FIRE_FLAME, 12, Material.SOUL_LANTERN))
         TOTEM_OF_UNDYING_PROJECTILE_TRAIL =
-            registerProjectileTrail(SimpleProjectileTrail("totem_of_undying", "Totem of Undying", Particle.TOTEM, 13, Material.TOTEM_OF_UNDYING))
+            registerProjectileTrail(SimpleProjectileTrail("totem_of_undying", "Totem of Undying", Particle.TOTEM_OF_UNDYING, 13, Material.TOTEM_OF_UNDYING))
         SNOWFLAKE_PROJECTILE_TRAIL = registerProjectileTrail(SimpleProjectileTrail("snowflake", "Snowflake", Particle.SNOWFLAKE, 14, Material.SNOWBALL))
         SOUL_PROJECTILE_TRAIL = registerProjectileTrail(SimpleProjectileTrail("soul", "Soul", Particle.SOUL, 15, Material.SOUL_SAND))
         SCULK_SOUL_PROJECTILE_TRAIL = registerProjectileTrail(SimpleProjectileTrail("sculk_soul", "Sculk Soul", Particle.SCULK_SOUL, 16, Material.SCULK_CATALYST))
@@ -86,13 +86,13 @@ class CosmeticHandler : Listener{
 
 
         // Kill Effects
-        SMOKE_KILL_EFFECT = registerKillEffect(SimpleKillEffect("smoke", "Smoke", Particle.SMOKE_NORMAL, 1, Material.COAL))
+        SMOKE_KILL_EFFECT = registerKillEffect(SimpleKillEffect("smoke", "Smoke", Particle.CAMPFIRE_COSY_SMOKE, 1, Material.COAL))
         SHRIEK_KILL_EFFECT = registerKillEffect(ShriekKillEffect())
         SONIC_BOOM_KILL_EFFECT = registerKillEffect(SimpleKillEffect("sonic_boom", "Sonic Boom", Particle.SONIC_BOOM, 3, Material.WARDEN_SPAWN_EGG))
         GUST_KILL_EFFECT = registerKillEffect(SimpleKillEffect("gust", "Gust", Particle.GUST, 4, Material.STONE_SWORD))
         SQUID_INK_KILL_EFFECT = registerKillEffect(SimpleKillEffect("squid_ink", "Squid Ink", Particle.SQUID_INK, 5, Material.INK_SAC))
         GLOW_SQUID_INK_KILL_EFFECT = registerKillEffect(SimpleKillEffect("glow_squid_ink", "Glow Squid Ink", Particle.GLOW_SQUID_INK, 6, Material.GLOW_INK_SAC))
-        EXPLOSION_KILL_EFFECT = registerKillEffect(SimpleKillEffect("explosion", "Explosion", Particle.EXPLOSION_NORMAL, 7, Material.TNT))
+        EXPLOSION_KILL_EFFECT = registerKillEffect(SimpleKillEffect("explosion", "Explosion", Particle.EXPLOSION, 7, Material.TNT))
     }
 
     private fun registerProjectileTrail(projectileTrail: ProjectileTrail): ProjectileTrail {

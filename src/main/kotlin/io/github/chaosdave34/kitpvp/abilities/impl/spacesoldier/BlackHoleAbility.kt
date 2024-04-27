@@ -36,13 +36,13 @@ class BlackHoleAbility : Ability("black_hole", "Black Hole", Type.RIGHT_CLICK, 2
             val location = event.hitBlock?.location?.add(0.0, 1.0, 0.0) ?: event.hitEntity?.location ?: return
             location.add(0.0, 1.0, 0.0)
 
-            location.world.spawnParticle(Particle.EXPLOSION_HUGE, location, 1)
+            location.world.spawnParticle(Particle.EXPLOSION_EMITTER, location, 1)
             location.world.playSound(location, Sound.ENTITY_GENERIC_EXPLODE, SoundCategory.HOSTILE, 1f, 1f)
 
             object : BukkitRunnable() {
                 var i = 0
                 override fun run() {
-                    location.world.spawnParticle(Particle.REDSTONE, location, 1, 0.0, 0.0, 0.0, 0.0, DustOptions(Color.BLACK, 1f))
+                    location.world.spawnParticle(Particle.DUST, location, 1, 0.0, 0.0, 0.0, 0.0, DustOptions(Color.BLACK, 1f))
 
                     for (entity in location.getNearbyEntities(5.0, 5.0, 5.0)) {
                         if (entity.checkTargetIfPlayer()) {

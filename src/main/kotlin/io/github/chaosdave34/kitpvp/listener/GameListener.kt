@@ -150,7 +150,7 @@ class GameListener : Listener {
         if (player is Player) {
             val extendedPlayer = ExtendedPlayer.from(player)
             if (extendedPlayer.inGame()) {
-                if (event.crossbow.containsEnchantment(Enchantment.ARROW_INFINITE)) event.setConsumeItem(false)
+                if (event.crossbow.containsEnchantment(Enchantment.INFINITY)) event.setConsumeItem(false)
 
                 val crossbow = event.crossbow
                 if (getCustomItemId(crossbow) == CustomItemHandler.ROCKET_LAUNCHER.id || extendedPlayer.gameState == ExtendedPlayer.GameState.ELYTRA_IN_GAME) {

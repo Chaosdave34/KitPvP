@@ -1,6 +1,8 @@
 package io.github.chaosdave34.kitpvp.kits.impl.kits
 
 import io.github.chaosdave34.kitpvp.kits.Kit
+import io.github.chaosdave34.kitpvp.ultimates.Ultimate
+import io.github.chaosdave34.kitpvp.ultimates.UltimateHandler
 import org.bukkit.Material
 import org.bukkit.enchantments.Enchantment
 import org.bukkit.inventory.ItemStack as ItemStack
@@ -17,9 +19,11 @@ class KnightKit : Kit("knight", "Knight") {
 
     override fun getOffhandContent(): ItemStack = ItemStack(Material.SHIELD)
 
+    override fun getUltimate(): Ultimate = UltimateHandler.DASH
+
     override fun getInventoryContent(): Array<ItemStack?> {
         val bow = ItemStack(Material.BOW)
-        bow.addEnchantment(Enchantment.ARROW_INFINITE, 1)
+        bow.addEnchantment(Enchantment.INFINITY, 1)
 
         return arrayOf(
             ItemStack(Material.DIAMOND_SWORD),

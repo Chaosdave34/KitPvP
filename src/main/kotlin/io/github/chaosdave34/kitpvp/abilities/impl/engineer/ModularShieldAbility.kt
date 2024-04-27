@@ -15,8 +15,8 @@ import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.monster.Creeper
 import org.bukkit.SoundCategory
-import org.bukkit.craftbukkit.v1_20_R3.entity.CraftPlayer
-import org.bukkit.craftbukkit.v1_20_R3.util.CraftVector
+import org.bukkit.craftbukkit.entity.CraftPlayer
+import org.bukkit.craftbukkit.util.CraftVector
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
@@ -55,7 +55,7 @@ class ModularShieldAbility : Ability("modular_shield", "Modular Shield", Type.RI
         team.addEntities(player, creeper.bukkitEntity)
         team.setOption(Team.Option.COLLISION_RULE, Team.OptionStatus.NEVER)
 
-        player.addPotionEffect(PotionEffect(PotionEffectType.SLOW, 6 * 20, 0))
+        player.addPotionEffect(PotionEffect(PotionEffectType.SLOWNESS, 6 * 20, 0))
 
         AbilityRunnable.runTaskLater(KitPvp.INSTANCE, { disableShield(player) }, player, 6 * 20)
 

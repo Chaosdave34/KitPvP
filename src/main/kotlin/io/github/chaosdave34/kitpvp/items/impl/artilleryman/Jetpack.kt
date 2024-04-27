@@ -29,8 +29,8 @@ class Jetpack : CustomItem(Material.LEATHER_CHESTPLATE, "jetpack") {
     override fun getName(): Component = createSimpleItemName("Jetpack")
 
     override fun additionalModifications(itemStack: ItemStack) {
-        itemStack.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2)
-        itemStack.addUnsafeEnchantment(Enchantment.PROTECTION_EXPLOSIONS, 4)
+        itemStack.addEnchantment(Enchantment.PROTECTION, 2)
+        itemStack.addUnsafeEnchantment(Enchantment.BLAST_PROTECTION, 4)
         itemStack.setLeatherArmorColor(Color.NAVY)
     }
 

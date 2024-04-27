@@ -49,7 +49,7 @@ class MagicWand : CustomItem(Material.END_ROD, "magic_wand", false, true) {
                 val location = player.eyeLocation.subtract(0.0, 0.25, 0.0)
                 for (i in 1..40) {
                     player.world.spawnParticle(
-                        Particle.REDSTONE,
+                        Particle.DUST,
                         location.clone().add(location.direction.clone().multiply(i * 0.2)),
                         1,
                         0.0,

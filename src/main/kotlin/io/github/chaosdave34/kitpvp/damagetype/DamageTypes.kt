@@ -6,8 +6,8 @@ import net.minecraft.core.registries.Registries
 import net.minecraft.world.damagesource.DamageEffects
 import net.minecraft.world.damagesource.DamageScaling
 import org.bukkit.NamespacedKey
-import org.bukkit.craftbukkit.v1_20_R3.CraftRegistry
-import org.bukkit.craftbukkit.v1_20_R3.damage.CraftDamageType
+import org.bukkit.craftbukkit.CraftRegistry
+import org.bukkit.craftbukkit.damage.CraftDamageType
 import org.bukkit.damage.DamageType
 import net.minecraft.world.damagesource.DamageType as NmsDamageType
 

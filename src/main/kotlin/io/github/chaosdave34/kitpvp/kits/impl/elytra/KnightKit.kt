@@ -9,11 +9,11 @@ class KnightKit : ElytraKit("elytra_knight", "Knight", Material.IRON_SWORD) {
 
     override fun getInventoryContent(): Array<ItemStack?> {
         val bow = ItemStack(Material.BOW)
-        bow.addEnchantment(Enchantment.ARROW_INFINITE, 1)
-        bow.addEnchantment(Enchantment.ARROW_DAMAGE, 3)
+        bow.addEnchantment(Enchantment.INFINITY, 1)
+        bow.addEnchantment(Enchantment.POWER, 3)
 
         val stoneSword = ItemStack(Material.IRON_SWORD)
-        stoneSword.addEnchantment(Enchantment.DAMAGE_ALL, 1)
+        stoneSword.addEnchantment(Enchantment.SHARPNESS, 1)
 
         return arrayOf(
             bow,

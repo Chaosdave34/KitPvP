@@ -17,7 +17,7 @@ class LightningAbility : Ability("lightning", "Lightning", Type.RIGHT_CLICK, 3) 
         if (target is LivingEntity && target.checkTargetIfPlayer()) {
 
             val targetLocation = target.getLocation()
-            targetLocation.world.spawnEntity(targetLocation, EntityType.LIGHTNING, CreatureSpawnEvent.SpawnReason.CUSTOM) { entity: Entity ->
+            targetLocation.world.spawnEntity(targetLocation, EntityType.LIGHTNING_BOLT, CreatureSpawnEvent.SpawnReason.CUSTOM) { entity: Entity ->
                 val lightningStrike = (entity as LightningStrike)
                 lightningStrike.causingPlayer = player
                 lightningStrike.flashCount = 1

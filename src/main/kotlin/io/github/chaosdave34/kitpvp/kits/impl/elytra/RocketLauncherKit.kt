@@ -9,7 +9,7 @@ class RocketLauncherKit : ElytraKit("elytra_rocket_launcher", "Rocket Launcher",
 
     override fun getInventoryContent(): Array<ItemStack?> {
         val crossbow = ItemStack(Material.CROSSBOW)
-        crossbow.addUnsafeEnchantment(Enchantment.ARROW_INFINITE, 1)
+        crossbow.addUnsafeEnchantment(Enchantment.INFINITY, 1)
         crossbow.addEnchantment(Enchantment.QUICK_CHARGE, 3)
 
         return arrayOf(

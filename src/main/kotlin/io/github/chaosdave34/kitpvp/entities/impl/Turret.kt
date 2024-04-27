@@ -13,7 +13,7 @@ import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal
 import org.bukkit.*
 import org.bukkit.attribute.Attribute
-import org.bukkit.craftbukkit.v1_20_R3.entity.CraftMob
+import org.bukkit.craftbukkit.entity.CraftMob
 import org.bukkit.entity.*
 import org.bukkit.event.EventHandler
 import org.bukkit.event.entity.CreatureSpawnEvent
@@ -124,7 +124,7 @@ class Turret : CustomEntity("turret") {
 
         val velocity = Vector(d1, d2, d3).normalize().multiply(speed)
 
-        mob.world.spawnEntity(mob.eyeLocation, EntityType.FIREWORK, CreatureSpawnEvent.SpawnReason.CUSTOM) { entity: Entity ->
+        mob.world.spawnEntity(mob.eyeLocation, EntityType.FIREWORK_ROCKET, CreatureSpawnEvent.SpawnReason.CUSTOM) { entity: Entity ->
             val firework = entity as Firework
             val fireworkMeta = firework.fireworkMeta
             fireworkMeta.power = 3
@@ -136,7 +136,7 @@ class Turret : CustomEntity("turret") {
             firework.shooter = mob
             firework.velocity = velocity
         }
-        mob.world.playSound(mob.location, Sound.ENTITY_GENERIC_WIND_BURST, 1.0f, 0.4f)
+        mob.world.playSound(mob.location, Sound.ENTITY_BREEZE_WIND_BURST, 1.0f, 0.4f)
     }
 
     @EventHandler

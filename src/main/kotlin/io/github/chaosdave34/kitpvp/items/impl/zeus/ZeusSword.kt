@@ -13,7 +13,7 @@ class ZeusSword : CustomItem(Material.GOLDEN_SWORD, "zeus_sword") {
     override fun getName(): Component = createSimpleItemName("Zeus' Sword")
 
     override fun additionalModifications(itemStack: ItemStack) {
-        itemStack.addEnchantment(Enchantment.DAMAGE_ALL, 2)
+        itemStack.addEnchantment(Enchantment.SHARPNESS, 2)
     }
 
     override fun getAbilities(): List<Ability> {

@@ -9,9 +9,9 @@ class KnockerKit : ElytraKit("elytra_knocker", "Knocker", Material.STICK) {
 
     override fun getInventoryContent(): Array<ItemStack?> {
         val bow = ItemStack(Material.BOW)
-        bow.addEnchantment(Enchantment.ARROW_INFINITE, 1)
-        bow.addEnchantment(Enchantment.ARROW_DAMAGE, 3)
-        bow.addUnsafeEnchantment(Enchantment.ARROW_KNOCKBACK, 10)
+        bow.addEnchantment(Enchantment.INFINITY, 1)
+        bow.addEnchantment(Enchantment.POWER, 3)
+        bow.addUnsafeEnchantment(Enchantment.PUNCH, 10)
         bow.addUnsafeEnchantment(Enchantment.KNOCKBACK, 10)
 
         return arrayOf(

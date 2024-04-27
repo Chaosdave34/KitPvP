@@ -18,6 +18,7 @@ import io.github.chaosdave34.kitpvp.kits.ElytraKitHandler
 import io.github.chaosdave34.kitpvp.kits.KitHandler
 import io.github.chaosdave34.kitpvp.listener.*
 import io.github.chaosdave34.kitpvp.textdisplays.TextDisplays
+import io.github.chaosdave34.kitpvp.ultimates.UltimateHandler
 import lombok.Getter
 import org.bukkit.Bukkit
 import org.bukkit.GameRule
@@ -48,6 +49,7 @@ class KitPvp : JavaPlugin() {
     lateinit var cosmeticHandler: CosmeticHandler
     lateinit var customEventHandler: CustomEventHandler
     lateinit var challengesHandler: ChallengesHandler
+    lateinit var ultimateHandler: UltimateHandler
 
     private lateinit var damageTypes: DamageTypes
 
@@ -68,6 +70,7 @@ class KitPvp : JavaPlugin() {
         cosmeticHandler = CosmeticHandler()
         customEventHandler = CustomEventHandler()
         challengesHandler = ChallengesHandler()
+        ultimateHandler = UltimateHandler()
 
         damageTypes = DamageTypes()
 

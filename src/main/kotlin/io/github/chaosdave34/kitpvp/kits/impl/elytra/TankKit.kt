@@ -11,8 +11,8 @@ class TankKit : ElytraKit("elytra_tank", "Tank", Material.IRON_CHESTPLATE) {
 
     override fun getInventoryContent(): Array<ItemStack?> {
         val bow = ItemStack(Material.BOW)
-        bow.addEnchantment(Enchantment.ARROW_INFINITE, 1)
-        bow.addEnchantment(Enchantment.ARROW_DAMAGE, 1)
+        bow.addEnchantment(Enchantment.INFINITY, 1)
+        bow.addEnchantment(Enchantment.POWER, 1)
 
         return arrayOf(
             bow,

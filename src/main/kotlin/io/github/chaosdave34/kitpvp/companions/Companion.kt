@@ -15,8 +15,8 @@ import net.minecraft.world.entity.ai.goal.FloatGoal
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal
 import net.minecraft.world.level.Level
 import org.bukkit.Location
-import org.bukkit.craftbukkit.v1_20_R3.CraftWorld
-import org.bukkit.craftbukkit.v1_20_R3.util.CraftVector
+import org.bukkit.craftbukkit.CraftWorld
+import org.bukkit.craftbukkit.util.CraftVector
 import org.bukkit.entity.Mob
 import org.bukkit.entity.Player
 import org.bukkit.metadata.FixedMetadataValue

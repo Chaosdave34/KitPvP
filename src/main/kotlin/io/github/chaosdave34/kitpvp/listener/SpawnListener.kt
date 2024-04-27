@@ -91,7 +91,7 @@ class SpawnListener : Listener {
 
                 player.teleport(Location(Bukkit.getWorld("world"), -12.0, 120.0, 16.0))
                 player.addPotionEffect(PotionEffect(PotionEffectType.BLINDNESS, 20 * 3, 4))
-                player.addPotionEffect(PotionEffect(PotionEffectType.SLOW, 20 * 3, 4))
+                player.addPotionEffect(PotionEffect(PotionEffectType.SLOWNESS, 20 * 3, 4))
             }
         }
     }
@@ -181,10 +181,10 @@ class SpawnListener : Listener {
 
         object : BukkitRunnable() {
             override fun run() {
-                world.spawnParticle(Particle.EXPLOSION_NORMAL, turbine1, 10, 2.0, 1.0, 2.0, 0.0)
-                world.spawnParticle(Particle.EXPLOSION_NORMAL, turbine2, 10, 2.0, 1.0, 2.0, 0.0)
-                world.spawnParticle(Particle.EXPLOSION_NORMAL, turbine3, 10, 2.0, 1.0, 2.0, 0.0)
-                world.spawnParticle(Particle.EXPLOSION_NORMAL, turbine4, 10, 2.0, 1.0, 2.0, 0.0)
+                world.spawnParticle(Particle.POOF, turbine1, 10, 2.0, 1.0, 2.0, 0.0)
+                world.spawnParticle(Particle.POOF, turbine2, 10, 2.0, 1.0, 2.0, 0.0)
+                world.spawnParticle(Particle.POOF, turbine3, 10, 2.0, 1.0, 2.0, 0.0)
+                world.spawnParticle(Particle.POOF, turbine4, 10, 2.0, 1.0, 2.0, 0.0)
             }
         }.runTaskTimer(KitPvp.INSTANCE, 0, 5)
     }

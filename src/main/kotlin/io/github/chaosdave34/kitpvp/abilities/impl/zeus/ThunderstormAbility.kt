@@ -43,7 +43,7 @@ class ThunderstormAbility : Ability("thunderstorm", "Thunderstorm", Type.LEFT_CL
             override fun run() {
                 if (iterator.hasNext()) {
                     val targetLocation = location.clone().add(iterator.next())
-                    location.world.spawnEntity(targetLocation, EntityType.LIGHTNING, CreatureSpawnEvent.SpawnReason.CUSTOM) { entity: Entity ->
+                    location.world.spawnEntity(targetLocation, EntityType.LIGHTNING_BOLT, CreatureSpawnEvent.SpawnReason.CUSTOM) { entity: Entity ->
                         val lightningStrike = (entity as LightningStrike)
                         lightningStrike.causingPlayer = player
                         lightningStrike.flashCount = 1
