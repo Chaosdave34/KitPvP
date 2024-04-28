@@ -11,7 +11,8 @@ plugins {
     id("xyz.jpenilla.resource-factory-bukkit-convention") version "1.1.1" // Generates plugin.yml based on the Gradle config
 
     // Shades and relocates dependencies into our plugin jar. See https://imperceptiblethoughts.com/shadow/introduction/
-    id("com.github.johnrengelman.shadow") version "8.1.1"
+    //id("com.github.johnrengelman.shadow") version "8.1.1"
+    id("io.github.goooler.shadow") version "8.1.7" // fork for java 21 support
     id("io.freefair.lombok") version "8.6"
 }
 
@@ -58,6 +59,10 @@ dependencies {
 }
 
 tasks {
+    assemble {
+        dependsOn(shadowJar)
+    }
+
     compileJava {
         // Set the release flag. This configures what version bytecode the compiler will emit, as well as what JDK APIs are usable.
         // See https://openjdk.java.net/jeps/247 for more information.
@@ -95,17 +100,14 @@ tasks {
         // helper function to relocate a package into our package
         fun relocate(pkg: String) = relocate(pkg, group + rootProject.name + "dependency.$pkg")
 
-        // relocate("io.github.chaosdave34.ghutils")
+        relocate("io.github.chaosdave34.ghutils")
     }
 }
 
 // Configure plugin.yml generation
 // - name, version, and description are inherited from the Gradle project.
 bukkitPluginYaml {
-    name = project.name
-    version = project.version.toString()
     main = "io.github.chaosdave34.kitpvp.KitPvp"
-    description = project.description
     load = BukkitPluginYaml.PluginLoadOrder.STARTUP
     authors.addAll("Chaosdave34", "palul")
     apiVersion = "1.20"

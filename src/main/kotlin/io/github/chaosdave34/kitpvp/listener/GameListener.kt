@@ -44,12 +44,6 @@ import org.bukkit.scheduler.BukkitTask
 import java.util.*
 import java.util.concurrent.ConcurrentHashMap
 import java.util.function.Consumer
-import kotlin.collections.Map
-import kotlin.collections.MutableIterator
-import kotlin.collections.MutableList
-import kotlin.collections.MutableMap
-import kotlin.collections.isNotEmpty
-import kotlin.collections.mutableListOf
 import kotlin.collections.set
 
 class GameListener : Listener {
@@ -59,13 +53,16 @@ class GameListener : Listener {
         val blocksToRemove: MutableMap<Location, Pair<Long, BlockData>> = ConcurrentHashMap()
     }
 
-    private fun Cancellable.cancelInGame() {
-        val entityEvent = this
-        if (entityEvent is EntityEvent) {
-            val player = entityEvent.entity
-            if (player is Player && ExtendedPlayer.from(player).inSpawn())
-                isCancelled = true
-        }
+    private fun Cancellable.cancelInGame(entity: Entity) {
+        if (entity is Player && ExtendedPlayer.from(entity).inGame()) isCancelled = true
+    }
+
+    private fun PlayerEvent.cancelInGame() {
+        if (this is Cancellable) this.cancelInGame(this.player)
+    }
+
+    private fun EntityEvent.cancelInGame() {
+        if (this is Cancellable) this.cancelInGame(this.entity)
     }
 
     // All

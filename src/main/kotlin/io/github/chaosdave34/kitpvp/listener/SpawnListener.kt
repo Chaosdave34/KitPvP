@@ -9,6 +9,7 @@ import org.bukkit.Bukkit
 import org.bukkit.Location
 import org.bukkit.Material
 import org.bukkit.Particle
+import org.bukkit.entity.Entity
 import org.bukkit.entity.Player
 import org.bukkit.event.Cancellable
 import org.bukkit.event.EventHandler
@@ -32,13 +33,16 @@ class SpawnListener : Listener {
     private lateinit var turbine3: Location
     private lateinit var turbine4: Location
 
-    private fun Cancellable.cancelInSpawn() {
-        val entityEvent = this
-        if (entityEvent is EntityEvent) {
-            val player = entityEvent.entity
-            if (player is Player && ExtendedPlayer.from(player).inSpawn())
-                isCancelled = true
-        }
+    private fun Cancellable.cancelInSpawn(entity: Entity) {
+        if (entity is Player && ExtendedPlayer.from(entity).inSpawn()) isCancelled = true
+    }
+
+    private fun PlayerEvent.cancelInSpawn() {
+        if (this is Cancellable) this.cancelInSpawn(this.player)
+    }
+
+    private fun EntityEvent.cancelInSpawn() {
+        if (this is Cancellable) this.cancelInSpawn(this.entity)
     }
 
     // ALL Spawns
@@ -73,9 +77,7 @@ class SpawnListener : Listener {
     }
 
     @EventHandler
-    fun onDealDamage(event: EntityDealDamageEvent) {
-        event.cancelInSpawn()
-    }
+    fun onDealDamage(event: EntityDealDamageEvent) = event.cancelInSpawn(event.damager)
 
     @EventHandler
     fun onEnterEndPortal(event: PlayerPortalEvent) {
@@ -103,10 +105,10 @@ class SpawnListener : Listener {
     fun onBowShot(event: EntityShootBowEvent) = event.cancelInSpawn()
 
     @EventHandler
-    fun onBlockBreak(event: BlockBreakEvent) = event.cancelInSpawn()
+    fun onBlockBreak(event: BlockBreakEvent) = event.cancelInSpawn(event.player)
 
     @EventHandler
-    fun onBlockPlace(event: BlockPlaceEvent) = event.cancelInSpawn()
+    fun onBlockPlace(event: BlockPlaceEvent) = event.cancelInSpawn(event.player)
 
     @EventHandler
     fun onBucketEmpty(event: PlayerBucketEmptyEvent) = event.cancelInSpawn()
@@ -127,7 +129,7 @@ class SpawnListener : Listener {
     fun onLoadCrossbow(event: EntityLoadCrossbowEvent) = event.cancelInSpawn()
 
     @EventHandler
-    fun onOpenInventory(event: InventoryOpenEvent) = event.cancelInSpawn()
+    fun onOpenInventory(event: InventoryOpenEvent) = event.cancelInSpawn(event.player)
 
     @EventHandler
     fun onInteract(event: PlayerInteractEvent) {

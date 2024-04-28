@@ -73,7 +73,8 @@ abstract class Ability(val id: String, val name: String, val type: Type, val coo
 
     protected fun Entity.checkTargetIfPlayer(): Boolean = (this is Player && ExtendedPlayer.from(this).inGame()) || this !is Player
 
-    protected fun ItemStack.hasThisAbility() : Boolean = (KitPvp.INSTANCE.abilityHandler.getItemAbilities(this).contains(KitPvp.INSTANCE.abilityHandler.abilities.get(id)))
+    protected fun ItemStack.hasThisAbility(): Boolean =
+        (KitPvp.INSTANCE.abilityHandler.getItemAbilities(this).contains(KitPvp.INSTANCE.abilityHandler.abilities[id]))
 
     enum class Type(val displayName: String) {
         RIGHT_CLICK("RIGHT CLICK"),

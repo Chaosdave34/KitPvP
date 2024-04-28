@@ -1,6 +1,5 @@
 package io.github.chaosdave34.kitpvp.items
 
-import io.github.chaosdave34.ghutils.persistentdatatypes.UUIDPersistentDataType
 import io.github.chaosdave34.ghutils.utils.PDCUtils
 import io.github.chaosdave34.kitpvp.KitPvp
 import io.github.chaosdave34.kitpvp.abilities.Ability
@@ -23,7 +22,6 @@ import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.inventory.ItemFlag
 import org.bukkit.inventory.ItemStack
 import org.bukkit.persistence.PersistentDataType
-import java.util.*
 
 abstract class CustomItem(val material: Material, val id: String, private val stackable: Boolean = true, private val preventPlacingAndUsing: Boolean = false) :
     Listener, ItemUtilities, Describable {
@@ -47,8 +45,7 @@ abstract class CustomItem(val material: Material, val id: String, private val st
 
         val container = itemMeta.persistentDataContainer
 
-        if (!stackable)
-            container.set(NamespacedKey(KitPvp.INSTANCE, "uuid"), UUIDPersistentDataType(), UUID.randomUUID())
+        if (!stackable) itemMeta.setMaxStackSize(1)
 
         val enchantmentContainer = container.adapterContext.newPersistentDataContainer()
         getCustomEnchantments().forEach { (enchantment, level) ->
