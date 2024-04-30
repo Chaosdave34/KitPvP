@@ -53,6 +53,8 @@ abstract class CustomItem(val material: Material, val id: String, private val st
         }
         container.set(NamespacedKey(KitPvp.INSTANCE, "enchantments"), PersistentDataType.TAG_CONTAINER, enchantmentContainer)
 
+        
+
         itemStack.itemMeta = itemMeta
 
         getAbilities().forEach { ability -> ability.apply(itemStack) }
