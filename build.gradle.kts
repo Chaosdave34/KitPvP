@@ -6,7 +6,7 @@ plugins {
     kotlin("jvm") version "1.9.23"
     kotlin("plugin.lombok") version "1.9.23"
 
-    id("io.papermc.paperweight.userdev") version "1.6.0"
+    id("io.papermc.paperweight.userdev") version "1.6.3"
     id("xyz.jpenilla.run-paper") version "2.2.4" // Adds runServer and runMojangMappedServer tasks for testing
     id("xyz.jpenilla.resource-factory-bukkit-convention") version "1.1.1" // Generates plugin.yml based on the Gradle config
 
@@ -26,11 +26,11 @@ java {
 }
 
 // 1)
-// For 1.20.5+ when you don't care about supporting spigot
+// For >=1.20.5 when you don't care about supporting spigot
 paperweight.reobfArtifactConfiguration = io.papermc.paperweight.userdev.ReobfArtifactConfiguration.MOJANG_PRODUCTION
 
 // 2)
-// For 1.20.4 or below, or when you care about supporting Spigot on 1.20.5+
+// For 1.20.4 or below, or when you care about supporting Spigot on >=1.20.5
 // Configure reobfJar to run when invoking the build task
 /*
 tasks.assemble {
@@ -51,11 +51,11 @@ repositories {
 }
 
 dependencies {
-    paperweight.paperDevBundle("1.20.5-R0.1-SNAPSHOT")
-    // paperweight.foliaDevBundle("1.20.5-R0.1-SNAPSHOT")
-    // paperweight.devBundle("com.example.paperfork", "1.20.5-R0.1-SNAPSHOT")
+    paperweight.paperDevBundle("1.20.6-R0.1-SNAPSHOT")
+    // paperweight.foliaDevBundle("1.20.6-R0.1-SNAPSHOT")
+    // paperweight.devBundle("com.example.paperfork", "1.20.6-R0.1-SNAPSHOT")
 
-    implementation("io.github.chaosdave34", "ghutils", "0.3.0-SNAPSHOT")
+    implementation("io.github.chaosdave34", "ghutils", "0.4.0-SNAPSHOT")
 }
 
 tasks {
@@ -110,7 +110,7 @@ bukkitPluginYaml {
     main = "io.github.chaosdave34.kitpvp.KitPvp"
     load = BukkitPluginYaml.PluginLoadOrder.STARTUP
     authors.addAll("Chaosdave34", "palul")
-    apiVersion = "1.20"
+    apiVersion = "1.20.5"
     commands {
         register("spawn") {
             description = "Teleports you back to the spawn"
