@@ -5,7 +5,7 @@ import io.github.chaosdave34.kitpvp.KitPvp
 import io.github.chaosdave34.kitpvp.abilities.Ability
 import io.github.chaosdave34.kitpvp.abilities.AbilityRunnable
 import net.kyori.adventure.text.Component
-import org.bukkit.entity.EntityType
+import org.bukkit.entity.Bat
 import org.bukkit.entity.Player
 
 class BatMorphAbility : Ability("bat_morph", "Bat Morph", Type.RIGHT_CLICK, 25) {
@@ -15,7 +15,7 @@ class BatMorphAbility : Ability("bat_morph", "Bat Morph", Type.RIGHT_CLICK, 25) 
 
     override fun onAbility(player: Player): Boolean {
         val extendedPlayer = from(player)
-        extendedPlayer.morph(EntityType.BAT)
+        extendedPlayer.morph(Bat::class)
 
         AbilityRunnable.runTaskLater(KitPvp.INSTANCE, { player.vehicle?.removePassenger(player) }, extendedPlayer, 10 * 20)
 

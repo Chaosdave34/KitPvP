@@ -19,8 +19,6 @@ class KnightKit : Kit("knight", "Knight") {
 
     override fun getOffhandContent(): ItemStack = ItemStack(Material.SHIELD)
 
-    override fun getUltimate(): Ultimate = UltimateHandler.DASH
-
     override fun getInventoryContent(): Array<ItemStack?> {
         val bow = ItemStack(Material.BOW)
         bow.addEnchantment(Enchantment.INFINITY, 1)
@@ -40,4 +38,6 @@ class KnightKit : Kit("knight", "Knight") {
             ItemStack(Material.COBBLESTONE, 32),
         )
     }
+
+    override fun getUltimate(): Ultimate = UltimateHandler.DASH
 }

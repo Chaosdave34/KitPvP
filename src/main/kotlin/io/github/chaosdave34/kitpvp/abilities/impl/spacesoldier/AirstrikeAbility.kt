@@ -5,12 +5,9 @@ import io.github.chaosdave34.kitpvp.abilities.Ability
 import net.kyori.adventure.text.Component
 import org.bukkit.Particle
 import org.bukkit.block.Block
-import org.bukkit.entity.Entity
-import org.bukkit.entity.EntityType
 import org.bukkit.entity.Fireball
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
-import org.bukkit.event.entity.CreatureSpawnEvent
 import org.bukkit.event.entity.EntityExplodeEvent
 import org.bukkit.metadata.FixedMetadataValue
 import org.bukkit.scheduler.BukkitRunnable
@@ -28,10 +25,9 @@ class AirstrikeAbility : Ability("airstrike", "Airstrike", Type.RIGHT_CLICK, 10)
 
         location.y = 110.0
 
-        object: BukkitRunnable() {
+        object : BukkitRunnable() {
             override fun run() {
-                player.world.spawnEntity(location, EntityType.FIREBALL, CreatureSpawnEvent.SpawnReason.CUSTOM) { entity: Entity ->
-                    val fireball = entity as Fireball
+                player.world.spawn(location, Fireball::class.java) { fireball ->
                     fireball.setMetadata("ability", FixedMetadataValue(KitPvp.INSTANCE, id))
                     fireball.yield = 4f
                     fireball.direction = Vector(0, -1, 0)

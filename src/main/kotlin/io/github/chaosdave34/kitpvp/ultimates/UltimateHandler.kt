@@ -3,6 +3,7 @@ package io.github.chaosdave34.kitpvp.ultimates
 import io.github.chaosdave34.ghutils.Utils
 import io.github.chaosdave34.kitpvp.ExtendedPlayer
 import io.github.chaosdave34.kitpvp.events.EntityDealDamageEvent
+import io.github.chaosdave34.kitpvp.ultimates.impl.ArrowRainUltimate
 import io.github.chaosdave34.kitpvp.ultimates.impl.DashUltimate
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
@@ -18,10 +19,12 @@ class UltimateHandler : Listener {
 
     companion object {
         lateinit var DASH: Ultimate
+        lateinit var ARROW_RAIN: Ultimate
     }
 
     init {
         DASH = registerUltimate(DashUltimate())
+        ARROW_RAIN = registerUltimate(ArrowRainUltimate())
     }
 
     private fun registerUltimate(ultimate: Ultimate): Ultimate {

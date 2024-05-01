@@ -14,7 +14,6 @@ import org.bukkit.Bukkit
 import org.bukkit.GameMode
 import org.bukkit.Location
 import org.bukkit.entity.*
-import org.bukkit.event.entity.CreatureSpawnEvent
 import org.bukkit.event.inventory.InventoryCloseEvent
 import org.bukkit.metadata.FixedMetadataValue
 import org.bukkit.scheduler.BukkitRunnable
@@ -24,6 +23,7 @@ import org.bukkit.scoreboard.Scoreboard
 import java.util.*
 import java.util.function.Consumer
 import kotlin.math.roundToInt
+import kotlin.reflect.KClass
 
 class ExtendedPlayer(val uuid: UUID) {
     var selectedKitsKitId: String
@@ -193,6 +193,13 @@ class ExtendedPlayer(val uuid: UUID) {
                 gameState = GameState.ELYTRA_SPAWN
                 getSelectedElytraKit().apply(player)
             }
+        }
+
+        player.level = 0
+        if (gameType == GameType.KITS) {
+            player.exp = getSelectedKitsKit().getUltimate()?.getProgress(player) ?: 0f
+        } else {
+            player.exp = 0f
         }
 
         PlayerSpawnEvent(player).callEvent()
@@ -397,10 +404,11 @@ class ExtendedPlayer(val uuid: UUID) {
         return false
     }
 
-    fun morph(entityType: EntityType) {
+    fun <T : LivingEntity> morph(entityType: KClass<T>) {
         val player = getPlayer() ?: return
         player.gameMode = GameMode.SPECTATOR
-        morph = player.world.spawnEntity(player.location, entityType, CreatureSpawnEvent.SpawnReason.CUSTOM) { entity ->
+
+        morph = player.world.spawn(player.location, entityType.java) { entity ->
             entity.setMetadata("morph", FixedMetadataValue(KitPvp.INSTANCE, player.uniqueId))
             entity.addPassenger(player)
         }

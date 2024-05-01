@@ -2,6 +2,8 @@ package io.github.chaosdave34.kitpvp.kits.impl.kits
 
 import io.github.chaosdave34.kitpvp.items.CustomItemHandler
 import io.github.chaosdave34.kitpvp.kits.Kit
+import io.github.chaosdave34.kitpvp.ultimates.Ultimate
+import io.github.chaosdave34.kitpvp.ultimates.UltimateHandler
 import org.bukkit.Color
 import org.bukkit.Material
 import org.bukkit.enchantments.Enchantment
@@ -53,4 +55,7 @@ class ArcherKit : Kit("archer", "Archer") {
     override fun getPotionEffects(): Map<PotionEffectType, Int> {
         return mapOf(Pair(PotionEffectType.JUMP_BOOST, 2))
     }
+
+    override fun getUltimate(): Ultimate = UltimateHandler.ARROW_RAIN
+
 }

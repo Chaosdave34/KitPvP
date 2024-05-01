@@ -14,9 +14,11 @@ import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal
 import org.bukkit.*
 import org.bukkit.attribute.Attribute
 import org.bukkit.craftbukkit.entity.CraftMob
-import org.bukkit.entity.*
+import org.bukkit.entity.Firework
+import org.bukkit.entity.Husk
+import org.bukkit.entity.Mob
+import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
-import org.bukkit.event.entity.CreatureSpawnEvent
 import org.bukkit.event.entity.EntityDamageEvent
 import org.bukkit.event.player.PlayerQuitEvent
 import org.bukkit.inventory.ItemStack
@@ -124,8 +126,7 @@ class Turret : CustomEntity("turret") {
 
         val velocity = Vector(d1, d2, d3).normalize().multiply(speed)
 
-        mob.world.spawnEntity(mob.eyeLocation, EntityType.FIREWORK_ROCKET, CreatureSpawnEvent.SpawnReason.CUSTOM) { entity: Entity ->
-            val firework = entity as Firework
+        mob.world.spawn(mob.eyeLocation, Firework::class.java) { firework ->
             val fireworkMeta = firework.fireworkMeta
             fireworkMeta.power = 3
             fireworkMeta.addEffect(FireworkEffect.builder().withColor(Color.BLACK).withColor(Color.RED).with(FireworkEffect.Type.BURST).build())
@@ -141,11 +142,11 @@ class Turret : CustomEntity("turret") {
 
     @EventHandler
     fun onPlayerSpawn(event: PlayerSpawnEvent) {
-        turrets[event.player.uniqueId] ?.let { Bukkit.getEntity(it)?.remove() }
+        turrets[event.player.uniqueId]?.let { Bukkit.getEntity(it)?.remove() }
     }
 
     @EventHandler
     fun onPlayerQuit(event: PlayerQuitEvent) {
-        turrets[event.player.uniqueId] ?.let { Bukkit.getEntity(it)?.remove() }
+        turrets[event.player.uniqueId]?.let { Bukkit.getEntity(it)?.remove() }
     }
 }

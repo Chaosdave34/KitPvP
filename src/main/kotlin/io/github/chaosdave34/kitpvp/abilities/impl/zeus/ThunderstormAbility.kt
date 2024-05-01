@@ -3,18 +3,14 @@ package io.github.chaosdave34.kitpvp.abilities.impl.zeus
 import io.github.chaosdave34.kitpvp.KitPvp
 import io.github.chaosdave34.kitpvp.abilities.Ability
 import net.kyori.adventure.text.Component
-import org.bukkit.entity.Entity
-import org.bukkit.entity.EntityType
 import org.bukkit.entity.LightningStrike
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.block.BlockIgniteEvent
-import org.bukkit.event.entity.CreatureSpawnEvent
 import org.bukkit.event.entity.EntityDamageByEntityEvent
 import org.bukkit.metadata.FixedMetadataValue
 import org.bukkit.scheduler.BukkitRunnable
 import org.bukkit.util.Vector
-import java.util.*
 
 class ThunderstormAbility : Ability("thunderstorm", "Thunderstorm", Type.LEFT_CLICK, 30) {
     override fun getDescription(): List<Component> {
@@ -43,11 +39,10 @@ class ThunderstormAbility : Ability("thunderstorm", "Thunderstorm", Type.LEFT_CL
             override fun run() {
                 if (iterator.hasNext()) {
                     val targetLocation = location.clone().add(iterator.next())
-                    location.world.spawnEntity(targetLocation, EntityType.LIGHTNING_BOLT, CreatureSpawnEvent.SpawnReason.CUSTOM) { entity: Entity ->
-                        val lightningStrike = (entity as LightningStrike)
+                    location.world.spawn(targetLocation, LightningStrike::class.java) { lightningStrike ->
                         lightningStrike.causingPlayer = player
                         lightningStrike.flashCount = 1
-                        entity.setMetadata("ability", FixedMetadataValue(KitPvp.INSTANCE, id))
+                        lightningStrike.setMetadata("ability", FixedMetadataValue(KitPvp.INSTANCE, id))
                     }
                 } else this.cancel()
             }

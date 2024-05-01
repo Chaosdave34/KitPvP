@@ -44,7 +44,7 @@ repositories {
     maven {
         url = uri("https://maven.pkg.github.com/Chaosdave34/GHUtils")
         credentials {
-            username = "Chaosdave34"
+            username = project.findProperty("gpr.user") as String? ?: System.getenv("USERNAME")
             password = project.findProperty("gpr.key") as String? ?: System.getenv("TOKEN")
         }
     }

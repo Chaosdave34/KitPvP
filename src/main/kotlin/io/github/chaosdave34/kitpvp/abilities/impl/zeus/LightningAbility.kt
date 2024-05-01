@@ -3,9 +3,10 @@ package io.github.chaosdave34.kitpvp.abilities.impl.zeus
 import io.github.chaosdave34.kitpvp.KitPvp
 import io.github.chaosdave34.kitpvp.abilities.Ability
 import net.kyori.adventure.text.Component
-import org.bukkit.entity.*
+import org.bukkit.entity.LightningStrike
+import org.bukkit.entity.LivingEntity
+import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
-import org.bukkit.event.entity.CreatureSpawnEvent
 import org.bukkit.event.entity.EntityDamageByEntityEvent
 import org.bukkit.metadata.FixedMetadataValue
 
@@ -17,11 +18,10 @@ class LightningAbility : Ability("lightning", "Lightning", Type.RIGHT_CLICK, 3) 
         if (target is LivingEntity && target.checkTargetIfPlayer()) {
 
             val targetLocation = target.getLocation()
-            targetLocation.world.spawnEntity(targetLocation, EntityType.LIGHTNING_BOLT, CreatureSpawnEvent.SpawnReason.CUSTOM) { entity: Entity ->
-                val lightningStrike = (entity as LightningStrike)
+            targetLocation.world.spawn(targetLocation, LightningStrike::class.java) { lightningStrike ->
                 lightningStrike.causingPlayer = player
                 lightningStrike.flashCount = 1
-                entity.setMetadata("ability", FixedMetadataValue(KitPvp.INSTANCE, id))
+                lightningStrike.setMetadata("ability", FixedMetadataValue(KitPvp.INSTANCE, id))
             }
             return true
         }

@@ -3,11 +3,9 @@ package io.github.chaosdave34.kitpvp.customevents.impl;
 import io.github.chaosdave34.kitpvp.customevents.CustomEvent;
 import org.bukkit.*;
 import org.bukkit.block.Barrel;
-import org.bukkit.entity.EntityType;
 import org.bukkit.entity.FallingBlock;
 import org.bukkit.entity.Firework;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.EntityChangeBlockEvent;
 import org.bukkit.event.entity.EntityDropItemEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
@@ -33,9 +31,7 @@ public class SupplyDropEvent extends CustomEvent {
 
         location = new Location(Bukkit.getWorld("world"), x + 0.5, 200, z + 0.5);
 
-        location.getWorld().spawnEntity(location, EntityType.FALLING_BLOCK, CreatureSpawnEvent.SpawnReason.CUSTOM, entity -> {
-            FallingBlock fallingBlock = ((FallingBlock) entity);
-
+        location.getWorld().spawn(location, FallingBlock.class, fallingBlock -> {
             Barrel barrel = (Barrel) Material.BARREL.createBlockData().createBlockState();
             barrel.getInventory().addItem(new ItemStack(Material.ENCHANTED_GOLDEN_APPLE));
             fallingBlock.setBlockState(barrel);
@@ -103,9 +99,7 @@ public class SupplyDropEvent extends CustomEvent {
     }
 
     private void spawnFlare(Location location) {
-        location.getWorld().spawnEntity(location.clone().add(0, 1, 0), EntityType.FIREWORK_ROCKET, CreatureSpawnEvent.SpawnReason.CUSTOM, entity -> {
-            Firework firework = ((Firework) entity);
-
+        location.getWorld().spawn(location.clone().add(0, 1, 0), Firework.class, firework -> {
             FireworkMeta fireworkMeta = firework.getFireworkMeta();
             fireworkMeta.setPower(2);
             fireworkMeta.addEffect(FireworkEffect.builder().withColor(Color.RED).with(FireworkEffect.Type.BALL).build());

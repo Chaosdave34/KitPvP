@@ -4,8 +4,10 @@ import io.github.chaosdave34.kitpvp.KitPvp
 import io.github.chaosdave34.kitpvp.abilities.Ability
 import net.kyori.adventure.text.Component
 import org.bukkit.Sound
-import org.bukkit.entity.*
-import org.bukkit.event.entity.CreatureSpawnEvent
+import org.bukkit.entity.BlockDisplay
+import org.bukkit.entity.Entity
+import org.bukkit.entity.LivingEntity
+import org.bukkit.entity.Player
 import org.bukkit.scheduler.BukkitRunnable
 import org.bukkit.util.Vector
 import kotlin.math.pow
@@ -49,11 +51,7 @@ class GroundSlamAbility : Ability("ground_slam", "Ground Slam", Type.SNEAK, 10) 
                 if (blockLocation.block.isEmpty) continue
 
                 blockLocation.pitch = 0f
-                val blockDisplay = blockLocation.world.spawnEntity(blockLocation, EntityType.BLOCK_DISPLAY, CreatureSpawnEvent.SpawnReason.CUSTOM) { entity ->
-                    val blockDisplay = entity as BlockDisplay
-
-                    blockDisplay.block = blockLocation.block.blockData
-                }
+                val blockDisplay = blockLocation.world.spawn(blockLocation, BlockDisplay::class.java) { it.block = blockLocation.block.blockData }
                 blockDisplays.add(blockDisplay)
             }
             lines.add(blockDisplays)

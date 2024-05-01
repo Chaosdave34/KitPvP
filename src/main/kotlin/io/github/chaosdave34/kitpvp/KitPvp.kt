@@ -97,11 +97,12 @@ class KitPvp : JavaPlugin() {
         pluginManager.registerEvents(SpawnListener(), this)
         pluginManager.registerEvents(GameListener(), this)
         pluginManager.registerEvents(GamePlayerDeathListener(), this)
+        pluginManager.registerEvents(EntityDamageListener(), this)
         pluginManager.registerEvents(abilityHandler, this)
         pluginManager.registerEvents(companionHandler, this)
         pluginManager.registerEvents(cosmeticHandler, this)
         pluginManager.registerEvents(customEventHandler, this)
-        pluginManager.registerEvents(EntityDamageListener(), this)
+        pluginManager.registerEvents(ultimateHandler, this)
 
 
         // Registering Commands
