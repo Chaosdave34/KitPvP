@@ -81,6 +81,8 @@ class ExtendedPlayer(val uuid: UUID) {
         totalKills = mutableMapOf()
         totalDeaths = mutableMapOf()
 
+        createScoreboard()
+
         gameState = GameState.KITS_SPAWN
 
         dailyChallenges = mutableListOf()
@@ -175,10 +177,7 @@ class ExtendedPlayer(val uuid: UUID) {
         }
 
         if (!this::scoreboard.isInitialized) {
-            scoreboard = Bukkit.getScoreboardManager().newScoreboard
-            val objective = scoreboard.registerNewObjective("default", Criteria.DUMMY, Component.text("KitPvP", NamedTextColor.YELLOW, TextDecoration.BOLD))
-            objective.displaySlot = DisplaySlot.SIDEBAR
-            player.scoreboard = scoreboard
+            createScoreboard()
         }
 
         when (currentGame) {
@@ -221,6 +220,13 @@ class ExtendedPlayer(val uuid: UUID) {
         if (bounty > 0) name = name.append { Component.text(" $bounty", NamedTextColor.GOLD) }
 
         player.playerListName(name)
+    }
+
+    private fun createScoreboard() {
+        scoreboard = Bukkit.getScoreboardManager().newScoreboard
+        val objective = scoreboard.registerNewObjective("default", Criteria.DUMMY, Component.text("KitPvP", NamedTextColor.YELLOW, TextDecoration.BOLD))
+        objective.displaySlot = DisplaySlot.SIDEBAR
+        getPlayer()?.scoreboard = scoreboard
     }
 
     fun updateScoreboardLines() {
