@@ -144,7 +144,7 @@ class ExtendedPlayer(val uuid: UUID) {
     fun spawn(gameType: GameType) {
         val player = getPlayer() ?: return
 
-        player.gameMode = GameMode.SURVIVAL
+        player.gameMode = GameMode.ADVENTURE
         currentGame = gameType
 
         unMorph()

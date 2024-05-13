@@ -5,19 +5,14 @@ import io.github.chaosdave34.kitpvp.ExtendedPlayer
 import io.github.chaosdave34.kitpvp.KitPvp
 import io.github.chaosdave34.kitpvp.events.EntityDealDamageEvent
 import io.papermc.paper.event.entity.EntityLoadCrossbowEvent
-import org.bukkit.Bukkit
-import org.bukkit.Location
-import org.bukkit.Material
-import org.bukkit.Particle
+import org.bukkit.*
 import org.bukkit.entity.Entity
 import org.bukkit.entity.Player
 import org.bukkit.event.Cancellable
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.block.Action
-import org.bukkit.event.block.BlockBreakEvent
 import org.bukkit.event.block.BlockExplodeEvent
-import org.bukkit.event.block.BlockPlaceEvent
 import org.bukkit.event.entity.*
 import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.event.inventory.InventoryOpenEvent
@@ -50,7 +45,7 @@ class SpawnListener : Listener {
     // ALL Spawns
     @EventHandler
     fun onRespawnAnchorExplode(event: BlockExplodeEvent) {
-        val block = event.explodedBlockState ?: return
+        val block = event.explodedBlockState
         if (block.type == Material.RESPAWN_ANCHOR) {
             if (event.block.location.y > 105) event.isCancelled = true
         }
@@ -107,12 +102,6 @@ class SpawnListener : Listener {
     fun onBowShot(event: EntityShootBowEvent) = event.cancelInSpawn()
 
     @EventHandler
-    fun onBlockBreak(event: BlockBreakEvent) = event.cancelInSpawn(event.player)
-
-    @EventHandler
-    fun onBlockPlace(event: BlockPlaceEvent) = event.cancelInSpawn(event.player)
-
-    @EventHandler
     fun onBucketEmpty(event: PlayerBucketEmptyEvent) = event.cancelInSpawn()
 
     @EventHandler
@@ -149,6 +138,7 @@ class SpawnListener : Listener {
             if (event.to.clone().subtract(0.0, 1.0, 0.0).block.type != Material.AIR && event.to.y <= 105) {
                 extendedPlayer.gameState = ExtendedPlayer.GameState.KITS_IN_GAME
                 player.fallDistance = 0f
+                player.gameMode = GameMode.SURVIVAL
             }
 
             // Turbine

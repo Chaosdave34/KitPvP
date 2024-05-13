@@ -217,7 +217,7 @@ class GameListener : Listener {
         }
     }
 
-    fun startBlockRemover() {
+    private fun startBlockRemover() {
         val taskID = blockRemoverTask?.taskId ?: return
         if (!Bukkit.getScheduler().isCurrentlyRunning(taskID)) {
             blockRemoverTask = BlockRemover().runTaskTimer(KitPvp.INSTANCE, 0, 20)
