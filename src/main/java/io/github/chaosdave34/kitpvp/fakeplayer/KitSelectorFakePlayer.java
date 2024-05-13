@@ -25,7 +25,7 @@ public class KitSelectorFakePlayer extends FakePlayer {
         equipment.put(EquipmentSlot.CHEST, kit.getChestContent());
         equipment.put(EquipmentSlot.LEGS, kit.getLegsContent());
         equipment.put(EquipmentSlot.FEET, kit.getFeetContent());
-//        equipment.put(EquipmentSlot.HAND, kit.getInventoryContent()[0]);
+        equipment.put(EquipmentSlot.HAND, kit.getInventoryContent()[0]);
         equipment.put(EquipmentSlot.OFF_HAND, kit.getOffhandContent());
     }
 
@@ -58,7 +58,6 @@ public class KitSelectorFakePlayer extends FakePlayer {
         if (ExtendedPlayer.from(p).getSelectedKitsKit() == kit) {
             p.sendMessage(Component.text("You have already selected this kit!", NamedTextColor.GRAY));
         } else {
-
             kit.apply(p);
 
             p.sendMessage(Component.text("You have selected the Kit ", NamedTextColor.GRAY)

@@ -26,19 +26,19 @@ public class ElytraKitsGui extends Gui {
     }
 
     @Override
-    protected @NonNull Inventory build(Player p, Inventory inventory) {
+    protected @NonNull Inventory build(Player player, Inventory inventory) {
         inventory.setItem(31, createItemStack(Material.BARRIER, "Close", true, false));
 
-        setIcon(11, inventory, p, ElytraKitHandler.KNIGHT);
-        setIcon(12, inventory, p, ElytraKitHandler.SNIPER);
-        setIcon(13, inventory, p, ElytraKitHandler.PYRO);
-        setIcon(14, inventory, p, ElytraKitHandler.TANK);
-        setIcon(15, inventory, p, ElytraKitHandler.KNOCKER);
-        setIcon(20, inventory, p, ElytraKitHandler.ROCKET_LAUNCHER);
-        setIcon(21, inventory, p, ElytraKitHandler.POSEIDON);
-        setIcon(22, inventory, p, ElytraKitHandler.TELEPORTER);
-        setIcon(23, inventory, p, ElytraKitHandler.HEALER);
-        setIcon(24, inventory, p, ElytraKitHandler.CHEMIST);
+        setIcon(11, inventory, player, ElytraKitHandler.KNIGHT);
+        setIcon(12, inventory, player, ElytraKitHandler.SNIPER);
+        setIcon(13, inventory, player, ElytraKitHandler.PYRO);
+        setIcon(14, inventory, player, ElytraKitHandler.TANK);
+        setIcon(15, inventory, player, ElytraKitHandler.KNOCKER);
+        setIcon(20, inventory, player, ElytraKitHandler.ROCKET_LAUNCHER);
+        setIcon(21, inventory, player, ElytraKitHandler.POSEIDON);
+        setIcon(22, inventory, player, ElytraKitHandler.TELEPORTER);
+        setIcon(23, inventory, player, ElytraKitHandler.HEALER);
+        setIcon(24, inventory, player, ElytraKitHandler.CHEMIST);
 
         fillEmpty(inventory, Material.GRAY_STAINED_GLASS_PANE);
 

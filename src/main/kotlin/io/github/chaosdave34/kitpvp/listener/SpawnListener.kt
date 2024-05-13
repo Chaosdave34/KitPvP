@@ -14,12 +14,14 @@ import org.bukkit.entity.Player
 import org.bukkit.event.Cancellable
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
+import org.bukkit.event.block.Action
 import org.bukkit.event.block.BlockBreakEvent
 import org.bukkit.event.block.BlockExplodeEvent
 import org.bukkit.event.block.BlockPlaceEvent
 import org.bukkit.event.entity.*
 import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.event.inventory.InventoryOpenEvent
+import org.bukkit.event.inventory.InventoryType
 import org.bukkit.event.player.*
 import org.bukkit.event.world.WorldLoadEvent
 import org.bukkit.inventory.PlayerInventory
@@ -129,13 +131,11 @@ class SpawnListener : Listener {
     fun onLoadCrossbow(event: EntityLoadCrossbowEvent) = event.cancelInSpawn()
 
     @EventHandler
-    fun onOpenInventory(event: InventoryOpenEvent) = event.cancelInSpawn(event.player)
-
-    @EventHandler
     fun onInteract(event: PlayerInteractEvent) {
         val player = event.player
         if (ExtendedPlayer.from(player).inSpawn()) {
             if (event.material == Material.TRIDENT) event.isCancelled = true
+            else if (event.material == Material.FIREWORK_ROCKET && event.action == Action.RIGHT_CLICK_BLOCK) event.isCancelled = true
         }
     }
 
@@ -193,10 +193,19 @@ class SpawnListener : Listener {
 
     @EventHandler
     fun onModifyArmor(event: InventoryClickEvent) {
-        val p = event.whoClicked as Player
-        if (ExtendedPlayer.from(p).gameState == ExtendedPlayer.GameState.KITS_SPAWN) {
+        val player = event.whoClicked as Player
+        if (ExtendedPlayer.from(player).gameState == ExtendedPlayer.GameState.KITS_SPAWN) {
             if (event.clickedInventory is PlayerInventory && event.slot in 36..39)
                 event.isCancelled = true
+        }
+    }
+
+    // Elytra
+    @EventHandler
+    fun onOpenInventory(event: InventoryOpenEvent) {
+        val player = event.player
+        if (player is Player && ExtendedPlayer.from(player).gameState == ExtendedPlayer.GameState.KITS_SPAWN) {
+            if (event.inventory.type == InventoryType.BARREL) event.isCancelled = true
         }
     }
 }

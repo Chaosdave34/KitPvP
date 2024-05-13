@@ -81,7 +81,7 @@ abstract class CustomItem(val material: Material, val id: String, private val st
         }
 
         for ((enchantment, level) in getCustomEnchantments()) {
-            enchantmentLore.add(enchantment.getFullname(level).decoration(TextDecoration.ITALIC, false))
+            enchantmentLore.add(enchantment.getDisplayName(level).decoration(TextDecoration.ITALIC, false))
         }
 
         enchantmentLore.sortWith(Comparator.comparing { PlainTextComponentSerializer.plainText().serialize(it).lowercase() })
