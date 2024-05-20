@@ -2,6 +2,8 @@ package io.github.chaosdave34.kitpvp.kits.impl.kits
 
 import io.github.chaosdave34.kitpvp.items.CustomItemHandler
 import io.github.chaosdave34.kitpvp.kits.Kit
+import io.github.chaosdave34.kitpvp.ultimates.Ultimate
+import io.github.chaosdave34.kitpvp.ultimates.UltimateHandler
 import org.bukkit.Material
 import org.bukkit.inventory.ItemStack
 
@@ -18,7 +20,6 @@ class EngineerKit : Kit("engineer", "Engineer"){
     override fun getInventoryContent(): Array<ItemStack?> {
         return arrayOf(
             CustomItemHandler.ENGINEERS_SWORD.build(),
-            CustomItemHandler.MODULAR_SHIELD.build(),
             CustomItemHandler.TURRET.build(),
             ItemStack(Material.WATER_BUCKET),
         )
@@ -30,4 +31,6 @@ class EngineerKit : Kit("engineer", "Engineer"){
             ItemStack(Material.GOLDEN_APPLE),
         )
     }
+
+    override fun getUltimate(): Ultimate = UltimateHandler.SHIELD
 }

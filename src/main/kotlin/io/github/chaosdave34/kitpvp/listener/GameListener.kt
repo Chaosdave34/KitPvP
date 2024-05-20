@@ -43,7 +43,6 @@ import org.bukkit.scheduler.BukkitRunnable
 import org.bukkit.scheduler.BukkitTask
 import java.util.*
 import java.util.concurrent.ConcurrentHashMap
-import java.util.function.Consumer
 import kotlin.collections.set
 
 class GameListener : Listener {
@@ -151,28 +150,25 @@ class GameListener : Listener {
 
                 val crossbow = event.crossbow
                 if (getCustomItemId(crossbow) == CustomItemHandler.ROCKET_LAUNCHER.id || extendedPlayer.gameState == ExtendedPlayer.GameState.ELYTRA_IN_GAME) {
-                    Bukkit.getScheduler().runTaskLater(
-                        KitPvp.INSTANCE,
-                        Runnable {
-                            crossbow.editMeta(CrossbowMeta::class.java, Consumer { crossbowMeta: CrossbowMeta ->
-                                val projectiles: MutableList<ItemStack> = mutableListOf()
-                                for (projectile in crossbowMeta.chargedProjectiles) {
-                                    if (projectile.type == Material.FIREWORK_ROCKET) {
-                                        projectile.editMeta(FireworkMeta::class.java) { fireworkMeta: FireworkMeta ->
-                                            val random = Random()
-                                            val randomColor = Color.fromRGB(random.nextInt(256), random.nextInt(256), random.nextInt(256))
-                                            val randomType = FireworkEffect.Type.entries[random.nextInt(FireworkEffect.Type.entries.size)]
+                    Bukkit.getScheduler().runTaskLater(KitPvp.INSTANCE, Runnable {
+                        crossbow.editMeta(CrossbowMeta::class.java) { crossbowMeta ->
+                            val projectiles: MutableList<ItemStack> = mutableListOf()
+                            for (projectile in crossbowMeta.chargedProjectiles) {
+                                if (projectile.type == Material.FIREWORK_ROCKET) {
+                                    projectile.editMeta(FireworkMeta::class.java) { fireworkMeta: FireworkMeta ->
+                                        val random = Random()
+                                        val randomColor = Color.fromRGB(random.nextInt(256), random.nextInt(256), random.nextInt(256))
+                                        val randomType = FireworkEffect.Type.entries[random.nextInt(FireworkEffect.Type.entries.size)]
 
-                                            fireworkMeta.addEffect(FireworkEffect.builder().withColor(randomColor).with(randomType).build())
-                                        }
-                                        projectiles.add(projectile)
+                                        fireworkMeta.addEffect(FireworkEffect.builder().withColor(randomColor).with(randomType).build())
                                     }
+                                    projectiles.add(projectile)
                                 }
-                                if (projectiles.isNotEmpty()) crossbowMeta.setChargedProjectiles(projectiles)
-                                crossbow.setItemMeta(crossbowMeta)
-                            })
-                        }, 1
-                    )
+                            }
+                            if (projectiles.isNotEmpty()) crossbowMeta.setChargedProjectiles(projectiles)
+                            crossbow.setItemMeta(crossbowMeta)
+                        }
+                    }, 1)
                 }
             }
         }
@@ -383,8 +379,10 @@ class GameListener : Listener {
                 player.damage(maxDamage, DamageSource.builder(DamageType.DROWN).build())
             else if (filterForBlockBelow.contains(blockBelow))
                 player.damage(maxDamage, DamageSource.builder(DamageTypes.LAND).build())
-            else if (event.to.y > 199) player.damage(maxDamage,
-                DamageSource.builder(DamageTypes.ESCAPE).build())
+            else if (event.to.y > 199) player.damage(
+                maxDamage,
+                DamageSource.builder(DamageTypes.ESCAPE).build()
+            )
 
             player.isGlowing = blockBelow == Material.GREEN_WOOL || event.to.clone().subtract(0.0, 2.0, 0.0).block.type == Material.GREEN_WOOL
         }

@@ -2,6 +2,8 @@ package io.github.chaosdave34.kitpvp.kits.impl.kits
 
 import io.github.chaosdave34.kitpvp.items.CustomItemHandler
 import io.github.chaosdave34.kitpvp.kits.Kit
+import io.github.chaosdave34.kitpvp.ultimates.Ultimate
+import io.github.chaosdave34.kitpvp.ultimates.UltimateHandler
 import org.bukkit.Color
 import org.bukkit.Material
 import org.bukkit.enchantments.Enchantment
@@ -40,11 +42,15 @@ class PoseidonKit : Kit("poseidon", "Poseidon") {
     }
 
     override fun getInventoryContent(): Array<ItemStack?> {
+        val trident = ItemStack(Material.TRIDENT)
+        trident.addUnsafeEnchantment(Enchantment.LOYALTY, 10)
+        trident.addUnsafeEnchantment(Enchantment.CHANNELING, 5)
+
         val riptideTrident = ItemStack(Material.TRIDENT)
         riptideTrident.addEnchantment(Enchantment.RIPTIDE, 3)
 
         return arrayOf(
-            CustomItemHandler.POSEIDONS_TRIDENT.build(),
+            trident,
             riptideTrident,
             CustomItemHandler.WATER_BURST.build(),
             ItemStack(Material.WATER_BUCKET),
@@ -57,4 +63,6 @@ class PoseidonKit : Kit("poseidon", "Poseidon") {
             ItemStack(Material.PRISMARINE, 32),
         )
     }
+
+    override fun getUltimate(): Ultimate = UltimateHandler.STORM
 }

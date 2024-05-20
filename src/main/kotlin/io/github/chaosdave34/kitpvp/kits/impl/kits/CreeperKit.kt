@@ -2,6 +2,8 @@ package io.github.chaosdave34.kitpvp.kits.impl.kits
 
 import io.github.chaosdave34.kitpvp.items.CustomItemHandler
 import io.github.chaosdave34.kitpvp.kits.Kit
+import io.github.chaosdave34.kitpvp.ultimates.Ultimate
+import io.github.chaosdave34.kitpvp.ultimates.UltimateHandler
 import org.bukkit.Color
 import org.bukkit.Material
 import org.bukkit.enchantments.Enchantment
@@ -35,8 +37,11 @@ class CreeperKit : Kit("creeper", "Creeper") {
     }
 
     override fun getInventoryContent(): Array<ItemStack?> {
+        val sword = ItemStack(Material.IRON_SWORD)
+        sword.setCustomModelData(2)
+        
         return arrayOf(
-            CustomItemHandler.CREEPER_SWORD.build(),
+            sword,
             CustomItemHandler.FIREBALL.build(),
             ItemStack(Material.WATER_BUCKET),
         )
@@ -48,4 +53,6 @@ class CreeperKit : Kit("creeper", "Creeper") {
             ItemStack(Material.COBBLESTONE, 32),
         )
     }
+
+    override fun getUltimate(): Ultimate = UltimateHandler.CHARGE
 }

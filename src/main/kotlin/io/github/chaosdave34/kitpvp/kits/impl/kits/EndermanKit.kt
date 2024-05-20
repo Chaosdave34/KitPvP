@@ -13,7 +13,7 @@ import org.bukkit.event.entity.EntityDamageEvent
 import org.bukkit.event.player.PlayerMoveEvent
 import org.bukkit.inventory.ItemStack
 
-class EndermanKit : Kit("enderman", "Enderman") {
+class EndermanKit : Kit("enderman", "Enderman *") {
 
     override fun getHeadContent(): ItemStack {
         val helmet = ItemStack(Material.LEATHER_HELMET)

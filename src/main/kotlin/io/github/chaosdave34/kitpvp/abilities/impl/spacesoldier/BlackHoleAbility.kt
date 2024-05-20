@@ -21,7 +21,7 @@ import org.bukkit.scheduler.BukkitRunnable
 class BlackHoleAbility : Ability("black_hole", "Black Hole", Type.RIGHT_CLICK, 25) {
     private val snowballMetadata = FixedMetadataValue(KitPvp.INSTANCE, id)
 
-    override fun getDescription(): List<Component> = createSimpleDescription("Spawn a black hole.")
+    override fun getDescription(): List<Component> = createSimpleDescriptionAsList("Spawn a black hole.")
 
     override fun onAbility(player: Player): Boolean {
         val snowball = player.launchProjectile(Snowball::class.java)

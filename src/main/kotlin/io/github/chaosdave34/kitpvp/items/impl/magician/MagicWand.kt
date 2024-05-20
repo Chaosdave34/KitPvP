@@ -23,9 +23,9 @@ import java.util.*
 class MagicWand : CustomItem(Material.END_ROD, "magic_wand", false, true) {
     override fun getName(): Component = createSimpleItemName("Magic Wand")
 
-    override fun getDescription(): List<Component> = createSimpleDescription("Feel the magic flow through cour body.")
+    override fun getDescription(): List<Component> = createSimpleDescriptionAsList("Feel the magic flow through cour body.")
 
-    override fun getAbilities(): List<Ability> = listOf(AbilityHandler.LEVITATE, AbilityHandler.SHUFFLE)
+    override fun getAbilities(): List<Ability> = listOf(AbilityHandler.SHUFFLE)
 
     override fun additionalModifications(itemStack: ItemStack) {
         itemStack.setCustomModelData(1)

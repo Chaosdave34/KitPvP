@@ -2,6 +2,8 @@ package io.github.chaosdave34.kitpvp.kits.impl.kits
 
 import io.github.chaosdave34.kitpvp.items.CustomItemHandler
 import io.github.chaosdave34.kitpvp.kits.Kit
+import io.github.chaosdave34.kitpvp.ultimates.Ultimate
+import io.github.chaosdave34.kitpvp.ultimates.UltimateHandler
 import org.bukkit.Material
 import org.bukkit.inventory.ItemStack
 
@@ -19,7 +21,7 @@ class TankKit : Kit("tank", "Tank") {
 
     override fun getInventoryContent(): Array<ItemStack?> {
         return arrayOf(
-            CustomItemHandler.TANK_AXE.build(),
+            ItemStack(Material.STONE_AXE),
             ItemStack(Material.WATER_BUCKET),
         )
     }
@@ -30,4 +32,6 @@ class TankKit : Kit("tank", "Tank") {
             ItemStack(Material.COBBLED_DEEPSLATE, 32),
         )
     }
+
+    override fun getUltimate(): Ultimate = UltimateHandler.TORNADO
 }

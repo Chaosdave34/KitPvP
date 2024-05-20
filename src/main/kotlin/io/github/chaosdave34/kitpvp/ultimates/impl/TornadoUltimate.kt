@@ -1,18 +1,17 @@
-package io.github.chaosdave34.kitpvp.abilities.impl.tank
+package io.github.chaosdave34.kitpvp.ultimates.impl
 
 import io.github.chaosdave34.kitpvp.KitPvp
-import io.github.chaosdave34.kitpvp.abilities.Ability
 import io.github.chaosdave34.kitpvp.abilities.AbilityRunnable
+import io.github.chaosdave34.kitpvp.ultimates.Ultimate
 import net.kyori.adventure.text.Component
 import org.bukkit.Sound
 import org.bukkit.SoundCategory
 import org.bukkit.entity.Player
 
+class TornadoUltimate: Ultimate("tornado", "Tornado", 100.0) {
+    override fun getDescription(): Component = createSimpleDescription("Create a tornado pulling in enemies towards you for 5s.")
 
-class TornadoAbility : Ability("tornado", "Tornado", Type.RIGHT_CLICK, 15) {
-    override fun getDescription(): List<Component> = createSimpleDescription("Create a tornado pulling in enemies towards you for 5s.")
-
-    override fun onAbility(player: Player): Boolean {
+    override fun onAbility(player: Player) {
         object : AbilityRunnable(player) {
             override fun runInGame() {
                 player.getNearbyEntities(4.0, 4.0, 4.0).forEach { entity ->
@@ -27,7 +26,5 @@ class TornadoAbility : Ability("tornado", "Tornado", Type.RIGHT_CLICK, 15) {
                 if (i == 5 * 20) cancel()
             }
         }.runTaskTimer(KitPvp.INSTANCE, 0, 1)
-
-        return true
     }
 }

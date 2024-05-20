@@ -9,7 +9,7 @@ import org.bukkit.event.entity.EntityExplodeEvent
 
 class ExplodeAbility : Ability("explode", "Explode", Type.SNEAK, 15) {
 
-    override fun getDescription(): List<Component> = createSimpleDescription("Cause an explosion.")
+    override fun getDescription(): List<Component> = createSimpleDescriptionAsList("Cause an explosion.")
 
     override fun onAbility(player: Player): Boolean {
         var power = 2f

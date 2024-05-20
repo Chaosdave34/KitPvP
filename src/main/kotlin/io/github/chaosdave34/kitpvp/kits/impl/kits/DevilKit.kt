@@ -9,7 +9,7 @@ import org.bukkit.Material
 import org.bukkit.enchantments.Enchantment
 import org.bukkit.inventory.ItemStack
 
-class DevilKit : Kit("devil", "Devil") {
+class DevilKit : Kit("devil", "Devil *") {
     override fun getHeadContent(): ItemStack {
 
         val helmet = ItemStack(Material.LEATHER_HELMET)

@@ -15,7 +15,7 @@ import org.bukkit.util.Vector
 
 class AirstrikeAbility : Ability("airstrike", "Airstrike", Type.RIGHT_CLICK, 10) {
     override fun getDescription(): List<Component> {
-        return createSimpleDescription("Request a airstrike at the block you are looking at in a 50 block radius.")
+        return createSimpleDescriptionAsList("Request a airstrike at the block you are looking at in a 50 block radius.")
     }
 
     override fun onAbility(player: Player): Boolean {

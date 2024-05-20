@@ -2,6 +2,8 @@ package io.github.chaosdave34.kitpvp.kits.impl.kits
 
 import io.github.chaosdave34.kitpvp.items.CustomItemHandler
 import io.github.chaosdave34.kitpvp.kits.Kit
+import io.github.chaosdave34.kitpvp.ultimates.Ultimate
+import io.github.chaosdave34.kitpvp.ultimates.UltimateHandler
 import org.bukkit.Material
 import org.bukkit.enchantments.Enchantment
 import org.bukkit.inventory.ItemStack
@@ -33,8 +35,11 @@ class ZeusKit : Kit("zeus", "Zeus") {
     }
 
     override fun getInventoryContent(): Array<ItemStack?> {
+        val sword = ItemStack(Material.GOLDEN_SWORD)
+        sword.addEnchantment(Enchantment.SHARPNESS, 2)
+
         return arrayOf(
-            CustomItemHandler.ZEUS_SWORD.build(),
+            sword,
             CustomItemHandler.LIGHTNING_WAND.build(),
             ItemStack(Material.WATER_BUCKET),
         )
@@ -46,4 +51,6 @@ class ZeusKit : Kit("zeus", "Zeus") {
             ItemStack(Material.GOLD_BLOCK, 32),
         )
     }
+
+    override fun getUltimate(): Ultimate = UltimateHandler.RAGE
 }

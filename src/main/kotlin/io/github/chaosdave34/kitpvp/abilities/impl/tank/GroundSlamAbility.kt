@@ -15,7 +15,7 @@ import kotlin.math.sin
 
 class GroundSlamAbility : Ability("ground_slam", "Ground Slam", Type.SNEAK, 10) {
 
-    override fun getDescription(): List<Component> = createSimpleDescription("If in air create a wave that damages enemies and knocks them away.")
+    override fun getDescription(): List<Component> = createSimpleDescriptionAsList("If in air create a wave that damages enemies and knocks them away.")
 
 
     @Suppress("DEPRECATION")

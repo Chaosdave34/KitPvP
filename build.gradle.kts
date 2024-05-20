@@ -13,6 +13,7 @@ plugins {
     // Shades and relocates dependencies into our plugin jar. See https://imperceptiblethoughts.com/shadow/introduction/
     //id("com.github.johnrengelman.shadow") version "8.1.1"
     id("io.github.goooler.shadow") version "8.1.7" // fork for java 21 support
+
     id("io.freefair.lombok") version "8.6"
 }
 
@@ -87,14 +88,14 @@ tasks {
         }
     }
 
-    // Only relevant when going with option 2 above
-    /*
-    reobfJar {
-      // This is an example of how you might change the output location for reobfJar. It's recommended not to do this
-      // for a variety of reasons, however it's asked frequently enough that an example of how to do it is included here.
-      outputJar = layout.buildDirectory.file("libs/PaperweightTestPlugin-${project.version}.jar")
-    }
-     */
+        // Only relevant when going with option 2 above
+        /*
+        reobfJar {
+          // This is an example of how you might change the output location for reobfJar. It's recommended not to do this
+          // for a variety of reasons, however it's asked frequently enough that an example of how to do it is included here.
+          outputJar = layout.buildDirectory.file("libs/PaperweightTestPlugin-${project.version}.jar")
+        }
+         */
 
     shadowJar {
         // helper function to relocate a package into our package

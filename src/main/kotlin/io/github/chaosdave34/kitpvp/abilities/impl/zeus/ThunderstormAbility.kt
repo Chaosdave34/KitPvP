@@ -14,7 +14,7 @@ import org.bukkit.util.Vector
 
 class ThunderstormAbility : Ability("thunderstorm", "Thunderstorm", Type.LEFT_CLICK, 30) {
     override fun getDescription(): List<Component> {
-        return createSimpleDescription("Summons Lightning around you in a 5 block radius.")
+        return createSimpleDescriptionAsList("Summons Lightning around you in a 5 block radius.")
     }
 
     override fun onAbility(player: Player): Boolean {

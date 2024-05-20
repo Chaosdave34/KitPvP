@@ -6,7 +6,7 @@ import net.kyori.adventure.text.Component
 import org.bukkit.entity.Player
 
 class TurretAbility : Ability("turret", "Turret", Type.RIGHT_CLICK, 60) {
-    override fun getDescription(): List<Component> = createSimpleDescription("Deploy a mobile turret.")
+    override fun getDescription(): List<Component> = createSimpleDescriptionAsList("Deploy a mobile turret.")
 
     override fun onAbility(player: Player): Boolean {
         CustomEntities.TURRET.spawn(player, player.location)

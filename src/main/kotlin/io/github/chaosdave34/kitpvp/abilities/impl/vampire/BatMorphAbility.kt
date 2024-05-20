@@ -10,7 +10,7 @@ import org.bukkit.entity.Player
 
 class BatMorphAbility : Ability("bat_morph", "Bat Morph", Type.RIGHT_CLICK, 25) {
     override fun getDescription(): List<Component> {
-        return createSimpleDescription("Morph into a bat for 10s.")
+        return createSimpleDescriptionAsList("Morph into a bat for 10s.")
     }
 
     override fun onAbility(player: Player): Boolean {

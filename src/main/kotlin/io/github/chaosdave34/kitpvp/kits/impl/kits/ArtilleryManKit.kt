@@ -3,7 +3,6 @@ package io.github.chaosdave34.kitpvp.kits.impl.kits
 import io.github.chaosdave34.kitpvp.items.CustomItemHandler
 import io.github.chaosdave34.kitpvp.kits.Kit
 import org.bukkit.Color
-import org.bukkit.FireworkEffect
 import org.bukkit.Material
 import org.bukkit.enchantments.Enchantment
 import org.bukkit.event.EventHandler
@@ -11,7 +10,7 @@ import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.meta.FireworkMeta
 
-class ArtilleryManKit : Kit("artillery_man", "Artillery Man" ) {
+class ArtilleryManKit : Kit("artillery_man", "Artillery Man *" ) {
 
     override fun getHeadContent(): ItemStack {
         val helmet = ItemStack(Material.LEATHER_HELMET)
@@ -44,7 +43,6 @@ class ArtilleryManKit : Kit("artillery_man", "Artillery Man" ) {
         val rocket = ItemStack(Material.FIREWORK_ROCKET, 3)
         rocket.editMeta(FireworkMeta::class.java) { fireworkMeta: FireworkMeta ->
             fireworkMeta.power = 5
-            fireworkMeta.addEffects(FireworkEffect.builder().withColor(Color.RED).build()) // Todo: Temporary Fixed
         }
         return rocket
     }

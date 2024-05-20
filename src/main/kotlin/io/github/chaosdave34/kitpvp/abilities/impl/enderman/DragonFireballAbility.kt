@@ -11,7 +11,7 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent
 import org.bukkit.metadata.FixedMetadataValue
 
 class DragonFireballAbility : Ability("dragon_fireball", "Dragon Fireball", Type.RIGHT_CLICK, 20) {
-    override fun getDescription(): List<Component> = createSimpleDescription("Shoots a dragon fireball.")
+    override fun getDescription(): List<Component> = createSimpleDescriptionAsList("Shoots a dragon fireball.")
 
     override fun onAbility(player: Player): Boolean {
         val loc = player.eyeLocation

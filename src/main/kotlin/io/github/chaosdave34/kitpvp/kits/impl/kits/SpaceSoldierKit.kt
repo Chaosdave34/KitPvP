@@ -2,6 +2,8 @@ package io.github.chaosdave34.kitpvp.kits.impl.kits
 
 import io.github.chaosdave34.kitpvp.items.CustomItemHandler
 import io.github.chaosdave34.kitpvp.kits.Kit
+import io.github.chaosdave34.kitpvp.ultimates.Ultimate
+import io.github.chaosdave34.kitpvp.ultimates.UltimateHandler
 import org.bukkit.Color
 import org.bukkit.Material
 import org.bukkit.enchantments.Enchantment
@@ -43,7 +45,7 @@ class SpaceSoldierKit : Kit("space soldier", "Space Soldier") {
         knockBackStick.addUnsafeEnchantment(Enchantment.KNOCKBACK, 2)
 
         return arrayOf(
-            CustomItemHandler.SPACE_SWORD.build(),
+            ItemStack(Material.DIAMOND_SWORD),
             knockBackStick,
             CustomItemHandler.AIRSTRIKE_REQUESTER.build(),
             CustomItemHandler.BLACK_HOLE_GENERATOR.build(),
@@ -57,4 +59,6 @@ class SpaceSoldierKit : Kit("space soldier", "Space Soldier") {
             ItemStack(Material.COBBLESTONE, 32),
         )
     }
+
+    override fun getUltimate(): Ultimate = UltimateHandler.DARKNESS
 }

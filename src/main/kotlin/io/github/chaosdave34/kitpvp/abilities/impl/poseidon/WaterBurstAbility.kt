@@ -17,7 +17,7 @@ class WaterBurstAbility : Ability("water_burst", "Water Burst", Type.RIGHT_CLICK
     private val snowballMetadata = FixedMetadataValue(KitPvp.INSTANCE, id)
 
     override fun getDescription(): List<Component> {
-        return createSimpleDescription("Spawn a water burst.")
+        return createSimpleDescriptionAsList("Spawn a water burst.")
     }
 
     override fun onAbility(player: Player): Boolean {

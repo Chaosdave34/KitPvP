@@ -3,10 +3,11 @@ package io.github.chaosdave34.kitpvp.ultimates
 import io.github.chaosdave34.ghutils.Utils
 import io.github.chaosdave34.kitpvp.ExtendedPlayer
 import io.github.chaosdave34.kitpvp.events.EntityDealDamageEvent
-import io.github.chaosdave34.kitpvp.ultimates.impl.ArrowRainUltimate
-import io.github.chaosdave34.kitpvp.ultimates.impl.DashUltimate
+import io.github.chaosdave34.kitpvp.ultimates.impl.*
 import net.kyori.adventure.text.Component
+import net.kyori.adventure.text.JoinConfiguration
 import net.kyori.adventure.text.format.NamedTextColor
+import net.kyori.adventure.text.format.TextDecoration
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
@@ -20,11 +21,25 @@ class UltimateHandler : Listener {
     companion object {
         lateinit var DASH: Ultimate
         lateinit var ARROW_RAIN: Ultimate
+        lateinit var CHARGE: Ultimate
+        lateinit var SHIELD: Ultimate
+        lateinit var LEVITATE: Ultimate
+        lateinit var STORM: Ultimate
+        lateinit var DARKNESS: Ultimate
+        lateinit var TORNADO: Ultimate
+        lateinit var RAGE: Ultimate
     }
 
     init {
         DASH = registerUltimate(DashUltimate())
         ARROW_RAIN = registerUltimate(ArrowRainUltimate())
+        CHARGE = registerUltimate(ChargeUltimate())
+        SHIELD = registerUltimate(ShieldUltimate())
+        LEVITATE = registerUltimate(LevitateUltimate())
+        STORM = registerUltimate(StormUltimate())
+        DARKNESS = registerUltimate(DarknessUltimate())
+        TORNADO = registerUltimate(TornadoUltimate())
+        RAGE = registerUltimate(RageUltimate())
     }
 
     private fun registerUltimate(ultimate: Ultimate): Ultimate {
@@ -74,9 +89,16 @@ class UltimateHandler : Listener {
                     player.exp = progress
 
                     if (newDamage >= ultimate.damageRequired) {
-                        val availableMessage: Component = Component.text("Your ", NamedTextColor.GREEN)
-                            .append(Component.text("Ultimate ", NamedTextColor.GOLD))
-                            .append(Component.text("is now available.", NamedTextColor.GREEN))
+                        val availableMessage: Component = Component.join(
+                            JoinConfiguration.spaces(),
+                            Component.text("Your", NamedTextColor.GREEN),
+                            Component.text("Ultimate", NamedTextColor.GOLD),
+                            Component.text(ultimate.name, NamedTextColor.GRAY, TextDecoration.ITALIC),
+                            Component.text("is now available. Press", NamedTextColor.GREEN),
+                            Component.keybind("key.drop", NamedTextColor.GOLD),
+                            Component.text("to activate.", NamedTextColor.GREEN),
+                        ).hoverEvent(ultimate.getDescription())
+
                         player.sendMessage(availableMessage)
                     }
                 }

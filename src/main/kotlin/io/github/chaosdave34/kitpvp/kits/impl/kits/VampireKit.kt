@@ -8,7 +8,7 @@ import org.bukkit.enchantments.Enchantment
 import org.bukkit.inventory.ItemStack
 import org.bukkit.potion.PotionEffectType
 
-class VampireKit : Kit("vampire", "Vampire") {
+class VampireKit : Kit("vampire", "Vampire *") {
 
     override fun getHeadContent(): ItemStack {
         val helmet = ItemStack(Material.LEATHER_HELMET)

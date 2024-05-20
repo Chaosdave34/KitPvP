@@ -12,7 +12,7 @@ import org.bukkit.metadata.FixedMetadataValue
 
 class FireballAbility : Ability("fireball", "Fireball", Type.RIGHT_CLICK, 10) {
     override fun getDescription(): List<Component> {
-        return createSimpleDescription("Shoots a fireball.")
+        return createSimpleDescriptionAsList("Shoots a fireball.")
     }
 
     override fun onAbility(player: Player): Boolean {

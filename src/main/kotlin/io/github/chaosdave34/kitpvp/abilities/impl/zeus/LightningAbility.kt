@@ -11,7 +11,7 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent
 import org.bukkit.metadata.FixedMetadataValue
 
 class LightningAbility : Ability("lightning", "Lightning", Type.RIGHT_CLICK, 3) {
-    override fun getDescription(): List<Component> = createSimpleDescription("Strikes a lightning bold at the enemy you are looking at in a 10 block radius.")
+    override fun getDescription(): List<Component> = createSimpleDescriptionAsList("Strikes a lightning bold at the enemy you are looking at in a 10 block radius.")
 
     override fun onAbility(player: Player): Boolean {
         val target = player.getTargetEntity(10)

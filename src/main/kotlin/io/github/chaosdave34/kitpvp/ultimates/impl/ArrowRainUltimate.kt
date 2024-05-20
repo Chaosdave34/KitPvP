@@ -1,6 +1,7 @@
 package io.github.chaosdave34.kitpvp.ultimates.impl
 
 import io.github.chaosdave34.kitpvp.ultimates.Ultimate
+import net.kyori.adventure.text.Component
 import org.bukkit.Location
 import org.bukkit.entity.AbstractArrow
 import org.bukkit.entity.Arrow
@@ -10,6 +11,8 @@ import kotlin.math.min
 import kotlin.random.Random
 
 class ArrowRainUltimate : Ultimate("arrow_rain", "Arrow Rain", 100.0) {
+    override fun getDescription(): Component = createSimpleDescription("Let arrows rain on your enemies.")
+
     override fun onAbility(player: Player) {
         val location = player.location
         val x = location.x
@@ -27,6 +30,7 @@ class ArrowRainUltimate : Ultimate("arrow_rain", "Arrow Rain", 100.0) {
                     arrow.pickupStatus = AbstractArrow.PickupStatus.DISALLOWED
                     arrow.isCritical = true
                     arrow.damage = 5.0
+                    arrow.fireTicks = arrow.maxFireTicks
                 }
                 zOffset += Random.nextDouble(2.0, 4.0)
             }

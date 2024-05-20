@@ -6,27 +6,20 @@ import io.github.chaosdave34.kitpvp.KitPvp
 import io.github.chaosdave34.kitpvp.abilities.impl.archer.LeapAbility
 import io.github.chaosdave34.kitpvp.abilities.impl.artilleryman.EnhanceAbility
 import io.github.chaosdave34.kitpvp.abilities.impl.assassin.HauntAbility
-import io.github.chaosdave34.kitpvp.abilities.impl.creeper.ChargeAbility
 import io.github.chaosdave34.kitpvp.abilities.impl.creeper.ExplodeAbility
 import io.github.chaosdave34.kitpvp.abilities.impl.creeper.FireballAbility
 import io.github.chaosdave34.kitpvp.abilities.impl.devil.FireStormAbility
 import io.github.chaosdave34.kitpvp.abilities.impl.enderman.DragonFireballAbility
 import io.github.chaosdave34.kitpvp.abilities.impl.enderman.EnderAttackAbility
-import io.github.chaosdave34.kitpvp.abilities.impl.engineer.ModularShieldAbility
 import io.github.chaosdave34.kitpvp.abilities.impl.engineer.OverloadAbility
 import io.github.chaosdave34.kitpvp.abilities.impl.engineer.TurretAbility
-import io.github.chaosdave34.kitpvp.abilities.impl.magician.LevitateAbility
 import io.github.chaosdave34.kitpvp.abilities.impl.magician.ShuffleAbility
-import io.github.chaosdave34.kitpvp.abilities.impl.poseidon.StormAbility
 import io.github.chaosdave34.kitpvp.abilities.impl.poseidon.WaterBurstAbility
 import io.github.chaosdave34.kitpvp.abilities.impl.spacesoldier.AirstrikeAbility
 import io.github.chaosdave34.kitpvp.abilities.impl.spacesoldier.BlackHoleAbility
-import io.github.chaosdave34.kitpvp.abilities.impl.spacesoldier.DarknessAbility
 import io.github.chaosdave34.kitpvp.abilities.impl.tank.GroundSlamAbility
-import io.github.chaosdave34.kitpvp.abilities.impl.tank.TornadoAbility
 import io.github.chaosdave34.kitpvp.abilities.impl.vampire.BatMorphAbility
 import io.github.chaosdave34.kitpvp.abilities.impl.zeus.LightningAbility
-import io.github.chaosdave34.kitpvp.abilities.impl.zeus.RageAbility
 import io.github.chaosdave34.kitpvp.abilities.impl.zeus.ThunderstormAbility
 import org.bukkit.NamespacedKey
 import org.bukkit.event.EventHandler
@@ -44,25 +37,18 @@ class AbilityHandler : Listener {
         lateinit var LIGHTNING: Ability
         lateinit var THUNDERSTORM: Ability
         lateinit var HAUNT: Ability
-        lateinit var LEVITATE: Ability
         lateinit var SHUFFLE: Ability
         lateinit var BAT_MORPH: Ability
         lateinit var AIRSTRIKE: Ability
-        lateinit var DARKNESS: Ability
         lateinit var EXPLODE: Ability
         lateinit var ENDER_ATTACK: Ability
-        lateinit var STORM: Ability
         lateinit var GROUND_SLAM: Ability
-        lateinit var TORNADO: Ability
         lateinit var ENHANCE: Ability
         lateinit var TURRET: Ability
         lateinit var LEAP: Ability
         lateinit var DRAGON_FIREBALL: Ability
         lateinit var FIRE_STORM: Ability
-        lateinit var RAGE: Ability
-        lateinit var MODULAR_SHIELD: Ability
         lateinit var OVERLOAD: Ability
-        lateinit var CHARGE: Ability
         lateinit var WATER_BURST: Ability
         lateinit var BLACK_HOLE: Ability
     }
@@ -72,25 +58,18 @@ class AbilityHandler : Listener {
         LIGHTNING = registerAbility(LightningAbility())
         THUNDERSTORM = registerAbility(ThunderstormAbility())
         HAUNT = registerAbility(HauntAbility())
-        LEVITATE = registerAbility(LevitateAbility())
         SHUFFLE = registerAbility(ShuffleAbility())
         BAT_MORPH = registerAbility(BatMorphAbility())
         AIRSTRIKE = registerAbility(AirstrikeAbility())
-        DARKNESS = registerAbility(DarknessAbility())
         EXPLODE = registerAbility(ExplodeAbility())
         ENDER_ATTACK = registerAbility(EnderAttackAbility())
-        STORM = registerAbility(StormAbility())
         GROUND_SLAM = registerAbility(GroundSlamAbility())
-        TORNADO = registerAbility(TornadoAbility())
         ENHANCE = registerAbility(EnhanceAbility())
         TURRET = registerAbility(TurretAbility())
         LEAP = registerAbility(LeapAbility())
         DRAGON_FIREBALL = registerAbility(DragonFireballAbility())
         FIRE_STORM = registerAbility(FireStormAbility())
-        RAGE = registerAbility(RageAbility())
-        MODULAR_SHIELD = registerAbility(ModularShieldAbility())
         OVERLOAD = registerAbility(OverloadAbility())
-        CHARGE = registerAbility(ChargeAbility())
         WATER_BURST = registerAbility(WaterBurstAbility())
         BLACK_HOLE = registerAbility(BlackHoleAbility())
     }

@@ -13,7 +13,7 @@ import org.bukkit.potion.PotionEffect
 import org.bukkit.potion.PotionEffectType
 
 class OverloadAbility : Ability("overload", "Overload", Type.RIGHT_CLICK, 25) {
-    override fun getDescription(): List<Component> = createSimpleDescription("Reduces your health by 50% but gain strength for 8s.")
+    override fun getDescription(): List<Component> = createSimpleDescriptionAsList("Reduces your health by 50% but gain strength for 8s.")
 
     override fun onAbility(player: Player): Boolean {
         player.world.playSound(player.location, Sound.BLOCK_RESPAWN_ANCHOR_DEPLETE, SoundCategory.PLAYERS, 1f, 1.8f)

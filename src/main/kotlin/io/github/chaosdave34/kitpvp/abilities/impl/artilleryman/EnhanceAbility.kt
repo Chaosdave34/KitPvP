@@ -9,7 +9,7 @@ import org.bukkit.entity.Player
 
 class EnhanceAbility : Ability("enhance", "Enhance", Type.LEFT_CLICK, 30) {
 
-    override fun getDescription(): List<Component> = createSimpleDescription("Instantly load your rocket launcher for 3 seconds.")
+    override fun getDescription(): List<Component> = createSimpleDescriptionAsList("Instantly load your rocket launcher for 3 seconds.")
 
     override fun onAbility(player: Player): Boolean {
         val crossbow = player.inventory.itemInMainHand

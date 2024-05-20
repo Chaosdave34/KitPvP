@@ -1,16 +1,16 @@
-package io.github.chaosdave34.kitpvp.abilities.impl.zeus
+package io.github.chaosdave34.kitpvp.ultimates.impl
 
 import io.github.chaosdave34.kitpvp.KitPvp
-import io.github.chaosdave34.kitpvp.abilities.Ability
 import io.github.chaosdave34.kitpvp.abilities.AbilityRunnable
+import io.github.chaosdave34.kitpvp.ultimates.Ultimate
 import net.kyori.adventure.text.Component
 import org.bukkit.enchantments.Enchantment
 import org.bukkit.entity.Player
 
-class RageAbility : Ability("rage", "Rage", Type.RIGHT_CLICK, 20) {
-    override fun getDescription(): List<Component> = createSimpleDescription("Gain thorns 10 for 10s.")
+class RageUltimate: Ultimate("rage", "Rage", 100.0) {
+    override fun getDescription(): Component = createSimpleDescription("Gain thorns 10 for 10s.")
 
-    override fun onAbility(player: Player): Boolean {
+    override fun onAbility(player: Player) {
         player.isGlowing = true
 
         for (armorContent in player.inventory.armorContents) {
@@ -25,7 +25,5 @@ class RageAbility : Ability("rage", "Rage", Type.RIGHT_CLICK, 20) {
                 }
             }
         }.runTaskLater(KitPvp.INSTANCE, 10 * 20)
-
-        return true
     }
 }

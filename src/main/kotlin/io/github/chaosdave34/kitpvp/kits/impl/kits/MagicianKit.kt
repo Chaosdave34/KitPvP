@@ -2,6 +2,8 @@ package io.github.chaosdave34.kitpvp.kits.impl.kits
 
 import io.github.chaosdave34.kitpvp.items.CustomItemHandler
 import io.github.chaosdave34.kitpvp.kits.Kit
+import io.github.chaosdave34.kitpvp.ultimates.Ultimate
+import io.github.chaosdave34.kitpvp.ultimates.UltimateHandler
 import org.bukkit.Color
 import org.bukkit.Material
 import org.bukkit.enchantments.Enchantment
@@ -60,6 +62,8 @@ class MagicianKit : Kit("magician", "Magician") {
             ItemStack(Material.GILDED_BLACKSTONE, 32),
         )
     }
+
+    override fun getUltimate(): Ultimate = UltimateHandler.LEVITATE
 
     @EventHandler
     fun onSlotChange(event: PlayerItemHeldEvent) {

@@ -13,7 +13,7 @@ import kotlin.math.cos
 import kotlin.math.sin
 
 class FireStormAbility : Ability("fire_storm", "Fire Storm", Type.RIGHT_CLICK, 20) {
-    override fun getDescription(): List<Component> = createSimpleDescription("Cause a storm of fire damaging nearby enemies.")
+    override fun getDescription(): List<Component> = createSimpleDescriptionAsList("Cause a storm of fire damaging nearby enemies.")
 
     override fun onAbility(player: Player): Boolean {
         object : AbilityRunnable(player) {

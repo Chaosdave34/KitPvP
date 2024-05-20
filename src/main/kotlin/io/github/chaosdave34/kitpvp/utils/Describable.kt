@@ -3,10 +3,11 @@ package io.github.chaosdave34.kitpvp.utils
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
-import java.util.ArrayList
 
 interface Describable {
-    fun createSimpleDescription(description: String): List<Component> {
+    fun createSimpleDescription(description: String): Component = Component.text(description, NamedTextColor.GRAY).decoration(TextDecoration.ITALIC, false)
+
+    fun createSimpleDescriptionAsList(description: String): List<Component> {
         val splits = description.split(" ")
 
         val lines: MutableList<String> = mutableListOf()

@@ -9,7 +9,7 @@ import org.bukkit.potion.PotionEffectType
 
 class EnderAttackAbility : Ability("ender_attack", "Ender Attack", Type.RIGHT_CLICK, 15) {
     override fun getDescription(): List<Component> =
-        createSimpleDescription("Teleports you behind the enemy you are looking at in a 50 block radius. Gain speed and strength for 5 seconds.")
+        createSimpleDescriptionAsList("Teleports you behind the enemy you are looking at in a 50 block radius. Gain speed and strength for 5 seconds.")
 
     override fun onAbility(player: Player): Boolean {
         val target = player.getTargetEntity(50, true)

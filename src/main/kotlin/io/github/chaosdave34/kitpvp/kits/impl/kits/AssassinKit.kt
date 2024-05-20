@@ -7,7 +7,7 @@ import io.github.chaosdave34.kitpvp.kits.Kit
 import org.bukkit.Material
 import org.bukkit.inventory.ItemStack
 
-class AssassinKit : Kit("assassin", "Assassin") {
+class AssassinKit : Kit("assassin", "Assassin *") {
 
     override fun getHeadContent(): ItemStack = ItemStack(Material.CHAINMAIL_HELMET)
 
