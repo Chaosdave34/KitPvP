@@ -23,7 +23,7 @@ class DashUltimate: Ultimate("dash", "Dash", 50.0) {
             horse.isInvulnerable = true
         }
         horse.addPassenger(player)
-        val direction = player.eyeLocation.direction.multiply(5)
+        val direction = player.eyeLocation.direction.multiply(0.5)
         horse.velocity = direction
         val content = player.inventory.storageContents
         player.inventory.storageContents = arrayOf()
