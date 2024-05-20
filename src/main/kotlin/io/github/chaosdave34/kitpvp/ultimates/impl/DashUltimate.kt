@@ -33,7 +33,7 @@ class DashUltimate: Ultimate("dash", "Dash", 50.0) {
 
                 for (entity in player.getNearbyEntities(3.0, 3.5, 3.0)) {
                     if(entity is LivingEntity){
-                        entity.velocity = direction.multiply(2);
+                        entity.velocity = direction.multiply(2)
                         entity.damage(7.5,player)
                     }
                 }
