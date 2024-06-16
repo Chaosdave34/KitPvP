@@ -3,8 +3,8 @@ import xyz.jpenilla.resourcefactory.bukkit.Permission
 
 plugins {
     `java-library`
-    kotlin("jvm") version "1.9.23"
-    kotlin("plugin.lombok") version "1.9.23"
+    kotlin("jvm") version "2.0.0"
+    kotlin("plugin.lombok") version "2.0.0"
 
     id("io.papermc.paperweight.userdev") version "1.7.1"
     id("xyz.jpenilla.run-paper") version "2.3.0" // Adds runServer and runMojangMappedServer tasks for testing
