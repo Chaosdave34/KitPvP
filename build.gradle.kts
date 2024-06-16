@@ -7,7 +7,7 @@ plugins {
     kotlin("plugin.lombok") version "1.9.23"
 
     id("io.papermc.paperweight.userdev") version "1.7.1"
-    id("xyz.jpenilla.run-paper") version "2.2.4" // Adds runServer and runMojangMappedServer tasks for testing
+    id("xyz.jpenilla.run-paper") version "2.3.0" // Adds runServer and runMojangMappedServer tasks for testing
     id("xyz.jpenilla.resource-factory-bukkit-convention") version "1.1.1" // Generates plugin.yml based on the Gradle config
 
     // Shades and relocates dependencies into our plugin jar. See https://imperceptiblethoughts.com/shadow/introduction/
@@ -52,10 +52,9 @@ repositories {
 }
 
 dependencies {
-    paperweight.paperDevBundle("1.20.6-R0.1-SNAPSHOT")
-    // paperweight.foliaDevBundle("1.20.6-R0.1-SNAPSHOT")
-    // paperweight.devBundle("com.example.paperfork", "1.20.6-R0.1-SNAPSHOT")
-
+    paperweight.paperDevBundle("1.21-R0.1-SNAPSHOT")
+    // paperweight.foliaDevBundle("1.21-R0.1-SNAPSHOT")
+    // paperweight.devBundle("com.example.paperfork", "1.21-R0.1-SNAPSHOT")
     implementation("io.github.chaosdave34", "ghutils", "0.4.0-SNAPSHOT")
 }
 
@@ -80,7 +79,7 @@ tasks {
             "name" to project.name,
             "version" to project.version,
             "description" to project.description,
-            "apiVersion" to "1.20"
+            "apiVersion" to "1.21"
         )
         inputs.properties(props)
         filesMatching("plugin.yml") {
