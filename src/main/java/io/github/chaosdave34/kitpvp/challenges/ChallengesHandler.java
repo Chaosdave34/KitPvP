@@ -1,6 +1,6 @@
 package io.github.chaosdave34.kitpvp.challenges;
 
-import io.github.chaosdave34.ghutils.Utils;
+import io.github.chaosdave34.kitpvp.Utils;
 import io.github.chaosdave34.kitpvp.challenges.impl.TenKillsWithKit;
 import io.github.chaosdave34.kitpvp.challenges.impl.TwentyFiveKillsChallenge;
 import io.github.chaosdave34.kitpvp.kits.KitHandler;

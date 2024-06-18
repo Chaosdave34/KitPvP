@@ -1,6 +1,6 @@
 package io.github.chaosdave34.kitpvp.damagetype
 
-import io.github.chaosdave34.ghutils.utils.ReflectionUtils
+import io.github.chaosdave34.kitpvp.utils.ReflectionUtils
 import net.minecraft.core.Registry
 import net.minecraft.core.registries.Registries
 import net.minecraft.world.damagesource.DamageEffects

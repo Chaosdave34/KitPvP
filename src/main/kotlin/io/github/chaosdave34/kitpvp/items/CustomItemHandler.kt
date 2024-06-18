@@ -1,7 +1,7 @@
 package io.github.chaosdave34.kitpvp.items
 
-import io.github.chaosdave34.ghutils.Utils
-import io.github.chaosdave34.ghutils.utils.PDCUtils
+import io.github.chaosdave34.kitpvp.Utils
+import io.github.chaosdave34.kitpvp.utils.PDCUtils
 import io.github.chaosdave34.kitpvp.items.impl.archer.Leap
 import io.github.chaosdave34.kitpvp.items.impl.archer.LongBow
 import io.github.chaosdave34.kitpvp.items.impl.artilleryman.Jetpack

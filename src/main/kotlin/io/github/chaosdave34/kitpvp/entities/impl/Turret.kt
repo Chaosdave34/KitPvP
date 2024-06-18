@@ -2,7 +2,7 @@ package io.github.chaosdave34.kitpvp.entities.impl
 
 import com.destroystokyo.paper.event.entity.EntityAddToWorldEvent
 import io.github.chaosdave34.ghutils.entity.CustomEntity
-import io.github.chaosdave34.ghutils.utils.PDCUtils
+import io.github.chaosdave34.kitpvp.utils.PDCUtils
 import io.github.chaosdave34.kitpvp.KitPvp
 import io.github.chaosdave34.kitpvp.events.EntityReceiveDamageByEntityEvent
 import io.github.chaosdave34.kitpvp.events.PlayerSpawnEvent

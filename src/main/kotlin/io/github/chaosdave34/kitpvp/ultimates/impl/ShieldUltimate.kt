@@ -1,8 +1,8 @@
 package io.github.chaosdave34.kitpvp.ultimates.impl
 
-import io.github.chaosdave34.ghutils.Utils
 import io.github.chaosdave34.kitpvp.ExtendedPlayer
 import io.github.chaosdave34.kitpvp.KitPvp
+import io.github.chaosdave34.kitpvp.Utils
 import io.github.chaosdave34.kitpvp.abilities.AbilityRunnable
 import io.github.chaosdave34.kitpvp.events.PlayerSpawnEvent
 import io.github.chaosdave34.kitpvp.ultimates.Ultimate
@@ -67,7 +67,7 @@ class ShieldUltimate: Ultimate("shield", "Shield", 150.0) {
         creeper.setPos(CraftVector.toNMS(event.to.toVector()))
 
         val moveEntityPacket = ClientboundTeleportEntityPacket(creeper as Entity)
-        Utils.sendPacketToOnlinePlayers(moveEntityPacket)
+        Utils.sendPacketsToOnlinePlayers(moveEntityPacket)
     }
 
     @EventHandler
@@ -85,7 +85,7 @@ class ShieldUltimate: Ultimate("shield", "Shield", 150.0) {
         creeper.remove(Entity.RemovalReason.KILLED)
 
         val removeEntitiesPacket = ClientboundRemoveEntitiesPacket(creeper.id)
-        Utils.sendPacketToOnlinePlayers(removeEntitiesPacket)
+        Utils.sendPacketsToOnlinePlayers(removeEntitiesPacket)
 
         ExtendedPlayer.from(player).scoreboard.getTeam("creeper_shield")?.unregister()
     }

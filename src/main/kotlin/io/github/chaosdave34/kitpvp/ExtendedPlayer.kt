@@ -1,6 +1,6 @@
 package io.github.chaosdave34.kitpvp
 
-import io.github.chaosdave34.ghutils.utils.MathUtils
+import io.github.chaosdave34.kitpvp.utils.MathUtils
 import io.github.chaosdave34.kitpvp.customevents.CustomEventHandler
 import io.github.chaosdave34.kitpvp.events.PlayerSpawnEvent
 import io.github.chaosdave34.kitpvp.kits.ElytraKitHandler

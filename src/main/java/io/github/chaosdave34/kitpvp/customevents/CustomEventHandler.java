@@ -1,7 +1,7 @@
 package io.github.chaosdave34.kitpvp.customevents;
 
-import io.github.chaosdave34.ghutils.Utils;
 import io.github.chaosdave34.kitpvp.KitPvp;
+import io.github.chaosdave34.kitpvp.Utils;
 import io.github.chaosdave34.kitpvp.customevents.impl.SimpleEvent;
 import io.github.chaosdave34.kitpvp.customevents.impl.SupplyDropEvent;
 import lombok.Getter;

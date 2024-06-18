@@ -1,6 +1,6 @@
 package io.github.chaosdave34.kitpvp.enchantments
 
-import io.github.chaosdave34.ghutils.Utils
+import io.github.chaosdave34.kitpvp.Utils
 import io.github.chaosdave34.kitpvp.KitPvp
 import io.github.chaosdave34.kitpvp.enchantments.impl.BackstabEnchantment
 import io.github.chaosdave34.kitpvp.enchantments.impl.FreezeEnchantment

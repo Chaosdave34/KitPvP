@@ -1,8 +1,8 @@
 package io.github.chaosdave34.kitpvp.fakeplayer;
 
-import io.github.chaosdave34.ghutils.Utils;
 import io.github.chaosdave34.ghutils.fakeplayer.FakePlayer;
 import io.github.chaosdave34.kitpvp.ExtendedPlayer;
+import io.github.chaosdave34.kitpvp.Utils;
 import io.github.chaosdave34.kitpvp.kits.Kit;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -14,6 +14,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.EquipmentSlot;
 import org.jetbrains.annotations.NotNull;
 
+@Deprecated()
 public class KitSelectorFakePlayer extends FakePlayer {
     private final Kit kit;
 

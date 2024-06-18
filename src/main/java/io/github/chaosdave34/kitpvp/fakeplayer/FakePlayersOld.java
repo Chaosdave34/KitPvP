@@ -5,7 +5,8 @@ import io.github.chaosdave34.kitpvp.kits.KitHandler;
 import org.bukkit.Location;
 import org.bukkit.event.Listener;
 
-public class FakePlayers implements Listener {
+@Deprecated
+public class FakePlayersOld implements Listener {
     public static FakePlayer CLASSIC_KIT;
     public static FakePlayer ZEUS_KIT;
     public static FakePlayer TANK_KIT;
@@ -20,14 +21,6 @@ public class FakePlayers implements Listener {
     public static FakePlayer ENDERMAN_KIT;
     public static FakePlayer POSEIDON_KIT;
     public static FakePlayer DEVIL_KIT;
-
-    public static FakePlayer COSMETICS;
-    public static FakePlayer ELYTRA;
-
-    public static FakePlayer RETURN;
-    public static FakePlayer ELYTRA_COSMETICS;
-    public static FakePlayer ECLIPSE_PHOTON;
-    public static FakePlayer ELYTRA_KIT_SELECTOR;
 
     public static void create() {
         CLASSIC_KIT = new KitSelectorFakePlayer(KitHandler.KNIGHT, "world", new Location(null, -7.5, 120.0, 9.5, -90, 0));
@@ -45,13 +38,5 @@ public class FakePlayers implements Listener {
         ENDERMAN_KIT = new KitSelectorFakePlayer(KitHandler.ENDERMAN, "world", new Location(null, 11.5, 120.0, -2.5, 65, 0));
         POSEIDON_KIT = new KitSelectorFakePlayer(KitHandler.POSEIDON, "world", new Location(null, 10.5, 120.0, -5.5, 45, 0));
         DEVIL_KIT = new KitSelectorFakePlayer(KitHandler.DEVIL, "world", new Location(null, 8.5, 120.0, -7.5, 15, 0));
-
-        COSMETICS = new CosmeticsFakePlayer("world", new Location(null, 4.5, 120, 12.5, 180, 0));
-        ELYTRA = new ElytraFakePlayer();
-
-        ELYTRA_COSMETICS = new CosmeticsFakePlayer("world_elytra", new Location(null, 16.5, 200, 4.5, 135, 0));
-        RETURN = new KitFakePlayer();
-        ECLIPSE_PHOTON = new EclipsePhotonFakePlayer();
-        ELYTRA_KIT_SELECTOR = new ElytraKitSelectorFakePlayer();
     }
 }

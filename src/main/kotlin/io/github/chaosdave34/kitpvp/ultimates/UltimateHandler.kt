@@ -1,6 +1,6 @@
 package io.github.chaosdave34.kitpvp.ultimates
 
-import io.github.chaosdave34.ghutils.Utils
+import io.github.chaosdave34.kitpvp.Utils
 import io.github.chaosdave34.kitpvp.ExtendedPlayer
 import io.github.chaosdave34.kitpvp.events.EntityDealDamageEvent
 import io.github.chaosdave34.kitpvp.ultimates.impl.*

@@ -1,6 +1,6 @@
 package io.github.chaosdave34.kitpvp.companions
 
-import io.github.chaosdave34.ghutils.utils.PDCUtils
+import io.github.chaosdave34.kitpvp.utils.PDCUtils
 import io.github.chaosdave34.kitpvp.ExtendedPlayer
 import io.github.chaosdave34.kitpvp.companions.impl.AllayCompanion
 import io.github.chaosdave34.kitpvp.companions.impl.ZombifiedPiglinCompanion

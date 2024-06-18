@@ -1,6 +1,6 @@
 package io.github.chaosdave34.kitpvp.kits
 
-import io.github.chaosdave34.ghutils.Utils
+import io.github.chaosdave34.kitpvp.Utils
 import io.github.chaosdave34.kitpvp.kits.impl.kits.*
 
 class KitHandler {
