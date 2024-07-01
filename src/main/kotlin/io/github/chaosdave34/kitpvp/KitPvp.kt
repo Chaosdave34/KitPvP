@@ -23,12 +23,14 @@ import lombok.Getter
 import org.bukkit.Bukkit
 import org.bukkit.GameRule
 import org.bukkit.Location
+import org.bukkit.ServerLinks
 import org.bukkit.block.data.BlockData
 import org.bukkit.command.CommandExecutor
 import org.bukkit.command.TabCompleter
 import org.bukkit.plugin.java.JavaPlugin
 import java.io.File
 import java.io.IOException
+import java.net.URI
 import java.util.*
 
 @Getter
@@ -117,6 +119,9 @@ class KitPvp : JavaPlugin() {
         registerCommand("gommemode", GommeModeCommand())
         registerCommand("addexperience", AddExperienceCommand(), PlayerTabCompleter())
         registerCommand("addcoins", AddCoinsCommand(), PlayerTabCompleter())
+
+        // Server Links
+        Bukkit.getServer().serverLinks.addLink(ServerLinks.Type.COMMUNITY, URI.create("https://discord.gg/EdkVunMSXx"))
 
         // Create data folder
         dataFolder.mkdir()
