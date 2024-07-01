@@ -11,6 +11,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 
+@Deprecated
 public class HighestLevelsTextDisplay extends TextDisplay {
     public HighestLevelsTextDisplay() {
         super("world", new Location(null, 0.5,121.5,-8.5), 6);

@@ -10,6 +10,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
+@Deprecated
 public class PersonalStatisticsDisplay extends TextDisplay {
     private final ExtendedPlayer.GameType gameType;
 

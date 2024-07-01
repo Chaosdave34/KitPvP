@@ -12,6 +12,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 
+@Deprecated
 public class HighestKillstreaksTextDisplay extends TextDisplay {
     private final ExtendedPlayer.GameType gameType;
 

@@ -1,12 +1,12 @@
 package io.github.chaosdave34.kitpvp
 
-import io.github.chaosdave34.kitpvp.utils.MathUtils
 import io.github.chaosdave34.kitpvp.customevents.CustomEventHandler
 import io.github.chaosdave34.kitpvp.events.PlayerSpawnEvent
 import io.github.chaosdave34.kitpvp.kits.ElytraKitHandler
 import io.github.chaosdave34.kitpvp.kits.Kit
 import io.github.chaosdave34.kitpvp.kits.KitHandler
-import io.github.chaosdave34.kitpvp.textdisplays.TextDisplays
+import io.github.chaosdave34.kitpvp.textdisplays.TextDisplaysOld
+import io.github.chaosdave34.kitpvp.utils.MathUtils
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
@@ -273,8 +273,8 @@ class ExtendedPlayer(val uuid: UUID) {
 
     private fun updatePersonalStatisticsDisplay(gameType: GameType) {
         when (gameType) {
-            GameType.KITS -> TextDisplays.PERSONAL_STATISTICS_KITS.update(getPlayer())
-            GameType.ELYTRA -> TextDisplays.PERSONAL_STATISTICS_ELYTRA.update(getPlayer())
+            GameType.KITS -> TextDisplaysOld.PERSONAL_STATISTICS_KITS.update(getPlayer())
+            GameType.ELYTRA -> TextDisplaysOld.PERSONAL_STATISTICS_ELYTRA.update(getPlayer())
         }
     }
 
@@ -317,8 +317,8 @@ class ExtendedPlayer(val uuid: UUID) {
             highestKillStreaks[uuid] = killStreak
 
             when (gameType) {
-                GameType.KITS -> TextDisplays.HIGHEST_KILL_STREAKS_KITS.updateForAll()
-                GameType.ELYTRA -> TextDisplays.PERSONAL_STATISTICS_ELYTRA.updateForAll()
+                GameType.KITS -> TextDisplaysOld.HIGHEST_KILL_STREAKS_KITS.updateForAll()
+                GameType.ELYTRA -> TextDisplaysOld.PERSONAL_STATISTICS_ELYTRA.updateForAll()
             }
         }
     }
@@ -369,7 +369,7 @@ class ExtendedPlayer(val uuid: UUID) {
 
                 highestLevels[uuid] = getLevel()
 
-                TextDisplays.HIGHEST_LEVELS_KITS.updateForAll()
+                TextDisplaysOld.HIGHEST_LEVELS_KITS.updateForAll()
             }
 
         }

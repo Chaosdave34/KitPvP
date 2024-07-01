@@ -3,6 +3,7 @@ package io.github.chaosdave34.kitpvp.listener
 import io.github.chaosdave34.kitpvp.ExtendedPlayer
 import io.github.chaosdave34.kitpvp.KitPvp
 import io.github.chaosdave34.kitpvp.fakeplayer.FakePlayers
+import io.github.chaosdave34.kitpvp.textdisplays.TextDisplays
 import io.github.chaosdave34.kitpvp.utils.JsonUtils
 import io.papermc.paper.event.player.AsyncChatEvent
 import io.papermc.paper.event.player.PlayerFlowerPotManipulateEvent
@@ -54,12 +55,6 @@ class UtilityListener : Listener {
             null,
             false
         )
-
-        //NPC
-        KitPvp.INSTANCE.fakePlayerHandler.showAllVisibleFakePlayer(player)
-
-        // TextDisplay
-        //GHUtils.getTextDisplayHandler().spawnTextDisplays(player)
 
         // Spawn
         extendedPlayer.spawn()
@@ -149,8 +144,7 @@ class UtilityListener : Listener {
         val world = event.world
 
         FakePlayers.create(world)
-
-        if (world.name == "world") KitPvp.INSTANCE.onWorldLoad()
+        TextDisplays.create(world)
 
         if (world.name == "nether" || world.name == "the_end") Bukkit.unloadWorld(world, false)
 
