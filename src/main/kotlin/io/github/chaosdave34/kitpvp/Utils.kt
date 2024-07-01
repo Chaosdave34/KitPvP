@@ -1,6 +1,5 @@
 package io.github.chaosdave34.kitpvp
 
-import net.minecraft.network.protocol.Packet
 import net.minecraft.network.protocol.game.ClientboundAddEntityPacket
 import net.minecraft.network.protocol.game.ClientboundSetEntityDataPacket
 import net.minecraft.world.entity.Entity
@@ -10,17 +9,6 @@ import org.bukkit.entity.Player
 import org.bukkit.event.Listener
 
 object Utils {
-    fun sendPacketsToOnlinePlayers(vararg packets: Packet<*>) {
-        for (player in Bukkit.getOnlinePlayers()) {
-            sendPacketsToPlayer(player, *packets)
-        }
-    }
-
-    fun sendPacketsToPlayer(player: Player, vararg packets: Packet<*>) {
-        val connection = (player as CraftPlayer).handle.connection
-        packets.forEach { connection.send(it) }
-    }
-
     @JvmStatic
     fun registerEvents(listener: Listener) {
         KitPvp.INSTANCE.server.pluginManager.registerEvents(listener, KitPvp.INSTANCE)

@@ -5,6 +5,7 @@ import io.github.chaosdave34.kitpvp.KitPvp
 import io.github.chaosdave34.kitpvp.Utils
 import io.github.chaosdave34.kitpvp.abilities.AbilityRunnable
 import io.github.chaosdave34.kitpvp.events.PlayerSpawnEvent
+import io.github.chaosdave34.kitpvp.extensions.sendPackets
 import io.github.chaosdave34.kitpvp.ultimates.Ultimate
 import net.kyori.adventure.text.Component
 import net.minecraft.network.protocol.game.ClientboundRemoveEntitiesPacket
@@ -14,6 +15,7 @@ import net.minecraft.world.effect.MobEffects
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.monster.Creeper
+import org.bukkit.Bukkit
 import org.bukkit.SoundCategory
 import org.bukkit.craftbukkit.entity.CraftPlayer
 import org.bukkit.craftbukkit.util.CraftVector
@@ -67,7 +69,7 @@ class ShieldUltimate: Ultimate("shield", "Shield", 150.0) {
         creeper.setPos(CraftVector.toNMS(event.to.toVector()))
 
         val moveEntityPacket = ClientboundTeleportEntityPacket(creeper as Entity)
-        Utils.sendPacketsToOnlinePlayers(moveEntityPacket)
+        Bukkit.getOnlinePlayers().forEach { it.sendPackets(moveEntityPacket) }
     }
 
     @EventHandler
@@ -85,7 +87,7 @@ class ShieldUltimate: Ultimate("shield", "Shield", 150.0) {
         creeper.remove(Entity.RemovalReason.KILLED)
 
         val removeEntitiesPacket = ClientboundRemoveEntitiesPacket(creeper.id)
-        Utils.sendPacketsToOnlinePlayers(removeEntitiesPacket)
+        Bukkit.getOnlinePlayers().forEach { it.sendPackets(removeEntitiesPacket) }
 
         ExtendedPlayer.from(player).scoreboard.getTeam("creeper_shield")?.unregister()
     }
