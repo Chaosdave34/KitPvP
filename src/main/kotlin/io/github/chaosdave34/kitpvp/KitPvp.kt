@@ -111,7 +111,6 @@ class KitPvp : JavaPlugin() {
         registerCommand("spawn", SpawnCommand())
         registerCommand("msg", MessageCommand(), PlayerTabCompleter())
         registerCommand("bounty", BountyCommand(), PlayerTabCompleter())
-        registerCommand("discord", DiscordCommand())
 
         //Admin Commands
         registerCommand("loop", LoopCommand(), LoopTabCompleter())
@@ -121,7 +120,7 @@ class KitPvp : JavaPlugin() {
         registerCommand("addcoins", AddCoinsCommand(), PlayerTabCompleter())
 
         // Server Links
-        Bukkit.getServer().serverLinks.addLink(ServerLinks.Type.COMMUNITY, URI.create("https://discord.gg/EdkVunMSXx"))
+        Bukkit.getServer().serverLinks.addLink(ServerLinks.Type.COMMUNITY, URI.create(config["discord"].toString()))
 
         // Create data folder
         dataFolder.mkdir()

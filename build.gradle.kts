@@ -127,11 +127,6 @@ bukkitPluginYaml {
             usage = "/<command> <player> <bounty>"
         }
 
-        register("discord") {
-            description = "Get discord link"
-            usage = "/<discord>"
-        }
-
         register("loop") {
             description = "Loop command"
             usage = "/<command> <amount> <period> <cmd>"
