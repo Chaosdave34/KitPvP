@@ -1,5 +1,5 @@
-import xyz.jpenilla.resourcefactory.bukkit.BukkitPluginYaml
 import xyz.jpenilla.resourcefactory.bukkit.Permission
+import xyz.jpenilla.resourcefactory.paper.paperPluginYaml
 
 plugins {
     `java-library`
@@ -8,7 +8,7 @@ plugins {
 
     id("io.papermc.paperweight.userdev") version "1.7.1"
     id("xyz.jpenilla.run-paper") version "2.3.0" // Adds runServer and runMojangMappedServer tasks for testing
-    id("xyz.jpenilla.resource-factory-bukkit-convention") version "1.1.1" // Generates plugin.yml based on the Gradle config
+    id("xyz.jpenilla.resource-factory-paper-convention") version "1.1.1" // Generates plugin.yml based on the Gradle config
 
     // Shades and relocates dependencies into our plugin jar. See https://imperceptiblethoughts.com/shadow/introduction/
     //id("com.github.johnrengelman.shadow") version "8.1.1"
@@ -106,57 +106,58 @@ tasks {
 
 // Configure plugin.yml generation
 // - name, version, and description are inherited from the Gradle project.
-bukkitPluginYaml {
+paperPluginYaml {
     main = "io.github.chaosdave34.kitpvp.KitPvp"
-    load = BukkitPluginYaml.PluginLoadOrder.STARTUP
     authors.addAll("Chaosdave34", "palul")
-    apiVersion = "1.20.5"
-    commands {
-        register("spawn") {
-            description = "Teleports you back to the spawn"
-            usage = "/<command>"
-        }
+    apiVersion = "1.21"
+    bootstrapper = "io.github.chaosdave34.kitpvp.PluginBootstrapper"
 
-        register("msg") {
-            description = "Send a player a message"
-            usage = "/<command> <player> <message>"
-        }
-
-        register("bounty") {
-            description = "Place a bounty on a player"
-            usage = "/<command> <player> <bounty>"
-        }
-
-        register("loop") {
-            description = "Loop command"
-            usage = "/<command> <amount> <period> <cmd>"
-            permission = "kitpvp.loop"
-        }
-
-        register("customitem") {
-            description = "Give yourself a custom item"
-            usage = "/<command> <item_id> <amount>"
-            permission = "kitpvp.customitem"
-        }
-
-        register("gommemode") {
-            description = "Sets you into gomme mode"
-            usage = "/<command>"
-            permission = "kitpvp.gommemode"
-        }
-
-        register("addexperience") {
-            description = "Adds experience to the player"
-            usage = "/<command> <player> <amount>"
-            permission = "kitpvp.addexperience"
-        }
-
-        register("addcoins") {
-            description = "Adds coins to the player"
-            usage = "/<command> <player> <amount>"
-            permission = "kitpvp.addcoins"
-        }
-    }
+//    commands {
+//        register("spawn") {
+//            description = "Teleports you back to the spawn"
+//            usage = "/<command>"
+//        }
+//
+//        register("msg") {
+//            description = "Send a player a message"
+//            usage = "/<command> <player> <message>"
+//        }
+//
+//        register("bounty") {
+//            description = "Place a bounty on a player"
+//            usage = "/<command> <player> <bounty>"
+//        }
+//
+//        register("loop") {
+//            description = "Loop command"
+//            usage = "/<command> <amount> <period> <cmd>"
+//            permission = "kitpvp.loop"
+//        }
+//
+//        register("customitem") {
+//            description = "Give yourself a custom item"
+//            usage = "/<command> <item_id> <amount>"
+//            permission = "kitpvp.customitem"
+//        }
+//
+//        register("gommemode") {
+//            description = "Sets you into gomme mode"
+//            usage = "/<command>"
+//            permission = "kitpvp.gommemode"
+//        }
+//
+//        register("addexperience") {
+//            description = "Adds experience to the player"
+//            usage = "/<command> <player> <amount>"
+//            permission = "kitpvp.addexperience"
+//        }
+//
+//        register("addcoins") {
+//            description = "Adds coins to the player"
+//            usage = "/<command> <player> <amount>"
+//            permission = "kitpvp.addcoins"
+//        }
+//    }
     permissions {
         register("bukkit.command.version") {
             default = Permission.Default.OP
