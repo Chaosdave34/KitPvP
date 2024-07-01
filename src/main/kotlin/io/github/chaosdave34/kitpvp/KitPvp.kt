@@ -10,7 +10,7 @@ import io.github.chaosdave34.kitpvp.companions.CompanionHandler
 import io.github.chaosdave34.kitpvp.cosmetics.CosmeticHandler
 import io.github.chaosdave34.kitpvp.customevents.CustomEventHandler
 import io.github.chaosdave34.kitpvp.damagetype.DamageTypes
-import io.github.chaosdave34.kitpvp.enchantments.EnchantmentHandler
+import io.github.chaosdave34.kitpvp.enchantments.EnchantmentListener
 import io.github.chaosdave34.kitpvp.fakeplayer.FakePlayerHandler
 import io.github.chaosdave34.kitpvp.items.CustomItemHandler
 import io.github.chaosdave34.kitpvp.kits.ElytraKitHandler
@@ -33,6 +33,7 @@ import java.io.IOException
 import java.net.URI
 import java.util.*
 
+
 @Getter
 class KitPvp : JavaPlugin() {
     private val extendedPlayers: MutableMap<UUID, ExtendedPlayer> = mutableMapOf()
@@ -46,7 +47,6 @@ class KitPvp : JavaPlugin() {
     lateinit var fakePlayerHandler: FakePlayerHandler
     lateinit var textDisplayHandler: TextDisplayHandler
     lateinit var abilityHandler: AbilityHandler
-    lateinit var enchantmentHandler: EnchantmentHandler
     lateinit var customItemHandler: CustomItemHandler
     lateinit var kitHandler: KitHandler
     lateinit var elytraKitHandler: ElytraKitHandler
@@ -69,7 +69,6 @@ class KitPvp : JavaPlugin() {
         fakePlayerHandler = FakePlayerHandler()
         textDisplayHandler = TextDisplayHandler()
         abilityHandler = AbilityHandler()
-        enchantmentHandler = EnchantmentHandler()
         customItemHandler = CustomItemHandler()
         kitHandler = KitHandler()
         elytraKitHandler = ElytraKitHandler()
@@ -99,6 +98,7 @@ class KitPvp : JavaPlugin() {
         pluginManager.registerEvents(GameListener(), this)
         pluginManager.registerEvents(GamePlayerDeathListener(), this)
         pluginManager.registerEvents(EntityDamageListener(), this)
+        pluginManager.registerEvents(EnchantmentListener(), this)
         pluginManager.registerEvents(fakePlayerHandler, this)
         pluginManager.registerEvents(textDisplayHandler, this)
         pluginManager.registerEvents(abilityHandler, this)

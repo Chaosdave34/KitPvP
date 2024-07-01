@@ -1,11 +1,11 @@
 package io.github.chaosdave34.kitpvp.items
 
-import io.github.chaosdave34.kitpvp.utils.PDCUtils
 import io.github.chaosdave34.kitpvp.KitPvp
 import io.github.chaosdave34.kitpvp.abilities.Ability
-import io.github.chaosdave34.kitpvp.enchantments.CustomEnchantment
 import io.github.chaosdave34.kitpvp.utils.Describable
 import io.github.chaosdave34.kitpvp.utils.ItemUtilities
+import io.github.chaosdave34.kitpvp.utils.PDCUtils
+import io.papermc.paper.annotation.DoNotUse
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
@@ -32,8 +32,6 @@ abstract class CustomItem(val material: Material, val id: String, private val st
 
     open fun getAbilities() = emptyList<Ability>()
 
-    open fun getCustomEnchantments() = mapOf<CustomEnchantment, Int>()
-
     fun build(count: Int = 1): ItemStack {
         val itemStack = ItemStack(material, count)
         val itemMeta = itemStack.itemMeta
@@ -48,12 +46,7 @@ abstract class CustomItem(val material: Material, val id: String, private val st
         if (!stackable) itemMeta.setMaxStackSize(1)
 
         val enchantmentContainer = container.adapterContext.newPersistentDataContainer()
-        getCustomEnchantments().forEach { (enchantment, level) ->
-            enchantmentContainer.set(NamespacedKey(KitPvp.INSTANCE, enchantment.id), PersistentDataType.INTEGER, level)
-        }
         container.set(NamespacedKey(KitPvp.INSTANCE, "enchantments"), PersistentDataType.TAG_CONTAINER, enchantmentContainer)
-
-        
 
         itemStack.itemMeta = itemMeta
 
@@ -78,10 +71,6 @@ abstract class CustomItem(val material: Material, val id: String, private val st
         for ((enchantment, level) in itemStack.enchantments) {
             val component = enchantment.displayName(level).color(NamedTextColor.BLUE).decoration(TextDecoration.ITALIC, false)
             enchantmentLore.add(component)
-        }
-
-        for ((enchantment, level) in getCustomEnchantments()) {
-            enchantmentLore.add(enchantment.getDisplayName(level).decoration(TextDecoration.ITALIC, false))
         }
 
         enchantmentLore.sortWith(Comparator.comparing { PlainTextComponentSerializer.plainText().serialize(it).lowercase() })

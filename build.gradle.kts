@@ -1,5 +1,4 @@
 import xyz.jpenilla.resourcefactory.bukkit.Permission
-import xyz.jpenilla.resourcefactory.paper.paperPluginYaml
 
 plugins {
     `java-library`
@@ -110,7 +109,7 @@ paperPluginYaml {
     main = "io.github.chaosdave34.kitpvp.KitPvp"
     authors.addAll("Chaosdave34", "palul")
     apiVersion = "1.21"
-    bootstrapper = "io.github.chaosdave34.kitpvp.PluginBootstrapper"
+    bootstrapper = "io.github.chaosdave34.kitpvp.PluginBootstrap"
 
 //    commands {
 //        register("spawn") {
