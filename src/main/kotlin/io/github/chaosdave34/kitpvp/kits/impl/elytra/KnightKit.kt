@@ -8,11 +8,11 @@ import org.bukkit.inventory.ItemStack
 class KnightKit : ElytraKit("elytra_knight", "Knight", Material.IRON_SWORD) {
 
     override fun getInventoryContent(): Array<ItemStack?> {
-        val bow = ItemStack(Material.BOW)
+        val bow = ItemStack.of(Material.BOW)
         bow.addEnchantment(Enchantment.INFINITY, 1)
         bow.addEnchantment(Enchantment.POWER, 3)
 
-        val stoneSword = ItemStack(Material.IRON_SWORD)
+        val stoneSword = ItemStack.of(Material.IRON_SWORD)
         stoneSword.addEnchantment(Enchantment.SHARPNESS, 1)
 
         return arrayOf(

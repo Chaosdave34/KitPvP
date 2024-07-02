@@ -18,28 +18,28 @@ import org.bukkit.potion.PotionType
 class MagicianKit : Kit("magician", "Magician") {
 
     override fun getHeadContent(): ItemStack {
-        val helmet = ItemStack(Material.LEATHER_HELMET)
+        val helmet = ItemStack.of(Material.LEATHER_HELMET)
         helmet.addEnchantment(Enchantment.PROTECTION, 2)
         helmet.setLeatherArmorColor(Color.RED)
         return helmet
     }
 
     override fun getChestContent(): ItemStack {
-        val chestplate = ItemStack(Material.LEATHER_CHESTPLATE)
+        val chestplate = ItemStack.of(Material.LEATHER_CHESTPLATE)
         chestplate.addEnchantment(Enchantment.PROTECTION, 2)
         chestplate.setLeatherArmorColor(Color.NAVY)
         return chestplate
     }
 
     override fun getLegsContent(): ItemStack {
-        val leggings = ItemStack(Material.LEATHER_LEGGINGS)
+        val leggings = ItemStack.of(Material.LEATHER_LEGGINGS)
         leggings.addEnchantment(Enchantment.PROTECTION, 2)
         leggings.setLeatherArmorColor(Color.NAVY)
         return leggings
     }
 
     override fun getFeetContent(): ItemStack {
-        val boots = ItemStack(Material.LEATHER_BOOTS)
+        val boots = ItemStack.of(Material.LEATHER_BOOTS)
         boots.addEnchantment(Enchantment.PROTECTION, 2)
         boots.setLeatherArmorColor(Color.BLACK)
         return boots
@@ -48,18 +48,18 @@ class MagicianKit : Kit("magician", "Magician") {
     override fun getInventoryContent(): Array<ItemStack?> {
         return arrayOf(
             CustomItemHandler.MAGIC_WAND.build(),
-            ItemStack(Material.BOOK),
-            ItemStack(Material.WATER_BUCKET),
+            ItemStack.of(Material.BOOK),
+            ItemStack.of(Material.WATER_BUCKET),
         )
     }
 
     override fun getKillRewards(): Array<ItemStack> {
-        val splashPotion = ItemStack(Material.SPLASH_POTION, 2)
+        val splashPotion = ItemStack.of(Material.SPLASH_POTION, 2)
         splashPotion.editMeta(PotionMeta::class.java) { potionMeta: PotionMeta -> potionMeta.basePotionType = PotionType.HEALING }
 
         return arrayOf(
             splashPotion,
-            ItemStack(Material.GILDED_BLACKSTONE, 32),
+            ItemStack.of(Material.GILDED_BLACKSTONE, 32),
         )
     }
 
@@ -83,10 +83,10 @@ class MagicianKit : Kit("magician", "Magician") {
             } else {
                 player.addPotionEffect(PotionEffect(PotionEffectType.SPEED, -1, 3, false, false, false))
                 player.addPotionEffect(PotionEffect(PotionEffectType.INVISIBILITY, -1, 0, false, false, false))
-                inventory.helmet = ItemStack(Material.AIR)
-                inventory.chestplate = ItemStack(Material.AIR)
-                inventory.leggings = ItemStack(Material.AIR)
-                inventory.boots = ItemStack(Material.AIR)
+                inventory.helmet = ItemStack.of(Material.AIR)
+                inventory.chestplate = ItemStack.of(Material.AIR)
+                inventory.leggings = ItemStack.of(Material.AIR)
+                inventory.boots = ItemStack.of(Material.AIR)
             }
         }
     }

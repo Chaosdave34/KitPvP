@@ -26,7 +26,7 @@ class DashUltimate : Ultimate("dash", "Dash", 50.0) {
         horse.velocity = direction
         val content = player.inventory.storageContents
         player.inventory.storageContents = arrayOf()
-        player.inventory.addItem(ItemStack(Material.DIAMOND_SWORD))
+        player.inventory.addItem(ItemStack.of(Material.DIAMOND_SWORD))
 
         object : AbilityRunnable(player) {
             override fun runInGame() {

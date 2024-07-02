@@ -17,7 +17,7 @@ object FakePlayers {
         if (world != null) {
             // Elytra PvP
             world.createFakePlayer(Location(null, -1.5, 120.0, 6.5, -45f, 0f), "Elytra PvP") {
-                it.equipment.chestplate = ItemStack(Material.ELYTRA)
+                it.equipment.chestplate = ItemStack.of(Material.ELYTRA)
 
                 it.setInteractionEventConsumer { event ->
                     if (event.isActualInteract || event.isAttack) {

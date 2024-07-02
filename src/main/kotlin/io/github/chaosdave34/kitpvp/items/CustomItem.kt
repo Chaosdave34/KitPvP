@@ -40,7 +40,7 @@ abstract class CustomItem(
     open fun getAbilities() = emptyList<Ability>()
 
     fun build(count: Int = 1): ItemStack {
-        val itemStack = ItemStack(material, count)
+        val itemStack = ItemStack.of(material, count)
         val itemMeta = itemStack.itemMeta
 
         itemMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS)

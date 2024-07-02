@@ -8,7 +8,7 @@ import org.bukkit.inventory.ItemStack
 class HealerKit : ElytraKit("elytra_healer", "Healer", Material.GOLDEN_APPLE) {
 
     override fun getInventoryContent(): Array<ItemStack?> {
-        val bow = ItemStack(Material.BOW)
+        val bow = ItemStack.of(Material.BOW)
         bow.addEnchantment(Enchantment.INFINITY, 1)
         bow.addEnchantment(Enchantment.POWER, 2)
 
@@ -19,7 +19,7 @@ class HealerKit : ElytraKit("elytra_healer", "Healer", Material.GOLDEN_APPLE) {
 
     override fun getKillRewards(): Array<ItemStack> {
         return arrayOf(
-            ItemStack(Material.GOLDEN_APPLE, 2)
+            ItemStack.of(Material.GOLDEN_APPLE, 2)
         )
     }
 }

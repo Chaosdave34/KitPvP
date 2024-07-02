@@ -1,10 +1,10 @@
 package io.github.chaosdave34.kitpvp.guis;
 
-import lombok.NonNull;
 import io.github.chaosdave34.ghutils.gui.Gui;
 import io.github.chaosdave34.ghutils.gui.InventoryClickHandler;
 import io.github.chaosdave34.kitpvp.ExtendedPlayer;
 import io.github.chaosdave34.kitpvp.cosmetics.Cosmetic;
+import lombok.NonNull;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;

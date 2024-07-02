@@ -8,7 +8,7 @@ import org.bukkit.inventory.ItemStack
 class KnockerKit : ElytraKit("elytra_knocker", "Knocker", Material.STICK) {
 
     override fun getInventoryContent(): Array<ItemStack?> {
-        val bow = ItemStack(Material.BOW)
+        val bow = ItemStack.of(Material.BOW)
         bow.addEnchantment(Enchantment.INFINITY, 1)
         bow.addEnchantment(Enchantment.POWER, 3)
         bow.addUnsafeEnchantment(Enchantment.PUNCH, 10)

@@ -11,25 +11,25 @@ class TankKit : Kit("tank", "Tank") {
 
     override fun getMaxHealth(): Double = 40.0
 
-    override fun getHeadContent(): ItemStack = ItemStack(Material.IRON_HELMET)
+    override fun getHeadContent(): ItemStack = ItemStack.of(Material.IRON_HELMET)
 
-    override fun getChestContent(): ItemStack = ItemStack(Material.IRON_CHESTPLATE)
+    override fun getChestContent(): ItemStack = ItemStack.of(Material.IRON_CHESTPLATE)
 
-    override fun getLegsContent(): ItemStack = ItemStack(Material.IRON_LEGGINGS)
+    override fun getLegsContent(): ItemStack = ItemStack.of(Material.IRON_LEGGINGS)
 
     override fun getFeetContent(): ItemStack = CustomItemHandler.TANK_BOOTS.build()
 
     override fun getInventoryContent(): Array<ItemStack?> {
         return arrayOf(
-            ItemStack(Material.STONE_AXE),
-            ItemStack(Material.WATER_BUCKET),
+            ItemStack.of(Material.STONE_AXE),
+            ItemStack.of(Material.WATER_BUCKET),
         )
     }
 
     override fun getKillRewards(): Array<ItemStack> {
         return arrayOf(
-            ItemStack(Material.GOLDEN_APPLE, 2),
-            ItemStack(Material.COBBLED_DEEPSLATE, 32),
+            ItemStack.of(Material.GOLDEN_APPLE, 2),
+            ItemStack.of(Material.COBBLED_DEEPSLATE, 32),
         )
     }
 

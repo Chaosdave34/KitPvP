@@ -8,7 +8,7 @@ import org.bukkit.inventory.ItemStack
 class PyroKit : ElytraKit("elytra_pyro", "Pyro", Material.FLINT_AND_STEEL) {
 
     override fun getInventoryContent(): Array<ItemStack?> {
-        val bow = ItemStack(Material.BOW)
+        val bow = ItemStack.of(Material.BOW)
         bow.addEnchantment(Enchantment.INFINITY, 1)
         bow.addEnchantment(Enchantment.POWER, 2)
         bow.addEnchantment(Enchantment.FLAME, 1)

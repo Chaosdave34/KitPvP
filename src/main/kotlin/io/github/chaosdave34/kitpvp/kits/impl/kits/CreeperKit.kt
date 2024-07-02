@@ -12,14 +12,14 @@ import org.bukkit.inventory.ItemStack
 class CreeperKit : Kit("creeper", "Creeper") {
 
     override fun getHeadContent(): ItemStack {
-        val creeperHead = ItemStack(Material.CREEPER_HEAD)
+        val creeperHead = ItemStack.of(Material.CREEPER_HEAD)
         creeperHead.addUnsafeEnchantment(Enchantment.PROTECTION, 2)
         creeperHead.addUnsafeEnchantment(Enchantment.BLAST_PROTECTION, 4)
         return creeperHead
     }
 
     override fun getChestContent(): ItemStack {
-        val chestplate = ItemStack(Material.LEATHER_CHESTPLATE)
+        val chestplate = ItemStack.of(Material.LEATHER_CHESTPLATE)
         chestplate.addEnchantment(Enchantment.PROTECTION, 2)
         chestplate.addUnsafeEnchantment(Enchantment.BLAST_PROTECTION, 4)
         chestplate.setLeatherArmorColor(Color.LIME)
@@ -29,7 +29,7 @@ class CreeperKit : Kit("creeper", "Creeper") {
     override fun getLegsContent(): ItemStack = CustomItemHandler.CREEPER_LEGGINGS.build()
 
     override fun getFeetContent(): ItemStack {
-        val boots = ItemStack(Material.LEATHER_BOOTS)
+        val boots = ItemStack.of(Material.LEATHER_BOOTS)
         boots.addEnchantment(Enchantment.PROTECTION, 2)
         boots.addUnsafeEnchantment(Enchantment.BLAST_PROTECTION, 4)
         boots.setLeatherArmorColor(Color.LIME)
@@ -37,20 +37,20 @@ class CreeperKit : Kit("creeper", "Creeper") {
     }
 
     override fun getInventoryContent(): Array<ItemStack?> {
-        val sword = ItemStack(Material.IRON_SWORD)
+        val sword = ItemStack.of(Material.IRON_SWORD)
         sword.setCustomModelData(2)
         
         return arrayOf(
             sword,
             CustomItemHandler.FIREBALL.build(),
-            ItemStack(Material.WATER_BUCKET),
+            ItemStack.of(Material.WATER_BUCKET),
         )
     }
 
     override fun getKillRewards(): Array<ItemStack> {
         return arrayOf(
-            ItemStack(Material.GOLDEN_APPLE),
-            ItemStack(Material.COBBLESTONE, 32),
+            ItemStack.of(Material.GOLDEN_APPLE),
+            ItemStack.of(Material.COBBLESTONE, 32),
         )
     }
 

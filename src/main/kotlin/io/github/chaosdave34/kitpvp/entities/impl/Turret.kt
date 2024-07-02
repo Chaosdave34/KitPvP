@@ -112,7 +112,7 @@ class Turret : CustomEntity("turret") {
     }
 
     fun performRangedAttack(mob: Mob, target: LivingEntity) {
-        val rocketItem = ItemStack(Material.FIREWORK_ROCKET)
+        val rocketItem = ItemStack.of(Material.FIREWORK_ROCKET)
         rocketItem.editMeta(FireworkMeta::class.java) { fireworkMeta: FireworkMeta ->
             fireworkMeta.power = 5
             fireworkMeta.addEffect(FireworkEffect.builder().withColor(Color.GREEN).with(FireworkEffect.Type.BURST).build())
