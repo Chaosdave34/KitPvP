@@ -18,17 +18,16 @@ import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.event.inventory.InventoryOpenEvent
 import org.bukkit.event.inventory.InventoryType
 import org.bukkit.event.player.*
-import org.bukkit.event.world.WorldLoadEvent
 import org.bukkit.inventory.PlayerInventory
 import org.bukkit.potion.PotionEffect
 import org.bukkit.potion.PotionEffectType
 import org.bukkit.scheduler.BukkitRunnable
 
 class SpawnListener : Listener {
-    private lateinit var turbine1: Location
-    private lateinit var turbine2: Location
-    private lateinit var turbine3: Location
-    private lateinit var turbine4: Location
+    private val turbine1 = Location(Bukkit.getWorld("world"), 2.0, 120.0, 22.0)
+    private val turbine2 = Location(Bukkit.getWorld("world"), -18.0, 120.0, 2.0)
+    private val turbine3 = Location(Bukkit.getWorld("world"), 2.0, 120.0, -18.0)
+    private val turbine4 = Location(Bukkit.getWorld("world"), 22.0, 120.0, 2.0)
 
     private fun Cancellable.cancelInSpawn(entity: Entity) {
         if (entity is Player && ExtendedPlayer.from(entity).inSpawn()) isCancelled = true
@@ -40,6 +39,17 @@ class SpawnListener : Listener {
 
     private fun EntityEvent.cancelInSpawn() {
         if (this is Cancellable) this.cancelInSpawn(this.entity)
+    }
+
+    init {
+        object : BukkitRunnable() {
+            override fun run() {
+                turbine1.world.spawnParticle(Particle.POOF, turbine1, 10, 2.0, 1.0, 2.0, 0.0)
+                turbine2.world.spawnParticle(Particle.POOF, turbine2, 10, 2.0, 1.0, 2.0, 0.0)
+                turbine3.world.spawnParticle(Particle.POOF, turbine3, 10, 2.0, 1.0, 2.0, 0.0)
+                turbine4.world.spawnParticle(Particle.POOF, turbine4, 10, 2.0, 1.0, 2.0, 0.0)
+            }
+        }.runTaskTimer(KitPvp.INSTANCE, 0, 5)
     }
 
     // ALL Spawns
@@ -161,25 +171,6 @@ class SpawnListener : Listener {
     }
 
     // Game Spawn
-    @EventHandler
-    fun onWorldLoad(event: WorldLoadEvent) {
-        if (event.world.name != "world") return
-
-        val world = event.world
-        turbine1 = Location(world, 2.0, 120.0, 22.0)
-        turbine2 = Location(world, -18.0, 120.0, 2.0)
-        turbine3 = Location(world, 2.0, 120.0, -18.0)
-        turbine4 = Location(world, 22.0, 120.0, 2.0)
-
-        object : BukkitRunnable() {
-            override fun run() {
-                world.spawnParticle(Particle.POOF, turbine1, 10, 2.0, 1.0, 2.0, 0.0)
-                world.spawnParticle(Particle.POOF, turbine2, 10, 2.0, 1.0, 2.0, 0.0)
-                world.spawnParticle(Particle.POOF, turbine3, 10, 2.0, 1.0, 2.0, 0.0)
-                world.spawnParticle(Particle.POOF, turbine4, 10, 2.0, 1.0, 2.0, 0.0)
-            }
-        }.runTaskTimer(KitPvp.INSTANCE, 0, 5)
-    }
 
     @EventHandler
     fun onModifyArmor(event: InventoryClickEvent) {

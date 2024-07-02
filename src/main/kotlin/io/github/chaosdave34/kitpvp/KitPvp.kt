@@ -12,21 +12,21 @@ import io.github.chaosdave34.kitpvp.customevents.CustomEventHandler
 import io.github.chaosdave34.kitpvp.damagetype.DamageTypes
 import io.github.chaosdave34.kitpvp.enchantments.EnchantmentListener
 import io.github.chaosdave34.kitpvp.fakeplayer.FakePlayerHandler
+import io.github.chaosdave34.kitpvp.fakeplayer.FakePlayers
 import io.github.chaosdave34.kitpvp.items.CustomItemHandler
 import io.github.chaosdave34.kitpvp.kits.ElytraKitHandler
 import io.github.chaosdave34.kitpvp.kits.KitHandler
 import io.github.chaosdave34.kitpvp.listener.*
 import io.github.chaosdave34.kitpvp.textdisplays.TextDisplayHandler
+import io.github.chaosdave34.kitpvp.textdisplays.TextDisplays
 import io.github.chaosdave34.kitpvp.ultimates.UltimateHandler
 import io.github.chaosdave34.kitpvp.utils.JsonUtils
 import lombok.Getter
-import org.bukkit.Bukkit
-import org.bukkit.GameRule
-import org.bukkit.Location
-import org.bukkit.ServerLinks
+import org.bukkit.*
 import org.bukkit.block.data.BlockData
 import org.bukkit.command.CommandExecutor
 import org.bukkit.command.TabCompleter
+import org.bukkit.generator.ChunkGenerator
 import org.bukkit.plugin.java.JavaPlugin
 import java.io.File
 import java.io.IOException
@@ -86,9 +86,19 @@ class KitPvp : JavaPlugin() {
         Bukkit.clearRecipes()
 
         // Setup worlds
-        val overWorld = server.getWorld("world")
-        overWorld?.setGameRule(GameRule.DO_MOB_SPAWNING, false)
-        overWorld?.setGameRule(GameRule.DO_FIRE_TICK, false)
+        server.getWorld("world")?.let {
+            it.setGameRule(GameRule.DO_MOB_SPAWNING, false)
+            it.setGameRule(GameRule.DO_FIRE_TICK, false)
+        }
+
+
+        val worldCreator = WorldCreator("world_elytra")
+        worldCreator.generator(object : ChunkGenerator() {})
+        server.createWorld(worldCreator)?.let {
+            it.setGameRule(GameRule.DO_MOB_SPAWNING, false)
+            it.setGameRule(GameRule.DO_FIRE_TICK, false)
+            it.setGameRule(GameRule.DO_WEATHER_CYCLE, false)
+        }
 
         // Registering Listener
         val pluginManager = server.pluginManager
@@ -120,7 +130,11 @@ class KitPvp : JavaPlugin() {
         registerCommand("addcoins", AddCoinsCommand(), PlayerTabCompleter())
 
         // Server Links
-        Bukkit.getServer().serverLinks.addLink(ServerLinks.Type.COMMUNITY, URI.create(config["discord"].toString()))
+        server.serverLinks.addLink(ServerLinks.Type.COMMUNITY, URI.create(config["discord"].toString()))
+
+        // Load FakePlayers and TextDisplays
+        FakePlayers.create()
+        TextDisplays.create()
 
         // Create data folder
         dataFolder.mkdir()

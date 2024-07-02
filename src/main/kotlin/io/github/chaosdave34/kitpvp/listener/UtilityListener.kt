@@ -2,8 +2,6 @@ package io.github.chaosdave34.kitpvp.listener
 
 import io.github.chaosdave34.kitpvp.ExtendedPlayer
 import io.github.chaosdave34.kitpvp.KitPvp
-import io.github.chaosdave34.kitpvp.fakeplayer.FakePlayers
-import io.github.chaosdave34.kitpvp.textdisplays.TextDisplays
 import io.github.chaosdave34.kitpvp.utils.JsonUtils
 import io.papermc.paper.event.player.AsyncChatEvent
 import io.papermc.paper.event.player.PlayerFlowerPotManipulateEvent
@@ -11,7 +9,6 @@ import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
 import org.bukkit.Bukkit
-import org.bukkit.GameRule
 import org.bukkit.Material
 import org.bukkit.WorldCreator
 import org.bukkit.block.data.type.Door
@@ -141,21 +138,10 @@ class UtilityListener : Listener {
 
     @EventHandler
     fun onWorldLoad(event: WorldLoadEvent) {
-        val world = event.world
-
-        FakePlayers.create(world)
-        TextDisplays.create(world)
-
-        if (world.name == "nether" || world.name == "the_end") Bukkit.unloadWorld(world, false)
-
         if (Bukkit.getWorld("world_elytra") == null) {
             val worldCreator = WorldCreator("world_elytra")
             worldCreator.generator(object : ChunkGenerator() {})
             val elytraPvp = Bukkit.getServer().createWorld(worldCreator)
-
-            elytraPvp?.setGameRule(GameRule.DO_MOB_SPAWNING, false)
-            elytraPvp?.setGameRule(GameRule.DO_FIRE_TICK, false)
-            elytraPvp?.setGameRule(GameRule.DO_WEATHER_CYCLE, false)
         }
     }
 

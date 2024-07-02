@@ -5,14 +5,15 @@ import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.JoinConfiguration
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
+import org.bukkit.Bukkit
 import org.bukkit.Location
-import org.bukkit.World
 import org.bukkit.entity.Display
 
 object TextDisplays {
-    fun create(world: World) {
+    fun create() {
+        val world = Bukkit.getWorld("world")
 
-        if (world.name == "world") {
+        if (world != null) {
             // Static
             // Jump
             world.createTextDisplay(Location(null, 2.0, 120.0, 2.0)) {

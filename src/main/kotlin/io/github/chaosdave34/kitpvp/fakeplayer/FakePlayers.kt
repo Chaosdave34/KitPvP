@@ -4,6 +4,7 @@ import io.github.chaosdave34.kitpvp.ExtendedPlayer
 import io.github.chaosdave34.kitpvp.extensions.createFakePlayer
 import io.github.chaosdave34.kitpvp.guis.Guis
 import net.kyori.adventure.text.Component
+import org.bukkit.Bukkit
 import org.bukkit.Location
 import org.bukkit.Material
 import org.bukkit.World
@@ -11,9 +12,10 @@ import org.bukkit.inventory.ItemStack
 
 object FakePlayers {
 
-    fun create(world: World) {
+    fun create() {
 
-        if (world.name == "world") {
+        val world = Bukkit.getWorld("world")
+        if (world != null) {
             // Elytra PvP
             world.createFakePlayer(Location(null, -1.5, 120.0, 6.5, -45f, 0f), "Elytra PvP") {
                 it.equipment.chestplate = ItemStack(Material.ELYTRA)
@@ -37,10 +39,11 @@ object FakePlayers {
             }
         }
 
-        if (world.name == "world_elytra") {
+        val worldElytra = Bukkit.getWorld("world_elytra")
+        if (worldElytra != null) {
 
             // Eclipse Photon
-            world.createFakePlayer(Location(null, -69.5, 107.0, -14.5, -90f, 0f), "EclipsePhoton") {
+            worldElytra.createFakePlayer(Location(null, -69.5, 107.0, -14.5, -90f, 0f), "EclipsePhoton") {
                 val texture =
                     "ewogICJ0aW1lc3RhbXAiIDogMTU5NDY3Mjg5NzYyNiwKICAicHJvZmlsZUlkIiA6ICJmZDYwZjM2ZjU4NjE0ZjEyYjNjZDQ3YzJkODU1Mjk5YSIsCiAgInByb2ZpbGVOYW1lIiA6ICJSZWFkIiwKICAic2lnbmF0dXJlUmVxdWlyZWQiIDogdHJ1ZSwKICAidGV4dHVyZXMiIDogewogICAgIlNLSU4iIDogewogICAgICAidXJsIiA6ICJodHRwOi8vdGV4dHVyZXMubWluZWNyYWZ0Lm5ldC90ZXh0dXJlL2I5YTllMjUwOTY2YjE2NmYwYjY4ZWVmNGVmZjI1ZmJmNzg0YmQ3YjhhYjk5MzE0YzcyNWQ3ZTdkYzdkMzMxNTQiCiAgICB9CiAgfQp9"
                 val textureSignature =
@@ -54,7 +57,7 @@ object FakePlayers {
             }
 
             // Kit PvP
-            world.createFakePlayer(Location(null, 16.5, 200.0, -2.5, 10f, 0f), "Kit PvP") {
+            worldElytra.createFakePlayer(Location(null, 16.5, 200.0, -2.5, 10f, 0f), "Kit PvP") {
                 it.setInteractionEventConsumer { event ->
                     if (event.isActualInteract || event.isAttack) {
                         val extendedPlayer = ExtendedPlayer.from(event.player)
@@ -65,7 +68,7 @@ object FakePlayers {
             }
 
             // Elytra Kit Selector
-            world.createFakePlayer(Location(null, 10.5, 200.0, -5.5, 0f, 0f), "Kits") {
+            worldElytra.createFakePlayer(Location(null, 10.5, 200.0, -5.5, 0f, 0f), "Kits") {
                 it.setInteractionEventConsumer { event ->
                     if (event.isActualInteract || event.isAttack) {
                         if (ExtendedPlayer.from(event.player).inSpawn()) Guis.ELYTRA_KITS.show(event.player)
@@ -74,7 +77,7 @@ object FakePlayers {
             }
 
             // Elytra PvP Cosmetics
-            world.createFakePlayer(Location(null, 16.5, 200.0, 4.5, 135f, 0f), "Cosmetics") {
+            worldElytra.createFakePlayer(Location(null, 16.5, 200.0, 4.5, 135f, 0f), "Cosmetics") {
                 it.setInteractionEventConsumer { event ->
                     if (event.isActualInteract || event.isAttack) {
                         if (ExtendedPlayer.from(event.player).inSpawn()) Guis.COSMETICS.show(event.player)
