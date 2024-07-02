@@ -4,8 +4,9 @@ import io.github.chaosdave34.ghutils.fakeplayer.FakePlayer;
 import io.github.chaosdave34.kitpvp.kits.KitHandler;
 import org.bukkit.Location;
 import org.bukkit.event.Listener;
+import org.jetbrains.annotations.ApiStatus;
 
-@Deprecated
+@ApiStatus.Obsolete
 public class FakePlayersOld implements Listener {
     public static FakePlayer CLASSIC_KIT;
     public static FakePlayer ZEUS_KIT;

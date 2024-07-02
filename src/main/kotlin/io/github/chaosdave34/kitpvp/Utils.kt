@@ -7,6 +7,7 @@ import org.bukkit.Bukkit
 import org.bukkit.craftbukkit.entity.CraftPlayer
 import org.bukkit.entity.Player
 import org.bukkit.event.Listener
+import org.jetbrains.annotations.ApiStatus.Obsolete
 
 object Utils {
     @JvmStatic
@@ -14,13 +15,13 @@ object Utils {
         KitPvp.INSTANCE.server.pluginManager.registerEvents(listener, KitPvp.INSTANCE)
     }
 
-    @Deprecated("")
+    @Obsolete
     fun spawnNmsEntity(entity: Entity) {
         Bukkit.getOnlinePlayers().forEach { player: Player -> spawnNmsEntity(player, entity) }
     }
 
     @JvmStatic
-    @Deprecated("")
+    @Obsolete
     fun spawnNmsEntity(p: Player, entity: Entity) {
         val cp = p as CraftPlayer
         val sp = cp.handle

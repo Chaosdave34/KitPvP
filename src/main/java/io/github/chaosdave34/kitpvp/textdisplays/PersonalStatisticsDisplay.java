@@ -6,11 +6,12 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-@Deprecated
+@ApiStatus.Obsolete
 public class PersonalStatisticsDisplay extends TextDisplay {
     private final ExtendedPlayer.GameType gameType;
 

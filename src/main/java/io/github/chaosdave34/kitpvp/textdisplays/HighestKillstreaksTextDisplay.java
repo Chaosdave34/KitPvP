@@ -8,11 +8,12 @@ import net.minecraft.network.chat.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 
-@Deprecated
+@ApiStatus.Obsolete
 public class HighestKillstreaksTextDisplay extends TextDisplay {
     private final ExtendedPlayer.GameType gameType;
 

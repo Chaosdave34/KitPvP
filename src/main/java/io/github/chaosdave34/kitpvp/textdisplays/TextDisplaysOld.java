@@ -4,8 +4,9 @@ import io.github.chaosdave34.ghutils.textdisplay.TextDisplay;
 import io.github.chaosdave34.kitpvp.ExtendedPlayer;
 import org.bukkit.Location;
 import org.bukkit.event.Listener;
+import org.jetbrains.annotations.ApiStatus;
 
-@Deprecated
+@ApiStatus.Obsolete
 public class TextDisplaysOld implements Listener {
     public static TextDisplay PERSONAL_STATISTICS_KITS;
     public static TextDisplay PERSONAL_STATISTICS_ELYTRA;
