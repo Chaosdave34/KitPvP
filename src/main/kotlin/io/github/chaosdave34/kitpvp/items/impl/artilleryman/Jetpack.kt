@@ -20,13 +20,11 @@ import org.bukkit.scheduler.BukkitTask
 import org.bukkit.util.Vector
 import java.util.*
 
-class Jetpack : CustomItem(Material.LEATHER_CHESTPLATE, "jetpack") {
+class Jetpack : CustomItem(Material.LEATHER_CHESTPLATE, "jetpack", "Jetpack") {
     companion object {
         private val refillTasks: MutableMap<UUID, Int> = mutableMapOf()
     }
     private val fuelUsedTime: MutableMap<UUID, Long> = mutableMapOf()
-
-    override fun getName(): Component = createSimpleItemName("Jetpack")
 
     override fun additionalModifications(itemStack: ItemStack) {
         itemStack.addEnchantment(Enchantment.PROTECTION, 2)

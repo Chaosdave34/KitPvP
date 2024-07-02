@@ -17,9 +17,7 @@ import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.inventory.EquipmentSlotGroup
 import org.bukkit.inventory.ItemStack
 
-class MagicWand : CustomItem(Material.END_ROD, "magic_wand", false, true) {
-    override fun getName(): Component = createSimpleItemName("Magic Wand")
-
+class MagicWand : CustomItem(Material.END_ROD, "magic_wand", "Magic Wand", false, true) {
     override fun getDescription(): List<Component> = createSimpleDescriptionAsList("Feel the magic flow through cour body.")
 
     override fun getAbilities(): List<Ability> = listOf(AbilityHandler.SHUFFLE)

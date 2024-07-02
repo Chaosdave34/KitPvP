@@ -12,7 +12,9 @@ import org.bukkit.inventory.EquipmentSlotGroup
 
 object EnchantmentBootstrap {
     fun register(event: RegistryFreezeEvent<Enchantment, EnchantmentRegistryEntry.Builder>) {
-        event.registry().register(TypedKey.create(RegistryKey.ENCHANTMENT, Key.key("kitpvp:backstab"))) {
+        val registry = event.registry()
+
+        registry.register(TypedKey.create(RegistryKey.ENCHANTMENT, Key.key("kitpvp:backstab"))) {
             it.description(Component.text("Backstab"))
                 .supportedItems(event.getOrCreateTag(ItemTypeTagKeys.SWORDS))
                 .anvilCost(1)
@@ -23,7 +25,7 @@ object EnchantmentBootstrap {
                 .activeSlots(EquipmentSlotGroup.HAND)
         }
 
-        event.registry().register(TypedKey.create(RegistryKey.ENCHANTMENT, Key.key("kitpvp:freeze"))) {
+        registry.register(TypedKey.create(RegistryKey.ENCHANTMENT, Key.key("kitpvp:freeze"))) {
             it.description(Component.text("Freeze"))
                 .supportedItems(event.getOrCreateTag(ItemTypeTagKeys.SWORDS))
                 .anvilCost(1)
@@ -34,7 +36,7 @@ object EnchantmentBootstrap {
                 .activeSlots(EquipmentSlotGroup.HAND)
         }
 
-        event.registry().register(TypedKey.create(RegistryKey.ENCHANTMENT, Key.key("kitpvp:life_steal"))) {
+        registry.register(TypedKey.create(RegistryKey.ENCHANTMENT, Key.key("kitpvp:life_steal"))) {
             it.description(Component.text("Life Steal"))
                 .supportedItems(event.getOrCreateTag(ItemTypeTagKeys.SWORDS))
                 .anvilCost(1)

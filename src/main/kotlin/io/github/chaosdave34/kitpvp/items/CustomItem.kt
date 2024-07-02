@@ -5,7 +5,6 @@ import io.github.chaosdave34.kitpvp.abilities.Ability
 import io.github.chaosdave34.kitpvp.utils.Describable
 import io.github.chaosdave34.kitpvp.utils.ItemUtilities
 import io.github.chaosdave34.kitpvp.utils.PDCUtils
-import io.papermc.paper.annotation.DoNotUse
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
@@ -23,10 +22,18 @@ import org.bukkit.inventory.ItemFlag
 import org.bukkit.inventory.ItemStack
 import org.bukkit.persistence.PersistentDataType
 
-abstract class CustomItem(val material: Material, val id: String, private val stackable: Boolean = true, private val preventPlacingAndUsing: Boolean = false) :
+abstract class CustomItem(
+    val material: Material,
+    val id: String,
+    val name: String,
+    private val stackable: Boolean = true,
+    private val preventPlacingAndUsing: Boolean = false
+) :
     Listener, ItemUtilities, Describable {
 
-    abstract fun getName(): Component
+    fun getName(): Component {
+        return createSimpleItemName(name)
+    }
 
     open fun getDescription() = emptyList<Component>()
 

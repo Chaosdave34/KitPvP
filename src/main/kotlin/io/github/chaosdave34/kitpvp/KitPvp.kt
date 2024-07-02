@@ -5,7 +5,6 @@ import com.google.gson.reflect.TypeToken
 import com.mojang.datafixers.util.Pair
 import io.github.chaosdave34.kitpvp.abilities.AbilityHandler
 import io.github.chaosdave34.kitpvp.challenges.ChallengesHandler
-import io.github.chaosdave34.kitpvp.commands.*
 import io.github.chaosdave34.kitpvp.companions.CompanionHandler
 import io.github.chaosdave34.kitpvp.cosmetics.CosmeticHandler
 import io.github.chaosdave34.kitpvp.customevents.CustomEventHandler
@@ -24,8 +23,6 @@ import io.github.chaosdave34.kitpvp.utils.JsonUtils
 import lombok.Getter
 import org.bukkit.*
 import org.bukkit.block.data.BlockData
-import org.bukkit.command.CommandExecutor
-import org.bukkit.command.TabCompleter
 import org.bukkit.generator.ChunkGenerator
 import org.bukkit.plugin.java.JavaPlugin
 import java.io.File
@@ -117,18 +114,6 @@ class KitPvp : JavaPlugin() {
         pluginManager.registerEvents(customEventHandler, this)
         pluginManager.registerEvents(ultimateHandler, this)
 
-        // Registering Commands
-        registerCommand("spawn", SpawnCommand())
-        registerCommand("msg", MessageCommand(), PlayerTabCompleter())
-        registerCommand("bounty", BountyCommand(), PlayerTabCompleter())
-
-        //Admin Commands
-        registerCommand("loop", LoopCommand(), LoopTabCompleter())
-        registerCommand("customitem", CustomItemCommand(), CustomItemTabCompleter())
-        registerCommand("gommemode", GommeModeCommand())
-        registerCommand("addexperience", AddExperienceCommand(), PlayerTabCompleter())
-        registerCommand("addcoins", AddCoinsCommand(), PlayerTabCompleter())
-
         // Server Links
         server.serverLinks.addLink(ServerLinks.Type.COMMUNITY, URI.create(config["discord"].toString()))
 
@@ -145,21 +130,6 @@ class KitPvp : JavaPlugin() {
 
         highestKillStreaksKits.putAll(loadHighscore("highestKillStreaksKits"))
         highestKillStreaksElytra.putAll(loadHighscore("highestKillStreaksElytra"))
-    }
-
-    private fun registerCommand(name: String, executor: CommandExecutor) {
-        registerCommand(name, executor, EmptyTabCompleter())
-    }
-
-    private fun registerCommand(name: String, executor: CommandExecutor, tabCompleter: TabCompleter) {
-        val command = getCommand(name)
-        if (command == null) {
-            logger.warning("Failed to register command $name!")
-            return
-        }
-
-        command.setExecutor(executor)
-        command.tabCompleter = tabCompleter
     }
 
     // Extended players

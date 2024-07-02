@@ -1,7 +1,6 @@
 package io.github.chaosdave34.kitpvp.items
 
 import io.github.chaosdave34.kitpvp.Utils
-import io.github.chaosdave34.kitpvp.utils.PDCUtils
 import io.github.chaosdave34.kitpvp.items.impl.archer.Leap
 import io.github.chaosdave34.kitpvp.items.impl.archer.LongBow
 import io.github.chaosdave34.kitpvp.items.impl.artilleryman.Jetpack
@@ -21,6 +20,7 @@ import io.github.chaosdave34.kitpvp.items.impl.spacesoldier.BlackHoleGenerator
 import io.github.chaosdave34.kitpvp.items.impl.tank.TankBoots
 import io.github.chaosdave34.kitpvp.items.impl.vampire.VampireSword
 import io.github.chaosdave34.kitpvp.items.impl.zeus.LightningWand
+import io.github.chaosdave34.kitpvp.utils.PDCUtils
 import org.bukkit.inventory.ItemStack
 
 class CustomItemHandler {

@@ -70,7 +70,7 @@ class ThunderstormAbility : Ability("thunderstorm", "Thunderstorm", Type.LEFT_CL
         val lightningStrike = event.ignitingEntity
         if (lightningStrike is LightningStrike) {
             if (lightningStrike.hasMetadata("ability")) {
-                if (id == lightningStrike.getMetadata("ability").get(0).value()) {
+                if (id == lightningStrike.getMetadata("ability")[0].value()) {
                     event.isCancelled = true
                 }
             }
