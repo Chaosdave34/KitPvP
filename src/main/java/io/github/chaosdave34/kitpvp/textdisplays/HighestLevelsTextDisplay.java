@@ -1,24 +1,20 @@
 package io.github.chaosdave34.kitpvp.textdisplays;
 
-import io.github.chaosdave34.ghutils.textdisplay.TextDisplay;
 import io.github.chaosdave34.kitpvp.KitPvp;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
 import org.bukkit.entity.Player;
-import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 
-@ApiStatus.Obsolete
-public class HighestLevelsTextDisplay extends TextDisplay {
+@Deprecated
+public class HighestLevelsTextDisplay {
     public HighestLevelsTextDisplay() {
-        super("world", new Location(null, 0.5,121.5,-8.5), 6);
+//        super("world", new Location(null, 0.5,121.5,-8.5), 6);
     }
 
-    @Override
     public @NotNull List<Component> getLines(Player p) {
         List<Component> lines = new ArrayList<>();
         lines.add(Component.literal("Highest Levels:").withStyle(ChatFormatting.BOLD, ChatFormatting.GOLD));

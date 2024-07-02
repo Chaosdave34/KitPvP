@@ -54,7 +54,7 @@ dependencies {
     paperweight.paperDevBundle("1.21-R0.1-SNAPSHOT")
     // paperweight.foliaDevBundle("1.21-R0.1-SNAPSHOT")
     // paperweight.devBundle("com.example.paperfork", "1.21-R0.1-SNAPSHOT")
-    implementation("io.github.chaosdave34", "ghutils", "0.5.0-SNAPSHOT")
+    implementation("io.github.chaosdave34", "ghutils", "0.6.0-SNAPSHOT")
 }
 
 tasks {

@@ -1,26 +1,23 @@
 package io.github.chaosdave34.kitpvp.textdisplays;
 
-import io.github.chaosdave34.ghutils.textdisplay.TextDisplay;
 import io.github.chaosdave34.kitpvp.ExtendedPlayer;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
-import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-@ApiStatus.Obsolete
-public class PersonalStatisticsDisplay extends TextDisplay {
+@Deprecated
+public class PersonalStatisticsDisplay{
     private final ExtendedPlayer.GameType gameType;
 
     public PersonalStatisticsDisplay(ExtendedPlayer.GameType gameType, String world, Location position) {
-        super(world, position, 5);
+//        super(world, position, 5);
         this.gameType = gameType;
     }
 
-    @Override
     public @NotNull List<Component> getLines(Player p) {
         ExtendedPlayer extendedPlayer = ExtendedPlayer.from(p);
 

@@ -1,6 +1,5 @@
 package io.github.chaosdave34.kitpvp.textdisplays;
 
-import io.github.chaosdave34.ghutils.textdisplay.TextDisplay;
 import io.github.chaosdave34.kitpvp.ExtendedPlayer;
 import io.github.chaosdave34.kitpvp.KitPvp;
 import net.minecraft.ChatFormatting;
@@ -8,21 +7,19 @@ import net.minecraft.network.chat.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
-import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 
-@ApiStatus.Obsolete
-public class HighestKillstreaksTextDisplay extends TextDisplay {
+@Deprecated
+public class HighestKillstreaksTextDisplay {
     private final ExtendedPlayer.GameType gameType;
 
     public HighestKillstreaksTextDisplay(ExtendedPlayer.GameType gameType, String world, Location position) {
-        super(world, position, 6);
+//        super(world, position, 6);
         this.gameType = gameType;
     }
 
-    @Override
     public @NotNull List<Component> getLines(Player p) {
         List<Component> lines = new ArrayList<>();
         lines.add(Component.literal("Highest Killstreaks:").withStyle(ChatFormatting.BOLD, ChatFormatting.GOLD));

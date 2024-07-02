@@ -1,7 +1,7 @@
 package io.github.chaosdave34.kitpvp.utils;
 
-import io.github.chaosdave34.ghutils.persistentdatatypes.UUIDPersistentDataType;
 import io.github.chaosdave34.kitpvp.KitPvp;
+import io.github.chaosdave34.kitpvp.persistentdatatypes.UUIDPersistentDataType;
 import org.bukkit.NamespacedKey;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataHolder;
