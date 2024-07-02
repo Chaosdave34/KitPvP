@@ -106,7 +106,10 @@ class SpawnListener : Listener {
     }
 
     @EventHandler
-    fun onProjectileLaunch(event: ProjectileLaunchEvent) = event.cancelInSpawn()
+    fun onProjectileLaunch(event: ProjectileLaunchEvent) {
+        val shooter = event.entity.shooter
+        if (shooter is Entity) event.cancelInSpawn(shooter)
+    }
 
     @EventHandler
     fun onBowShot(event: EntityShootBowEvent) = event.cancelInSpawn()
