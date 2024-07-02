@@ -188,7 +188,7 @@ class SpawnListener : Listener {
     @EventHandler
     fun onOpenInventory(event: InventoryOpenEvent) {
         val player = event.player
-        if (player is Player && ExtendedPlayer.from(player).gameState == ExtendedPlayer.GameState.KITS_SPAWN) {
+        if (player is Player && ExtendedPlayer.from(player).gameState == ExtendedPlayer.GameState.ELYTRA_SPAWN) {
             if (event.inventory.type == InventoryType.BARREL) event.isCancelled = true
         }
     }
