@@ -1,15 +1,22 @@
 package io.github.chaosdave34.kitpvp.pathfindergoals;
 
-import io.github.chaosdave34.kitpvp.entities.CustomEntities;
-import io.github.chaosdave34.kitpvp.entities.impl.Turret;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.goal.Goal;
+import org.bukkit.Color;
+import org.bukkit.FireworkEffect;
+import org.bukkit.Material;
+import org.bukkit.Sound;
+import org.bukkit.entity.Firework;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.FireworkMeta;
+import org.bukkit.util.Vector;
 
 import javax.annotation.Nullable;
 import java.util.EnumSet;
 
+// Todo cleanup and improve code
 public class TurretRangedAttackGoal extends Goal {
     private final Mob mob;
     @Nullable
@@ -90,14 +97,40 @@ public class TurretRangedAttackGoal extends Goal {
 
             float f = (float) Math.sqrt(d) / this.attackRadius;
 
-            ((Turret) CustomEntities.TURRET).performRangedAttack(this.mob.getBukkitMob(), this.target);
+            performRangedAttack(this.mob, this.target);
 
             this.attackTime = Mth.floor(f * (float) (this.attackIntervalMax - this.attackIntervalMin) + (float) this.attackIntervalMin);
         } else if (this.attackTime < 0) {
             this.attackTime = Mth.floor(Mth.lerp(Math.sqrt(d) / (double) this.attackRadius, this.attackIntervalMin, this.attackIntervalMax));
         }
-
     }
 
+    public static void performRangedAttack(Mob mob, LivingEntity target) {
+        ItemStack rocketItem = new ItemStack(Material.FIREWORK_ROCKET);
+        FireworkMeta fireworkMeta = (FireworkMeta) rocketItem.getItemMeta();
+        fireworkMeta.setPower(5);
+        fireworkMeta.addEffect(FireworkEffect.builder().withColor(Color.GREEN).with(FireworkEffect.Type.BURST).build());
+        rocketItem.setItemMeta(fireworkMeta);
 
+        double d0 = target.getEyeY() - 1.100000023841858;
+        double d1 = target.getX() - mob.getX();
+        double d2 = d0 - mob.getEyeY();
+        double d3 = target.getZ() - mob.getZ();
+        float speed = 1.6f;
+
+        Vector velocity = new Vector(d1, d2, d3).normalize().multiply(speed);
+
+        Firework firework = mob.getBukkitMob().getWorld().spawn(mob.getBukkitMob().getEyeLocation(), Firework.class);
+        fireworkMeta = firework.getFireworkMeta();
+        fireworkMeta.setPower(3);
+        fireworkMeta.addEffect(FireworkEffect.builder().withColor(Color.BLACK).withColor(Color.RED).with(FireworkEffect.Type.BURST).build());
+        firework.setFireworkMeta(fireworkMeta);
+
+        firework.setShotAtAngle(true);
+        firework.setTicksToDetonate(60);
+        firework.setShooter(mob.getBukkitMob());
+        firework.setVelocity(velocity);
+
+        mob.getBukkitMob().getWorld().playSound(mob.getBukkitMob().getLocation(), Sound.ENTITY_BREEZE_WIND_BURST, 1.0f, 0.4f);
+    }
 }

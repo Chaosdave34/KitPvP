@@ -5,7 +5,6 @@ import io.github.chaosdave34.kitpvp.events.PlayerSpawnEvent
 import io.github.chaosdave34.kitpvp.kits.ElytraKitHandler
 import io.github.chaosdave34.kitpvp.kits.Kit
 import io.github.chaosdave34.kitpvp.kits.KitHandler
-import io.github.chaosdave34.kitpvp.textdisplays.TextDisplaysOld
 import io.github.chaosdave34.kitpvp.utils.MathUtils
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
@@ -274,10 +273,10 @@ class ExtendedPlayer(val uuid: UUID) {
 
     @Obsolete
     private fun updatePersonalStatisticsDisplay(gameType: GameType) {
-        when (gameType) {
-            GameType.KITS -> TextDisplaysOld.PERSONAL_STATISTICS_KITS.update(getPlayer())
-            GameType.ELYTRA -> TextDisplaysOld.PERSONAL_STATISTICS_ELYTRA.update(getPlayer())
-        }
+//        when (gameType) {
+//            GameType.KITS -> TextDisplaysOld.PERSONAL_STATISTICS_KITS.update(getPlayer())
+//            GameType.ELYTRA -> TextDisplaysOld.PERSONAL_STATISTICS_ELYTRA.update(getPlayer())
+//        }
     }
 
     private fun incrementsKillStreak() {
