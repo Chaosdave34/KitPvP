@@ -3,13 +3,10 @@ import xyz.jpenilla.resourcefactory.bukkit.Permission
 plugins {
     `java-library`
     kotlin("jvm") version "2.0.0"
-    kotlin("plugin.lombok") version "2.0.0"
 
     id("io.papermc.paperweight.userdev") version "1.7.1"
     id("xyz.jpenilla.run-paper") version "2.3.0" // Adds runServer and runMojangMappedServer tasks for testing
     id("xyz.jpenilla.resource-factory-paper-convention") version "1.1.1" // Generates plugin.yml based on the Gradle config
-
-    id("io.freefair.lombok") version "8.6"
 }
 
 group = "io.github.chaosdave34"

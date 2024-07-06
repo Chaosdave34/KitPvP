@@ -22,7 +22,6 @@ import io.github.chaosdave34.kitpvp.textdisplays.TextDisplayHandler
 import io.github.chaosdave34.kitpvp.textdisplays.TextDisplays
 import io.github.chaosdave34.kitpvp.ultimates.UltimateHandler
 import io.github.chaosdave34.kitpvp.utils.JsonUtils
-import lombok.Getter
 import org.bukkit.*
 import org.bukkit.block.data.BlockData
 import org.bukkit.generator.ChunkGenerator
@@ -33,7 +32,6 @@ import java.net.URI
 import java.util.*
 
 
-@Getter
 class KitPvp : JavaPlugin() {
     private val extendedPlayers: MutableMap<UUID, ExtendedPlayer> = mutableMapOf()
 

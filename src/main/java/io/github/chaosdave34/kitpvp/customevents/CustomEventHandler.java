@@ -4,7 +4,6 @@ import io.github.chaosdave34.kitpvp.KitPvp;
 import io.github.chaosdave34.kitpvp.Utils;
 import io.github.chaosdave34.kitpvp.customevents.impl.SimpleEvent;
 import io.github.chaosdave34.kitpvp.customevents.impl.SupplyDropEvent;
-import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -14,7 +13,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import java.util.ArrayList;
 import java.util.Random;
 
-@Getter
+
 public class CustomEventHandler implements Listener {
     private final ArrayList<CustomEvent> customEvents = new ArrayList<>();
     private CustomEvent activeEvent;
@@ -63,6 +62,10 @@ public class CustomEventHandler implements Listener {
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
         if (!enabled) start();
+    }
+
+    public CustomEvent getActiveEvent() {
+        return this.activeEvent;
     }
 }
 
