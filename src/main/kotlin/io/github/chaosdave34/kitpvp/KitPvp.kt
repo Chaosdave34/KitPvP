@@ -12,6 +12,8 @@ import io.github.chaosdave34.kitpvp.damagetype.DamageTypes
 import io.github.chaosdave34.kitpvp.enchantments.EnchantmentListener
 import io.github.chaosdave34.kitpvp.fakeplayer.FakePlayerHandler
 import io.github.chaosdave34.kitpvp.fakeplayer.FakePlayers
+import io.github.chaosdave34.kitpvp.guis.GuiHandler
+import io.github.chaosdave34.kitpvp.guis.Guis
 import io.github.chaosdave34.kitpvp.items.CustomItemHandler
 import io.github.chaosdave34.kitpvp.kits.ElytraKitHandler
 import io.github.chaosdave34.kitpvp.kits.KitHandler
@@ -52,6 +54,7 @@ class KitPvp : JavaPlugin() {
     lateinit var customEventHandler: CustomEventHandler
     lateinit var challengesHandler: ChallengesHandler
     lateinit var ultimateHandler: UltimateHandler
+    lateinit var guiHandler: GuiHandler
 
     private lateinit var damageTypes: DamageTypes
 
@@ -74,8 +77,11 @@ class KitPvp : JavaPlugin() {
         customEventHandler = CustomEventHandler()
         challengesHandler = ChallengesHandler()
         ultimateHandler = UltimateHandler()
+        guiHandler = GuiHandler()
 
         damageTypes = DamageTypes()
+
+        Guis.create()
 
         saveDefaultConfig()
         server.messenger.registerOutgoingPluginChannel(this, "BungeeCord")
@@ -113,6 +119,7 @@ class KitPvp : JavaPlugin() {
         pluginManager.registerEvents(cosmeticHandler, this)
         pluginManager.registerEvents(customEventHandler, this)
         pluginManager.registerEvents(ultimateHandler, this)
+        pluginManager.registerEvents(guiHandler, this)
 
         // Server Links
         server.serverLinks.addLink(ServerLinks.Type.COMMUNITY, URI.create(config["discord"].toString()))

@@ -2,6 +2,7 @@ package io.github.chaosdave34.kitpvp.fakeplayer
 
 import io.github.chaosdave34.kitpvp.ExtendedPlayer
 import io.github.chaosdave34.kitpvp.extensions.createFakePlayer
+import io.github.chaosdave34.kitpvp.extensions.openGui
 import io.github.chaosdave34.kitpvp.guis.Guis
 import net.kyori.adventure.text.Component
 import org.bukkit.Bukkit
@@ -32,7 +33,7 @@ object FakePlayers {
             world.createFakePlayer(Location(null, 4.5, 120.0, 12.5, 180f, 0f), "Cosmetics") {
                 it.setInteractionEventConsumer { event ->
                     if (event.isActualInteract || event.isAttack) {
-                        if (ExtendedPlayer.from(event.player).inSpawn()) Guis.COSMETICS.show(event.player)
+                        if (ExtendedPlayer.from(event.player).inSpawn()) event.player.openGui(Guis.COSMETICS)
                     }
                 }
             }
@@ -70,7 +71,7 @@ object FakePlayers {
             worldElytra.createFakePlayer(Location(null, 10.5, 200.0, -5.5, 0f, 0f), "Kits") {
                 it.setInteractionEventConsumer { event ->
                     if (event.isActualInteract || event.isAttack) {
-                        if (ExtendedPlayer.from(event.player).inSpawn()) Guis.ELYTRA_KITS.show(event.player)
+                        if (ExtendedPlayer.from(event.player).inSpawn()) event.player.openGui(Guis.ELYTRA_KITS)
                     }
                 }
             }
@@ -79,7 +80,7 @@ object FakePlayers {
             worldElytra.createFakePlayer(Location(null, 16.5, 200.0, 4.5, 135f, 0f), "Cosmetics") {
                 it.setInteractionEventConsumer { event ->
                     if (event.isActualInteract || event.isAttack) {
-                        if (ExtendedPlayer.from(event.player).inSpawn()) Guis.COSMETICS.show(event.player)
+                        if (ExtendedPlayer.from(event.player).inSpawn()) event.player.openGui(Guis.COSMETICS)
                     }
                 }
             }

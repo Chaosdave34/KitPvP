@@ -19,7 +19,6 @@ import org.bukkit.scheduler.BukkitRunnable
 import org.bukkit.scoreboard.Criteria
 import org.bukkit.scoreboard.DisplaySlot
 import org.bukkit.scoreboard.Scoreboard
-import org.jetbrains.annotations.ApiStatus.Obsolete
 import java.util.*
 import java.util.function.Consumer
 import kotlin.math.roundToInt
@@ -271,7 +270,7 @@ class ExtendedPlayer(val uuid: UUID) {
         KitPvp.INSTANCE.challengesHandler.resetProgress(getPlayer())
     }
 
-    @Obsolete
+    @Deprecated("Old text display framework got removed")
     private fun updatePersonalStatisticsDisplay(gameType: GameType) {
 //        when (gameType) {
 //            GameType.KITS -> TextDisplaysOld.PERSONAL_STATISTICS_KITS.update(getPlayer())
@@ -289,7 +288,7 @@ class ExtendedPlayer(val uuid: UUID) {
 
         if (killStreak > getHighestKillStreak(currentGame)) {
             highestKillStreaks[currentGame] = killStreak
-            // updatePersonalStatisticsDisplay(currentGame)
+            updatePersonalStatisticsDisplay(currentGame)
         }
 
         checkHighestKillStreakHighscore(currentGame)
@@ -332,7 +331,7 @@ class ExtendedPlayer(val uuid: UUID) {
 
     private fun incrementTotalKills() {
         totalKills[currentGame] = (totalKills[currentGame] ?: 0) + 1
-//        updatePersonalStatisticsDisplay(currentGame)
+        updatePersonalStatisticsDisplay(currentGame)
     }
 
     fun getTotalDeaths(gameType: GameType): Int {
@@ -343,7 +342,7 @@ class ExtendedPlayer(val uuid: UUID) {
 
     fun incrementTotalDeaths() {
         totalDeaths[currentGame] = (totalDeaths[currentGame] ?: 0) + 1
-//        updatePersonalStatisticsDisplay(currentGame)
+        updatePersonalStatisticsDisplay(currentGame)
     }
 
     fun addExperiencePoints(amount: Int) {
