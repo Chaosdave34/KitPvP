@@ -3,6 +3,7 @@ package io.github.chaosdave34.kitpvp.abilities.impl
 import io.github.chaosdave34.kitpvp.KitPvp
 import io.github.chaosdave34.kitpvp.abilities.Ability
 import net.kyori.adventure.text.Component
+import org.bukkit.Material
 import org.bukkit.entity.LightningStrike
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
@@ -12,7 +13,7 @@ import org.bukkit.metadata.FixedMetadataValue
 import org.bukkit.scheduler.BukkitRunnable
 import org.bukkit.util.Vector
 
-class ThunderstormAbility : Ability("thunderstorm", "Thunderstorm", Type.LEFT_CLICK, 30) {
+class ThunderstormAbility : Ability("thunderstorm", "Thunderstorm", 30, 50, Material.HORN_CORAL_FAN) {
     override fun getDescription(): List<Component> {
         return createSimpleDescriptionAsList("Summons Lightning around you in a 5 block radius.")
     }

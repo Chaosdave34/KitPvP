@@ -2,12 +2,13 @@ package io.github.chaosdave34.kitpvp.abilities.impl
 
 import io.github.chaosdave34.kitpvp.abilities.Ability
 import net.kyori.adventure.text.Component
+import org.bukkit.Material
 import org.bukkit.entity.LivingEntity
 import org.bukkit.entity.Player
 import org.bukkit.potion.PotionEffect
 import org.bukkit.potion.PotionEffectType
 
-class EnderAttackAbility : Ability("ender_attack", "Ender Attack", Type.RIGHT_CLICK, 15) {
+class EnderAttackAbility : Ability("ender_attack", "Ender Attack", 15, 50, Material.ENDER_PEARL) {
     override fun getDescription(): List<Component> =
         createSimpleDescriptionAsList("Teleports you behind the enemy you are looking at in a 50 block radius. Gain speed and strength for 5 seconds.")
 

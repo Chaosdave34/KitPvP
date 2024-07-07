@@ -5,6 +5,7 @@ import io.github.chaosdave34.kitpvp.KitPvp
 import io.github.chaosdave34.kitpvp.abilities.Ability
 import io.github.chaosdave34.kitpvp.abilities.AbilityRunnable
 import net.kyori.adventure.text.Component
+import org.bukkit.Material
 import org.bukkit.Sound
 import org.bukkit.SoundCategory
 import org.bukkit.attribute.Attribute
@@ -12,7 +13,7 @@ import org.bukkit.entity.Player
 import org.bukkit.potion.PotionEffect
 import org.bukkit.potion.PotionEffectType
 
-class OverloadAbility : Ability("overload", "Overload", Type.RIGHT_CLICK, 25) {
+class OverloadAbility : Ability("overload", "Overload", 25, 50, Material.END_CRYSTAL) {
     override fun getDescription(): List<Component> = createSimpleDescriptionAsList("Reduces your health by 50% but gain strength for 8s.")
 
     override fun onAbility(player: Player): Boolean {

@@ -3,6 +3,7 @@ package io.github.chaosdave34.kitpvp.abilities.impl
 import io.github.chaosdave34.kitpvp.KitPvp
 import io.github.chaosdave34.kitpvp.abilities.Ability
 import net.kyori.adventure.text.Component
+import org.bukkit.Material
 import org.bukkit.Particle
 import org.bukkit.block.Block
 import org.bukkit.entity.Fireball
@@ -13,7 +14,7 @@ import org.bukkit.metadata.FixedMetadataValue
 import org.bukkit.scheduler.BukkitRunnable
 import org.bukkit.util.Vector
 
-class AirstrikeAbility : Ability("airstrike", "Airstrike", Type.RIGHT_CLICK, 10) {
+class AirstrikeAbility : Ability("airstrike", "Airstrike", 10, 50, Material.FIREWORK_ROCKET) {
     override fun getDescription(): List<Component> {
         return createSimpleDescriptionAsList("Request a airstrike at the block you are looking at in a 50 block radius.")
     }
