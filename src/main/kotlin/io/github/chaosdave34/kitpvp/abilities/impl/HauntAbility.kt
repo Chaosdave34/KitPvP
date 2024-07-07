@@ -1,4 +1,4 @@
-package io.github.chaosdave34.kitpvp.abilities.impl.assassin
+package io.github.chaosdave34.kitpvp.abilities.impl
 
 import io.github.chaosdave34.kitpvp.ExtendedPlayer
 import io.github.chaosdave34.kitpvp.ExtendedPlayer.Companion.from

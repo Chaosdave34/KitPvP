@@ -1,4 +1,4 @@
-package io.github.chaosdave34.kitpvp.abilities.impl.zeus
+package io.github.chaosdave34.kitpvp.abilities.impl
 
 import io.github.chaosdave34.kitpvp.KitPvp
 import io.github.chaosdave34.kitpvp.abilities.Ability

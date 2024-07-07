@@ -1,4 +1,4 @@
-package io.github.chaosdave34.kitpvp.abilities.impl.magician
+package io.github.chaosdave34.kitpvp.abilities.impl
 
 import io.github.chaosdave34.kitpvp.abilities.Ability
 import net.kyori.adventure.text.Component
