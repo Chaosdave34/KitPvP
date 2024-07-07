@@ -4,6 +4,7 @@ import com.destroystokyo.paper.event.player.PlayerElytraBoostEvent
 import com.mojang.datafixers.util.Pair
 import io.github.chaosdave34.kitpvp.ExtendedPlayer
 import io.github.chaosdave34.kitpvp.KitPvp
+import io.github.chaosdave34.kitpvp.damagetype.DamageTypes
 import io.github.chaosdave34.kitpvp.events.EntityDealDamageEvent
 import io.github.chaosdave34.kitpvp.items.CustomItemHandler
 import io.github.chaosdave34.kitpvp.items.CustomItemHandler.Companion.getCustomItemId
@@ -365,7 +366,6 @@ class GameListener : Listener {
         }
     }
 
-    // Temporarily switched to vanilla damage type https://github.com/PaperMC/Paper/issues/11036
     @EventHandler
     fun onPlayerMoveElytra(event: PlayerMoveEvent) {
         val player = event.player
@@ -377,8 +377,8 @@ class GameListener : Listener {
             if (event.to.block.type == Material.WATER)
                 player.damage(maxDamage, DamageSource.builder(DamageType.DROWN).build())
             else if (filterForBlockBelow.contains(blockBelow))
-                player.damage(maxDamage, DamageSource.builder(DamageType.FALL).build()) // DamageTypes.LAND
-            else if (event.to.y > 199) player.damage(maxDamage, DamageSource.builder(DamageType.OUTSIDE_BORDER).build()) // DamageTypes.ESCAPE
+                player.damage(maxDamage, DamageSource.builder(DamageTypes.LAND).build())
+            else if (event.to.y > 199) player.damage(maxDamage, DamageSource.builder(DamageTypes.ESCAPE).build())
 
             player.isGlowing = blockBelow == Material.GREEN_WOOL || event.to.clone().subtract(0.0, 2.0, 0.0).block.type == Material.GREEN_WOOL
         }
