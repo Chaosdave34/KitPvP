@@ -1,10 +1,10 @@
 package io.github.chaosdave34.kitpvp.companions
 
-import io.github.chaosdave34.kitpvp.utils.PDCUtils
 import io.github.chaosdave34.kitpvp.ExtendedPlayer
 import io.github.chaosdave34.kitpvp.companions.impl.AllayCompanion
 import io.github.chaosdave34.kitpvp.companions.impl.ZombifiedPiglinCompanion
 import io.github.chaosdave34.kitpvp.events.EntityReceiveDamageByEntityEvent
+import io.github.chaosdave34.kitpvp.extensions.getPDCOwner
 import org.bukkit.Sound
 import org.bukkit.entity.Pose
 import org.bukkit.event.EventHandler
@@ -44,7 +44,7 @@ class CompanionHandler : Listener {
     @EventHandler
     fun onCompanionDamage(event: EntityReceiveDamageByEntityEvent) {
         if (event.entity.hasMetadata("companion")) {
-            val ownerUUID = PDCUtils.getOwner(event.entity)
+            val ownerUUID = event.entity.getPDCOwner()
 
             if (ownerUUID != null && ExtendedPlayer.from(ownerUUID).inSpawn()) event.isCancelled = true
 

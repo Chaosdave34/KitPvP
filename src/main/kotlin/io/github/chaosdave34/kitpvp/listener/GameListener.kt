@@ -148,7 +148,7 @@ class GameListener : Listener {
                 if (event.crossbow.containsEnchantment(Enchantment.INFINITY)) event.setConsumeItem(false)
 
                 val crossbow = event.crossbow
-                if (getCustomItemId(crossbow) == CustomItemHandler.ROCKET_LAUNCHER.id || extendedPlayer.gameState == ExtendedPlayer.GameState.ELYTRA_IN_GAME) {
+                if (crossbow.getCustomItemId() == CustomItemHandler.ROCKET_LAUNCHER.id || extendedPlayer.gameState == ExtendedPlayer.GameState.ELYTRA_IN_GAME) {
                     Bukkit.getScheduler().runTaskLater(KitPvp.INSTANCE, Runnable {
                         crossbow.editMeta(CrossbowMeta::class.java) { crossbowMeta ->
                             val projectiles: MutableList<ItemStack> = mutableListOf()

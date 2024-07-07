@@ -4,8 +4,9 @@ import io.github.chaosdave34.kitpvp.KitPvp
 import io.github.chaosdave34.kitpvp.abilities.Ability
 import io.github.chaosdave34.kitpvp.events.EntityReceiveDamageByEntityEvent
 import io.github.chaosdave34.kitpvp.events.PlayerSpawnEvent
+import io.github.chaosdave34.kitpvp.extensions.getPDCOwner
+import io.github.chaosdave34.kitpvp.extensions.setPDCOwner
 import io.github.chaosdave34.kitpvp.pathfindergoals.TurretRangedAttackGoal
-import io.github.chaosdave34.kitpvp.utils.PDCUtils
 import net.kyori.adventure.text.Component
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal
@@ -46,13 +47,13 @@ class TurretAbility : Ability("turret", "Turret", Type.RIGHT_CLICK, 60) {
 
             it.health = 10.0
 
-            PDCUtils.setOwner(it, player.uniqueId)
+            it.setPDCOwner(player)
 
             val container = it.persistentDataContainer
             container.set(NamespacedKey(KitPvp.INSTANCE, "custom_entity"), PersistentDataType.STRING, "turret")
 
             val nmsSnowman = (it as CraftSnowman).handle
-            val turretOwnerUUUID = PDCUtils.getOwner(it)
+            val turretOwnerUUUID = it.getPDCOwner()
 
             nmsSnowman.goalSelector.removeAllGoals { true }
             nmsSnowman.goalSelector.addGoal(1, RandomLookAroundGoal(nmsSnowman))
@@ -84,7 +85,7 @@ class TurretAbility : Ability("turret", "Turret", Type.RIGHT_CLICK, 60) {
         if (event.entity is org.bukkit.entity.LivingEntity) {
             if (checkCustomEntity(event.entity)) {
                 if (event.damager is Player) {
-                    if (event.damager.uniqueId == PDCUtils.getOwner(event.entity)) {
+                    if (event.damager.uniqueId == event.entity.getPDCOwner()) {
                         event.isCancelled = true
                     }
                 }

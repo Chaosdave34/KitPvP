@@ -2,9 +2,9 @@ package io.github.chaosdave34.kitpvp.items
 
 import io.github.chaosdave34.kitpvp.KitPvp
 import io.github.chaosdave34.kitpvp.abilities.Ability
+import io.github.chaosdave34.kitpvp.items.CustomItemHandler.Companion.getCustomItemId
 import io.github.chaosdave34.kitpvp.utils.Describable
 import io.github.chaosdave34.kitpvp.utils.ItemUtilities
-import io.github.chaosdave34.kitpvp.utils.PDCUtils
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
@@ -46,11 +46,11 @@ abstract class CustomItem(
         itemMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS)
         itemMeta.displayName(getName())
 
-        PDCUtils.setId(itemMeta, id)
+        if (!stackable) itemMeta.setMaxStackSize(1)
 
         val container = itemMeta.persistentDataContainer
 
-        if (!stackable) itemMeta.setMaxStackSize(1)
+        container.set(NamespacedKey(KitPvp.INSTANCE, "id"), PersistentDataType.STRING, id)
 
         val enchantmentContainer = container.adapterContext.newPersistentDataContainer()
         container.set(NamespacedKey(KitPvp.INSTANCE, "enchantments"), PersistentDataType.TAG_CONTAINER, enchantmentContainer)
@@ -122,17 +122,15 @@ abstract class CustomItem(
 
     @EventHandler
     fun onBlockPlace(event: BlockPlaceEvent) {
-        if (preventPlacingAndUsing && id == CustomItemHandler.getCustomItemId(event.itemInHand)) event.isCancelled =
-            true
+        if (preventPlacingAndUsing && id == event.itemInHand.getCustomItemId()) event.isCancelled = true
     }
 
     @EventHandler
     fun onUse(event: PlayerInteractEvent) {
         val item = event.item ?: return
 
-        if (preventPlacingAndUsing && id == CustomItemHandler.getCustomItemId(item)) {
-            if (event.action == Action.LEFT_CLICK_BLOCK || event.action == Action.RIGHT_CLICK_BLOCK) event.isCancelled =
-                true
+        if (preventPlacingAndUsing && id == item.getCustomItemId()) {
+            if (event.action == Action.LEFT_CLICK_BLOCK || event.action == Action.RIGHT_CLICK_BLOCK) event.isCancelled = true
         }
     }
 
@@ -148,5 +146,5 @@ abstract class CustomItem(
         return Component.text(name).decoration(TextDecoration.ITALIC, false)
     }
 
-    fun ItemStack.isThisCustomItem() = id == CustomItemHandler.getCustomItemId(this)
+    fun ItemStack.isThisCustomItem() = id == this.getCustomItemId()
 }

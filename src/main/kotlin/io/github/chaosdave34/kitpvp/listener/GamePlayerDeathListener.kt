@@ -1,9 +1,9 @@
 package io.github.chaosdave34.kitpvp.listener
 
-import io.github.chaosdave34.kitpvp.utils.PDCUtils
 import io.github.chaosdave34.kitpvp.ExtendedPlayer
 import io.github.chaosdave34.kitpvp.KitPvp
 import io.github.chaosdave34.kitpvp.damagetype.DamageTypes
+import io.github.chaosdave34.kitpvp.extensions.getPDCOwner
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer
@@ -64,7 +64,7 @@ class GamePlayerDeathListener : Listener {
                 else if (damager is Firework) {
                     val shooter = damager.shooter
                     if (shooter is Husk) {
-                        val turretOwnerUUUID = PDCUtils.getOwner(shooter)
+                        val turretOwnerUUUID = shooter.getPDCOwner()
                         if (turretOwnerUUUID != null) {
                             val turretOwner = Bukkit.getPlayer(turretOwnerUUUID)
                             if (turretOwner != null) {
@@ -75,7 +75,7 @@ class GamePlayerDeathListener : Listener {
                     }
                     // Companions
                 } else if (damager.hasMetadata("companion")) {
-                    val ownerUUID = PDCUtils.getOwner(damager)
+                    val ownerUUID = damager.getPDCOwner()
                     if (ownerUUID != null) {
                         val companionOwner = Bukkit.getPlayer(ownerUUID)
                         if (companionOwner != null) {
