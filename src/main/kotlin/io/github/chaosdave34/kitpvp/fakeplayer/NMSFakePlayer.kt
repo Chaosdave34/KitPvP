@@ -17,13 +17,14 @@ class NMSFakePlayer(server: MinecraftServer, world: ServerLevel, profile: GamePr
 
     fun getEquipment(): List<Pair<EquipmentSlot, ItemStack>> {
         val equipment: MutableList<Pair<EquipmentSlot, ItemStack>> = mutableListOf()
-        equipment.add(Pair(EquipmentSlot.HEAD, inventory.getArmor(3)))
-        equipment.add(Pair(EquipmentSlot.BODY, inventory.getArmor(2)))
-        equipment.add(Pair(EquipmentSlot.LEGS, inventory.getArmor(1)))
-        equipment.add(Pair(EquipmentSlot.FEET, inventory.getArmor(0)))
-
         equipment.add(Pair(EquipmentSlot.MAINHAND, inventory.getSelected()))
         equipment.add(Pair(EquipmentSlot.OFFHAND, inventory.offhand[0]))
+
+        equipment.add(Pair(EquipmentSlot.FEET, inventory.getArmor(0)))
+        equipment.add(Pair(EquipmentSlot.LEGS, inventory.getArmor(1)))
+        equipment.add(Pair(EquipmentSlot.CHEST, inventory.getArmor(2)))
+        equipment.add(Pair(EquipmentSlot.HEAD, inventory.getArmor(3)))
+        
         return equipment
     }
 }

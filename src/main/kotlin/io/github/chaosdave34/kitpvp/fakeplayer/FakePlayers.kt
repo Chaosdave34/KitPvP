@@ -13,11 +13,11 @@ import org.bukkit.inventory.ItemStack
 object FakePlayers {
 
     fun create() {
-
         val world = Bukkit.getWorld("world")
         if (world != null) {
             // Elytra PvP
             world.createFakePlayer(Location(null, -1.5, 120.0, 6.5, -45f, 0f), "Elytra PvP") {
+                it.equipment.setItemInOffHand(ItemStack.of(Material.FIREWORK_ROCKET))
                 it.equipment.chestplate = ItemStack.of(Material.ELYTRA)
 
                 it.setInteractionEventConsumer { event ->
@@ -41,7 +41,6 @@ object FakePlayers {
 
         val worldElytra = Bukkit.getWorld("world_elytra")
         if (worldElytra != null) {
-
             // Eclipse Photon
             worldElytra.createFakePlayer(Location(null, -69.5, 107.0, -14.5, -90f, 0f), "EclipsePhoton") {
                 val texture =
@@ -58,7 +57,11 @@ object FakePlayers {
 
             // Kit PvP
             worldElytra.createFakePlayer(Location(null, 16.5, 200.0, -2.5, 10f, 0f), "Kit PvP") {
+                it.equipment.setItemInMainHand(ItemStack.of(Material.IRON_SWORD))
+                it.equipment.chestplate = ItemStack.of(Material.IRON_CHESTPLATE)
+
                 it.setInteractionEventConsumer { event ->
+
                     if (event.isActualInteract || event.isAttack) {
                         val extendedPlayer = ExtendedPlayer.from(event.player)
 

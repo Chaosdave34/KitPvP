@@ -19,6 +19,7 @@ import org.bukkit.craftbukkit.CraftServer
 import org.bukkit.craftbukkit.CraftWorld
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
+import org.bukkit.event.EventPriority
 import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerChangedWorldEvent
 import org.bukkit.event.player.PlayerJoinEvent
@@ -80,11 +81,13 @@ class FakePlayerHandler : Listener {
 
         val addPlayerPacket = ClientboundPlayerInfoUpdatePacket(ClientboundPlayerInfoUpdatePacket.Action.ADD_PLAYER, nmsFakePlayer)
         val spawnEntityPacket = ClientboundAddEntityPacket(nmsFakePlayer, serverEntity)
+        val setEntityDataPacket = ClientboundSetEntityDataPacket(nmsFakePlayer.id, nmsFakePlayer.entityData.packAll() ?: listOf())
+
         val setEquipmentPacket = ClientboundSetEquipmentPacket(nmsFakePlayer.id, nmsFakePlayer.getEquipment())
 
         Bukkit.getOnlinePlayers().forEach { player ->
-            if (player.canSee(fakePlayer) && player.world == fakePlayer.world) {
-                player.sendPackets(addPlayerPacket, spawnEntityPacket, setEquipmentPacket)
+            if (player.canSee(fakePlayer)) {
+                player.sendPackets(addPlayerPacket, spawnEntityPacket, setEntityDataPacket, setEquipmentPacket)
             }
         }
         serverEntity.sendChanges()
@@ -99,12 +102,15 @@ class FakePlayerHandler : Listener {
         val serverEntity = nmsFakePlayer.serverEntity
 
         if (player.canSee(fakePlayer) && player.world == fakePlayer.world) {
+            Bukkit.getLogger().info(nmsFakePlayer.name.tryCollapseToString())
             val addPlayerPacket = ClientboundPlayerInfoUpdatePacket(ClientboundPlayerInfoUpdatePacket.Action.ADD_PLAYER, nmsFakePlayer)
             val spawnEntityPacket = ClientboundAddEntityPacket(nmsFakePlayer, serverEntity)
-            val entityDataPacket = ClientboundSetEntityDataPacket(nmsFakePlayer.id, nmsFakePlayer.entityData.nonDefaultValues ?: listOf())
+            val setEntityDataPacket = ClientboundSetEntityDataPacket(nmsFakePlayer.id, nmsFakePlayer.entityData.packAll() ?: listOf())
             val setEquipmentPacket = ClientboundSetEquipmentPacket(nmsFakePlayer.id, nmsFakePlayer.getEquipment())
 
-            player.sendPackets(addPlayerPacket, spawnEntityPacket, entityDataPacket, setEquipmentPacket)
+            Bukkit.getLogger().info(nmsFakePlayer.getEquipment().map { it.second }.toString())
+
+            player.sendPackets(addPlayerPacket, spawnEntityPacket, setEntityDataPacket, setEquipmentPacket)
         }
     }
 
@@ -112,15 +118,14 @@ class FakePlayerHandler : Listener {
     fun onFakePlayerInteract(event: PlayerUseUnknownEntityEvent) {
         val fakePlayer = fakePlayers[event.entityId]
         fakePlayer?.onInteract(PlayerUseFakePlayerEvent(fakePlayer, event))
-
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.MONITOR)
     fun onJoin(event: PlayerJoinEvent) {
         showAllVisibleFakePlayer(event.player)
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.MONITOR)
     fun onPlayerWorldChange(event: PlayerChangedWorldEvent) {
         showAllVisibleFakePlayer(event.player)
     }
