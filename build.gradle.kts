@@ -7,6 +7,9 @@ plugins {
     id("io.papermc.paperweight.userdev") version "1.7.1"
     id("xyz.jpenilla.run-paper") version "2.3.0" // Adds runServer and runMojangMappedServer tasks for testing
     id("xyz.jpenilla.resource-factory-paper-convention") version "1.1.1" // Generates plugin.yml based on the Gradle config
+
+    // Shades and relocates dependencies into our plugin jar. See https://imperceptiblethoughts.com/shadow/introduction/
+    id("io.github.goooler.shadow") version "8.1.7"
 }
 
 group = "io.github.chaosdave34"
@@ -38,6 +41,10 @@ dependencies {
 }
 
 tasks {
+    build {
+        dependsOn(shadowJar)
+    }
+
     compileJava {
         // Set the release flag. This configures what version bytecode the compiler will emit, as well as what JDK APIs are usable.
         // See https://openjdk.java.net/jeps/247 for more information.
@@ -56,6 +63,11 @@ tasks {
       outputJar = layout.buildDirectory.file("libs/PaperweightTestPlugin-${project.version}.jar")
     }
      */
+
+    shadowJar {
+        // helper function to relocate a package into our package
+        fun reloc(pkg: String) = relocate(pkg, "io.papermc.paperweight.testplugin.dependency.$pkg")
+    }
 }
 
 // Configure plugin.yml generation

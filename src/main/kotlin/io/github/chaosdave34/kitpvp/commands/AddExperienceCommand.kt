@@ -12,7 +12,7 @@ import net.minecraft.commands.arguments.EntityArgument
 object AddExperienceCommand {
     fun register(commands: Commands) {
         commands.register(
-            Commands.literal("add-coins")
+            Commands.literal("add-experience")
                 .requires { it.sender.isOp }
                 .then(
                     Commands.argument("targets", ArgumentTypes.players())

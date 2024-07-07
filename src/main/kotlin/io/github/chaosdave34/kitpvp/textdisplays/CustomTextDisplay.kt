@@ -12,12 +12,18 @@ import net.minecraft.world.entity.Display.TextDisplay
 import org.bukkit.Bukkit
 import org.bukkit.craftbukkit.CraftServer
 import org.bukkit.craftbukkit.entity.CraftTextDisplay
+import org.bukkit.entity.Display
 import org.bukkit.entity.Player
-import java.util.*
 
 open class CustomTextDisplay(server: CraftServer, entity: TextDisplay) : CraftTextDisplay(server, entity) {
     var defaultText: Component = Component.empty()
-    private val perPlayerText: MutableMap<UUID, Component> = mutableMapOf()
+    var dynamicText: Function1<Player, Component>? = null
+
+    init {
+        // New default values
+        billboard = Display.Billboard.VERTICAL
+        isSeeThrough = true
+    }
 
     override fun getHandle(): NMSCustomTextDisplay {
         return entity as NMSCustomTextDisplay
@@ -34,38 +40,29 @@ open class CustomTextDisplay(server: CraftServer, entity: TextDisplay) : CraftTe
         if (text != null) defaultText = text
     }
 
-    fun text(text: Component, player: Player) {
-        perPlayerText[player.uniqueId] = text
-    }
-
     @DoNotUse
     @Deprecated("Replaced by defaultText", ReplaceWith("defaultText"))
     override fun text(): Component {
         return defaultText
     }
 
-    fun text(player: Player): Component {
-        return perPlayerText[player.uniqueId] ?: defaultText
+    fun text(player: Player):Component {
+        return dynamicText?.invoke(player) ?: defaultText
     }
 
-    fun updateText() {
+    fun updateTextForAll() {
         updateText(*Bukkit.getOnlinePlayers().toTypedArray())
     }
 
-    fun <T : Player> updateText(vararg player: T) {
-        player.forEach { updateText(it) }
+    fun  updateText(vararg players: Player) {
+        players.forEach {
+            val entityData = handle.entityData.nonDefaultValues ?: mutableListOf()
+            entityData.add(SynchedEntityData.DataValue(23, EntityDataSerializers.COMPONENT, PaperAdventure.asVanilla(text(it))))
+
+            val entityDataPacket = ClientboundSetEntityDataPacket(handle.id, entityData)
+            it.sendPackets(entityDataPacket)
+        }
     }
 
 
-    fun updateText(player: Player) {
-        val entityData = handle.entityData.nonDefaultValues ?: mutableListOf()
-
-        Bukkit.getLogger().info(entityData.toString())
-
-        entityData.add(SynchedEntityData.DataValue(23, EntityDataSerializers.COMPONENT, PaperAdventure.asVanilla(text(player))))
-
-        val entityDataPacket = ClientboundSetEntityDataPacket(handle.id, entityData)
-
-        player.sendPackets(entityDataPacket)
-    }
 }

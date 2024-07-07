@@ -5,6 +5,7 @@ import io.github.chaosdave34.kitpvp.events.PlayerSpawnEvent
 import io.github.chaosdave34.kitpvp.kits.ElytraKitHandler
 import io.github.chaosdave34.kitpvp.kits.Kit
 import io.github.chaosdave34.kitpvp.kits.KitHandler
+import io.github.chaosdave34.kitpvp.textdisplays.TextDisplays
 import io.github.chaosdave34.kitpvp.utils.MathUtils
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
@@ -270,12 +271,11 @@ class ExtendedPlayer(val uuid: UUID) {
         KitPvp.INSTANCE.challengesHandler.resetProgress(getPlayer())
     }
 
-    @Deprecated("Old text display framework got removed")
     private fun updatePersonalStatisticsDisplay(gameType: GameType) {
-//        when (gameType) {
-//            GameType.KITS -> TextDisplaysOld.PERSONAL_STATISTICS_KITS.update(getPlayer())
-//            GameType.ELYTRA -> TextDisplaysOld.PERSONAL_STATISTICS_ELYTRA.update(getPlayer())
-//        }
+        when (gameType) {
+            GameType.KITS -> getPlayer()?.let { TextDisplays.PERSONAL_STATISTICS_KITS.updateText(it) }
+            GameType.ELYTRA ->getPlayer()?.let { TextDisplays.PERSONAL_STATISTICS_ELYTRA.updateText(it) }
+        }
     }
 
     private fun incrementsKillStreak() {
@@ -316,10 +316,10 @@ class ExtendedPlayer(val uuid: UUID) {
 
             highestKillStreaks[uuid] = killStreak
 
-//            when (gameType) {
-//                GameType.KITS -> TextDisplaysOld.HIGHEST_KILL_STREAKS_KITS.updateForAll()
-//                GameType.ELYTRA -> TextDisplaysOld.PERSONAL_STATISTICS_ELYTRA.updateForAll()
-//            }
+            when (gameType) {
+                GameType.KITS -> TextDisplays.HIGHEST_KILL_STREAKS_KITS.updateTextForAll()
+                GameType.ELYTRA -> TextDisplays.HIGHEST_KILL_STREAKS_ELYTRA.updateTextForAll()
+            }
         }
     }
 
@@ -369,7 +369,7 @@ class ExtendedPlayer(val uuid: UUID) {
 
                 highestLevels[uuid] = getLevel()
 
-//                TextDisplaysOld.HIGHEST_LEVELS_KITS.updateForAll()
+                TextDisplays.updateHighestLevels()
             }
 
         }
