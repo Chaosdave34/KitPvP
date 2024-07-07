@@ -44,7 +44,7 @@ public abstract class CustomEvent implements Listener {
                     this.cancel();
                     Bukkit.getServer().hideBossBar(bossBar);
                     stop();
-                    KitPvp.INSTANCE.getCustomEventHandler().stopActiveEvent();
+//                    KitPvp.INSTANCE.getCustomEventHandler().stopActiveEvent();
                 }
 
                 int minutes = duration_left / 60;
@@ -61,7 +61,8 @@ public abstract class CustomEvent implements Listener {
     }
 
     public boolean isActive() {
-        return this == KitPvp.INSTANCE.getCustomEventHandler().getActiveEvent();
+//        return this == KitPvp.INSTANCE.getCustomEventHandler().getActiveEvent();
+        return false;
     }
 
     public void start() {
