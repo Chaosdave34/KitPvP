@@ -1,20 +1,25 @@
-package io.github.chaosdave34.kitpvp.kits.impl.elytra
+package io.github.chaosdave34.kitpvp.elytrakits.impl
 
-import io.github.chaosdave34.kitpvp.kits.ElytraKit
+import io.github.chaosdave34.kitpvp.elytrakits.ElytraKit
 import org.bukkit.Material
 import org.bukkit.enchantments.Enchantment
 import org.bukkit.inventory.ItemStack
 
-class PyroKit : ElytraKit("elytra_pyro", "Pyro", Material.FLINT_AND_STEEL) {
+class HealerKit : ElytraKit("elytra_healer", "Healer", Material.GOLDEN_APPLE) {
 
     override fun getInventoryContent(): Array<ItemStack?> {
         val bow = ItemStack.of(Material.BOW)
         bow.addEnchantment(Enchantment.INFINITY, 1)
         bow.addEnchantment(Enchantment.POWER, 2)
-        bow.addEnchantment(Enchantment.FLAME, 1)
 
         return arrayOf(
             bow,
+        )
+    }
+
+    override fun getKillRewards(): Array<ItemStack> {
+        return arrayOf(
+            ItemStack.of(Material.GOLDEN_APPLE, 2)
         )
     }
 }

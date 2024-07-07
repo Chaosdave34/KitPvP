@@ -1,24 +1,43 @@
-package io.github.chaosdave34.kitpvp.kits
+package io.github.chaosdave34.kitpvp.elytrakits
 
 import io.github.chaosdave34.kitpvp.ExtendedPlayer
+import io.github.chaosdave34.kitpvp.ultimates.Ultimate
 import org.bukkit.Material
 import org.bukkit.attribute.Attribute
 import org.bukkit.entity.Player
+import org.bukkit.event.Listener
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.meta.FireworkMeta
 import org.bukkit.potion.PotionEffect
+import org.bukkit.potion.PotionEffectType
 
-abstract class ElytraKit(id: String, name: String, val icon: Material) : Kit(id, name) {
+abstract class ElytraKit(val id: String, val name: String, val icon: Material) : Listener {
 
-    override fun getChestContent(): ItemStack = ItemStack.of(Material.ELYTRA)
+    open fun getMaxHealth(): Double = 20.0
 
-    override fun getOffhandContent(): ItemStack {
+    open fun getMovementSpeed(): Double = 0.1
+
+    open fun getHeadContent(): ItemStack? = null
+
+    fun getChestContent(): ItemStack = ItemStack.of(Material.ELYTRA)
+
+    open fun getLegsContent(): ItemStack? = null
+
+    open fun getFeetContent(): ItemStack? = null
+
+    fun getOffhandContent(): ItemStack {
         val firework = ItemStack.of(Material.FIREWORK_ROCKET, 3)
         firework.editMeta(FireworkMeta::class.java) { fireworkMeta -> fireworkMeta.power = 3 }
         return firework
     }
 
-    override fun apply(player: Player) {
+    open fun getInventoryContent(): Array<ItemStack?> = arrayOf()
+
+    open fun getKillRewards(): Array<ItemStack> = arrayOf()
+
+    open fun getPotionEffects(): Map<PotionEffectType, Int> = mapOf()
+
+    fun apply(player: Player) {
         val extendedPlayer = ExtendedPlayer.from(player)
         extendedPlayer.setSelectedElytraKitId(id)
 
@@ -48,7 +67,7 @@ abstract class ElytraKit(id: String, name: String, val icon: Material) : Kit(id,
         extendedPlayer.removeCompanion()
     }
 
-    override fun Player.isKitSelected(): Boolean = id == ExtendedPlayer.from(this).selectedElytraKitId
+    fun Player.isKitSelected(): Boolean = id == ExtendedPlayer.from(this).selectedElytraKitId
 
-    override fun Player.isKitActive(): Boolean = isKitSelected() && ExtendedPlayer.from(this).gameState == ExtendedPlayer.GameState.ELYTRA_IN_GAME
+    fun Player.isKitActive(): Boolean = isKitSelected() && ExtendedPlayer.from(this).gameState == ExtendedPlayer.GameState.ELYTRA_IN_GAME
 }

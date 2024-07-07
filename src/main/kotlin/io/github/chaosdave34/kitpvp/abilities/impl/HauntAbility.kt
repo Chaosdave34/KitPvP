@@ -44,16 +44,17 @@ class HauntAbility : Ability("haunt", "Haunt", 20, 50, Material.WITHER_ROSE) {
         }
     }
 
+    // Todo: reset inventory
     private fun removeEffects(player: Player) {
         player.removePotionEffect(PotionEffectType.SPEED)
         player.removePotionEffect(PotionEffectType.INVISIBILITY)
 
         player.removeScoreboardTag("haunt_ability")
 
-        val kit = from(player).getSelectedKitsKit()
-        player.inventory.helmet = kit.getHeadContent()
-        player.inventory.chestplate = kit.getChestContent()
-        player.inventory.leggings = kit.getLegsContent()
-        player.inventory.boots = kit.getFeetContent()
+//        val kit = from(player).getSelectedKitsKit()
+//        player.inventory.helmet = kit.getHeadContent()
+//        player.inventory.chestplate = kit.getChestContent()
+//        player.inventory.leggings = kit.getLegsContent()
+//        player.inventory.boots = kit.getFeetContent()
     }
 }

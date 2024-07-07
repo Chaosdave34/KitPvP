@@ -9,14 +9,13 @@ import io.github.chaosdave34.kitpvp.companions.CompanionHandler
 import io.github.chaosdave34.kitpvp.cosmetics.CosmeticHandler
 import io.github.chaosdave34.kitpvp.customevents.CustomEventHandler
 import io.github.chaosdave34.kitpvp.damagetype.DamageTypes
+import io.github.chaosdave34.kitpvp.elytrakits.ElytraKitHandler
 import io.github.chaosdave34.kitpvp.enchantments.EnchantmentListener
 import io.github.chaosdave34.kitpvp.fakeplayer.FakePlayerHandler
 import io.github.chaosdave34.kitpvp.fakeplayer.FakePlayers
 import io.github.chaosdave34.kitpvp.guis.GuiHandler
 import io.github.chaosdave34.kitpvp.guis.Guis
 import io.github.chaosdave34.kitpvp.items.CustomItemHandler
-import io.github.chaosdave34.kitpvp.kits.ElytraKitHandler
-import io.github.chaosdave34.kitpvp.kits.KitHandler
 import io.github.chaosdave34.kitpvp.listener.*
 import io.github.chaosdave34.kitpvp.textdisplays.TextDisplayHandler
 import io.github.chaosdave34.kitpvp.textdisplays.TextDisplays
@@ -45,7 +44,6 @@ class KitPvp : JavaPlugin() {
     lateinit var textDisplayHandler: TextDisplayHandler
     lateinit var abilityHandler: AbilityHandler
     lateinit var customItemHandler: CustomItemHandler
-    lateinit var kitHandler: KitHandler
     lateinit var elytraKitHandler: ElytraKitHandler
     lateinit var companionHandler: CompanionHandler
     lateinit var cosmeticHandler: CosmeticHandler
@@ -68,7 +66,6 @@ class KitPvp : JavaPlugin() {
         textDisplayHandler = TextDisplayHandler()
         abilityHandler = AbilityHandler()
         customItemHandler = CustomItemHandler()
-        kitHandler = KitHandler()
         elytraKitHandler = ElytraKitHandler()
         companionHandler = CompanionHandler()
         cosmeticHandler = CosmeticHandler()

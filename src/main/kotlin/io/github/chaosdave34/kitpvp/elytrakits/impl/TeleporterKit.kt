@@ -1,6 +1,6 @@
-package io.github.chaosdave34.kitpvp.kits.impl.elytra
+package io.github.chaosdave34.kitpvp.elytrakits.impl
 
-import io.github.chaosdave34.kitpvp.kits.ElytraKit
+import io.github.chaosdave34.kitpvp.elytrakits.ElytraKit
 import org.bukkit.Material
 import org.bukkit.enchantments.Enchantment
 import org.bukkit.inventory.ItemStack

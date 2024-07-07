@@ -1,7 +1,7 @@
-package io.github.chaosdave34.kitpvp.kits
+package io.github.chaosdave34.kitpvp.elytrakits
 
 import io.github.chaosdave34.kitpvp.Utils
-import io.github.chaosdave34.kitpvp.kits.impl.elytra.*
+import io.github.chaosdave34.kitpvp.elytrakits.impl.*
 
 class ElytraKitHandler {
     val kits: MutableMap<String, ElytraKit> = mutableMapOf()
