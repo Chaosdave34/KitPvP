@@ -20,7 +20,6 @@ import org.bukkit.scoreboard.Criteria
 import org.bukkit.scoreboard.DisplaySlot
 import org.bukkit.scoreboard.Scoreboard
 import java.util.*
-import java.util.function.Consumer
 import kotlin.math.roundToInt
 import kotlin.reflect.KClass
 
@@ -233,15 +232,15 @@ class ExtendedPlayer(val uuid: UUID) {
     fun updatePlayerListFooter() {
         val player = getPlayer() ?: return
 
-        var footer = Component.newline().append(Component.text("Daily Challenges:", NamedTextColor.GREEN))
+//        var footer = Component.newline().append(Component.text("Daily Challenges:", NamedTextColor.GREEN))
 
-        dailyChallenges.forEach { challengeId ->
-            val challenge = KitPvp.INSTANCE.challengesHandler.getChallenge(challengeId) ?: return@forEach
-            val textColor = if (challenge.getProgress(player) == challenge.amount) NamedTextColor.GREEN else NamedTextColor.WHITE
-            footer = footer.append(Component.newline()).append(Component.text("${challenge.name} ${challenge.progress[player]}/${challenge.amount}", textColor))
-        }
+//        dailyChallenges.forEach { challengeId ->
+//            val challenge = KitPvp.INSTANCE.challengesHandler.getChallenge(challengeId) ?: return@forEach
+//            val textColor = if (challenge.getProgress(player) == challenge.amount) NamedTextColor.GREEN else NamedTextColor.WHITE
+//            footer = footer.append(Component.newline()).append(Component.text("${challenge.name} ${challenge.progress[player]}/${challenge.amount}", textColor))
+//        }
 
-        footer = footer.append(Component.newline())
+        val footer = Component.newline()
             .append(Component.newline())
             .append(Component.text("============================", NamedTextColor.YELLOW, TextDecoration.BOLD))
 
@@ -249,16 +248,16 @@ class ExtendedPlayer(val uuid: UUID) {
     }
 
     fun updateDailyChallenges() {
-        dailyChallenges = KitPvp.INSTANCE.challengesHandler.threeRandomChallenges.map { it.id }
-        Bukkit.getScheduler().runTaskLater(KitPvp.INSTANCE, Consumer { getPlayer()?.sendMessage(Component.text("You have new daily challenges!")) }, 1)
-
-        KitPvp.INSTANCE.challengesHandler.resetProgress(getPlayer())
+//        dailyChallenges = KitPvp.INSTANCE.challengesHandler.threeRandomChallenges.map { it.id }
+//        Bukkit.getScheduler().runTaskLater(KitPvp.INSTANCE, Consumer { getPlayer()?.sendMessage(Component.text("You have new daily challenges!")) }, 1)
+//
+//        KitPvp.INSTANCE.challengesHandler.resetProgress(getPlayer())
     }
 
     private fun updatePersonalStatisticsDisplay(gameType: GameType) {
         when (gameType) {
             GameType.KITS -> getPlayer()?.let { TextDisplays.PERSONAL_STATISTICS_KITS.updateText(it) }
-            GameType.ELYTRA ->getPlayer()?.let { TextDisplays.PERSONAL_STATISTICS_ELYTRA.updateText(it) }
+            GameType.ELYTRA -> getPlayer()?.let { TextDisplays.PERSONAL_STATISTICS_ELYTRA.updateText(it) }
         }
     }
 
