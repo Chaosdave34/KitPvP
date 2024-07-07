@@ -102,13 +102,10 @@ class FakePlayerHandler : Listener {
         val serverEntity = nmsFakePlayer.serverEntity
 
         if (player.canSee(fakePlayer) && player.world == fakePlayer.world) {
-            Bukkit.getLogger().info(nmsFakePlayer.name.tryCollapseToString())
             val addPlayerPacket = ClientboundPlayerInfoUpdatePacket(ClientboundPlayerInfoUpdatePacket.Action.ADD_PLAYER, nmsFakePlayer)
             val spawnEntityPacket = ClientboundAddEntityPacket(nmsFakePlayer, serverEntity)
             val setEntityDataPacket = ClientboundSetEntityDataPacket(nmsFakePlayer.id, nmsFakePlayer.entityData.packAll() ?: listOf())
             val setEquipmentPacket = ClientboundSetEquipmentPacket(nmsFakePlayer.id, nmsFakePlayer.getEquipment())
-
-            Bukkit.getLogger().info(nmsFakePlayer.getEquipment().map { it.second }.toString())
 
             player.sendPackets(addPlayerPacket, spawnEntityPacket, setEntityDataPacket, setEquipmentPacket)
         }

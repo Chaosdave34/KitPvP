@@ -22,15 +22,14 @@ class DamageTypes {
 
     init {
         ReflectionUtils.unfreezeRegistry(registry)
-
-        LAND = registerDamageType(NmsDamageType("land", DamageScaling.NEVER, 0f, DamageEffects.HURT), "land")
-        ESCAPE = registerDamageType(NmsDamageType("escape", DamageScaling.NEVER, 0f, DamageEffects.HURT), "escape")
-        BLACK_HOLE = registerDamageType(NmsDamageType("black_hole", DamageScaling.NEVER, 0f, DamageEffects.HURT), "black_hole")
+        LAND = registerDamageType(NmsDamageType("land", DamageScaling.NEVER, 0f, DamageEffects.HURT))
+        ESCAPE = registerDamageType(NmsDamageType("escape", DamageScaling.WHEN_CAUSED_BY_LIVING_NON_PLAYER, 0f, DamageEffects.HURT))
+        BLACK_HOLE = registerDamageType(NmsDamageType("black_hole", DamageScaling.NEVER, 0f, DamageEffects.HURT))
     }
 
-    private fun registerDamageType(damageType: NmsDamageType, id: String): DamageType {
+    private fun registerDamageType(damageType: NmsDamageType): DamageType {
         registry.createIntrusiveHolder(damageType)
-        Registry.register(registry, NamespacedKey.minecraft(id).asString(), damageType)
+        Registry.register(registry, NamespacedKey.minecraft(damageType.msgId).asString(), damageType)
 
         return CraftDamageType.minecraftToBukkit(damageType)
     }
