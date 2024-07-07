@@ -1,6 +1,5 @@
 package io.github.chaosdave34.kitpvp.abilities.impl
 
-import io.github.chaosdave34.kitpvp.ExtendedPlayer
 import io.github.chaosdave34.kitpvp.KitPvp
 import io.github.chaosdave34.kitpvp.abilities.Ability
 import io.github.chaosdave34.kitpvp.abilities.AbilityRunnable
@@ -13,6 +12,7 @@ import org.bukkit.entity.Player
 import org.bukkit.potion.PotionEffect
 import org.bukkit.potion.PotionEffectType
 
+// Todo: correctly set max health
 class OverloadAbility : Ability("overload", "Overload", 25, 50, Material.END_CRYSTAL) {
     override fun getDescription(): List<Component> = createSimpleDescriptionAsList("Reduces your health by 50% but gain strength for 8s.")
 
@@ -23,7 +23,7 @@ class OverloadAbility : Ability("overload", "Overload", 25, 50, Material.END_CRY
 
         val currentHealthPercentage = player.health / maxHealth.value
 
-        maxHealth.baseValue = ExtendedPlayer.from(player).getSelectedKitsKit().getMaxHealth() / 2
+//        maxHealth.baseValue = ExtendedPlayer.from(player).getSelectedKitsKit().getMaxHealth() / 2
 
         player.health = maxHealth.value * currentHealthPercentage
 
@@ -33,7 +33,7 @@ class OverloadAbility : Ability("overload", "Overload", 25, 50, Material.END_CRY
 
         object : AbilityRunnable(player) {
             override fun runInGame() {
-                player.getAttribute(Attribute.GENERIC_MAX_HEALTH)?.baseValue = ExtendedPlayer.from(player).getSelectedKitsKit().getMaxHealth()
+//                player.getAttribute(Attribute.GENERIC_MAX_HEALTH)?.baseValue = ExtendedPlayer.from(player).getSelectedKitsKit().getMaxHealth()
                 player.isGlowing = false
             }
         }.runTaskLater(KitPvp.INSTANCE, 8 * 20)

@@ -2,8 +2,6 @@ package io.github.chaosdave34.kitpvp.items.impl
 
 import io.github.chaosdave34.kitpvp.ExtendedPlayer
 import io.github.chaosdave34.kitpvp.KitPvp
-import io.github.chaosdave34.kitpvp.abilities.Ability
-import io.github.chaosdave34.kitpvp.abilities.AbilityHandler
 import io.github.chaosdave34.kitpvp.items.CustomItem
 import net.kyori.adventure.text.Component
 import org.bukkit.*
@@ -19,8 +17,6 @@ import org.bukkit.inventory.ItemStack
 
 class MagicWand : CustomItem(Material.END_ROD, "magic_wand", "Magic Wand", false, true) {
     override fun getDescription(): List<Component> = createSimpleDescriptionAsList("Feel the magic flow through cour body.")
-
-    override fun getAbilities(): List<Ability> = listOf(AbilityHandler.SHUFFLE)
 
     override fun additionalModifications(itemStack: ItemStack) {
         itemStack.setCustomModelData(1)

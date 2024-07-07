@@ -1,7 +1,6 @@
 package io.github.chaosdave34.kitpvp.items
 
 import io.github.chaosdave34.kitpvp.KitPvp
-import io.github.chaosdave34.kitpvp.abilities.Ability
 import io.github.chaosdave34.kitpvp.items.CustomItemHandler.Companion.getCustomItemId
 import io.github.chaosdave34.kitpvp.utils.Describable
 import io.github.chaosdave34.kitpvp.utils.ItemUtilities

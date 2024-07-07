@@ -2,8 +2,8 @@ package io.github.chaosdave34.kitpvp.guis
 
 import io.github.chaosdave34.kitpvp.ExtendedPlayer
 import io.github.chaosdave34.kitpvp.KitPvp
-import io.github.chaosdave34.kitpvp.kits.ElytraKit
-import io.github.chaosdave34.kitpvp.kits.ElytraKitHandler
+import io.github.chaosdave34.kitpvp.elytrakits.ElytraKit
+import io.github.chaosdave34.kitpvp.elytrakits.ElytraKitHandler
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
