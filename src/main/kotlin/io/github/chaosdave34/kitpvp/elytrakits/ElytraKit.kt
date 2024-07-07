@@ -1,7 +1,6 @@
 package io.github.chaosdave34.kitpvp.elytrakits
 
 import io.github.chaosdave34.kitpvp.ExtendedPlayer
-import io.github.chaosdave34.kitpvp.ultimates.Ultimate
 import org.bukkit.Material
 import org.bukkit.attribute.Attribute
 import org.bukkit.entity.Player
