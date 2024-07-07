@@ -378,7 +378,8 @@ class GameListener : Listener {
                 player.damage(maxDamage, DamageSource.builder(DamageType.DROWN).build())
             else if (filterForBlockBelow.contains(blockBelow))
                 player.damage(maxDamage, DamageSource.builder(DamageTypes.LAND).build())
-            else if (event.to.y > 199) player.damage(maxDamage, DamageSource.builder(DamageTypes.ESCAPE).build())
+            else if (event.to.y > 199)
+                player.damage(maxDamage, DamageSource.builder(DamageTypes.ESCAPE).build())
 
             player.isGlowing = blockBelow == Material.GREEN_WOOL || event.to.clone().subtract(0.0, 2.0, 0.0).block.type == Material.GREEN_WOOL
         }
