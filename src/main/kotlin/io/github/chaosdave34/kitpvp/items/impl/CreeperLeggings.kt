@@ -1,4 +1,4 @@
-package io.github.chaosdave34.kitpvp.items.impl.creeper
+package io.github.chaosdave34.kitpvp.items.impl
 
 import io.github.chaosdave34.kitpvp.items.CustomItem
 import org.bukkit.Color

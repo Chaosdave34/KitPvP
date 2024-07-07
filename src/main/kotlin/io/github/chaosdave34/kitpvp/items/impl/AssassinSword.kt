@@ -1,4 +1,4 @@
-package io.github.chaosdave34.kitpvp.items.impl.assassin
+package io.github.chaosdave34.kitpvp.items.impl
 
 import io.github.chaosdave34.kitpvp.enchantments.CustomEnchantments
 import io.github.chaosdave34.kitpvp.items.CustomItem
