@@ -261,6 +261,10 @@ class ExtendedPlayer(val uuid: UUID) {
             footer = footer.append(Component.newline()).append(Component.text("${challenge.name} ${challenge.progress[player]}/${challenge.amount}", textColor))
         }
 
+        footer = footer.append(Component.newline())
+            .append(Component.newline())
+            .append(Component.text("============================", NamedTextColor.YELLOW, TextDecoration.BOLD))
+
         player.sendPlayerListFooter(footer)
     }
 

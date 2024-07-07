@@ -73,7 +73,10 @@ class UtilityListener : Listener {
         }
 
         // player list header
-        player.sendPlayerListHeader(Component.text("KitPvP", NamedTextColor.YELLOW, TextDecoration.BOLD))
+        player.sendPlayerListHeader(
+            Component.text("==========[ KitPvP ]==========", NamedTextColor.YELLOW, TextDecoration.BOLD)
+                .append(Component.newline())
+        )
 
         // daily challenges
         val lastLoginDate = Instant.ofEpochMilli(player.lastLogin).atZone(ZoneId.systemDefault()).toLocalDate()
@@ -141,7 +144,7 @@ class UtilityListener : Listener {
         if (Bukkit.getWorld("world_elytra") == null) {
             val worldCreator = WorldCreator("world_elytra")
             worldCreator.generator(object : ChunkGenerator() {})
-            val elytraPvp = Bukkit.getServer().createWorld(worldCreator)
+            Bukkit.getServer().createWorld(worldCreator)
         }
     }
 
