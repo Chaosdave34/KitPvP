@@ -2,7 +2,6 @@ package io.github.chaosdave34.kitpvp.abilities
 
 import io.github.chaosdave34.kitpvp.ExtendedPlayer
 import io.github.chaosdave34.kitpvp.KitPvp
-import io.github.chaosdave34.kitpvp.customevents.CustomEventHandler
 import io.github.chaosdave34.kitpvp.utils.Describable
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
@@ -17,7 +16,6 @@ import org.bukkit.inventory.ItemStack
 import org.bukkit.persistence.PersistentDataType
 import org.bukkit.scheduler.BukkitRunnable
 import java.util.*
-import kotlin.math.max
 
 
 abstract class Ability(val id: String, val name: String, val cooldown: Int, val manaCost: Int, val icon: Material) : Listener, Describable {
@@ -51,9 +49,11 @@ abstract class Ability(val id: String, val name: String, val cooldown: Int, val 
             val success = onAbility(player)
 
             if (success) {
-                if (KitPvp.INSTANCE.customEventHandler.activeEvent === CustomEventHandler.HALVED_COOLDOWN_EVENT) playerCooldown[player.uniqueId] =
-                    max((cooldown / 2).toDouble(), 1.0).toLong()
-                else playerCooldown[player.uniqueId] = cooldown.toLong()
+//                if (KitPvp.INSTANCE.customEventHandler.activeEvent === CustomEventHandler.HALVED_COOLDOWN_EVENT) playerCooldown[player.uniqueId] =
+//                    max((cooldown / 2).toDouble(), 1.0).toLong()
+//                else playerCooldown[player.uniqueId] = cooldown.toLong()
+
+                playerCooldown[player.uniqueId] = cooldown.toLong()
 
                 object : BukkitRunnable() {
                     override fun run() {

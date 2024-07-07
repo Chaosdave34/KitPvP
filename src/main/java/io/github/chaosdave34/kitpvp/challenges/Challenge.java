@@ -1,8 +1,6 @@
 package io.github.chaosdave34.kitpvp.challenges;
 
 import io.github.chaosdave34.kitpvp.ExtendedPlayer;
-import io.github.chaosdave34.kitpvp.KitPvp;
-import io.github.chaosdave34.kitpvp.customevents.CustomEventHandler;
 import net.kyori.adventure.text.Component;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
@@ -27,8 +25,8 @@ public abstract class Challenge implements Listener {
 
         if (getProgress(p) == amount - 1) {
             int xpReward = 50;
-            if (KitPvp.INSTANCE.getCustomEventHandler().getActiveEvent() == CustomEventHandler.DOUBLE_COINS_AND_EXPERIENCE_EVENT)
-                xpReward *= 2;
+//            if (KitPvp.INSTANCE.getCustomEventHandler().getActiveEvent() == CustomEventHandler.DOUBLE_COINS_AND_EXPERIENCE_EVENT)
+//                xpReward *= 2;
 
             p.sendMessage(Component.text("You have completed a daily challenge! +" + xpReward + "XP"));
             extendedPlayer.addExperiencePoints(xpReward);
