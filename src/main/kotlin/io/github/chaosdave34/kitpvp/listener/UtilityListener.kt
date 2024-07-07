@@ -1,17 +1,14 @@
 package io.github.chaosdave34.kitpvp.listener
 
-import io.github.chaosdave34.ghutils.GHUtils
-import io.github.chaosdave34.ghutils.utils.JsonUtils
 import io.github.chaosdave34.kitpvp.ExtendedPlayer
 import io.github.chaosdave34.kitpvp.KitPvp
-import io.github.chaosdave34.kitpvp.textdisplays.TextDisplays
+import io.github.chaosdave34.kitpvp.utils.JsonUtils
 import io.papermc.paper.event.player.AsyncChatEvent
 import io.papermc.paper.event.player.PlayerFlowerPotManipulateEvent
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
 import org.bukkit.Bukkit
-import org.bukkit.GameRule
 import org.bukkit.Material
 import org.bukkit.WorldCreator
 import org.bukkit.block.data.type.Door
@@ -56,12 +53,6 @@ class UtilityListener : Listener {
             false
         )
 
-        // NPC
-        GHUtils.getFakePlayerHandler().spawnFakePlayers(player)
-
-        // TextDisplay
-        GHUtils.getTextDisplayHandler().spawnTextDisplays(player)
-
         // Spawn
         extendedPlayer.spawn()
         extendedPlayer.updateDisplayName()
@@ -69,20 +60,23 @@ class UtilityListener : Listener {
         // Highscores
         if (KitPvp.INSTANCE.highestKillStreaksKits.size < 5 && extendedPlayer.getHighestKillStreak(ExtendedPlayer.GameType.KITS) > 0) {
             KitPvp.INSTANCE.highestKillStreaksKits[player.uniqueId] = extendedPlayer.getHighestKillStreak(ExtendedPlayer.GameType.KITS)
-            GHUtils.getTextDisplayHandler().updateTextDisplayForAll(TextDisplays.HIGHEST_KILL_STREAKS_KITS)
+            //GHUtils.getTextDisplayHandler().updateTextDisplayForAll(TextDisplays.HIGHEST_KILL_STREAKS_KITS)
         }
         if (KitPvp.INSTANCE.highestKillStreaksElytra.size < 5 && extendedPlayer.getHighestKillStreak(ExtendedPlayer.GameType.ELYTRA) > 0) {
             KitPvp.INSTANCE.highestKillStreaksElytra[player.uniqueId] = extendedPlayer.getHighestKillStreak(ExtendedPlayer.GameType.ELYTRA)
-            GHUtils.getTextDisplayHandler().updateTextDisplayForAll(TextDisplays.HIGHEST_KILL_STREAKS_ELYTRA)
+            //GHUtils.getTextDisplayHandler().updateTextDisplayForAll(TextDisplays.HIGHEST_KILL_STREAKS_ELYTRA)
         }
 
         if (KitPvp.INSTANCE.highestLevels.size < 5 && extendedPlayer.getLevel() != 0) {
             KitPvp.INSTANCE.highestLevels[player.uniqueId] = extendedPlayer.getLevel()
-            GHUtils.getTextDisplayHandler().updateTextDisplayForAll(TextDisplays.HIGHEST_LEVELS_KITS)
+            //GHUtils.getTextDisplayHandler().updateTextDisplayForAll(TextDisplays.HIGHEST_LEVELS_KITS)
         }
 
         // player list header
-        player.sendPlayerListHeader(Component.text("KitPvP", NamedTextColor.YELLOW, TextDecoration.BOLD))
+        player.sendPlayerListHeader(
+            Component.text("==========[ KitPvP ]==========", NamedTextColor.YELLOW, TextDecoration.BOLD)
+                .append(Component.newline())
+        )
 
         // daily challenges
         val lastLoginDate = Instant.ofEpochMilli(player.lastLogin).atZone(ZoneId.systemDefault()).toLocalDate()
@@ -147,17 +141,10 @@ class UtilityListener : Listener {
 
     @EventHandler
     fun onWorldLoad(event: WorldLoadEvent) {
-        val world = event.world
-        if (world.name == "nether" || world.name == "the_end") Bukkit.unloadWorld(world, false)
-
         if (Bukkit.getWorld("world_elytra") == null) {
             val worldCreator = WorldCreator("world_elytra")
             worldCreator.generator(object : ChunkGenerator() {})
-            val elytraPvp = Bukkit.getServer().createWorld(worldCreator)
-
-            elytraPvp?.setGameRule(GameRule.DO_MOB_SPAWNING, false)
-            elytraPvp?.setGameRule(GameRule.DO_FIRE_TICK, false)
-            elytraPvp?.setGameRule(GameRule.DO_WEATHER_CYCLE, false)
+            Bukkit.getServer().createWorld(worldCreator)
         }
     }
 

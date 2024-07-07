@@ -5,37 +5,37 @@ import io.github.chaosdave34.kitpvp.ultimates.Ultimate
 import io.github.chaosdave34.kitpvp.ultimates.UltimateHandler
 import org.bukkit.Material
 import org.bukkit.enchantments.Enchantment
-import org.bukkit.inventory.ItemStack as ItemStack
+import org.bukkit.inventory.ItemStack
 
 class KnightKit : Kit("knight", "Knight") {
 
-    override fun getHeadContent(): ItemStack = ItemStack(Material.IRON_HELMET)
+    override fun getHeadContent(): ItemStack = ItemStack.of(Material.IRON_HELMET)
 
-    override fun getChestContent(): ItemStack = ItemStack(Material.IRON_CHESTPLATE)
+    override fun getChestContent(): ItemStack = ItemStack.of(Material.IRON_CHESTPLATE)
 
-    override fun getLegsContent(): ItemStack = ItemStack(Material.IRON_LEGGINGS)
+    override fun getLegsContent(): ItemStack = ItemStack.of(Material.IRON_LEGGINGS)
 
-    override fun getFeetContent(): ItemStack = ItemStack(Material.IRON_BOOTS)
+    override fun getFeetContent(): ItemStack = ItemStack.of(Material.IRON_BOOTS)
 
-    override fun getOffhandContent(): ItemStack = ItemStack(Material.SHIELD)
+    override fun getOffhandContent(): ItemStack = ItemStack.of(Material.SHIELD)
 
     override fun getInventoryContent(): Array<ItemStack?> {
-        val bow = ItemStack(Material.BOW)
+        val bow = ItemStack.of(Material.BOW)
         bow.addEnchantment(Enchantment.INFINITY, 1)
 
         return arrayOf(
-            ItemStack(Material.DIAMOND_SWORD),
-            ItemStack(Material.IRON_AXE),
+            ItemStack.of(Material.DIAMOND_SWORD),
+            ItemStack.of(Material.IRON_AXE),
             bow,
-            ItemStack(Material.ARROW),
-            ItemStack(Material.WATER_BUCKET),
+            ItemStack.of(Material.ARROW),
+            ItemStack.of(Material.WATER_BUCKET),
         )
     }
 
     override fun getKillRewards(): Array<ItemStack> {
         return arrayOf(
-            ItemStack(Material.GOLDEN_APPLE),
-            ItemStack(Material.COBBLESTONE, 32),
+            ItemStack.of(Material.GOLDEN_APPLE),
+            ItemStack.of(Material.COBBLESTONE, 32),
         )
     }
 

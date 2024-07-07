@@ -14,8 +14,7 @@ import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.meta.Damageable
 
-class LongBow : CustomItem(Material.BOW, "long_bow") {
-    override fun getName(): Component = createSimpleItemName("Long Bow")
+class LongBow : CustomItem(Material.BOW, "long_bow", "Long Bow") {
 
     override fun getDescription(): List<Component> = createSimpleDescriptionAsList("Increased damage but takes a while to recharge.")
 

@@ -24,10 +24,10 @@ class HauntAbility : Ability("haunt", "Haunt", Type.RIGHT_CLICK, 20) {
         player.addPotionEffect(PotionEffect(PotionEffectType.INVISIBILITY, 5 * 10, 0))
         player.addScoreboardTag("haunt_ability")
 
-        player.inventory.helmet = ItemStack(Material.AIR)
-        player.inventory.chestplate = ItemStack(Material.AIR)
-        player.inventory.leggings = ItemStack(Material.AIR)
-        player.inventory.boots = ItemStack(Material.AIR)
+        player.inventory.helmet = ItemStack.of(Material.AIR)
+        player.inventory.chestplate = ItemStack.of(Material.AIR)
+        player.inventory.leggings = ItemStack.of(Material.AIR)
+        player.inventory.boots = ItemStack.of(Material.AIR)
 
         runTaskLater(KitPvp.INSTANCE, { removeEffects(player) }, player, (5 * 20).toLong())
         return true

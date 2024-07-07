@@ -10,7 +10,7 @@ class TankKit : ElytraKit("elytra_tank", "Tank", Material.IRON_CHESTPLATE) {
     override fun getMaxHealth(): Double = 30.0
 
     override fun getInventoryContent(): Array<ItemStack?> {
-        val bow = ItemStack(Material.BOW)
+        val bow = ItemStack.of(Material.BOW)
         bow.addEnchantment(Enchantment.INFINITY, 1)
         bow.addEnchantment(Enchantment.POWER, 1)
 

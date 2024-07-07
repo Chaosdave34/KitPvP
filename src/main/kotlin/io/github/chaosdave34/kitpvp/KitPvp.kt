@@ -3,36 +3,35 @@ package io.github.chaosdave34.kitpvp
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.mojang.datafixers.util.Pair
-import io.github.chaosdave34.ghutils.GHUtils
-import io.github.chaosdave34.ghutils.utils.JsonUtils
 import io.github.chaosdave34.kitpvp.abilities.AbilityHandler
 import io.github.chaosdave34.kitpvp.challenges.ChallengesHandler
-import io.github.chaosdave34.kitpvp.commands.*
 import io.github.chaosdave34.kitpvp.companions.CompanionHandler
 import io.github.chaosdave34.kitpvp.cosmetics.CosmeticHandler
 import io.github.chaosdave34.kitpvp.customevents.CustomEventHandler
 import io.github.chaosdave34.kitpvp.damagetype.DamageTypes
-import io.github.chaosdave34.kitpvp.enchantments.EnchantmentHandler
+import io.github.chaosdave34.kitpvp.enchantments.EnchantmentListener
+import io.github.chaosdave34.kitpvp.fakeplayer.FakePlayerHandler
 import io.github.chaosdave34.kitpvp.fakeplayer.FakePlayers
+import io.github.chaosdave34.kitpvp.guis.GuiHandler
+import io.github.chaosdave34.kitpvp.guis.Guis
 import io.github.chaosdave34.kitpvp.items.CustomItemHandler
 import io.github.chaosdave34.kitpvp.kits.ElytraKitHandler
 import io.github.chaosdave34.kitpvp.kits.KitHandler
 import io.github.chaosdave34.kitpvp.listener.*
+import io.github.chaosdave34.kitpvp.textdisplays.TextDisplayHandler
 import io.github.chaosdave34.kitpvp.textdisplays.TextDisplays
 import io.github.chaosdave34.kitpvp.ultimates.UltimateHandler
-import lombok.Getter
-import org.bukkit.Bukkit
-import org.bukkit.GameRule
-import org.bukkit.Location
+import io.github.chaosdave34.kitpvp.utils.JsonUtils
+import org.bukkit.*
 import org.bukkit.block.data.BlockData
-import org.bukkit.command.CommandExecutor
-import org.bukkit.command.TabCompleter
+import org.bukkit.generator.ChunkGenerator
 import org.bukkit.plugin.java.JavaPlugin
 import java.io.File
 import java.io.IOException
+import java.net.URI
 import java.util.*
 
-@Getter
+
 class KitPvp : JavaPlugin() {
     private val extendedPlayers: MutableMap<UUID, ExtendedPlayer> = mutableMapOf()
 
@@ -42,8 +41,9 @@ class KitPvp : JavaPlugin() {
 
     val highestLevels: MutableMap<UUID, Int> = mutableMapOf()
 
+    lateinit var fakePlayerHandler: FakePlayerHandler
+    lateinit var textDisplayHandler: TextDisplayHandler
     lateinit var abilityHandler: AbilityHandler
-    lateinit var enchantmentHandler: EnchantmentHandler
     lateinit var customItemHandler: CustomItemHandler
     lateinit var kitHandler: KitHandler
     lateinit var elytraKitHandler: ElytraKitHandler
@@ -52,6 +52,7 @@ class KitPvp : JavaPlugin() {
     lateinit var customEventHandler: CustomEventHandler
     lateinit var challengesHandler: ChallengesHandler
     lateinit var ultimateHandler: UltimateHandler
+    lateinit var guiHandler: GuiHandler
 
     private lateinit var damageTypes: DamageTypes
 
@@ -62,10 +63,10 @@ class KitPvp : JavaPlugin() {
 
     override fun onEnable() {
         INSTANCE = this
-        GHUtils.setPlugin(INSTANCE)
 
+        fakePlayerHandler = FakePlayerHandler()
+        textDisplayHandler = TextDisplayHandler()
         abilityHandler = AbilityHandler()
-        enchantmentHandler = EnchantmentHandler()
         customItemHandler = CustomItemHandler()
         kitHandler = KitHandler()
         elytraKitHandler = ElytraKitHandler()
@@ -74,11 +75,11 @@ class KitPvp : JavaPlugin() {
         customEventHandler = CustomEventHandler()
         challengesHandler = ChallengesHandler()
         ultimateHandler = UltimateHandler()
+        guiHandler = GuiHandler()
 
         damageTypes = DamageTypes()
 
-        TextDisplays.create()
-        FakePlayers.create()
+        Guis.create()
 
         saveDefaultConfig()
         server.messenger.registerOutgoingPluginChannel(this, "BungeeCord")
@@ -86,9 +87,19 @@ class KitPvp : JavaPlugin() {
         Bukkit.clearRecipes()
 
         // Setup worlds
-        val overWorld = server.getWorld("world")
-        overWorld?.setGameRule(GameRule.DO_MOB_SPAWNING, false)
-        overWorld?.setGameRule(GameRule.DO_FIRE_TICK, false)
+        server.getWorld("world")?.let {
+            it.setGameRule(GameRule.DO_MOB_SPAWNING, false)
+            it.setGameRule(GameRule.DO_FIRE_TICK, false)
+        }
+
+
+        val worldCreator = WorldCreator("world_elytra")
+        worldCreator.generator(object : ChunkGenerator() {})
+        server.createWorld(worldCreator)?.let {
+            it.setGameRule(GameRule.DO_MOB_SPAWNING, false)
+            it.setGameRule(GameRule.DO_FIRE_TICK, false)
+            it.setGameRule(GameRule.DO_WEATHER_CYCLE, false)
+        }
 
         // Registering Listener
         val pluginManager = server.pluginManager
@@ -98,53 +109,32 @@ class KitPvp : JavaPlugin() {
         pluginManager.registerEvents(GameListener(), this)
         pluginManager.registerEvents(GamePlayerDeathListener(), this)
         pluginManager.registerEvents(EntityDamageListener(), this)
+        pluginManager.registerEvents(EnchantmentListener(), this)
+        pluginManager.registerEvents(fakePlayerHandler, this)
+        pluginManager.registerEvents(textDisplayHandler, this)
         pluginManager.registerEvents(abilityHandler, this)
         pluginManager.registerEvents(companionHandler, this)
         pluginManager.registerEvents(cosmeticHandler, this)
         pluginManager.registerEvents(customEventHandler, this)
         pluginManager.registerEvents(ultimateHandler, this)
+        pluginManager.registerEvents(guiHandler, this)
 
+        // Server Links
+        server.serverLinks.addLink(ServerLinks.Type.COMMUNITY, URI.create(config["discord"].toString()))
 
-        // Registering Commands
-        registerCommand("spawn", SpawnCommand())
-        registerCommand("msg", MessageCommand(), PlayerTabCompleter())
-        registerCommand("bounty", BountyCommand(), PlayerTabCompleter())
-        registerCommand("discord", DiscordCommand())
-
-
-        //Admin Commands
-        registerCommand("loop", LoopCommand(), LoopTabCompleter())
-        registerCommand("customitem", CustomItemCommand(), CustomItemTabCompleter())
-        registerCommand("gommemode", GommeModeCommand())
-        registerCommand("addexperience", AddExperienceCommand(), PlayerTabCompleter())
-        registerCommand("addcoins", AddCoinsCommand(), PlayerTabCompleter())
-
+        // Load FakePlayers and TextDisplays
+        FakePlayers.create()
+        TextDisplays.create()
 
         // Create data folder
         dataFolder.mkdir()
         File(dataFolder, "player_data").mkdir()
-
 
         // load high scores
         highestLevels.putAll(loadHighscore("highestLevels"))
 
         highestKillStreaksKits.putAll(loadHighscore("highestKillStreaksKits"))
         highestKillStreaksElytra.putAll(loadHighscore("highestKillStreaksElytra"))
-    }
-
-    private fun registerCommand(name: String, executor: CommandExecutor) {
-        registerCommand(name, executor, EmptyTabCompleter())
-    }
-
-    private fun registerCommand(name: String, executor: CommandExecutor, tabCompleter: TabCompleter) {
-        val command = getCommand(name)
-        if (command == null) {
-            logger.warning("Failed to register command $name!")
-            return
-        }
-
-        command.setExecutor(executor)
-        command.tabCompleter = tabCompleter
     }
 
     // Extended players

@@ -14,49 +14,49 @@ class SpaceSoldierKit : Kit("space soldier", "Space Soldier") {
     override fun getMovementSpeed(): Double = 0.15
 
     override fun getHeadContent(): ItemStack {
-        val helmet = ItemStack(Material.BEACON)
+        val helmet = ItemStack.of(Material.BEACON)
         helmet.addUnsafeEnchantment(Enchantment.PROTECTION, 1)
         return helmet
     }
 
     override fun getChestContent(): ItemStack {
-        val chestplate = ItemStack(Material.LEATHER_CHESTPLATE)
+        val chestplate = ItemStack.of(Material.LEATHER_CHESTPLATE)
         chestplate.addEnchantment(Enchantment.PROTECTION, 1)
         chestplate.setLeatherArmorColor(Color.WHITE)
         return chestplate
     }
 
     override fun getLegsContent(): ItemStack {
-        val leggings = ItemStack(Material.LEATHER_LEGGINGS)
+        val leggings = ItemStack.of(Material.LEATHER_LEGGINGS)
         leggings.addEnchantment(Enchantment.PROTECTION, 1)
         leggings.setLeatherArmorColor(Color.WHITE)
         return leggings
     }
 
     override fun getFeetContent(): ItemStack {
-        val boots = ItemStack(Material.LEATHER_BOOTS)
+        val boots = ItemStack.of(Material.LEATHER_BOOTS)
         boots.addEnchantment(Enchantment.PROTECTION, 1)
         boots.setLeatherArmorColor(Color.WHITE)
         return boots
     }
 
     override fun getInventoryContent(): Array<ItemStack?> {
-        val knockBackStick = ItemStack(Material.STICK)
+        val knockBackStick = ItemStack.of(Material.STICK)
         knockBackStick.addUnsafeEnchantment(Enchantment.KNOCKBACK, 2)
 
         return arrayOf(
-            ItemStack(Material.DIAMOND_SWORD),
+            ItemStack.of(Material.DIAMOND_SWORD),
             knockBackStick,
             CustomItemHandler.AIRSTRIKE_REQUESTER.build(),
             CustomItemHandler.BLACK_HOLE_GENERATOR.build(),
-            ItemStack(Material.WATER_BUCKET),
+            ItemStack.of(Material.WATER_BUCKET),
         )
     }
 
     override fun getKillRewards(): Array<ItemStack> {
         return arrayOf(
-            ItemStack(Material.GOLDEN_APPLE),
-            ItemStack(Material.COBBLESTONE, 32),
+            ItemStack.of(Material.GOLDEN_APPLE),
+            ItemStack.of(Material.COBBLESTONE, 32),
         )
     }
 

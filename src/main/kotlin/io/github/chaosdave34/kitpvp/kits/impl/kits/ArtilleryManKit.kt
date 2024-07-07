@@ -13,7 +13,7 @@ import org.bukkit.inventory.meta.FireworkMeta
 class ArtilleryManKit : Kit("artillery_man", "Artillery Man *" ) {
 
     override fun getHeadContent(): ItemStack {
-        val helmet = ItemStack(Material.LEATHER_HELMET)
+        val helmet = ItemStack.of(Material.LEATHER_HELMET)
         helmet.addEnchantment(Enchantment.PROTECTION, 2)
         helmet.addUnsafeEnchantment(Enchantment.BLAST_PROTECTION, 4)
         helmet.setLeatherArmorColor(Color.NAVY)
@@ -23,7 +23,7 @@ class ArtilleryManKit : Kit("artillery_man", "Artillery Man *" ) {
     override fun getChestContent(): ItemStack = CustomItemHandler.JETPACK.build()
 
     override fun getLegsContent(): ItemStack {
-        val leggings = ItemStack(Material.LEATHER_LEGGINGS)
+        val leggings = ItemStack.of(Material.LEATHER_LEGGINGS)
         leggings.addEnchantment(Enchantment.PROTECTION, 2)
         leggings.addUnsafeEnchantment(Enchantment.BLAST_PROTECTION, 4)
         leggings.setLeatherArmorColor(Color.NAVY)
@@ -31,7 +31,7 @@ class ArtilleryManKit : Kit("artillery_man", "Artillery Man *" ) {
     }
 
     override fun getFeetContent(): ItemStack {
-        val boots = ItemStack(Material.LEATHER_BOOTS)
+        val boots = ItemStack.of(Material.LEATHER_BOOTS)
         boots.addEnchantment(Enchantment.PROTECTION, 2)
         boots.addUnsafeEnchantment(Enchantment.BLAST_PROTECTION, 4)
         boots.addEnchantment(Enchantment.FEATHER_FALLING, 4)
@@ -40,7 +40,7 @@ class ArtilleryManKit : Kit("artillery_man", "Artillery Man *" ) {
     }
 
     override fun getOffhandContent(): ItemStack {
-        val rocket = ItemStack(Material.FIREWORK_ROCKET, 3)
+        val rocket = ItemStack.of(Material.FIREWORK_ROCKET, 3)
         rocket.editMeta(FireworkMeta::class.java) { fireworkMeta: FireworkMeta ->
             fireworkMeta.power = 5
         }
@@ -50,15 +50,15 @@ class ArtilleryManKit : Kit("artillery_man", "Artillery Man *" ) {
     override fun getInventoryContent(): Array<ItemStack?> {
         return arrayOf(
             CustomItemHandler.ROCKET_LAUNCHER.build(),
-            ItemStack(Material.STONE_SWORD),
-            ItemStack(Material.WATER_BUCKET),
+            ItemStack.of(Material.STONE_SWORD),
+            ItemStack.of(Material.WATER_BUCKET),
         )
     }
 
     override fun getKillRewards(): Array<ItemStack> {
         return arrayOf(
-            ItemStack(Material.GOLDEN_APPLE),
-            ItemStack(Material.COBBLESTONE, 32),
+            ItemStack.of(Material.GOLDEN_APPLE),
+            ItemStack.of(Material.COBBLESTONE, 32),
         )
     }
 

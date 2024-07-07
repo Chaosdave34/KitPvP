@@ -10,7 +10,7 @@ import org.bukkit.potion.PotionType
 class ChemistKit : ElytraKit("elytra_chemist", "Chemist", Material.POTION) {
 
     override fun getInventoryContent(): Array<ItemStack?> {
-        val bow = ItemStack(Material.BOW)
+        val bow = ItemStack.of(Material.BOW)
         bow.addEnchantment(Enchantment.INFINITY, 1)
         bow.addEnchantment(Enchantment.POWER, 2)
 
@@ -20,7 +20,7 @@ class ChemistKit : ElytraKit("elytra_chemist", "Chemist", Material.POTION) {
     }
 
     override fun getKillRewards(): Array<ItemStack> {
-        val potion = ItemStack(Material.SPLASH_POTION, 5)
+        val potion = ItemStack.of(Material.SPLASH_POTION, 5)
         potion.editMeta(PotionMeta::class.java) { potionMeta: PotionMeta -> potionMeta.basePotionType = PotionType.STRONG_HARMING }
 
         return arrayOf(

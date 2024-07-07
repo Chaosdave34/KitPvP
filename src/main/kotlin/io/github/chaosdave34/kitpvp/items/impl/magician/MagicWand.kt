@@ -1,14 +1,12 @@
 package io.github.chaosdave34.kitpvp.items.impl.magician
 
 import io.github.chaosdave34.kitpvp.ExtendedPlayer
+import io.github.chaosdave34.kitpvp.KitPvp
 import io.github.chaosdave34.kitpvp.abilities.Ability
 import io.github.chaosdave34.kitpvp.abilities.AbilityHandler
 import io.github.chaosdave34.kitpvp.items.CustomItem
 import net.kyori.adventure.text.Component
-import org.bukkit.Color
-import org.bukkit.Material
-import org.bukkit.Particle
-import org.bukkit.Sound
+import org.bukkit.*
 import org.bukkit.attribute.Attribute
 import org.bukkit.attribute.AttributeModifier
 import org.bukkit.damage.DamageSource
@@ -16,13 +14,10 @@ import org.bukkit.damage.DamageType
 import org.bukkit.entity.LivingEntity
 import org.bukkit.event.EventHandler
 import org.bukkit.event.player.PlayerInteractEvent
-import org.bukkit.inventory.EquipmentSlot
+import org.bukkit.inventory.EquipmentSlotGroup
 import org.bukkit.inventory.ItemStack
-import java.util.*
 
-class MagicWand : CustomItem(Material.END_ROD, "magic_wand", false, true) {
-    override fun getName(): Component = createSimpleItemName("Magic Wand")
-
+class MagicWand : CustomItem(Material.END_ROD, "magic_wand", "Magic Wand", false, true) {
     override fun getDescription(): List<Component> = createSimpleDescriptionAsList("Feel the magic flow through cour body.")
 
     override fun getAbilities(): List<Ability> = listOf(AbilityHandler.SHUFFLE)
@@ -32,7 +27,7 @@ class MagicWand : CustomItem(Material.END_ROD, "magic_wand", false, true) {
         itemStack.editMeta { itemMeta ->
             itemMeta.addAttributeModifier(
                 Attribute.GENERIC_ATTACK_SPEED,
-                AttributeModifier(UUID.randomUUID(), "default", -2.0, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND)
+                AttributeModifier(NamespacedKey(KitPvp.INSTANCE, "magic_wand"), -2.0, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.HAND)
             )
         }
     }

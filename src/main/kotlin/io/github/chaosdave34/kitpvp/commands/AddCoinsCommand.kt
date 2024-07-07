@@ -1,21 +1,43 @@
 package io.github.chaosdave34.kitpvp.commands
 
-import io.github.chaosdave34.kitpvp.ExtendedPlayer.Companion.from
-import org.bukkit.Bukkit
-import org.bukkit.command.Command
-import org.bukkit.command.CommandExecutor
-import org.bukkit.command.CommandSender
+import com.mojang.brigadier.Command
+import com.mojang.brigadier.arguments.IntegerArgumentType
+import io.github.chaosdave34.kitpvp.ExtendedPlayer
+import io.papermc.paper.command.brigadier.CommandSourceStack
+import io.papermc.paper.command.brigadier.Commands
+import io.papermc.paper.command.brigadier.argument.ArgumentTypes
+import io.papermc.paper.command.brigadier.argument.resolvers.selector.PlayerSelectorArgumentResolver
+import net.minecraft.commands.arguments.EntityArgument
 
-class AddCoinsCommand : CommandExecutor {
-    override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<String>): Boolean {
-        if (args.size != 2) return false
+object AddCoinsCommand {
+    fun register(commands: Commands) {
+        commands.register(
+            Commands.literal("add-coins")
+                .requires { it.sender.isOp }
+                .then(
+                    Commands.argument("targets", ArgumentTypes.players())
+                        .then(
+                            Commands.argument("amount", IntegerArgumentType.integer(1))
+                                .executes {
+                                    addCoins(
+                                        it.source,
+                                        it.getArgument("targets", PlayerSelectorArgumentResolver::class.java),
+                                        it.getArgument("amount", Int::class.java)
+                                    )
+                                }
+                        )
+                )
+                .build()
+        )
+    }
 
-        val player = Bukkit.getPlayer(args[0]) ?: return false
-        val amount = args[1].toIntOrNull() ?: return false
+    private fun addCoins(source: CommandSourceStack, targets: PlayerSelectorArgumentResolver, amount: Int): Int {
+        val resolvedTargets = targets.resolve(source)
+        if (resolvedTargets.isEmpty()) throw EntityArgument.NO_PLAYERS_FOUND.create()
 
-        if (amount < 1) return false
-        from(player).addCoins(amount)
-
-        return true
+        resolvedTargets.forEach { target ->
+            ExtendedPlayer.from(target).addCoins(amount)
+        }
+        return Command.SINGLE_SUCCESS
     }
 }

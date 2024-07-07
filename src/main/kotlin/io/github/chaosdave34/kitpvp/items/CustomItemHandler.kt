@@ -1,7 +1,7 @@
 package io.github.chaosdave34.kitpvp.items
 
-import io.github.chaosdave34.ghutils.Utils
-import io.github.chaosdave34.ghutils.utils.PDCUtils
+import io.github.chaosdave34.kitpvp.KitPvp
+import io.github.chaosdave34.kitpvp.Utils
 import io.github.chaosdave34.kitpvp.items.impl.archer.Leap
 import io.github.chaosdave34.kitpvp.items.impl.archer.LongBow
 import io.github.chaosdave34.kitpvp.items.impl.artilleryman.Jetpack
@@ -21,7 +21,9 @@ import io.github.chaosdave34.kitpvp.items.impl.spacesoldier.BlackHoleGenerator
 import io.github.chaosdave34.kitpvp.items.impl.tank.TankBoots
 import io.github.chaosdave34.kitpvp.items.impl.vampire.VampireSword
 import io.github.chaosdave34.kitpvp.items.impl.zeus.LightningWand
+import org.bukkit.NamespacedKey
 import org.bukkit.inventory.ItemStack
+import org.bukkit.persistence.PersistentDataType
 
 class CustomItemHandler {
     val customItems: MutableMap<String, CustomItem> = mutableMapOf()
@@ -47,7 +49,7 @@ class CustomItemHandler {
         lateinit var WATER_BURST: CustomItem
         lateinit var BLACK_HOLE_GENERATOR: CustomItem
 
-        fun getCustomItemId(itemStack: ItemStack): String = PDCUtils.getId(itemStack.itemMeta) ?: ""
+        fun ItemStack.getCustomItemId(): String? = this.persistentDataContainer.get(NamespacedKey(KitPvp.INSTANCE, "id"), PersistentDataType.STRING)
     }
 
     init {

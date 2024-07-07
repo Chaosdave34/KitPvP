@@ -1,38 +1,68 @@
 package io.github.chaosdave34.kitpvp.commands
 
+import com.mojang.brigadier.Command
+import com.mojang.brigadier.arguments.IntegerArgumentType
+import com.mojang.brigadier.arguments.LongArgumentType
+import com.mojang.brigadier.arguments.StringArgumentType
+import com.mojang.brigadier.context.CommandContext
+import com.mojang.brigadier.suggestion.SuggestionProvider
+import com.mojang.brigadier.suggestion.Suggestions
+import com.mojang.brigadier.suggestion.SuggestionsBuilder
 import io.github.chaosdave34.kitpvp.KitPvp
+import io.papermc.paper.command.brigadier.CommandSourceStack
+import io.papermc.paper.command.brigadier.Commands
 import net.kyori.adventure.text.Component
-import org.bukkit.command.Command
-import org.bukkit.command.CommandExecutor
-import org.bukkit.command.CommandSender
-import org.bukkit.entity.Player
+import net.minecraft.commands.SharedSuggestionProvider
+import org.bukkit.Bukkit
 import org.bukkit.scheduler.BukkitRunnable
+import java.util.concurrent.CompletableFuture
 
-class LoopCommand : CommandExecutor {
-    override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<String>): Boolean {
-        if (args.size < 3) return false
+object LoopCommand {
+    fun register(commands: Commands) {
+        commands.register(
+            Commands.literal("loop")
+                .requires { it.sender.isOp }
+                .then(
+                    Commands.argument("count", IntegerArgumentType.integer(1, 100))
+                        .then(
+                            Commands.argument("period", LongArgumentType.longArg(0))
+                                .then(
+                                    Commands.argument("command", StringArgumentType.greedyString())
+                                        .suggests(CommandSuggestion())
+                                        .executes {
+                                            loop(
+                                                it.source,
+                                                it.getArgument("count", Int::class.java),
+                                                it.getArgument("period", Long::class.java),
+                                                it.getArgument("command", String::class.java)
+                                            )
+                                        }
+                                )
+                        )
+                )
+                .build()
+        )
+    }
 
-        val count = args[0].toIntOrNull()
-        val period = args[1].toIntOrNull()
-        if (count == null || period == null) return false
-
-        if (count < 1 || period < 0) return false
-
-        if (sender is Player) {
-            object : BukkitRunnable() {
-                var i = 0
-                override fun run() {
-                    val commandString = listOf(*args).subList(2, args.size).joinToString(" ")
-                    if (i < count) sender.performCommand(commandString)
-                    else {
-                        sender.sendMessage(Component.text("Done!"))
-                        this.cancel()
-                    }
-                    i++
+    private fun loop(source: CommandSourceStack, count: Int, period: Long, command: String): Int {
+        object : BukkitRunnable() {
+            var i = 0
+            override fun run() {
+                if (i < count) Bukkit.getServer().dispatchCommand(source.sender, command)
+                else {
+                    source.sender.sendMessage(Component.text("Done!"))
+                    this.cancel()
                 }
-            }.runTaskTimer(KitPvp.INSTANCE, 0, period.toLong())
-            return true
+                i++
+            }
+        }.runTaskTimer(KitPvp.INSTANCE, 0, period)
+        return Command.SINGLE_SUCCESS
+    }
+
+    private class CommandSuggestion : SuggestionProvider<CommandSourceStack> {
+        override fun getSuggestions(context: CommandContext<CommandSourceStack>, builder: SuggestionsBuilder): CompletableFuture<Suggestions> {
+            return SharedSuggestionProvider.suggest(Bukkit.getCommandMap().knownCommands.keys, builder)
         }
-        return false
+
     }
 }

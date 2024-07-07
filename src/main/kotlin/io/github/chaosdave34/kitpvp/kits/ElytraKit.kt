@@ -10,10 +10,10 @@ import org.bukkit.potion.PotionEffect
 
 abstract class ElytraKit(id: String, name: String, val icon: Material) : Kit(id, name) {
 
-    override fun getChestContent(): ItemStack = ItemStack(Material.ELYTRA)
+    override fun getChestContent(): ItemStack = ItemStack.of(Material.ELYTRA)
 
     override fun getOffhandContent(): ItemStack {
-        val firework = ItemStack(Material.FIREWORK_ROCKET, 3)
+        val firework = ItemStack.of(Material.FIREWORK_ROCKET, 3)
         firework.editMeta(FireworkMeta::class.java) { fireworkMeta -> fireworkMeta.power = 3 }
         return firework
     }
@@ -37,7 +37,7 @@ abstract class ElytraKit(id: String, name: String, val icon: Material) : Kit(id,
         inventory.setItemInOffHand(getOffhandContent())
         inventory.addItem(*getKillRewards())
 
-        inventory.setItem(17, ItemStack(Material.ARROW))
+        inventory.setItem(17, ItemStack.of(Material.ARROW))
 
         player.clearActivePotionEffects()
 

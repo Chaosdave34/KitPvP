@@ -1,6 +1,5 @@
 package io.github.chaosdave34.kitpvp.customevents;
 
-import lombok.Getter;
 import io.github.chaosdave34.kitpvp.KitPvp;
 import net.kyori.adventure.bossbar.BossBar;
 import net.kyori.adventure.text.Component;
@@ -9,7 +8,6 @@ import org.bukkit.World;
 import org.bukkit.event.Listener;
 import org.bukkit.scheduler.BukkitRunnable;
 
-@Getter
 public abstract class CustomEvent implements Listener {
     private final String name;
     private final int duration;
@@ -72,4 +70,13 @@ public abstract class CustomEvent implements Listener {
 
     public void stop() {
     }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public boolean isCancelled() {
+        return this.cancelled;
+    }
+
 }

@@ -1,8 +1,8 @@
 package io.github.chaosdave34.kitpvp.companions
 
-import io.github.chaosdave34.ghutils.utils.PDCUtils
 import io.github.chaosdave34.kitpvp.ExtendedPlayer
 import io.github.chaosdave34.kitpvp.KitPvp
+import io.github.chaosdave34.kitpvp.extensions.setPDCOwner
 import io.github.chaosdave34.kitpvp.pathfindergoals.CustomFollowOwnerGoal
 import io.github.chaosdave34.kitpvp.pathfindergoals.CustomMeleeAttackGoal
 import io.github.chaosdave34.kitpvp.pathfindergoals.CustomOwnerHurtByTarget
@@ -55,7 +55,7 @@ abstract class Companion(protected val name: String, private val attackDamage: D
 
         val bukkitMob = companion.bukkitMob
         bukkitMob.setMetadata("companion", FixedMetadataValue(KitPvp.INSTANCE, true))
-        PDCUtils.setOwner(bukkitMob, owner.uniqueId)
+        bukkitMob.setPDCOwner(owner)
 
         return bukkitMob
     }

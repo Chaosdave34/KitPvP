@@ -33,7 +33,7 @@ public class SupplyDropEvent extends CustomEvent {
 
         location.getWorld().spawn(location, FallingBlock.class, fallingBlock -> {
             Barrel barrel = (Barrel) Material.BARREL.createBlockData().createBlockState();
-            barrel.getInventory().addItem(new ItemStack(Material.ENCHANTED_GOLDEN_APPLE));
+            barrel.getInventory().addItem(ItemStack.of(Material.ENCHANTED_GOLDEN_APPLE));
             fallingBlock.setBlockState(barrel);
 
             fallingBlock.shouldAutoExpire(false);

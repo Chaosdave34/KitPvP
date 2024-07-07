@@ -12,7 +12,7 @@ import org.bukkit.inventory.ItemStack
 class PoseidonKit : Kit("poseidon", "Poseidon") {
 
     override fun getHeadContent(): ItemStack {
-        val turtleHelmet = ItemStack(Material.TURTLE_HELMET)
+        val turtleHelmet = ItemStack.of(Material.TURTLE_HELMET)
         turtleHelmet.addEnchantment(Enchantment.PROTECTION, 2)
         turtleHelmet.addEnchantment(Enchantment.RESPIRATION, 3)
         turtleHelmet.addEnchantment(Enchantment.AQUA_AFFINITY, 1)
@@ -20,21 +20,21 @@ class PoseidonKit : Kit("poseidon", "Poseidon") {
     }
 
     override fun getChestContent(): ItemStack {
-        val chestplate = ItemStack(Material.LEATHER_CHESTPLATE)
+        val chestplate = ItemStack.of(Material.LEATHER_CHESTPLATE)
         chestplate.addEnchantment(Enchantment.PROTECTION, 2)
         chestplate.setLeatherArmorColor(Color.AQUA)
         return chestplate
     }
 
     override fun getLegsContent(): ItemStack {
-        val leggings = ItemStack(Material.LEATHER_LEGGINGS)
+        val leggings = ItemStack.of(Material.LEATHER_LEGGINGS)
         leggings.addEnchantment(Enchantment.PROTECTION, 2)
         leggings.setLeatherArmorColor(Color.AQUA)
         return leggings
     }
 
     override fun getFeetContent(): ItemStack {
-        val boots = ItemStack(Material.LEATHER_BOOTS)
+        val boots = ItemStack.of(Material.LEATHER_BOOTS)
         boots.addEnchantment(Enchantment.PROTECTION, 2)
         boots.addEnchantment(Enchantment.DEPTH_STRIDER, 3)
         boots.setLeatherArmorColor(Color.AQUA)
@@ -42,25 +42,25 @@ class PoseidonKit : Kit("poseidon", "Poseidon") {
     }
 
     override fun getInventoryContent(): Array<ItemStack?> {
-        val trident = ItemStack(Material.TRIDENT)
+        val trident = ItemStack.of(Material.TRIDENT)
         trident.addUnsafeEnchantment(Enchantment.LOYALTY, 10)
         trident.addUnsafeEnchantment(Enchantment.CHANNELING, 5)
 
-        val riptideTrident = ItemStack(Material.TRIDENT)
+        val riptideTrident = ItemStack.of(Material.TRIDENT)
         riptideTrident.addEnchantment(Enchantment.RIPTIDE, 3)
 
         return arrayOf(
             trident,
             riptideTrident,
             CustomItemHandler.WATER_BURST.build(),
-            ItemStack(Material.WATER_BUCKET),
+            ItemStack.of(Material.WATER_BUCKET),
         )
     }
 
     override fun getKillRewards(): Array<ItemStack> {
         return arrayOf(
-            ItemStack(Material.GOLDEN_APPLE),
-            ItemStack(Material.PRISMARINE, 32),
+            ItemStack.of(Material.GOLDEN_APPLE),
+            ItemStack.of(Material.PRISMARINE, 32),
         )
     }
 

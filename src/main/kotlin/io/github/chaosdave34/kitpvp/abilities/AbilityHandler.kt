@@ -1,6 +1,6 @@
 package io.github.chaosdave34.kitpvp.abilities
 
-import io.github.chaosdave34.ghutils.Utils
+import io.github.chaosdave34.kitpvp.Utils
 import io.github.chaosdave34.kitpvp.ExtendedPlayer
 import io.github.chaosdave34.kitpvp.KitPvp
 import io.github.chaosdave34.kitpvp.abilities.impl.archer.LeapAbility

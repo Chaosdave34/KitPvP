@@ -12,26 +12,26 @@ import org.bukkit.potion.PotionEffectType
 
 class ArcherKit : Kit("archer", "Archer") {
     override fun getHeadContent(): ItemStack {
-        val helmet = ItemStack(Material.LEATHER_HELMET)
+        val helmet = ItemStack.of(Material.LEATHER_HELMET)
         helmet.setLeatherArmorColor(Color.GREEN)
         return helmet
     }
 
     override fun getChestContent(): ItemStack {
-        val chestplate = ItemStack(Material.LEATHER_CHESTPLATE)
+        val chestplate = ItemStack.of(Material.LEATHER_CHESTPLATE)
         chestplate.setLeatherArmorColor(Color.GREEN)
         return chestplate
     }
 
-    override fun getLegsContent(): ItemStack = ItemStack(Material.CHAINMAIL_LEGGINGS)
+    override fun getLegsContent(): ItemStack = ItemStack.of(Material.CHAINMAIL_LEGGINGS)
 
-    override fun getFeetContent(): ItemStack = ItemStack(Material.CHAINMAIL_BOOTS)
+    override fun getFeetContent(): ItemStack = ItemStack.of(Material.CHAINMAIL_BOOTS)
 
     override fun getInventoryContent(): Array<ItemStack?> {
-        val bow = ItemStack(Material.BOW)
+        val bow = ItemStack.of(Material.BOW)
         bow.addEnchantment(Enchantment.INFINITY, 1)
 
-        val stoneSword = ItemStack(Material.STONE_SWORD)
+        val stoneSword = ItemStack.of(Material.STONE_SWORD)
         stoneSword.addEnchantment(Enchantment.KNOCKBACK, 2)
         stoneSword.setCustomModelData(2)
 
@@ -40,15 +40,15 @@ class ArcherKit : Kit("archer", "Archer") {
             bow,
             CustomItemHandler.LONG_BOW.build(),
             CustomItemHandler.LEAP.build(),
-            ItemStack(Material.ARROW),
-            ItemStack(Material.WATER_BUCKET),
+            ItemStack.of(Material.ARROW),
+            ItemStack.of(Material.WATER_BUCKET),
         )
     }
 
     override fun getKillRewards(): Array<ItemStack> {
         return arrayOf(
-            ItemStack(Material.GOLDEN_APPLE),
-            ItemStack(Material.COBBLESTONE, 32),
+            ItemStack.of(Material.GOLDEN_APPLE),
+            ItemStack.of(Material.COBBLESTONE, 32),
         )
     }
 

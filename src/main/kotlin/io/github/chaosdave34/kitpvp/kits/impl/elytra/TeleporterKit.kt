@@ -8,7 +8,7 @@ import org.bukkit.inventory.ItemStack
 class TeleporterKit : ElytraKit("elytra_teleporter", "Teleporter", Material.ENDER_PEARL) {
     override fun getInventoryContent(): Array<ItemStack?> {
 
-        val bow = ItemStack(Material.BOW)
+        val bow = ItemStack.of(Material.BOW)
         bow.addEnchantment(Enchantment.INFINITY, 1)
         bow.addEnchantment(Enchantment.POWER, 3)
 
@@ -19,7 +19,7 @@ class TeleporterKit : ElytraKit("elytra_teleporter", "Teleporter", Material.ENDE
 
     override fun getKillRewards(): Array<ItemStack> {
         return arrayOf(
-            ItemStack(Material.ENDER_PEARL, 5)
+            ItemStack.of(Material.ENDER_PEARL, 5)
         )
     }
 }

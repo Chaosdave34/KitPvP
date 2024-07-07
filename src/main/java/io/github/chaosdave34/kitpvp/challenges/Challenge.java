@@ -1,6 +1,5 @@
 package io.github.chaosdave34.kitpvp.challenges;
 
-import lombok.Getter;
 import io.github.chaosdave34.kitpvp.ExtendedPlayer;
 import io.github.chaosdave34.kitpvp.KitPvp;
 import io.github.chaosdave34.kitpvp.customevents.CustomEventHandler;
@@ -11,7 +10,6 @@ import org.bukkit.event.Listener;
 import java.util.HashMap;
 import java.util.Map;
 
-@Getter
 public abstract class Challenge implements Listener {
     protected String id;
     protected String name;
@@ -56,5 +54,21 @@ public abstract class Challenge implements Listener {
 
     public void resetProgress(Player p) {
         progress.remove(p);
+    }
+
+    public String getId() {
+        return this.id;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public int getAmount() {
+        return this.amount;
+    }
+
+    public Map<Player, Integer> getProgress() {
+        return this.progress;
     }
 }
