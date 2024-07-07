@@ -4,10 +4,8 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.mojang.datafixers.util.Pair
 import io.github.chaosdave34.kitpvp.abilities.AbilityHandler
-import io.github.chaosdave34.kitpvp.challenges.ChallengesHandler
 import io.github.chaosdave34.kitpvp.companions.CompanionHandler
 import io.github.chaosdave34.kitpvp.cosmetics.CosmeticHandler
-import io.github.chaosdave34.kitpvp.customevents.CustomEventHandler
 import io.github.chaosdave34.kitpvp.damagetype.DamageTypes
 import io.github.chaosdave34.kitpvp.elytrakits.ElytraKitHandler
 import io.github.chaosdave34.kitpvp.enchantments.EnchantmentListener
@@ -47,8 +45,8 @@ class KitPvp : JavaPlugin() {
     lateinit var elytraKitHandler: ElytraKitHandler
     lateinit var companionHandler: CompanionHandler
     lateinit var cosmeticHandler: CosmeticHandler
-    lateinit var customEventHandler: CustomEventHandler
-    lateinit var challengesHandler: ChallengesHandler
+//    lateinit var customEventHandler: CustomEventHandler
+//    lateinit var challengesHandler: ChallengesHandler
     lateinit var ultimateHandler: UltimateHandler
     lateinit var guiHandler: GuiHandler
 
@@ -69,8 +67,8 @@ class KitPvp : JavaPlugin() {
         elytraKitHandler = ElytraKitHandler()
         companionHandler = CompanionHandler()
         cosmeticHandler = CosmeticHandler()
-        customEventHandler = CustomEventHandler()
-        challengesHandler = ChallengesHandler()
+//        customEventHandler = CustomEventHandler()
+//        challengesHandler = ChallengesHandler()
         ultimateHandler = UltimateHandler()
         guiHandler = GuiHandler()
 
@@ -112,7 +110,7 @@ class KitPvp : JavaPlugin() {
         pluginManager.registerEvents(abilityHandler, this)
         pluginManager.registerEvents(companionHandler, this)
         pluginManager.registerEvents(cosmeticHandler, this)
-        pluginManager.registerEvents(customEventHandler, this)
+//        pluginManager.registerEvents(customEventHandler, this)
         pluginManager.registerEvents(ultimateHandler, this)
         pluginManager.registerEvents(guiHandler, this)
 
@@ -214,7 +212,7 @@ class KitPvp : JavaPlugin() {
             iterator.remove()
         }
 
-        customEventHandler.activeEvent?.stop()
+//        customEventHandler.activeEvent?.stop()
     }
 
 }
