@@ -12,6 +12,7 @@ import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal
 import org.bukkit.Bukkit
+import org.bukkit.Material
 import org.bukkit.NamespacedKey
 import org.bukkit.attribute.Attribute
 import org.bukkit.craftbukkit.entity.CraftSnowman
@@ -27,7 +28,7 @@ import org.bukkit.scheduler.BukkitRunnable
 import java.util.*
 
 // Todo cleanup and improve code (+ fix damaging itself
-class TurretAbility : Ability("turret", "Turret", Type.RIGHT_CLICK, 60) {
+class TurretAbility : Ability("turret", "Turret", 60, 50, Material.SNOW_GOLEM_SPAWN_EGG) {
     private val turrets: MutableMap<UUID, UUID> = mutableMapOf()
 
     override fun getDescription(): List<Component> = createSimpleDescriptionAsList("Deploy a mobile turret.")

@@ -5,10 +5,11 @@ import io.github.chaosdave34.kitpvp.KitPvp
 import io.github.chaosdave34.kitpvp.abilities.Ability
 import io.github.chaosdave34.kitpvp.abilities.AbilityRunnable
 import net.kyori.adventure.text.Component
+import org.bukkit.Material
 import org.bukkit.entity.Bat
 import org.bukkit.entity.Player
 
-class BatMorphAbility : Ability("bat_morph", "Bat Morph", Type.RIGHT_CLICK, 25) {
+class BatMorphAbility : Ability("bat_morph", "Bat Morph", 25, 50, Material.BAT_SPAWN_EGG) {
     override fun getDescription(): List<Component> {
         return createSimpleDescriptionAsList("Morph into a bat for 10s.")
     }

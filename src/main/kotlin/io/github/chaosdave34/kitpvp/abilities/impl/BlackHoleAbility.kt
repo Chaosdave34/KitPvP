@@ -4,11 +4,8 @@ import io.github.chaosdave34.kitpvp.KitPvp
 import io.github.chaosdave34.kitpvp.abilities.Ability
 import io.github.chaosdave34.kitpvp.damagetype.DamageTypes
 import net.kyori.adventure.text.Component
-import org.bukkit.Color
-import org.bukkit.Particle
+import org.bukkit.*
 import org.bukkit.Particle.DustOptions
-import org.bukkit.Sound
-import org.bukkit.SoundCategory
 import org.bukkit.damage.DamageSource
 import org.bukkit.entity.LivingEntity
 import org.bukkit.entity.Player
@@ -18,7 +15,7 @@ import org.bukkit.event.entity.ProjectileHitEvent
 import org.bukkit.metadata.FixedMetadataValue
 import org.bukkit.scheduler.BukkitRunnable
 
-class BlackHoleAbility : Ability("black_hole", "Black Hole", Type.RIGHT_CLICK, 25) {
+class BlackHoleAbility : Ability("black_hole", "Black Hole", 25, 50, Material.MUSIC_DISC_STAL) {
     private val snowballMetadata = FixedMetadataValue(KitPvp.INSTANCE, id)
 
     override fun getDescription(): List<Component> = createSimpleDescriptionAsList("Spawn a black hole.")

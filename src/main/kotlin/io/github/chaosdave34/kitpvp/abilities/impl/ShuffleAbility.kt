@@ -2,10 +2,11 @@ package io.github.chaosdave34.kitpvp.abilities.impl
 
 import io.github.chaosdave34.kitpvp.abilities.Ability
 import net.kyori.adventure.text.Component
+import org.bukkit.Material
 import org.bukkit.entity.HumanEntity
 import org.bukkit.entity.Player
 
-class ShuffleAbility : Ability("shuffle", "Shuffle", Type.RIGHT_CLICK, 10) {
+class ShuffleAbility : Ability("shuffle", "Shuffle", 10, 50, Material.CHISELED_BOOKSHELF) {
     override fun getDescription(): List<Component> = createSimpleDescriptionAsList("Shuffles the inventory the enemy you are looking at in a 8 block radius.")
 
     override fun onAbility(player: Player): Boolean {

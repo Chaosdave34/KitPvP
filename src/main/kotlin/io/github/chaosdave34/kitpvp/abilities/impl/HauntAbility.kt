@@ -14,7 +14,7 @@ import org.bukkit.inventory.ItemStack
 import org.bukkit.potion.PotionEffect
 import org.bukkit.potion.PotionEffectType
 
-class HauntAbility : Ability("haunt", "Haunt", Type.RIGHT_CLICK, 20) {
+class HauntAbility : Ability("haunt", "Haunt", 20, 50, Material.WITHER_ROSE) {
     override fun getDescription(): List<Component> {
         return createSimpleDescriptionAsList("Gives you a speed boost and makes you invisible for 5 seconds. Runs out when you hit a player.")
     }

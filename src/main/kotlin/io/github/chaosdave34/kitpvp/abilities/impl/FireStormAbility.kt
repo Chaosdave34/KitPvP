@@ -4,6 +4,7 @@ import io.github.chaosdave34.kitpvp.KitPvp
 import io.github.chaosdave34.kitpvp.abilities.Ability
 import io.github.chaosdave34.kitpvp.abilities.AbilityRunnable
 import net.kyori.adventure.text.Component
+import org.bukkit.Material
 import org.bukkit.Particle
 import org.bukkit.damage.DamageSource
 import org.bukkit.damage.DamageType
@@ -12,7 +13,7 @@ import org.bukkit.entity.Player
 import kotlin.math.cos
 import kotlin.math.sin
 
-class FireStormAbility : Ability("fire_storm", "Fire Storm", Type.RIGHT_CLICK, 20) {
+class FireStormAbility : Ability("fire_storm", "Fire Storm", 20, 50, Material.BLAZE_ROD) {
     override fun getDescription(): List<Component> = createSimpleDescriptionAsList("Cause a storm of fire damaging nearby enemies.")
 
     override fun onAbility(player: Player): Boolean {

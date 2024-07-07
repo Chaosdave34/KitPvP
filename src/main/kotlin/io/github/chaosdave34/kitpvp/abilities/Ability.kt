@@ -6,7 +6,9 @@ import io.github.chaosdave34.kitpvp.customevents.CustomEventHandler
 import io.github.chaosdave34.kitpvp.utils.Describable
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
+import net.kyori.adventure.text.format.TextDecoration
 import org.bukkit.GameMode
+import org.bukkit.Material
 import org.bukkit.NamespacedKey
 import org.bukkit.entity.Entity
 import org.bukkit.entity.Player
@@ -18,24 +20,26 @@ import java.util.*
 import kotlin.math.max
 
 
-abstract class Ability(val id: String, val name: String, val type: Type, val cooldown: Int) : Listener, Describable {
+abstract class Ability(val id: String, val name: String, val cooldown: Int, val manaCost: Int, val icon: Material) : Listener, Describable {
     private var playerCooldown: MutableMap<UUID, Long> = mutableMapOf()
 
     abstract fun getDescription(): List<Component>
 
     abstract fun onAbility(player: Player): Boolean
 
-    fun apply(itemStack: ItemStack) {
-        val itemMeta = itemStack.itemMeta
-        val container = itemMeta.persistentDataContainer
+    fun getItem(): ItemStack {
+        val itemStack = ItemStack.of(icon)
 
-        val key = NamespacedKey(KitPvp.INSTANCE, "abilities")
+        val lore: MutableList<Component> = mutableListOf(Component.text("Ability:", NamedTextColor.GREEN).append(Component.text(name, NamedTextColor.GOLD)))
+        lore.addAll(getDescription())
 
-        val currentAbilities = container.get(key, PersistentDataType.LIST.strings())?.toMutableList() ?: mutableListOf()
-        currentAbilities.add(id)
-        container.set(key, PersistentDataType.LIST.strings(), currentAbilities)
+        itemStack.editMeta {
+            it.displayName(Component.text(name, NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false))
+            it.persistentDataContainer.set(NamespacedKey(KitPvp.INSTANCE, "ability"), PersistentDataType.STRING, id)
+            it.lore(lore)
+        }
 
-        itemStack.itemMeta = itemMeta
+        return itemStack
     }
 
     fun handleAbility(player: Player) {
@@ -72,15 +76,4 @@ abstract class Ability(val id: String, val name: String, val type: Type, val coo
     }
 
     protected fun Entity.checkTargetIfPlayer(): Boolean = (this is Player && ExtendedPlayer.from(this).inGame()) || this !is Player
-
-    protected fun ItemStack.hasThisAbility(): Boolean =
-        (KitPvp.INSTANCE.abilityHandler.getItemAbilities(this).contains(KitPvp.INSTANCE.abilityHandler.abilities[id]))
-
-    enum class Type(val displayName: String) {
-        RIGHT_CLICK("RIGHT CLICK"),
-        LEFT_CLICK("LEFT CLICK"),
-        SNEAK_RIGHT_CLICK("SNEAK RIGHT CLICK"),
-        SNEAK_LEFT_CLICK("SNEAK LEFT CLICK"),
-        SNEAK("SNEAK")
-    }
 }

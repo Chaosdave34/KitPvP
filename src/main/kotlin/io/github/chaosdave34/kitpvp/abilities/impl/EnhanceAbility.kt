@@ -4,10 +4,11 @@ import io.github.chaosdave34.kitpvp.KitPvp
 import io.github.chaosdave34.kitpvp.abilities.Ability
 import io.github.chaosdave34.kitpvp.abilities.AbilityRunnable
 import net.kyori.adventure.text.Component
+import org.bukkit.Material
 import org.bukkit.enchantments.Enchantment
 import org.bukkit.entity.Player
 
-class EnhanceAbility : Ability("enhance", "Enhance", Type.LEFT_CLICK, 30) {
+class EnhanceAbility : Ability("enhance", "Enhance", 30, 50, Material.SUGAR) {
 
     override fun getDescription(): List<Component> = createSimpleDescriptionAsList("Instantly load your rocket launcher for 3 seconds.")
 

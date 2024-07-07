@@ -3,6 +3,7 @@ package io.github.chaosdave34.kitpvp.abilities.impl
 import io.github.chaosdave34.kitpvp.KitPvp
 import io.github.chaosdave34.kitpvp.abilities.Ability
 import net.kyori.adventure.text.Component
+import org.bukkit.Material
 import org.bukkit.Particle
 import org.bukkit.damage.DamageSource
 import org.bukkit.damage.DamageType
@@ -13,7 +14,7 @@ import org.bukkit.event.entity.ProjectileHitEvent
 import org.bukkit.metadata.FixedMetadataValue
 import org.bukkit.scheduler.BukkitRunnable
 
-class WaterBurstAbility : Ability("water_burst", "Water Burst", Type.RIGHT_CLICK, 25) {
+class WaterBurstAbility : Ability("water_burst", "Water Burst", 25, 50, Material.CONDUIT) {
     private val snowballMetadata = FixedMetadataValue(KitPvp.INSTANCE, id)
 
     override fun getDescription(): List<Component> {

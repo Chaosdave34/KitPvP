@@ -3,6 +3,7 @@ package io.github.chaosdave34.kitpvp.abilities.impl
 import io.github.chaosdave34.kitpvp.KitPvp
 import io.github.chaosdave34.kitpvp.abilities.Ability
 import net.kyori.adventure.text.Component
+import org.bukkit.Material
 import org.bukkit.Sound
 import org.bukkit.entity.BlockDisplay
 import org.bukkit.entity.Entity
@@ -13,7 +14,7 @@ import org.bukkit.util.Vector
 import kotlin.math.pow
 import kotlin.math.sin
 
-class GroundSlamAbility : Ability("ground_slam", "Ground Slam", Type.SNEAK, 10) {
+class GroundSlamAbility : Ability("ground_slam", "Ground Slam", 10, 50, Material.MACE) {
 
     override fun getDescription(): List<Component> = createSimpleDescriptionAsList("If in air create a wave that damages enemies and knocks them away.")
 

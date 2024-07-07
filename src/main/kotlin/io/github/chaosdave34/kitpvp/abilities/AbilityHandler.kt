@@ -8,8 +8,6 @@ import org.bukkit.NamespacedKey
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerInteractEvent
-import org.bukkit.event.player.PlayerToggleSneakEvent
-import org.bukkit.inventory.ItemStack
 import org.bukkit.persistence.PersistentDataType
 
 class AbilityHandler : Listener {
@@ -63,23 +61,6 @@ class AbilityHandler : Listener {
         return ability
     }
 
-    fun getItemAbilities(itemStack: ItemStack): List<Ability> {
-        val container = itemStack.itemMeta.persistentDataContainer
-        val key = NamespacedKey(KitPvp.INSTANCE, "abilities")
-
-        if (container.has(key)) {
-            val abilities = container.get(key, PersistentDataType.LIST.strings()) ?: return emptyList()
-
-            val abilityList: MutableList<Ability> = ArrayList()
-
-            for (id in abilities) {
-                this.abilities[id]?.let { abilityList.add(it) }
-            }
-            return abilityList
-        }
-        return emptyList()
-    }
-
     @EventHandler
     fun onInteract(event: PlayerInteractEvent) {
         val player = event.player
@@ -87,64 +68,8 @@ class AbilityHandler : Listener {
 
         if (ExtendedPlayer.from(player).inSpawn()) return
 
-        val container = item.itemMeta.persistentDataContainer
-        val key = NamespacedKey(KitPvp.INSTANCE, "abilities")
+        val abilityId = item.persistentDataContainer.get(NamespacedKey(KitPvp.INSTANCE, "ability"), PersistentDataType.STRING)
 
-        if (container.has(key)) {
-            val abilities = getItemAbilities(item)
-            val abilityTypes = abilities.stream().map(Ability::type).toList()
-
-            for (ability in abilities) {
-                when (ability.type) {
-                    Ability.Type.RIGHT_CLICK -> {
-                        if (event.action.isRightClick) {
-                            if (abilityTypes.contains(Ability.Type.SNEAK_RIGHT_CLICK) && player.isSneaking) continue
-                            ability.handleAbility(player)
-                        }
-                    }
-
-                    Ability.Type.LEFT_CLICK -> {
-                        if (event.action.isLeftClick) {
-                            if (abilityTypes.contains(Ability.Type.SNEAK_LEFT_CLICK) && player.isSneaking) continue
-                            ability.handleAbility(player)
-                        }
-                    }
-
-                    Ability.Type.SNEAK_RIGHT_CLICK -> {
-                        if (event.action.isRightClick && player.isSneaking) ability.handleAbility(player)
-                    }
-
-                    Ability.Type.SNEAK_LEFT_CLICK -> {
-                        if (event.action.isLeftClick && player.isSneaking) ability.handleAbility(player)
-                    }
-
-                    else -> continue
-                }
-            }
-        }
-    }
-
-    @EventHandler
-    fun onSneak(event: PlayerToggleSneakEvent) {
-        val player = event.player
-        if (!event.isSneaking) return
-        if (ExtendedPlayer.from(player).inSpawn()) return
-
-        for (armorContent in player.inventory.armorContents) {
-            if (armorContent == null) continue
-
-            val container = armorContent.itemMeta.persistentDataContainer
-            val key = NamespacedKey(KitPvp.INSTANCE, "abilities")
-            if (container.has(key)) {
-                val abilities = container.get(key, PersistentDataType.LIST.strings()) ?: return
-                for (id in abilities) {
-                    if (this.abilities.containsKey(id)) {
-                        val ability = this.abilities[id]
-
-                        if (ability?.type == Ability.Type.SNEAK) ability.handleAbility(player)
-                    }
-                }
-            }
-        }
+        abilities[abilityId]?.handleAbility(player)
     }
 }

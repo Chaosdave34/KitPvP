@@ -3,6 +3,7 @@ package io.github.chaosdave34.kitpvp.abilities.impl
 import io.github.chaosdave34.kitpvp.KitPvp
 import io.github.chaosdave34.kitpvp.abilities.Ability
 import net.kyori.adventure.text.Component
+import org.bukkit.Material
 import org.bukkit.block.Block
 import org.bukkit.entity.Fireball
 import org.bukkit.entity.Player
@@ -10,7 +11,7 @@ import org.bukkit.event.EventHandler
 import org.bukkit.event.entity.EntityExplodeEvent
 import org.bukkit.metadata.FixedMetadataValue
 
-class FireballAbility : Ability("fireball", "Fireball", Type.RIGHT_CLICK, 10) {
+class FireballAbility : Ability("fireball", "Fireball", 10, 50, Material.FIRE_CHARGE) {
     override fun getDescription(): List<Component> {
         return createSimpleDescriptionAsList("Shoots a fireball.")
     }
