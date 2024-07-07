@@ -1,4 +1,4 @@
-package io.github.chaosdave34.kitpvp.items.impl.magician
+package io.github.chaosdave34.kitpvp.items.impl
 
 import io.github.chaosdave34.kitpvp.ExtendedPlayer
 import io.github.chaosdave34.kitpvp.KitPvp

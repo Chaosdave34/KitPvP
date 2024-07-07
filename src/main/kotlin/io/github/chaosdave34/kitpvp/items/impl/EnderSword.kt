@@ -1,13 +1,13 @@
-package io.github.chaosdave34.kitpvp.items.impl.devil
+package io.github.chaosdave34.kitpvp.items.impl
 
 import io.github.chaosdave34.kitpvp.items.CustomItem
 import org.bukkit.Material
 import org.bukkit.enchantments.Enchantment
 import org.bukkit.inventory.ItemStack
 
-class DevilsSword : CustomItem(Material.IRON_SWORD, "devils_sword", "Devil's Sword") {
+class EnderSword : CustomItem(Material.STONE_SWORD, "ender_sword", "Ender Sword") {
     override fun additionalModifications(itemStack: ItemStack) {
-        itemStack.addUnsafeEnchantment(Enchantment.FIRE_ASPECT, 1)
+        itemStack.addEnchantment(Enchantment.SHARPNESS, 3)
         itemStack.setCustomModelData(1)
     }
 }

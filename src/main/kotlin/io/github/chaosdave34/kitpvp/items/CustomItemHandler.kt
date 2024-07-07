@@ -2,25 +2,7 @@ package io.github.chaosdave34.kitpvp.items
 
 import io.github.chaosdave34.kitpvp.KitPvp
 import io.github.chaosdave34.kitpvp.Utils
-import io.github.chaosdave34.kitpvp.items.impl.archer.Leap
-import io.github.chaosdave34.kitpvp.items.impl.archer.LongBow
-import io.github.chaosdave34.kitpvp.items.impl.artilleryman.Jetpack
-import io.github.chaosdave34.kitpvp.items.impl.artilleryman.RocketLauncher
-import io.github.chaosdave34.kitpvp.items.impl.assassin.AssassinSword
-import io.github.chaosdave34.kitpvp.items.impl.creeper.CreeperLeggings
-import io.github.chaosdave34.kitpvp.items.impl.creeper.Fireball
-import io.github.chaosdave34.kitpvp.items.impl.devil.DevilsSword
-import io.github.chaosdave34.kitpvp.items.impl.enderman.DragonsCharge
-import io.github.chaosdave34.kitpvp.items.impl.enderman.EnderSword
-import io.github.chaosdave34.kitpvp.items.impl.engineer.EngineersSword
-import io.github.chaosdave34.kitpvp.items.impl.engineer.TurretItem
-import io.github.chaosdave34.kitpvp.items.impl.magician.MagicWand
-import io.github.chaosdave34.kitpvp.items.impl.poseidon.WaterBurst
-import io.github.chaosdave34.kitpvp.items.impl.spacesoldier.AirstrikeRequester
-import io.github.chaosdave34.kitpvp.items.impl.spacesoldier.BlackHoleGenerator
-import io.github.chaosdave34.kitpvp.items.impl.tank.TankBoots
-import io.github.chaosdave34.kitpvp.items.impl.vampire.VampireSword
-import io.github.chaosdave34.kitpvp.items.impl.zeus.LightningWand
+import io.github.chaosdave34.kitpvp.items.impl.*
 import org.bukkit.NamespacedKey
 import org.bukkit.inventory.ItemStack
 import org.bukkit.persistence.PersistentDataType
