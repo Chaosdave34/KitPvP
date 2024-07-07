@@ -37,8 +37,6 @@ abstract class CustomItem(
 
     open fun getDescription() = emptyList<Component>()
 
-    open fun getAbilities() = emptyList<Ability>()
-
     fun build(count: Int = 1): ItemStack {
         val itemStack = ItemStack.of(material, count)
         val itemMeta = itemStack.itemMeta
@@ -56,8 +54,6 @@ abstract class CustomItem(
         container.set(NamespacedKey(KitPvp.INSTANCE, "enchantments"), PersistentDataType.TAG_CONTAINER, enchantmentContainer)
 
         itemStack.itemMeta = itemMeta
-
-        getAbilities().forEach { ability -> ability.apply(itemStack) }
 
         additionalModifications(itemStack)
 
@@ -85,31 +81,6 @@ abstract class CustomItem(
         lore += enchantmentLore
 
         if (enchantmentLore.isNotEmpty()) lore.add(Component.empty())
-
-        // Abilities
-        val abilities = KitPvp.INSTANCE.abilityHandler.getItemAbilities(itemStack).iterator()
-        while (abilities.hasNext()) {
-            val ability = abilities.next()
-
-            val name: Component = Component.text("Ability: ", NamedTextColor.GREEN)
-                .append(Component.text(ability.name, NamedTextColor.GOLD))
-                .append(Component.text("  "))
-                .append(Component.text(ability.type.displayName, NamedTextColor.YELLOW, TextDecoration.BOLD))
-                .decoration(TextDecoration.ITALIC, false)
-
-            lore.add(name)
-
-            lore.addAll(ability.getDescription())
-
-            val cooldown: Component = Component.text("Cooldown: ", NamedTextColor.DARK_GRAY)
-                .append(Component.text(ability.cooldown, NamedTextColor.GREEN))
-                .append(Component.text("s", NamedTextColor.GREEN))
-                .decoration(TextDecoration.ITALIC, false)
-
-            lore.add(cooldown)
-
-            if (abilities.hasNext()) lore.add(Component.empty())
-        }
 
         if (lore.isNotEmpty() && PlainTextComponentSerializer.plainText().serialize(lore[lore.size - 1]).isEmpty()) {
             lore.removeAt(lore.size - 1)
@@ -142,7 +113,7 @@ abstract class CustomItem(
         }
     }
 
-    protected fun createSimpleItemName(name: String): Component {
+    private fun createSimpleItemName(name: String): Component {
         return Component.text(name).decoration(TextDecoration.ITALIC, false)
     }
 
