@@ -3,11 +3,13 @@ package io.github.chaosdave34.kitpvp.guis
 import com.google.common.io.ByteStreams
 import io.github.chaosdave34.kitpvp.ExtendedPlayer
 import io.github.chaosdave34.kitpvp.KitPvp
+import io.github.chaosdave34.kitpvp.guis.GuiHandler.Companion.hideAttributes
 import io.github.chaosdave34.kitpvp.kits.ElytraKit
 import io.github.chaosdave34.kitpvp.kits.ElytraKitHandler
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
+import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemFlag
@@ -42,7 +44,9 @@ object Guis {
             survivalButton.editMeta {
                 it.displayName(Component.text("Survival", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false))
                 it.lore(listOf(Component.text("(whitelisted)", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false)))
-                it.addItemFlags(ItemFlag.HIDE_ADDITIONAL_TOOLTIP, ItemFlag.HIDE_ATTRIBUTES)
+                Bukkit.getLogger().info(it.attributeModifiers.toString())
+                it.addItemFlags(ItemFlag.HIDE_ADDITIONAL_TOOLTIP)
+                it.hideAttributes()
             }
 
             page.createButton(15, survivalButton) { event ->
@@ -65,8 +69,8 @@ object Guis {
                 item.editMeta {
                     it.displayName(name)
                     it.setEnchantmentGlintOverride(kit.id == ExtendedPlayer.from(player).selectedElytraKitId)
-                    it.addItemFlags(ItemFlag.HIDE_ATTRIBUTES)
                     it.addItemFlags(ItemFlag.HIDE_ADDITIONAL_TOOLTIP)
+                    it.hideAttributes()
                 }
 
                 page.createButton(slot, item) {
@@ -111,8 +115,8 @@ object Guis {
             val projectileTrailButton = ItemStack.of(Material.ARROW)
             projectileTrailButton.editMeta {
                 it.displayName(Component.text("Projectile Trails").decoration(TextDecoration.ITALIC, false))
-                it.addItemFlags(ItemFlag.HIDE_ATTRIBUTES)
                 it.lore(listOf(Component.text("Selected: $selectedProjectileTrail", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false)))
+                it.hideAttributes()
             }
 
             page.createButton(11, projectileTrailButton) {
@@ -124,8 +128,8 @@ object Guis {
             val killEffectButton = ItemStack.of(Material.IRON_SWORD)
             killEffectButton.editMeta {
                 it.displayName(Component.text("Kill Effects").decoration(TextDecoration.ITALIC, false))
-                it.addItemFlags(ItemFlag.HIDE_ATTRIBUTES)
                 it.lore(listOf(Component.text("Selected: $selectedKillEffect", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false)))
+                it.hideAttributes()
             }
 
             page.createButton(15, killEffectButton) {
