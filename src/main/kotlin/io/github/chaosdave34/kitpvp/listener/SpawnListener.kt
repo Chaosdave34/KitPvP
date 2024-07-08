@@ -1,6 +1,5 @@
 package io.github.chaosdave34.kitpvp.listener
 
-import com.google.common.io.ByteStreams
 import io.github.chaosdave34.kitpvp.ExtendedPlayer
 import io.github.chaosdave34.kitpvp.KitPvp
 import io.github.chaosdave34.kitpvp.events.EntityDealDamageEvent
@@ -19,8 +18,6 @@ import org.bukkit.event.inventory.InventoryOpenEvent
 import org.bukkit.event.inventory.InventoryType
 import org.bukkit.event.player.*
 import org.bukkit.inventory.PlayerInventory
-import org.bukkit.potion.PotionEffect
-import org.bukkit.potion.PotionEffectType
 import org.bukkit.scheduler.BukkitRunnable
 
 class SpawnListener : Listener {
@@ -85,25 +82,6 @@ class SpawnListener : Listener {
 
     @EventHandler
     fun onDealDamage(event: EntityDealDamageEvent) = event.cancelInSpawn(event.damager)
-
-    @EventHandler
-    fun onEnterEndPortal(event: PlayerPortalEvent) {
-        val player = event.player
-        event.isCancelled = true
-
-        if (ExtendedPlayer.from(player).inSpawn()) {
-            if (event.cause == PlayerTeleportEvent.TeleportCause.END_PORTAL) {
-                val message = ByteStreams.newDataOutput()
-                message.writeUTF("Connect")
-                message.writeUTF("amusementpark")
-                player.sendPluginMessage(KitPvp.INSTANCE, "BungeeCord", message.toByteArray())
-
-                player.teleport(Location(Bukkit.getWorld("world"), -12.0, 120.0, 16.0))
-                player.addPotionEffect(PotionEffect(PotionEffectType.BLINDNESS, 20 * 3, 4))
-                player.addPotionEffect(PotionEffect(PotionEffectType.SLOWNESS, 20 * 3, 4))
-            }
-        }
-    }
 
     @EventHandler
     fun onProjectileLaunch(event: ProjectileLaunchEvent) {

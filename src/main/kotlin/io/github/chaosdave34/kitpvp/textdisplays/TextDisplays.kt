@@ -46,13 +46,6 @@ object TextDisplays {
                 it.defaultText = Component.join(JoinConfiguration.newlines(), text)
             }
 
-            // Amusement Park
-            world.createTextDisplay(Location(null, -11.0, 120.5, 15.0)) {
-                it.defaultText = Component.text("Amusement Park").decorate(TextDecoration.BOLD)
-                    .append(Component.newline())
-                    .append(Component.text("(whitelisted)"))
-            }
-
             // Personal Statistics
             PERSONAL_STATISTICS_KITS = world.createTextDisplay(Location(null, 5.5, 121.5, 11.5)) {
                 it.dynamicText = { player -> createPersonalStatisticsText(player, ExtendedPlayer.GameType.KITS) }

@@ -1,5 +1,6 @@
 package io.github.chaosdave34.kitpvp.guis
 
+import com.google.common.io.ByteStreams
 import io.github.chaosdave34.kitpvp.ExtendedPlayer
 import io.github.chaosdave34.kitpvp.KitPvp
 import io.github.chaosdave34.kitpvp.kits.ElytraKit
@@ -15,10 +16,47 @@ import kotlin.math.ceil
 import kotlin.math.max
 
 object Guis {
+    val SERVER_SELECTOR = Gui("default")
     val ELYTRA_KITS = Gui("default")
     val COSMETICS = Gui("overview")
 
     fun create() {
+        SERVER_SELECTOR.createDefaultPage(Component.text("Server Selector"), 4) { page, _ ->
+
+            val amusementParkButton = ItemStack.of(Material.FIREWORK_ROCKET)
+            amusementParkButton.editMeta {
+                it.displayName(Component.text("Freizeitpark", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false))
+                it.lore(listOf(Component.text("(whitelisted)", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false)))
+                it.addItemFlags(ItemFlag.HIDE_ADDITIONAL_TOOLTIP)
+            }
+
+            page.createButton(11, amusementParkButton) { event ->
+                val message = ByteStreams.newDataOutput()
+                message.writeUTF("Connect")
+                message.writeUTF("amusementpark")
+                (event.whoClicked as Player).sendPluginMessage(KitPvp.INSTANCE, "BungeeCord", message.toByteArray())
+                event.whoClicked.closeInventory()
+            }
+
+            val survivalButton = ItemStack.of(Material.IRON_SWORD)
+            survivalButton.editMeta {
+                it.displayName(Component.text("Survival", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false))
+                it.lore(listOf(Component.text("(whitelisted)", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false)))
+                it.addItemFlags(ItemFlag.HIDE_ADDITIONAL_TOOLTIP, ItemFlag.HIDE_ATTRIBUTES)
+            }
+
+            page.createButton(15, survivalButton) { event ->
+                val message = ByteStreams.newDataOutput()
+                message.writeUTF("Connect")
+                message.writeUTF("survival")
+                (event.whoClicked as Player).sendPluginMessage(KitPvp.INSTANCE, "BungeeCord", message.toByteArray())
+                event.whoClicked.closeInventory()
+            }
+
+            page.createCloseButton(31)
+            page.fillEmpty()
+        }
+
         ELYTRA_KITS.createDefaultPage(Component.text("Kits"), 5) { page, player ->
             val setIcon: (slot: Int, kit: ElytraKit) -> Unit = { slot, kit ->
                 val name = Component.text(kit.name, NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false)

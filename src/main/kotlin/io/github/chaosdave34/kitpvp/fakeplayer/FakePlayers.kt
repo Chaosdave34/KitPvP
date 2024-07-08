@@ -37,6 +37,15 @@ object FakePlayers {
                     }
                 }
             }
+
+            // Server Selector
+            world.createFakePlayer(Location(null, -6.5, 120.0, 10.5, -135f, 0f), "Server Selector") {
+                it.setInteractionEventConsumer { event ->
+                    if (event.isActualInteract || event.isAttack) {
+                        event.player.openGui(Guis.SERVER_SELECTOR)
+                    }
+                }
+            }
         }
 
         val worldElytra = Bukkit.getWorld("world_elytra")
