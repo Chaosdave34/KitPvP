@@ -6,7 +6,6 @@ import io.github.chaosdave34.kitpvp.ExtendedPlayer
 import io.github.chaosdave34.kitpvp.KitPvp
 import io.github.chaosdave34.kitpvp.damagetype.DamageTypes
 import io.github.chaosdave34.kitpvp.events.EntityDealDamageEvent
-import io.github.chaosdave34.kitpvp.items.CustomItemHandler
 import io.github.chaosdave34.kitpvp.items.CustomItemHandler.Companion.getCustomItemId
 import io.papermc.paper.event.block.BlockBreakBlockEvent
 import io.papermc.paper.event.entity.EntityLoadCrossbowEvent
@@ -149,21 +148,21 @@ class GameListener : Listener {
                 if (event.crossbow.containsEnchantment(Enchantment.INFINITY)) event.setConsumeItem(false)
 
                 val crossbow = event.crossbow
-                if (crossbow.getCustomItemId() == CustomItemHandler.ROCKET_LAUNCHER.id || extendedPlayer.gameState == ExtendedPlayer.GameState.ELYTRA_IN_GAME) {
+                if (crossbow.getCustomItemId() == "rocket_launcher" || extendedPlayer.gameState == ExtendedPlayer.GameState.ELYTRA_IN_GAME) {
                     Bukkit.getScheduler().runTaskLater(KitPvp.INSTANCE, Runnable {
                         crossbow.editMeta(CrossbowMeta::class.java) { crossbowMeta ->
                             val projectiles: MutableList<ItemStack> = mutableListOf()
-                            for (projectile in crossbowMeta.chargedProjectiles) {
-                                if (projectile.type == Material.FIREWORK_ROCKET) {
-                                    projectile.editMeta(FireworkMeta::class.java) { fireworkMeta: FireworkMeta ->
-                                        val random = Random()
-                                        val randomColor = Color.fromRGB(random.nextInt(256), random.nextInt(256), random.nextInt(256))
-                                        val randomType = FireworkEffect.Type.entries[random.nextInt(FireworkEffect.Type.entries.size)]
+                            for (i in 1..crossbowMeta.chargedProjectiles.size) {
+                                val projectile = ItemStack.of(Material.FIREWORK_ROCKET)
+                                projectile.editMeta(FireworkMeta::class.java) { fireworkMeta: FireworkMeta ->
+                                    val random = Random()
+                                    val randomColor = Color.fromRGB(random.nextInt(256), random.nextInt(256), random.nextInt(256))
+                                    val randomType = FireworkEffect.Type.entries[random.nextInt(FireworkEffect.Type.entries.size)]
 
-                                        fireworkMeta.addEffect(FireworkEffect.builder().withColor(randomColor).with(randomType).build())
-                                    }
-                                    projectiles.add(projectile)
+                                    fireworkMeta.addEffect(FireworkEffect.builder().withColor(randomColor).with(randomType).build())
                                 }
+                                projectiles.add(projectile)
+
                             }
                             if (projectiles.isNotEmpty()) crossbowMeta.setChargedProjectiles(projectiles)
                         }
