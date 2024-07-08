@@ -3,6 +3,8 @@ package io.github.chaosdave34.kitpvp.guis
 import com.google.common.io.ByteStreams
 import io.github.chaosdave34.kitpvp.ExtendedPlayer
 import io.github.chaosdave34.kitpvp.KitPvp
+import io.github.chaosdave34.kitpvp.elytrakits.ElytraKit
+import io.github.chaosdave34.kitpvp.elytrakits.ElytraKitHandler
 import io.github.chaosdave34.kitpvp.guis.GuiHandler.Companion.hideAttributes
 import io.github.chaosdave34.kitpvp.elytrakits.ElytraKit
 import io.github.chaosdave34.kitpvp.elytrakits.ElytraKitHandler
