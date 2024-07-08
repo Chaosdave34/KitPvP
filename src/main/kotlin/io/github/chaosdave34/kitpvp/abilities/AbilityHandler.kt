@@ -14,46 +14,25 @@ import org.bukkit.persistence.PersistentDataType
 class AbilityHandler : Listener {
     val abilities: MutableMap<String, Ability> = mutableMapOf()
 
-    companion object {
-        lateinit var FIREBALL: Ability
-        lateinit var LIGHTNING: Ability
-        lateinit var THUNDERSTORM: Ability
-        lateinit var HAUNT: Ability
-        lateinit var SHUFFLE: Ability
-        lateinit var BAT_MORPH: Ability
-        lateinit var AIRSTRIKE: Ability
-        lateinit var EXPLODE: Ability
-        lateinit var ENDER_ATTACK: Ability
-        lateinit var GROUND_SLAM: Ability
-        lateinit var ENHANCE: Ability
-        lateinit var TURRET: Ability
-        lateinit var LEAP: Ability
-        lateinit var DRAGON_FIREBALL: Ability
-        lateinit var FIRE_STORM: Ability
-        lateinit var OVERLOAD: Ability
-        lateinit var WATER_BURST: Ability
-        lateinit var BLACK_HOLE: Ability
-    }
-
     init {
-        FIREBALL = registerAbility(FireballAbility())
-        LIGHTNING = registerAbility(LightningAbility())
-        THUNDERSTORM = registerAbility(ThunderstormAbility())
-        HAUNT = registerAbility(HauntAbility())
-        SHUFFLE = registerAbility(ShuffleAbility())
-        BAT_MORPH = registerAbility(BatMorphAbility())
-        AIRSTRIKE = registerAbility(AirstrikeAbility())
-        EXPLODE = registerAbility(ExplodeAbility())
-        ENDER_ATTACK = registerAbility(EnderAttackAbility())
-        GROUND_SLAM = registerAbility(GroundSlamAbility())
-        ENHANCE = registerAbility(EnhanceAbility())
-        TURRET = registerAbility(TurretAbility())
-        LEAP = registerAbility(LeapAbility())
-        DRAGON_FIREBALL = registerAbility(DragonFireballAbility())
-        FIRE_STORM = registerAbility(FireStormAbility())
-        OVERLOAD = registerAbility(OverloadAbility())
-        WATER_BURST = registerAbility(WaterBurstAbility())
-        BLACK_HOLE = registerAbility(BlackHoleAbility())
+        registerAbility(FireballAbility())
+        registerAbility(LightningAbility())
+        registerAbility(ThunderstormAbility())
+        registerAbility(HauntAbility())
+        registerAbility(ShuffleAbility())
+        registerAbility(BatMorphAbility())
+        registerAbility(AirstrikeAbility())
+        registerAbility(ExplodeAbility())
+        registerAbility(EnderAttackAbility())
+        registerAbility(GroundSlamAbility())
+        registerAbility(EnhanceAbility())
+        registerAbility(TurretAbility())
+        registerAbility(LeapAbility())
+        registerAbility(DragonFireballAbility())
+        registerAbility(FireStormAbility())
+        registerAbility(OverloadAbility())
+        registerAbility(WaterBurstAbility())
+        registerAbility(BlackHoleAbility())
     }
 
     private fun registerAbility(ability: Ability): Ability {
@@ -72,6 +51,7 @@ class AbilityHandler : Listener {
         val abilityId = item.persistentDataContainer.get(NamespacedKey(KitPvp.INSTANCE, "ability"), PersistentDataType.STRING)
         abilities[abilityId]?.handleAbility(player)
     }
+
     @EventHandler
     fun onDrop(event: PlayerDropItemEvent) {
         val player = event.player

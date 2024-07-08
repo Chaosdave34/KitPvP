@@ -20,7 +20,7 @@ import org.bukkit.inventory.ItemFlag
 import org.bukkit.inventory.ItemStack
 import org.bukkit.persistence.PersistentDataType
 
-abstract class CustomItem(
+open class CustomItem(
     val material: Material,
     val id: String,
     val name: String,

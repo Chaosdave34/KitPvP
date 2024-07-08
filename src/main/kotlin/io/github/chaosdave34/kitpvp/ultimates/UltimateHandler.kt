@@ -14,28 +14,16 @@ import org.bukkit.persistence.PersistentDataType
 class UltimateHandler : Listener {
     val ultimates: MutableMap<String, Ultimate> = mutableMapOf()
 
-    companion object {
-        lateinit var DASH: Ultimate
-        lateinit var ARROW_RAIN: Ultimate
-        lateinit var CHARGE: Ultimate
-        lateinit var SHIELD: Ultimate
-        lateinit var LEVITATE: Ultimate
-        lateinit var STORM: Ultimate
-        lateinit var DARKNESS: Ultimate
-        lateinit var TORNADO: Ultimate
-        lateinit var RAGE: Ultimate
-    }
-
     init {
-        DASH = registerUltimate(DashUltimate())
-        ARROW_RAIN = registerUltimate(ArrowRainUltimate())
-        CHARGE = registerUltimate(ChargeUltimate())
-        SHIELD = registerUltimate(ShieldUltimate())
-        LEVITATE = registerUltimate(LevitateUltimate())
-        STORM = registerUltimate(StormUltimate())
-        DARKNESS = registerUltimate(DarknessUltimate())
-        TORNADO = registerUltimate(TornadoUltimate())
-        RAGE = registerUltimate(RageUltimate())
+        registerUltimate(DashUltimate())
+        registerUltimate(ArrowRainUltimate())
+        registerUltimate(ChargeUltimate())
+        registerUltimate(ShieldUltimate())
+        registerUltimate(LevitateUltimate())
+        registerUltimate(StormUltimate())
+        registerUltimate(DarknessUltimate())
+        registerUltimate(TornadoUltimate())
+        registerUltimate(RageUltimate())
     }
 
     private fun registerUltimate(ultimate: Ultimate): Ultimate {
