@@ -31,11 +31,13 @@ abstract class Ability(val id: String, val name: String, val cooldown: Int, val 
 
         val lore = getDescription() as MutableList
         lore.add(
-            Component.text("Cooldown: ", NamedTextColor.DARK_GRAY).append(Component.text("${cooldown}s", NamedTextColor.GREEN))
+            Component.text("Cooldown: ", NamedTextColor.DARK_GRAY)
+                .append(Component.text("${cooldown}s", NamedTextColor.GREEN))
                 .decoration(TextDecoration.ITALIC, false)
         )
         lore.add(
-            Component.text("Mana Cost: ", NamedTextColor.DARK_GRAY).append(Component.text("$manaCost ʬ", NamedTextColor.DARK_AQUA))
+            Component.text("Mana Cost: ", NamedTextColor.DARK_GRAY)
+                .append(Component.text("$manaCost ʬ", NamedTextColor.DARK_AQUA))
                 .decoration(TextDecoration.ITALIC, false)
         )
 

@@ -7,6 +7,7 @@ import io.github.chaosdave34.kitpvp.abilities.impl.*
 import org.bukkit.NamespacedKey
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
+import org.bukkit.event.player.PlayerDropItemEvent
 import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.persistence.PersistentDataType
 
@@ -66,10 +67,20 @@ class AbilityHandler : Listener {
         val player = event.player
         val item = event.item ?: return
 
-        if (ExtendedPlayer.from(player).inSpawn()) return
+        if (ExtendedPlayer.from(player).gameState != ExtendedPlayer.GameState.KITS_IN_GAME) return
 
         val abilityId = item.persistentDataContainer.get(NamespacedKey(KitPvp.INSTANCE, "ability"), PersistentDataType.STRING)
-
         abilities[abilityId]?.handleAbility(player)
     }
+    @EventHandler
+    fun onDrop(event: PlayerDropItemEvent) {
+        val player = event.player
+        val item = event.itemDrop
+
+        if (ExtendedPlayer.from(player).gameState != ExtendedPlayer.GameState.KITS_IN_GAME) return
+
+        val abilityId = item.persistentDataContainer.get(NamespacedKey(KitPvp.INSTANCE, "ability"), PersistentDataType.STRING)
+        abilities[abilityId]?.handleAbility(player)
+    }
+
 }
