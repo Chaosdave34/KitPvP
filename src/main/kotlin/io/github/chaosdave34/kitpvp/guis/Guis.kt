@@ -11,6 +11,7 @@ import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
 import org.bukkit.Material
 import org.bukkit.entity.Player
+import org.bukkit.inventory.EquipmentSlot
 import org.bukkit.inventory.ItemFlag
 import org.bukkit.inventory.ItemStack
 import kotlin.math.ceil
@@ -21,9 +22,10 @@ object Guis {
     val TRAINER = Gui("overview")
     val ELYTRA_KITS = Gui("default")
     val COSMETICS = Gui("overview")
+    val INVENTORY = Gui("overview")
 
     fun create() {
-        SERVER_SELECTOR.createDefaultPage(Component.text("Server Selector"), 4) { page, _ ->
+        SERVER_SELECTOR.createDefaultPage(Component.text("Server Selector"), 4) { page, player ->
 
             val amusementParkButton = ItemStack.of(Material.FIREWORK_ROCKET)
             amusementParkButton.editMeta {
@@ -32,12 +34,12 @@ object Guis {
                 it.addItemFlags(ItemFlag.HIDE_ADDITIONAL_TOOLTIP)
             }
 
-            page.createButton(11, amusementParkButton) { event ->
+            page.createButton(11, amusementParkButton) {
                 val message = ByteStreams.newDataOutput()
                 message.writeUTF("Connect")
                 message.writeUTF("amusementpark")
-                (event.whoClicked as Player).sendPluginMessage(KitPvp.INSTANCE, "BungeeCord", message.toByteArray())
-                event.whoClicked.closeInventory()
+                (player).sendPluginMessage(KitPvp.INSTANCE, "BungeeCord", message.toByteArray())
+                player.closeInventory()
             }
 
             val survivalButton = ItemStack.of(Material.IRON_SWORD)
@@ -48,12 +50,12 @@ object Guis {
                 it.hideAttributes()
             }
 
-            page.createButton(15, survivalButton) { event ->
+            page.createButton(15, survivalButton) {
                 val message = ByteStreams.newDataOutput()
                 message.writeUTF("Connect")
                 message.writeUTF("survival")
-                (event.whoClicked as Player).sendPluginMessage(KitPvp.INSTANCE, "BungeeCord", message.toByteArray())
-                event.whoClicked.closeInventory()
+                (player).sendPluginMessage(KitPvp.INSTANCE, "BungeeCord", message.toByteArray())
+                player.closeInventory()
             }
 
             page.createCloseButton(31)
@@ -79,7 +81,7 @@ object Guis {
             }
 
             page.createButton(11, abilityButton) { event ->
-                TRAINER.openPage("abilities", event.whoClicked as Player)
+                TRAINER.openPage("abilities", player)
             }
 
             val selectedUltimate = KitPvp.INSTANCE.ultimateHandler.ultimates[extendedPlayer.selectedSetup.ultimate]?.name ?: "None"
@@ -96,7 +98,7 @@ object Guis {
             }
 
             page.createButton(15, ultimateButton) { event ->
-                TRAINER.openPage("ultimates", event.whoClicked as Player)
+                TRAINER.openPage("ultimates", player)
             }
 
             page.createCloseButton(31)
@@ -117,7 +119,7 @@ object Guis {
                 }
 
                 page.createButton(i, item) { event ->
-                    val eventExtendedPlayer = ExtendedPlayer.from(event.whoClicked as Player)
+                    val eventExtendedPlayer = ExtendedPlayer.from(player)
                     eventExtendedPlayer.selectedSetup.addAbility(ability)
                     TRAINER.openPage("abilities", player) // Todo: Improve updating inv
                 }
@@ -144,7 +146,7 @@ object Guis {
                 }
 
                 page.createButton(i, item) { event ->
-                    val eventExtendedPlayer = ExtendedPlayer.from(event.whoClicked as Player)
+                    val eventExtendedPlayer = ExtendedPlayer.from(player)
                     eventExtendedPlayer.selectedSetup.setUltimate(ultimate)
                     TRAINER.openPage("ultimates", player) // Todo: Improve updating inv
                 }
@@ -201,7 +203,6 @@ object Guis {
 
             page.fillEmpty()
         }
-
 
         COSMETICS.createDefaultPage(Component.text("Cosmetics"), 3) { page, player ->
             val extendedPlayer: ExtendedPlayer = ExtendedPlayer.from(player)
@@ -348,6 +349,80 @@ object Guis {
 
                 j++
             }
+        }
+
+        INVENTORY.createDefaultPage(Component.text("Shop"), 4) { page, player ->
+            val extendedPlayer = ExtendedPlayer.from(player)
+
+            val selectedWeapon1 = KitPvp.INSTANCE.customItemHandler.customItems[extendedPlayer.selectedSetup.weapons[0]]?.name ?: "None"
+            val selectedWeapon2 = KitPvp.INSTANCE.customItemHandler.customItems[extendedPlayer.selectedSetup.weapons[1]]?.name ?: "None"
+
+            val weaponsButton = ItemStack.of(Material.IRON_SWORD)
+            weaponsButton.editMeta {
+                it.displayName(Component.text("Weapons", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false))
+                it.lore(
+                    listOf(
+                        Component.text("Selected:", NamedTextColor.DARK_GRAY).decoration(TextDecoration.ITALIC, false),
+                        Component.text(selectedWeapon1, NamedTextColor.YELLOW).decoration(TextDecoration.ITALIC, false),
+                        Component.text(selectedWeapon2, NamedTextColor.YELLOW).decoration(TextDecoration.ITALIC, false)
+                    )
+                )
+                it.addItemFlags(ItemFlag.HIDE_ADDITIONAL_TOOLTIP)
+                it.hideAttributes()
+            }
+            page.createButton(10, weaponsButton) { INVENTORY.openPage("weapons", player) }
+
+            val armorButton = ItemStack.of(Material.IRON_CHESTPLATE)
+            armorButton.editMeta {
+                it.displayName(Component.text("Armor", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false))
+                it.addItemFlags(ItemFlag.HIDE_ADDITIONAL_TOOLTIP)
+                it.hideAttributes()
+            }
+            page.createButton(12, armorButton) { INVENTORY.openPage("armor", player) }
+
+            val utilityButton = ItemStack.of(Material.TOTEM_OF_UNDYING)
+            utilityButton.editMeta {
+                it.displayName(Component.text("Utility", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false))
+            }
+            page.createButton(14, utilityButton) { INVENTORY.openPage("utility", player) }
+
+            val potionButton = ItemStack.of(Material.POTION)
+            potionButton.editMeta {
+                it.displayName(Component.text("Potions", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false))
+                it.addItemFlags(ItemFlag.HIDE_ADDITIONAL_TOOLTIP)
+            }
+            page.createButton(16, potionButton) { INVENTORY.openPage("potions", player) }
+
+            page.createCloseButton(31)
+            page.fillEmpty()
+        }
+
+        INVENTORY.createPage("weapons", Component.text("Weapongs"), 6) { page, player ->
+            val extendedPlayer = ExtendedPlayer.from(player)
+
+            for ((i, weapon) in KitPvp.INSTANCE.customItemHandler.customItems.values.filter { it.material.equipmentSlot == EquipmentSlot.HAND }.withIndex()) {
+                val item = weapon.build()
+
+                item.editMeta {
+                    if (weapon.id in extendedPlayer.selectedSetup.weapons) {
+                        it.setEnchantmentGlintOverride(true)
+                        it.displayName(it.displayName()?.color(NamedTextColor.GREEN))
+                    } else {
+                        it.setEnchantmentGlintOverride(false)
+                        it.displayName(it.displayName()?.color(NamedTextColor.WHITE))
+                    }
+                }
+
+                page.createButton(i, item) {
+                    val eventExtendedPlayer = ExtendedPlayer.from(player)
+                    eventExtendedPlayer.selectedSetup.addWeapon(weapon)
+                    INVENTORY.openPage("weapons", player) // Todo: Improve updating inv
+                }
+            }
+
+            page.createButton(48, Material.ARROW, Component.text("Back").decoration(TextDecoration.ITALIC, false)) { INVENTORY.open(player) }
+            page.createCloseButton(49)
+            page.fillEmpty()
         }
     }
 }

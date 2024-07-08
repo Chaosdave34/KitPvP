@@ -5,7 +5,6 @@ import io.github.chaosdave34.kitpvp.items.CustomItemHandler.Companion.getCustomI
 import io.github.chaosdave34.kitpvp.utils.Describable
 import io.github.chaosdave34.kitpvp.utils.ItemUtilities
 import net.kyori.adventure.text.Component
-import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer
 import org.bukkit.Material
@@ -68,18 +67,18 @@ abstract class CustomItem(
         if (lore.isNotEmpty()) lore.add(Component.empty())
 
         // Enchantments
-        val enchantmentLore: MutableList<Component> = mutableListOf()
-
-        for ((enchantment, level) in itemStack.enchantments) {
-            val component = enchantment.displayName(level).color(NamedTextColor.BLUE).decoration(TextDecoration.ITALIC, false)
-            enchantmentLore.add(component)
-        }
-
-        enchantmentLore.sortWith(Comparator.comparing { PlainTextComponentSerializer.plainText().serialize(it).lowercase() })
-
-        lore += enchantmentLore
-
-        if (enchantmentLore.isNotEmpty()) lore.add(Component.empty())
+//        val enchantmentLore: MutableList<Component> = mutableListOf()
+//
+//        for ((enchantment, level) in itemStack.enchantments) {
+//            val component = enchantment.displayName(level).color(NamedTextColor.BLUE).decoration(TextDecoration.ITALIC, false)
+//            enchantmentLore.add(component)
+//        }
+//
+//        enchantmentLore.sortWith(Comparator.comparing { PlainTextComponentSerializer.plainText().serialize(it).lowercase() })
+//
+//        lore += enchantmentLore
+//
+//        if (enchantmentLore.isNotEmpty()) lore.add(Component.empty())
 
         if (lore.isNotEmpty() && PlainTextComponentSerializer.plainText().serialize(lore[lore.size - 1]).isEmpty()) {
             lore.removeAt(lore.size - 1)

@@ -5,6 +5,7 @@ import io.github.chaosdave34.kitpvp.customevents.CustomEventHandler
 import io.github.chaosdave34.kitpvp.elytrakits.ElytraKit
 import io.github.chaosdave34.kitpvp.elytrakits.ElytraKitHandler
 import io.github.chaosdave34.kitpvp.events.PlayerSpawnEvent
+import io.github.chaosdave34.kitpvp.items.CustomItem
 import io.github.chaosdave34.kitpvp.textdisplays.TextDisplays
 import io.github.chaosdave34.kitpvp.ultimates.Ultimate
 import io.github.chaosdave34.kitpvp.utils.MathUtils
@@ -15,9 +16,12 @@ import net.kyori.adventure.text.format.TextDecoration
 import org.bukkit.Bukkit
 import org.bukkit.GameMode
 import org.bukkit.Location
+import org.bukkit.Material
 import org.bukkit.attribute.Attribute
 import org.bukkit.entity.*
 import org.bukkit.event.inventory.InventoryCloseEvent
+import org.bukkit.inventory.Inventory
+import org.bukkit.inventory.ItemStack
 import org.bukkit.metadata.FixedMetadataValue
 import org.bukkit.potion.PotionEffect
 import org.bukkit.scheduler.BukkitRunnable
@@ -270,6 +274,8 @@ class ExtendedPlayer(val uuid: UUID) {
         health = round(health * 10) / 10
         val maxHealth = player.getAttribute(Attribute.GENERIC_MAX_HEALTH)?.value ?: 20.0
 
+        val defense = attributes.getDefense()
+
         val mana = attributes.mana
         val maxMana = attributes.getMaxMana()
 
@@ -279,6 +285,7 @@ class ExtendedPlayer(val uuid: UUID) {
 
         val message = listOf(
             Component.text("$health/$maxHealth ❤", NamedTextColor.RED),
+            Component.text("$defense ⛨", NamedTextColor.DARK_GREEN),
             Component.text("$mana/$maxMana ʬ", NamedTextColor.DARK_AQUA),
             Component.text("$damageStacks ☄", NamedTextColor.DARK_RED).decoration(TextDecoration.BOLD, enoughDamageStacks)
         )
@@ -596,12 +603,18 @@ class ExtendedPlayer(val uuid: UUID) {
         private val baseMaxMana = 100.0
         private val baseManaRegen = 0.1
 
+        private val baseDefense = 10.0
+
         fun getMaxMana(): Double {
             return baseMaxMana
         }
 
         fun getManaRegen(): Double {
             return baseManaRegen
+        }
+
+        fun getDefense(): Double {
+            return baseDefense
         }
     }
 
@@ -620,6 +633,20 @@ class ExtendedPlayer(val uuid: UUID) {
 
         val potions: Array<PotionEffect?> = arrayOfNulls(2)
 
+        fun addWeapon(weapon: CustomItem) {
+            if (weapon.id in weapons) return
+            val inventory = extendedPlayer?.getPlayer()?.inventory ?: return
+
+            if (weapons[0] == null) weapons[0] = weapon.id
+            else if (weapons[1] == null) weapons[1] = weapon.id
+            else {
+                weapons[1] = weapons[0]
+                weapons[0] = weapon.id
+            }
+
+            applyWeapons(inventory)
+        }
+
         fun addAbility(ability: Ability) {
             if (ability.id in abilities) return
             val inventory = extendedPlayer?.getPlayer()?.inventory ?: return
@@ -631,11 +658,7 @@ class ExtendedPlayer(val uuid: UUID) {
                 abilities[0] = ability.id
             }
 
-            val ability1 = KitPvp.INSTANCE.abilityHandler.abilities[abilities[0]]
-            val ability2 = KitPvp.INSTANCE.abilityHandler.abilities[abilities[1]]
-            if (ability1 != null) inventory.setItem(3, ability1.getItem())
-            if (ability2 != null) inventory.setItem(4, ability2.getItem())
-
+            applyAbilities(inventory)
         }
 
         fun setUltimate(ultimate: Ultimate) {
@@ -646,14 +669,35 @@ class ExtendedPlayer(val uuid: UUID) {
         fun apply() {
             val inventory = extendedPlayer?.getPlayer()?.inventory ?: return
 
-            val ability1 = KitPvp.INSTANCE.abilityHandler.abilities[abilities[0]]
-            val ability2 = KitPvp.INSTANCE.abilityHandler.abilities[abilities[1]]
+            val blocker = ItemStack.of(Material.STRUCTURE_VOID)
+            blocker.editMeta { it.isHideTooltip = true }
 
-            if (ability1 != null) inventory.setItem(3, ability1.getItem())
-            if (ability2 != null) inventory.setItem(4, ability2.getItem())
+            applyWeapons(inventory)
+
+            inventory.setItem(2, blocker)
+
+            applyAbilities(inventory)
 
             val ultimate = KitPvp.INSTANCE.ultimateHandler.ultimates[this.ultimate]
             if (ultimate != null) inventory.setItem(5, ultimate.getItem())
+
+            inventory.setItem(6, blocker)
+
+            inventory.setItem(9, ItemStack.of(Material.ARROW))
+        }
+
+        private fun applyWeapons(inventory: Inventory) {
+            val weapon1 = KitPvp.INSTANCE.customItemHandler.customItems[weapons[0]]
+            val weapon2 = KitPvp.INSTANCE.customItemHandler.customItems[weapons[1]]
+            if (weapon1 != null) inventory.setItem(0, weapon1.build())
+            if (weapon2 != null) inventory.setItem(1, weapon2.build())
+        }
+
+        private fun applyAbilities(inventory: Inventory) {
+            val ability1 = KitPvp.INSTANCE.abilityHandler.abilities[abilities[0]]
+            val ability2 = KitPvp.INSTANCE.abilityHandler.abilities[abilities[1]]
+            if (ability1 != null) inventory.setItem(3, ability1.getItem())
+            if (ability2 != null) inventory.setItem(4, ability2.getItem())
         }
     }
 }

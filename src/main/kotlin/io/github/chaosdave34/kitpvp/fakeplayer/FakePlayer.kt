@@ -28,7 +28,8 @@ open class FakePlayer(server: CraftServer, entity: ServerPlayer) : CraftPlayer(s
     }
 
     fun onInteract(event: PlayerUseFakePlayerEvent) {
-        interactionEventConsumer?.accept(event)
+        if (event.isActualInteract || event.isAttack) interactionEventConsumer?.accept(event)
+
     }
 
     fun setInteractionEventConsumer(consumer: Consumer<PlayerUseFakePlayerEvent>) {

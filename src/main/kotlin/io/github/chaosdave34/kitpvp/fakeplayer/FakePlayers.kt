@@ -15,19 +15,14 @@ object FakePlayers {
     fun create() {
         val world = Bukkit.getWorld("world")
         if (world != null) {
-            world.createFakePlayer(Location(null, -8.5, 120.0, 5.5, -90f, 0f), "Weapon Smith")
 
-
-            world.createFakePlayer(Location(null, -8.5, 120.0, 3.5, -90f, 0f), "Armorer")
-
-
-            world.createFakePlayer(Location(null, -8.5, 120.0, 0.5, -90f, 0f), "Trainer") {
-                it.setInteractionEventConsumer { event ->
-                    event.player.openGui(Guis.TRAINER)
-                }
+            world.createFakePlayer(Location(null, -8.5, 120.0, 3.5, -90f, 0f), "Trainer") {
+                it.setInteractionEventConsumer { event -> if (ExtendedPlayer.from(event.player).inSpawn()) event.player.openGui(Guis.TRAINER) }
             }
 
-            world.createFakePlayer(Location(null, -8.5, 120.0, -1.5, -90f, 0f), "Cleric")
+            world.createFakePlayer(Location(null, -8.5, 120.0, 0.5, -90f, 0f), "Inventory") {
+                it.setInteractionEventConsumer { event -> if (ExtendedPlayer.from(event.player).inSpawn()) event.player.openGui(Guis.INVENTORY) }
+            }
 
             // Elytra PvP
             world.createFakePlayer(Location(null, -1.5, 120.0, 6.5, -45f, 0f), "Elytra PvP") {
@@ -35,30 +30,19 @@ object FakePlayers {
                 it.equipment.chestplate = ItemStack.of(Material.ELYTRA)
 
                 it.setInteractionEventConsumer { event ->
-                    if (event.isActualInteract || event.isAttack) {
-                        val extendedPlayer = ExtendedPlayer.from(event.player)
-
-                        if (extendedPlayer.inSpawn()) extendedPlayer.spawn(ExtendedPlayer.GameType.ELYTRA)
-                    }
+                    val extendedPlayer = ExtendedPlayer.from(event.player)
+                    if (extendedPlayer.inSpawn()) extendedPlayer.spawn(ExtendedPlayer.GameType.ELYTRA)
                 }
             }
 
             // Kit PvP Cosmetics
             world.createFakePlayer(Location(null, 4.5, 120.0, 12.5, 180f, 0f), "Cosmetics") {
-                it.setInteractionEventConsumer { event ->
-                    if (event.isActualInteract || event.isAttack) {
-                        if (ExtendedPlayer.from(event.player).inSpawn()) event.player.openGui(Guis.COSMETICS)
-                    }
-                }
+                it.setInteractionEventConsumer { event -> if (ExtendedPlayer.from(event.player).inSpawn()) event.player.openGui(Guis.COSMETICS) }
             }
 
             // Server Selector
             world.createFakePlayer(Location(null, -6.5, 120.0, 10.5, -135f, 0f), "Server Selector") {
-                it.setInteractionEventConsumer { event ->
-                    if (event.isActualInteract || event.isAttack) {
-                        event.player.openGui(Guis.SERVER_SELECTOR)
-                    }
-                }
+                it.setInteractionEventConsumer { event -> if (ExtendedPlayer.from(event.player).inSpawn()) event.player.openGui(Guis.SERVER_SELECTOR) }
             }
         }
 
@@ -73,9 +57,7 @@ object FakePlayers {
 
                 it.setTexture(texture, textureSignature)
 
-                it.setInteractionEventConsumer { event ->
-                    if (event.isActualInteract || event.isAttack) event.player.sendMessage(Component.text("Ich werde euren Server zerstüren!"))
-                }
+                it.setInteractionEventConsumer { event -> event.player.sendMessage(Component.text("Ich werde euren Server zerstüren!")) }
             }
 
             // Kit PvP
@@ -84,31 +66,19 @@ object FakePlayers {
                 it.equipment.chestplate = ItemStack.of(Material.IRON_CHESTPLATE)
 
                 it.setInteractionEventConsumer { event ->
-
-                    if (event.isActualInteract || event.isAttack) {
-                        val extendedPlayer = ExtendedPlayer.from(event.player)
-
-                        if (extendedPlayer.inSpawn()) extendedPlayer.spawn(ExtendedPlayer.GameType.KITS)
-                    }
+                    val extendedPlayer = ExtendedPlayer.from(event.player)
+                    if (extendedPlayer.inSpawn()) extendedPlayer.spawn(ExtendedPlayer.GameType.KITS)
                 }
             }
 
             // Elytra Kit Selector
             worldElytra.createFakePlayer(Location(null, 10.5, 200.0, -5.5, 0f, 0f), "Kits") {
-                it.setInteractionEventConsumer { event ->
-                    if (event.isActualInteract || event.isAttack) {
-                        if (ExtendedPlayer.from(event.player).inSpawn()) event.player.openGui(Guis.ELYTRA_KITS)
-                    }
-                }
+                it.setInteractionEventConsumer { event -> if (ExtendedPlayer.from(event.player).inSpawn()) event.player.openGui(Guis.ELYTRA_KITS) }
             }
 
             // Elytra PvP Cosmetics
             worldElytra.createFakePlayer(Location(null, 16.5, 200.0, 4.5, 135f, 0f), "Cosmetics") {
-                it.setInteractionEventConsumer { event ->
-                    if (event.isActualInteract || event.isAttack) {
-                        if (ExtendedPlayer.from(event.player).inSpawn()) event.player.openGui(Guis.COSMETICS)
-                    }
-                }
+                it.setInteractionEventConsumer { event -> if (ExtendedPlayer.from(event.player).inSpawn()) event.player.openGui(Guis.COSMETICS) }
             }
 
         }
