@@ -13,7 +13,7 @@ import org.bukkit.entity.Player
 import kotlin.math.cos
 import kotlin.math.sin
 
-class FireStormAbility : Ability("fire_storm", "Fire Storm", 20, 50, Material.BLAZE_ROD) {
+class FireStormAbility : Ability("fire_storm", "Fire Storm", 20, 50, Material.BLAZE_POWDER) {
     override fun getDescription(): List<Component> = createSimpleDescriptionAsList("Cause a storm of fire damaging nearby enemies.")
 
     override fun onAbility(player: Player): Boolean {

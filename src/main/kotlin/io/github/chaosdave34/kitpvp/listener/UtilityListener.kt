@@ -41,6 +41,7 @@ class UtilityListener : Listener {
         event.joinMessage(message)
 
         val extendedPlayer = KitPvp.INSTANCE.createExtendedPlayer(player.uniqueId)
+        extendedPlayer.checkAndMigrateSaveData()
 
         // resource pack
         val serverResourcePackUrl = KitPvp.INSTANCE.config.getString("server_resource_pack_url")

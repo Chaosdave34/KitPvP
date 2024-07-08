@@ -52,8 +52,9 @@ abstract class Ability(val id: String, val name: String, val cooldown: Int, val 
 
     fun handleAbility(player: Player) {
         if (player.gameMode == GameMode.SPECTATOR) return
+        val extendedPlayer = ExtendedPlayer.from(player)
 
-        if (playerCooldown.contains(player.uniqueId)) {
+        if (playerCooldown.contains(player.uniqueId) || extendedPlayer.attributes.mana < manaCost) {
             player.playSound(player.location, Sound.BLOCK_NOTE_BLOCK_DIDGERIDOO, 1f, 0.5f)
         } else {
             val success = onAbility(player)
@@ -61,8 +62,9 @@ abstract class Ability(val id: String, val name: String, val cooldown: Int, val 
             if (success) {
                 player.setCooldown(icon, cooldown * 20)
                 playerCooldown.add(player.uniqueId)
-
                 Bukkit.getScheduler().runTaskLater(KitPvp.INSTANCE, Runnable { playerCooldown.remove(player.uniqueId) }, cooldown * 20L)
+
+                extendedPlayer.attributes.mana -= manaCost
             }
         }
     }

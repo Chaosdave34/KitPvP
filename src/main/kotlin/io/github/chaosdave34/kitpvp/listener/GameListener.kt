@@ -189,6 +189,17 @@ class GameListener : Listener {
     }
 
     // KitPvP
+    @EventHandler
+    fun onGainDamageStack(event: EntityDealDamageEvent) {
+        val player = event.damager
+        if (player is Player) {
+            val extendedPlayer = ExtendedPlayer.from(player)
+            if (extendedPlayer.gameState == ExtendedPlayer.GameState.KITS_IN_GAME) {
+                extendedPlayer.attributes.damageStack += (event.damage / 10)
+            }
+        }
+    }
+
     private class BlockRemover : BukkitRunnable() {
         override fun run() {
             if (blocksToRemove.isEmpty())

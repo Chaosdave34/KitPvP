@@ -30,7 +30,7 @@ import kotlin.math.roundToInt
 import kotlin.reflect.KClass
 
 class ExtendedPlayer(val uuid: UUID) {
-    var selectedSetup: SelectedSetup = SelectedSetup(this)
+    lateinit var selectedSetup: SelectedSetup
 
     var selectedElytraKitId: String
         private set
@@ -48,6 +48,9 @@ class ExtendedPlayer(val uuid: UUID) {
     var killEffectId: String? = null
 
     var dailyChallenges: List<String>
+
+    @Transient
+    lateinit var attributes: Attributes
 
     @Transient
     var gameState: GameState = GameState.KITS_SPAWN
@@ -89,6 +92,14 @@ class ExtendedPlayer(val uuid: UUID) {
         gameState = GameState.KITS_SPAWN
 
         dailyChallenges = mutableListOf()
+    }
+
+    fun checkAndMigrateSaveData() {
+        if (!this::selectedSetup.isInitialized) selectedSetup = SelectedSetup(this)
+        if (selectedSetup.extendedPlayer == null) selectedSetup.extendedPlayer = this
+
+        if (!this::attributes.isInitialized) attributes = Attributes(this)
+        if (attributes.extendedPlayer == null) attributes.extendedPlayer = this
     }
 
     companion object {
@@ -179,7 +190,18 @@ class ExtendedPlayer(val uuid: UUID) {
                 object : BukkitRunnable() {
                     override fun run() {
                         if (gameType != GameType.KITS && getPlayer() == null) this.cancel()
+
+                        // Action Bar
                         getPlayer()?.sendActionBar(createActionBarMessage())
+
+                        // Mana Regen
+                        if (attributes.mana < attributes.getMaxMana()) {
+                            var manaRegen = attributes.getManaRegen()
+                            if (gameState == GameState.KITS_SPAWN) manaRegen *= 5
+                            attributes.mana += attributes.getMaxMana() * manaRegen
+
+                            if (attributes.mana > attributes.getMaxMana()) attributes.mana = attributes.getMaxMana()
+                        }
                     }
 
                 }.runTaskTimer(KitPvp.INSTANCE, 0, 20)
@@ -248,10 +270,10 @@ class ExtendedPlayer(val uuid: UUID) {
         health = round(health * 10) / 10
         val maxHealth = player.getAttribute(Attribute.GENERIC_MAX_HEALTH)?.value ?: 20.0
 
-        val mana = 100.0 // Dummy values
-        val maxMana = 100.0
+        val mana = attributes.mana
+        val maxMana = attributes.getMaxMana()
 
-        var damageStacks = KitPvp.INSTANCE.ultimateHandler.damageStacksCollected[player.uniqueId] ?: 0.0
+        var damageStacks = attributes.damageStack
         damageStacks = round(damageStacks * 10) / 10
         val enoughDamageStacks = damageStacks >= (KitPvp.INSTANCE.ultimateHandler.ultimates[selectedSetup.ultimate]?.damageStackCost ?: 0.0)
 
@@ -565,6 +587,22 @@ class ExtendedPlayer(val uuid: UUID) {
         KITS_IN_GAME("§eActive"),
         ELYTRA_IN_GAME("§eActive"),
         DEBUG("§0Debug")
+    }
+
+    class Attributes(@Transient var extendedPlayer: ExtendedPlayer?) {
+        var mana = 0.0
+        var damageStack = 0.0
+
+        private val baseMaxMana = 100.0
+        private val baseManaRegen = 0.1
+
+        fun getMaxMana(): Double {
+            return baseMaxMana
+        }
+
+        fun getManaRegen(): Double {
+            return baseManaRegen
+        }
     }
 
     class SelectedSetup(@Transient var extendedPlayer: ExtendedPlayer?) {

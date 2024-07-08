@@ -3,20 +3,16 @@ package io.github.chaosdave34.kitpvp.ultimates
 import io.github.chaosdave34.kitpvp.ExtendedPlayer
 import io.github.chaosdave34.kitpvp.KitPvp
 import io.github.chaosdave34.kitpvp.Utils
-import io.github.chaosdave34.kitpvp.events.EntityDealDamageEvent
 import io.github.chaosdave34.kitpvp.ultimates.impl.*
 import org.bukkit.NamespacedKey
-import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerDropItemEvent
 import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.persistence.PersistentDataType
-import java.util.*
 
 class UltimateHandler : Listener {
     val ultimates: MutableMap<String, Ultimate> = mutableMapOf()
-    val damageStacksCollected: MutableMap<UUID, Double> = mutableMapOf()
 
     companion object {
         lateinit var DASH: Ultimate
@@ -68,19 +64,5 @@ class UltimateHandler : Listener {
 
         val ultimateId = item.persistentDataContainer.get(NamespacedKey(KitPvp.INSTANCE, "ultimate"), PersistentDataType.STRING)
         ultimates[ultimateId]?.handleUltimate(player)
-    }
-
-    @EventHandler
-    fun onDealDamage(event: EntityDealDamageEvent) {
-        val player = event.damager
-        if (player is Player) {
-            val extendedPlayer = ExtendedPlayer.from(player)
-            if (extendedPlayer.gameState == ExtendedPlayer.GameState.KITS_IN_GAME) {
-
-                val currentStacks = damageStacksCollected[player.uniqueId] ?: 0.0
-                val newStacks = currentStacks + (event.damage / 10)
-                damageStacksCollected[player.uniqueId] = newStacks
-            }
-        }
     }
 }

@@ -46,13 +46,14 @@ abstract class Ultimate(val id: String, val name: String, val damageStackCost: D
 
     fun handleUltimate(player: Player) {
         if (player.gameMode == GameMode.SPECTATOR) return
+        val extendedPlayer = ExtendedPlayer.from(player)
 
-        val currentStack = KitPvp.INSTANCE.ultimateHandler.damageStacksCollected[player.uniqueId] ?: 0.0
+        val currentStack = extendedPlayer.attributes.damageStack
         if (currentStack >= damageStackCost) {
             val success = onAbility(player)
 
             if (success) {
-                KitPvp.INSTANCE.ultimateHandler.damageStacksCollected[player.uniqueId] = currentStack - damageStackCost
+                extendedPlayer.attributes.damageStack = currentStack - damageStackCost
             }
         } else {
             player.playSound(player.location, Sound.BLOCK_NOTE_BLOCK_DIDGERIDOO, 1f, 0.5f)
