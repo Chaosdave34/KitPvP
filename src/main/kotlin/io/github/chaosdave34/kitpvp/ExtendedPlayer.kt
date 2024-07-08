@@ -647,6 +647,26 @@ class ExtendedPlayer(val uuid: UUID) {
             applyWeapons(inventory)
         }
 
+        fun setHelmet(helmet: CustomItem) {
+            this.helmet = helmet.id
+            extendedPlayer?.getPlayer()?.inventory?.helmet = helmet.build()
+        }
+
+        fun setChestplate(chestplate: CustomItem) {
+            this.chestplate = chestplate.id
+            extendedPlayer?.getPlayer()?.inventory?.chestplate = chestplate.build()
+        }
+
+        fun setLeggins(leggings: CustomItem) {
+            this.leggings = leggings.id
+            extendedPlayer?.getPlayer()?.inventory?.leggings = leggings.build()
+        }
+
+        fun setBoots(boots:CustomItem) {
+            this.boots = boots.id
+            extendedPlayer?.getPlayer()?.inventory?.boots = boots.build()
+        }
+
         fun addAbility(ability: Ability) {
             if (ability.id in abilities) return
             val inventory = extendedPlayer?.getPlayer()?.inventory ?: return
@@ -670,9 +690,19 @@ class ExtendedPlayer(val uuid: UUID) {
             val inventory = extendedPlayer?.getPlayer()?.inventory ?: return
 
             val blocker = ItemStack.of(Material.STRUCTURE_VOID)
-            blocker.editMeta { it.isHideTooltip = true }
+            blocker.editMeta {
+                it.isHideTooltip = true
+                it.displayName(Component.empty())
+            }
 
             applyWeapons(inventory)
+
+            val customItems = KitPvp.INSTANCE.customItemHandler.customItems
+
+            extendedPlayer?.getPlayer()?.inventory?.helmet = customItems[helmet]?.build()
+            extendedPlayer?.getPlayer()?.inventory?.chestplate = customItems[chestplate]?.build()
+            extendedPlayer?.getPlayer()?.inventory?.leggings = customItems[leggings]?.build()
+            extendedPlayer?.getPlayer()?.inventory?.boots = customItems[boots]?.build()
 
             inventory.setItem(2, blocker)
 
