@@ -7,7 +7,6 @@ import io.github.chaosdave34.kitpvp.abilities.AbilityRunnable
 import io.github.chaosdave34.kitpvp.events.PlayerSpawnEvent
 import io.github.chaosdave34.kitpvp.extensions.sendPackets
 import io.github.chaosdave34.kitpvp.ultimates.Ultimate
-import net.kyori.adventure.text.Component
 import net.minecraft.network.protocol.game.ClientboundRemoveEntitiesPacket
 import net.minecraft.network.protocol.game.ClientboundTeleportEntityPacket
 import net.minecraft.world.effect.MobEffectInstance
@@ -16,6 +15,7 @@ import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.monster.Creeper
 import org.bukkit.Bukkit
+import org.bukkit.Material
 import org.bukkit.SoundCategory
 import org.bukkit.craftbukkit.entity.CraftPlayer
 import org.bukkit.craftbukkit.util.CraftVector
@@ -31,11 +31,11 @@ import org.bukkit.potion.PotionEffectType
 import org.bukkit.scoreboard.Team
 import java.util.*
 
-class ShieldUltimate: Ultimate("shield", "Shield", 150.0) {
+class ShieldUltimate: Ultimate("shield", "Shield", 15.0, Material.GLOWSTONE_DUST) {
     private var activeShield: MutableMap<UUID, Creeper> = mutableMapOf()
-    override fun getDescription(): Component = createSimpleDescription("Activate your shield for 6s reducing damage by 60%.")
+    override fun getDescription() = createSimpleDescriptionAsList("Activate your shield for 6s reducing damage by 60%.")
 
-    override fun onAbility(player: Player) {
+    override fun onAbility(player: Player): Boolean {
         val creeper = Creeper(EntityType.CREEPER, (player as CraftPlayer).handle.level())
         activeShield[player.uniqueId] = creeper
 
@@ -59,6 +59,8 @@ class ShieldUltimate: Ultimate("shield", "Shield", 150.0) {
         player.addPotionEffect(PotionEffect(PotionEffectType.SLOWNESS, 6 * 20, 0))
 
         AbilityRunnable.runTaskLater(KitPvp.INSTANCE, { disableShield(player) }, player, 6 * 20)
+
+        return true
     }
 
     @EventHandler

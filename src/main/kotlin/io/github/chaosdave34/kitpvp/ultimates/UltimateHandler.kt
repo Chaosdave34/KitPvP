@@ -1,19 +1,22 @@
 package io.github.chaosdave34.kitpvp.ultimates
 
 import io.github.chaosdave34.kitpvp.ExtendedPlayer
+import io.github.chaosdave34.kitpvp.KitPvp
 import io.github.chaosdave34.kitpvp.Utils
 import io.github.chaosdave34.kitpvp.events.EntityDealDamageEvent
 import io.github.chaosdave34.kitpvp.ultimates.impl.*
+import org.bukkit.NamespacedKey
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerDropItemEvent
+import org.bukkit.event.player.PlayerInteractEvent
+import org.bukkit.persistence.PersistentDataType
 import java.util.*
-import kotlin.math.min
 
-// Todo: Update
 class UltimateHandler : Listener {
-    private val damageCollected: MutableMap<UUID, Double> = mutableMapOf()
+    val ultimates: MutableMap<String, Ultimate> = mutableMapOf()
+    val damageStacksCollected: MutableMap<UUID, Double> = mutableMapOf()
 
     companion object {
         lateinit var DASH: Ultimate
@@ -41,29 +44,30 @@ class UltimateHandler : Listener {
 
     private fun registerUltimate(ultimate: Ultimate): Ultimate {
         Utils.registerEvents(ultimate)
+        ultimates[ultimate.id] = ultimate
         return ultimate
     }
 
-    fun getProgress(player: Player, ultimate: Ultimate): Float {
-        val progress = (damageCollected[player.uniqueId] ?: 0.0) / ultimate.damageRequired
-        return min(0.99f, progress.toFloat())
+    @EventHandler
+    fun onInteract(event: PlayerInteractEvent) {
+        val player = event.player
+        val item = event.item ?: return
+
+        if (ExtendedPlayer.from(player).gameState != ExtendedPlayer.GameState.KITS_IN_GAME) return
+
+        val ultimateId = item.persistentDataContainer.get(NamespacedKey(KitPvp.INSTANCE, "ultimate"), PersistentDataType.STRING)
+        ultimates[ultimateId]?.handleUltimate(player)
     }
 
     @EventHandler
     fun onDrop(event: PlayerDropItemEvent) {
         val player = event.player
-        val extendedPlayer = ExtendedPlayer.from(player)
+        val item = event.itemDrop
 
-//        if (extendedPlayer.gameState == ExtendedPlayer.GameState.KITS_IN_GAME) {
-//            val ultimate = extendedPlayer.getSelectedKitsKit().getUltimate() ?: return
-//
-//            if ((damageCollected[player.uniqueId] ?: 0.0) >= ultimate.damageRequired) {
-//                ultimate.onAbility(player)
-//
-//                damageCollected[player.uniqueId] = 0.0
-//                player.exp = 0f
-//            }
-//        }
+        if (ExtendedPlayer.from(player).gameState != ExtendedPlayer.GameState.KITS_IN_GAME) return
+
+        val ultimateId = item.persistentDataContainer.get(NamespacedKey(KitPvp.INSTANCE, "ultimate"), PersistentDataType.STRING)
+        ultimates[ultimateId]?.handleUltimate(player)
     }
 
     @EventHandler
@@ -73,32 +77,9 @@ class UltimateHandler : Listener {
             val extendedPlayer = ExtendedPlayer.from(player)
             if (extendedPlayer.gameState == ExtendedPlayer.GameState.KITS_IN_GAME) {
 
-                val currentDamage = damageCollected[player.uniqueId] ?: 0.0
-//                val ultimate = extendedPlayer.getSelectedKitsKit().getUltimate() ?: return
-//
-//
-//                if (currentDamage < ultimate.damageRequired) {
-//                    val newDamage = currentDamage + event.damage
-//
-//                    damageCollected[player.uniqueId] = newDamage
-//
-//                    val progress = ultimate.getProgress(player)
-//                    player.exp = progress
-//
-//                    if (newDamage >= ultimate.damageRequired) {
-//                        val availableMessage: Component = Component.join(
-//                            JoinConfiguration.spaces(),
-//                            Component.text("Your", NamedTextColor.GREEN),
-//                            Component.text("Ultimate", NamedTextColor.GOLD),
-//                            Component.text(ultimate.name, NamedTextColor.GRAY, TextDecoration.ITALIC),
-//                            Component.text("is now available. Press", NamedTextColor.GREEN),
-//                            Component.keybind("key.drop", NamedTextColor.GOLD),
-//                            Component.text("to activate.", NamedTextColor.GREEN),
-//                        ).hoverEvent(ultimate.getDescription())
-//
-//                        player.sendMessage(availableMessage)
-//                    }
-//                }
+                val currentStacks = damageStacksCollected[player.uniqueId] ?: 0.0
+                val newStacks = currentStacks + (event.damage / 10)
+                damageStacksCollected[player.uniqueId] = newStacks
             }
         }
     }

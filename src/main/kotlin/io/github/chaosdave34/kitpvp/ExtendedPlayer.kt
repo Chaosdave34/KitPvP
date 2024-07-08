@@ -5,7 +5,6 @@ import io.github.chaosdave34.kitpvp.customevents.CustomEventHandler
 import io.github.chaosdave34.kitpvp.elytrakits.ElytraKit
 import io.github.chaosdave34.kitpvp.elytrakits.ElytraKitHandler
 import io.github.chaosdave34.kitpvp.events.PlayerSpawnEvent
-import io.github.chaosdave34.kitpvp.items.CustomItem
 import io.github.chaosdave34.kitpvp.textdisplays.TextDisplays
 import io.github.chaosdave34.kitpvp.ultimates.Ultimate
 import io.github.chaosdave34.kitpvp.utils.MathUtils
@@ -28,7 +27,7 @@ import kotlin.math.roundToInt
 import kotlin.reflect.KClass
 
 class ExtendedPlayer(val uuid: UUID) {
-    var selectedSetup: SelectedSetup
+    var selectedSetup: SelectedSetup = SelectedSetup(this)
 
     var selectedElytraKitId: String
         private set
@@ -71,8 +70,6 @@ class ExtendedPlayer(val uuid: UUID) {
 
     // Set default values
     init {
-        selectedSetup = SelectedSetup()
-
         selectedElytraKitId = ElytraKitHandler.KNIGHT.id
         currentGame = GameType.KITS
 
@@ -131,6 +128,8 @@ class ExtendedPlayer(val uuid: UUID) {
     fun spawn(gameType: GameType) {
         val player = getPlayer() ?: return
 
+        if (selectedSetup.extendedPlayer == null) selectedSetup.extendedPlayer = this
+
         player.gameMode = GameMode.ADVENTURE
         currentGame = gameType
 
@@ -172,7 +171,7 @@ class ExtendedPlayer(val uuid: UUID) {
                 player.teleport(Location(Bukkit.getWorld("world"), 2.0, 120.0, 10.0, 180f, 0f))
                 gameState = GameState.KITS_SPAWN
                 player.inventory.clear()
-                selectedSetup.apply(player)
+                selectedSetup.apply()
             }
 
             GameType.ELYTRA -> {
@@ -180,13 +179,6 @@ class ExtendedPlayer(val uuid: UUID) {
                 gameState = GameState.ELYTRA_SPAWN
                 getSelectedElytraKit().apply(player)
             }
-        }
-
-        player.level = 0
-        if (gameType == GameType.KITS) {
-//            player.exp = getSelectedKitsKit().getUltimate()?.getProgress(player) ?: 0f // Todo: reset ultimate
-        } else {
-            player.exp = 0f
         }
 
         PlayerSpawnEvent(player).callEvent()
@@ -541,22 +533,24 @@ class ExtendedPlayer(val uuid: UUID) {
         DEBUG("§0Debug")
     }
 
-    class SelectedSetup {
-        var helmet: CustomItem? = null
-        var chestplate: CustomItem? = null
-        var leggings: CustomItem? = null
-        var boots: CustomItem? = null
+    class SelectedSetup(@Transient var extendedPlayer: ExtendedPlayer?) {
 
-        val weapons: Array<CustomItem?> = arrayOfNulls(2)
-        var utilityItem: CustomItem? = null
+        var helmet: String? = null
+        var chestplate: String? = null
+        var leggings: String? = null
+        var boots: String? = null
+
+        val weapons: Array<String?> = arrayOfNulls(2)
+        var utilityItem: String? = null
 
         val abilities: Array<String?> = arrayOfNulls(2)
-        var ultimate: Ultimate? = null
+        var ultimate: String? = null
 
         val potions: Array<PotionEffect?> = arrayOfNulls(2)
 
         fun addAbility(ability: Ability) {
             if (ability.id in abilities) return
+            val inventory = extendedPlayer?.getPlayer()?.inventory ?: return
 
             if (abilities[0] == null) abilities[0] = ability.id
             else if (abilities[1] == null) abilities[1] = ability.id
@@ -564,21 +558,30 @@ class ExtendedPlayer(val uuid: UUID) {
                 abilities[1] = abilities[0]
                 abilities[0] = ability.id
             }
+
+            val ability1 = KitPvp.INSTANCE.abilityHandler.abilities[abilities[0]]
+            val ability2 = KitPvp.INSTANCE.abilityHandler.abilities[abilities[1]]
+            if (ability1 != null) inventory.setItem(3, ability1.getItem())
+            if (ability2 != null) inventory.setItem(4, ability2.getItem())
+
         }
 
-        fun apply(player: Player) {
-            val inventory = player.inventory
+        fun setUltimate(ultimate: Ultimate) {
+            this.ultimate = ultimate.id
+            extendedPlayer?.getPlayer()?.inventory?.setItem(5, ultimate.getItem())
+        }
+
+        fun apply() {
+            val inventory = extendedPlayer?.getPlayer()?.inventory ?: return
 
             val ability1 = KitPvp.INSTANCE.abilityHandler.abilities[abilities[0]]
             val ability2 = KitPvp.INSTANCE.abilityHandler.abilities[abilities[1]]
 
-            if (ability1 != null) {
-                inventory.setItem(3, ability1.getItem())
-            }
+            if (ability1 != null) inventory.setItem(3, ability1.getItem())
+            if (ability2 != null) inventory.setItem(4, ability2.getItem())
 
-            if (ability2 != null) {
-                inventory.setItem(4, ability2.getItem())
-            }
+            val ultimate = KitPvp.INSTANCE.ultimateHandler.ultimates[this.ultimate]
+            if (ultimate != null) inventory.setItem(5, ultimate.getItem())
         }
     }
 }

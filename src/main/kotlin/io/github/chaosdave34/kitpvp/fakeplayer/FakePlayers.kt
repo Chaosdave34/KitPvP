@@ -23,7 +23,7 @@ object FakePlayers {
 
             world.createFakePlayer(Location(null, -8.5, 120.0, 0.5, -90f, 0f), "Trainer") {
                 it.setInteractionEventConsumer { event ->
-                    event.player.openGui(Guis.ABILITY_SELECTOR)
+                    event.player.openGui(Guis.TRAINER)
                 }
             }
 

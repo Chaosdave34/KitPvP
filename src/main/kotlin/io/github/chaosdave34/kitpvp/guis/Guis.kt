@@ -18,7 +18,7 @@ import kotlin.math.max
 
 object Guis {
     val SERVER_SELECTOR = Gui("default")
-    val ABILITY_SELECTOR = Gui("default")
+    val TRAINER = Gui("overview")
     val ELYTRA_KITS = Gui("default")
     val COSMETICS = Gui("overview")
 
@@ -60,10 +60,53 @@ object Guis {
             page.fillEmpty()
         }
 
-        ABILITY_SELECTOR.createDefaultPage(Component.text("Abilities"), 6) { page, player ->
+        TRAINER.createDefaultPage(Component.text("Trainer"), 4) { page, player ->
             val extendedPlayer = ExtendedPlayer.from(player)
 
-            for ((i, ability) in KitPvp.INSTANCE.abilityHandler.abilities.map { it.value }.withIndex()) {
+            val selectedAbility1 = KitPvp.INSTANCE.abilityHandler.abilities[extendedPlayer.selectedSetup.abilities[0]]?.name ?: "None"
+            val selectedAbility2 = KitPvp.INSTANCE.abilityHandler.abilities[extendedPlayer.selectedSetup.abilities[1]]?.name ?: "None"
+
+            val abilityButton = ItemStack.of(Material.BREEZE_ROD)
+            abilityButton.editMeta {
+                it.displayName(Component.text("Abilities", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false))
+                it.lore(
+                    listOf(
+                        Component.text("Selected:", NamedTextColor.DARK_GRAY).decoration(TextDecoration.ITALIC, false),
+                        Component.text(selectedAbility1, NamedTextColor.GREEN).decoration(TextDecoration.ITALIC, false),
+                        Component.text(selectedAbility2, NamedTextColor.GREEN).decoration(TextDecoration.ITALIC, false)
+                    )
+                )
+            }
+
+            page.createButton(11, abilityButton) { event ->
+                TRAINER.openPage("abilities", event.whoClicked as Player)
+            }
+
+            val selectedUltimate = KitPvp.INSTANCE.ultimateHandler.ultimates[extendedPlayer.selectedSetup.ultimate]?.name ?: "None"
+
+            val ultimateButton = ItemStack.of(Material.BLAZE_ROD)
+            ultimateButton.editMeta {
+                it.displayName(Component.text("Ultimates", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false))
+                it.lore(
+                    listOf(
+                        Component.text("Selected: ", NamedTextColor.DARK_GRAY).decoration(TextDecoration.ITALIC, false),
+                        Component.text(selectedUltimate, NamedTextColor.RED).decoration(TextDecoration.ITALIC, false)
+                    )
+                )
+            }
+
+            page.createButton(15, ultimateButton) { event ->
+                TRAINER.openPage("ultimates", event.whoClicked as Player)
+            }
+
+            page.createCloseButton(31)
+            page.fillEmpty()
+        }
+
+        TRAINER.createPage("abilities", Component.text("Abilities"), 6) { page, player ->
+            val extendedPlayer = ExtendedPlayer.from(player)
+
+            for ((i, ability) in KitPvp.INSTANCE.abilityHandler.abilities.values.withIndex()) {
                 val item = ability.getItem()
 
                 if (ability.id in extendedPlayer.selectedSetup.abilities) {
@@ -76,9 +119,39 @@ object Guis {
                 page.createButton(i, item) { event ->
                     val eventExtendedPlayer = ExtendedPlayer.from(event.whoClicked as Player)
                     eventExtendedPlayer.selectedSetup.addAbility(ability)
-                    ABILITY_SELECTOR.open(player) // Todo: Improve updating inv
+                    TRAINER.openPage("abilities", player) // Todo: Improve updating inv
                 }
 
+                page.createButton(48, Material.ARROW, Component.text("Back").decoration(TextDecoration.ITALIC, false)) {
+                    TRAINER.open(it.whoClicked as Player)
+                }
+                page.createCloseButton(49)
+                page.fillEmpty()
+            }
+        }
+
+        TRAINER.createPage("ultimates", Component.text("Ultimates"), 6) { page, player ->
+            val extendedPlayer = ExtendedPlayer.from(player)
+
+            for ((i, ultimate) in KitPvp.INSTANCE.ultimateHandler.ultimates.values.withIndex()) {
+                val item = ultimate.getItem()
+
+                if (ultimate.id == extendedPlayer.selectedSetup.ultimate) {
+                    item.editMeta {
+                        it.setEnchantmentGlintOverride(true)
+                        it.displayName(it.displayName()?.color(NamedTextColor.GREEN))
+                    }
+                }
+
+                page.createButton(i, item) { event ->
+                    val eventExtendedPlayer = ExtendedPlayer.from(event.whoClicked as Player)
+                    eventExtendedPlayer.selectedSetup.setUltimate(ultimate)
+                    TRAINER.openPage("ultimates", player) // Todo: Improve updating inv
+                }
+
+                page.createButton(48, Material.ARROW, Component.text("Back").decoration(TextDecoration.ITALIC, false)) {
+                    TRAINER.open(it.whoClicked as Player)
+                }
                 page.createCloseButton(49)
                 page.fillEmpty()
             }
@@ -158,7 +231,6 @@ object Guis {
             page.createButton(15, killEffectButton) {
                 COSMETICS.openPage("kill_effects", it.whoClicked as Player)
             }
-
             page.createCloseButton(22)
 
             page.fillEmpty()
@@ -210,10 +282,10 @@ object Guis {
                     }
                 }
 
-                page.createCloseButton(page.rows * 9 - 5)
                 page.createButton(page.rows * 9 - 6, Material.ARROW, Component.text("Back").decoration(TextDecoration.ITALIC, false)) {
-                    COSMETICS.openPage("overview", it.whoClicked as Player)
+                    COSMETICS.open(it.whoClicked as Player)
                 }
+                page.createCloseButton(page.rows * 9 - 5)
 
                 page.fillEmpty()
 
@@ -269,7 +341,7 @@ object Guis {
 
                 page.createCloseButton(page.rows * 9 - 5)
                 page.createButton(page.rows * 9 - 6, Material.ARROW, Component.text("Back").decoration(TextDecoration.ITALIC, false)) {
-                    COSMETICS.openPage("overview", it.whoClicked as Player)
+                    COSMETICS.open(it.whoClicked as Player)
                 }
 
                 page.fillEmpty()

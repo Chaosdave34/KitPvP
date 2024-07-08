@@ -3,14 +3,14 @@ package io.github.chaosdave34.kitpvp.ultimates.impl
 import io.github.chaosdave34.kitpvp.KitPvp
 import io.github.chaosdave34.kitpvp.abilities.AbilityRunnable
 import io.github.chaosdave34.kitpvp.ultimates.Ultimate
-import net.kyori.adventure.text.Component
+import org.bukkit.Material
 import org.bukkit.enchantments.Enchantment
 import org.bukkit.entity.Player
 
-class RageUltimate: Ultimate("rage", "Rage", 100.0) {
-    override fun getDescription(): Component = createSimpleDescription("Gain thorns 10 for 10s.")
+class RageUltimate: Ultimate("rage", "Rage", 10.0, Material.RAVAGER_SPAWN_EGG) {
+    override fun getDescription() = createSimpleDescriptionAsList("Gain thorns 10 for 10s.")
 
-    override fun onAbility(player: Player) {
+    override fun onAbility(player: Player): Boolean {
         player.isGlowing = true
 
         for (armorContent in player.inventory.armorContents) {
@@ -25,5 +25,7 @@ class RageUltimate: Ultimate("rage", "Rage", 100.0) {
                 }
             }
         }.runTaskLater(KitPvp.INSTANCE, 10 * 20)
+
+        return true
     }
 }
