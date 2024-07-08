@@ -108,7 +108,7 @@ object Guis {
         TRAINER.createPage("abilities", Component.text("Abilities"), 6) { page, player ->
             val extendedPlayer = ExtendedPlayer.from(player)
 
-            for ((i, ability) in KitPvp.INSTANCE.abilityHandler.abilities.values.withIndex()) {
+            for ((i, ability) in KitPvp.INSTANCE.abilityHandler.abilities.values.sortedBy { it.name }.withIndex()) {
                 val item = ability.getItem()
 
                 if (ability.id in extendedPlayer.selectedSetup.abilities) {
@@ -135,7 +135,7 @@ object Guis {
         TRAINER.createPage("ultimates", Component.text("Ultimates"), 6) { page, player ->
             val extendedPlayer = ExtendedPlayer.from(player)
 
-            for ((i, ultimate) in KitPvp.INSTANCE.ultimateHandler.ultimates.values.withIndex()) {
+            for ((i, ultimate) in KitPvp.INSTANCE.ultimateHandler.ultimates.values.sortedBy { it.name }.withIndex()) {
                 val item = ultimate.getItem()
 
                 if (ultimate.id == extendedPlayer.selectedSetup.ultimate) {
@@ -400,7 +400,8 @@ object Guis {
         INVENTORY.createPage("weapons", Component.text("Weapongs"), 6) { page, player ->
             val extendedPlayer = ExtendedPlayer.from(player)
 
-            for ((i, weapon) in KitPvp.INSTANCE.customItemHandler.customItems.values.filter { it.material.equipmentSlot == EquipmentSlot.HAND }.withIndex()) {
+            for ((i, weapon) in KitPvp.INSTANCE.customItemHandler.customItems.values
+                .filter { it.material.equipmentSlot == EquipmentSlot.HAND }.sortedBy { it.name }.withIndex()) {
                 val item = weapon.build()
 
                 item.editMeta {
