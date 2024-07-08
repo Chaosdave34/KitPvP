@@ -6,20 +6,17 @@ import io.github.chaosdave34.kitpvp.utils.Describable
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
-import org.bukkit.GameMode
-import org.bukkit.Material
-import org.bukkit.NamespacedKey
+import org.bukkit.*
 import org.bukkit.entity.Entity
 import org.bukkit.entity.Player
 import org.bukkit.event.Listener
 import org.bukkit.inventory.ItemStack
 import org.bukkit.persistence.PersistentDataType
-import org.bukkit.scheduler.BukkitRunnable
 import java.util.*
 
 
 abstract class Ability(val id: String, val name: String, val cooldown: Int, val manaCost: Int, val icon: Material) : Listener, Describable {
-    private var playerCooldown: MutableMap<UUID, Long> = mutableMapOf()
+    private var playerCooldown: MutableList<UUID> = mutableListOf()
 
     abstract fun getDescription(): List<Component>
 
@@ -28,13 +25,24 @@ abstract class Ability(val id: String, val name: String, val cooldown: Int, val 
     fun getItem(): ItemStack {
         val itemStack = ItemStack.of(icon)
 
-        val lore: MutableList<Component> = mutableListOf(Component.text("Ability:", NamedTextColor.GREEN).append(Component.text(name, NamedTextColor.GOLD)))
-        lore.addAll(getDescription())
+        val name = Component.text("Ability: ", NamedTextColor.GREEN)
+            .append(Component.text(name, NamedTextColor.GOLD))
+            .decoration(TextDecoration.ITALIC, false)
+
+        val lore = getDescription() as MutableList
+        lore.add(
+            Component.text("Cooldown: ", NamedTextColor.DARK_GRAY).append(Component.text("${cooldown}s", NamedTextColor.GREEN))
+                .decoration(TextDecoration.ITALIC, false)
+        )
+        lore.add(
+            Component.text("Mana Cost: ", NamedTextColor.DARK_GRAY).append(Component.text("$manaCost ʬ", NamedTextColor.DARK_AQUA))
+                .decoration(TextDecoration.ITALIC, false)
+        )
 
         itemStack.editMeta {
-            it.displayName(Component.text(name, NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false))
-            it.persistentDataContainer.set(NamespacedKey(KitPvp.INSTANCE, "ability"), PersistentDataType.STRING, id)
+            it.displayName(name)
             it.lore(lore)
+            it.persistentDataContainer.set(NamespacedKey(KitPvp.INSTANCE, "ability"), PersistentDataType.STRING, id)
         }
 
         return itemStack
@@ -43,34 +51,16 @@ abstract class Ability(val id: String, val name: String, val cooldown: Int, val 
     fun handleAbility(player: Player) {
         if (player.gameMode == GameMode.SPECTATOR) return
 
-        if (playerCooldown.containsKey(player.uniqueId)) {
-            player.sendMessage(Component.text("This ability is on cooldown for " + playerCooldown[player.uniqueId] + "s.", NamedTextColor.RED))
+        if (playerCooldown.contains(player.uniqueId)) {
+            player.playSound(player.location, Sound.BLOCK_NOTE_BLOCK_DIDGERIDOO, 1f, 0.5f)
         } else {
             val success = onAbility(player)
 
             if (success) {
-//                if (KitPvp.INSTANCE.customEventHandler.activeEvent === CustomEventHandler.HALVED_COOLDOWN_EVENT) playerCooldown[player.uniqueId] =
-//                    max((cooldown / 2).toDouble(), 1.0).toLong()
-//                else playerCooldown[player.uniqueId] = cooldown.toLong()
+                player.setCooldown(icon, cooldown * 20)
+                playerCooldown.add(player.uniqueId)
 
-                playerCooldown[player.uniqueId] = cooldown.toLong()
-
-                object : BukkitRunnable() {
-                    override fun run() {
-                        var currentCooldown = playerCooldown[player.uniqueId] ?: return
-                        currentCooldown--
-                        playerCooldown[player.uniqueId] = currentCooldown
-                        if (currentCooldown == 0L) {
-                            playerCooldown.remove(player.uniqueId)
-
-                            val availableMessage: Component = Component.text("Ability ", NamedTextColor.GREEN)
-                                .append(Component.text(name, NamedTextColor.GOLD))
-                                .append(Component.text(" is now available.", NamedTextColor.GREEN))
-                            player.sendMessage(availableMessage)
-                            this.cancel()
-                        }
-                    }
-                }.runTaskTimer(KitPvp.INSTANCE, 20, 20)
+                Bukkit.getScheduler().runTaskLater(KitPvp.INSTANCE, Runnable { playerCooldown.remove(player.uniqueId) }, cooldown * 20L)
             }
         }
     }

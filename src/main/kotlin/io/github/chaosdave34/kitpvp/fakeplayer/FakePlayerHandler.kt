@@ -81,7 +81,7 @@ class FakePlayerHandler : Listener {
 
         val addPlayerPacket = ClientboundPlayerInfoUpdatePacket(ClientboundPlayerInfoUpdatePacket.Action.ADD_PLAYER, nmsFakePlayer)
         val spawnEntityPacket = ClientboundAddEntityPacket(nmsFakePlayer, serverEntity)
-        val setEntityDataPacket = ClientboundSetEntityDataPacket(nmsFakePlayer.id, nmsFakePlayer.entityData.packAll() ?: listOf())
+        val setEntityDataPacket = ClientboundSetEntityDataPacket(nmsFakePlayer.id, nmsFakePlayer.entityData.packAll() ?: emptyList())
 
         val setEquipmentPacket = ClientboundSetEquipmentPacket(nmsFakePlayer.id, nmsFakePlayer.getEquipment())
 
@@ -104,7 +104,7 @@ class FakePlayerHandler : Listener {
         if (player.canSee(fakePlayer) && player.world == fakePlayer.world) {
             val addPlayerPacket = ClientboundPlayerInfoUpdatePacket(ClientboundPlayerInfoUpdatePacket.Action.ADD_PLAYER, nmsFakePlayer)
             val spawnEntityPacket = ClientboundAddEntityPacket(nmsFakePlayer, serverEntity)
-            val setEntityDataPacket = ClientboundSetEntityDataPacket(nmsFakePlayer.id, nmsFakePlayer.entityData.packAll() ?: listOf())
+            val setEntityDataPacket = ClientboundSetEntityDataPacket(nmsFakePlayer.id, nmsFakePlayer.entityData.packAll() ?: emptyList())
             val setEquipmentPacket = ClientboundSetEquipmentPacket(nmsFakePlayer.id, nmsFakePlayer.getEquipment())
 
             player.sendPackets(addPlayerPacket, spawnEntityPacket, setEntityDataPacket, setEquipmentPacket)

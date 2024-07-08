@@ -7,8 +7,8 @@ import org.bukkit.Location
 import org.bukkit.World
 import java.util.function.Consumer
 
-fun World.createFakePlayer(location: Location, name: String, function: Consumer<FakePlayer>): FakePlayer =
+fun World.createFakePlayer(location: Location, name: String, function: Consumer<FakePlayer> = Consumer {  }): FakePlayer =
     KitPvp.INSTANCE.fakePlayerHandler.spawnFakePlayer(this, location, name, function)
 
-fun World.createTextDisplay(location: Location, function: Consumer<CustomTextDisplay>): CustomTextDisplay =
+fun World.createTextDisplay(location: Location, function: Consumer<CustomTextDisplay> = Consumer {  }): CustomTextDisplay =
     KitPvp.INSTANCE.textDisplayHandler.spawnTextDisplay(this, location, function)

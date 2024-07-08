@@ -15,6 +15,20 @@ object FakePlayers {
     fun create() {
         val world = Bukkit.getWorld("world")
         if (world != null) {
+            world.createFakePlayer(Location(null, -8.5, 120.0, 5.5, -90f, 0f), "Weapon Smith")
+
+
+            world.createFakePlayer(Location(null, -8.5, 120.0, 3.5, -90f, 0f), "Armorer")
+
+
+            world.createFakePlayer(Location(null, -8.5, 120.0, 0.5, -90f, 0f), "Trainer") {
+                it.setInteractionEventConsumer { event ->
+                    event.player.openGui(Guis.ABILITY_SELECTOR)
+                }
+            }
+
+            world.createFakePlayer(Location(null, -8.5, 120.0, -1.5, -90f, 0f), "Cleric")
+
             // Elytra PvP
             world.createFakePlayer(Location(null, -1.5, 120.0, 6.5, -45f, 0f), "Elytra PvP") {
                 it.equipment.setItemInOffHand(ItemStack.of(Material.FIREWORK_ROCKET))

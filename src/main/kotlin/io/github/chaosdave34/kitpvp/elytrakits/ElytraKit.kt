@@ -34,7 +34,7 @@ abstract class ElytraKit(val id: String, val name: String, val icon: Material) :
 
     open fun getKillRewards(): Array<ItemStack> = arrayOf()
 
-    open fun getPotionEffects(): Map<PotionEffectType, Int> = mapOf()
+    open fun getPotionEffects() = emptyMap<PotionEffectType, Int>()
 
     fun apply(player: Player) {
         val extendedPlayer = ExtendedPlayer.from(player)

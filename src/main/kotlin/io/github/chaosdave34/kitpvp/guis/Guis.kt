@@ -6,12 +6,9 @@ import io.github.chaosdave34.kitpvp.KitPvp
 import io.github.chaosdave34.kitpvp.elytrakits.ElytraKit
 import io.github.chaosdave34.kitpvp.elytrakits.ElytraKitHandler
 import io.github.chaosdave34.kitpvp.guis.GuiHandler.Companion.hideAttributes
-import io.github.chaosdave34.kitpvp.elytrakits.ElytraKit
-import io.github.chaosdave34.kitpvp.elytrakits.ElytraKitHandler
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
-import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemFlag
@@ -21,6 +18,7 @@ import kotlin.math.max
 
 object Guis {
     val SERVER_SELECTOR = Gui("default")
+    val ABILITY_SELECTOR = Gui("default")
     val ELYTRA_KITS = Gui("default")
     val COSMETICS = Gui("overview")
 
@@ -46,7 +44,6 @@ object Guis {
             survivalButton.editMeta {
                 it.displayName(Component.text("Survival", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false))
                 it.lore(listOf(Component.text("(whitelisted)", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false)))
-                Bukkit.getLogger().info(it.attributeModifiers.toString())
                 it.addItemFlags(ItemFlag.HIDE_ADDITIONAL_TOOLTIP)
                 it.hideAttributes()
             }
@@ -61,6 +58,30 @@ object Guis {
 
             page.createCloseButton(31)
             page.fillEmpty()
+        }
+
+        ABILITY_SELECTOR.createDefaultPage(Component.text("Abilities"), 6) { page, player ->
+            val extendedPlayer = ExtendedPlayer.from(player)
+
+            for ((i, ability) in KitPvp.INSTANCE.abilityHandler.abilities.map { it.value }.withIndex()) {
+                val item = ability.getItem()
+
+                if (ability.id in extendedPlayer.selectedSetup.abilities) {
+                    item.editMeta {
+                        it.setEnchantmentGlintOverride(true)
+                        it.displayName(it.displayName()?.color(NamedTextColor.GREEN))
+                    }
+                }
+
+                page.createButton(i, item) { event ->
+                    val eventExtendedPlayer = ExtendedPlayer.from(event.whoClicked as Player)
+                    eventExtendedPlayer.selectedSetup.addAbility(ability)
+                    ABILITY_SELECTOR.open(player) // Todo: Improve updating inv
+                }
+
+                page.createCloseButton(49)
+                page.fillEmpty()
+            }
         }
 
         ELYTRA_KITS.createDefaultPage(Component.text("Kits"), 5) { page, player ->
