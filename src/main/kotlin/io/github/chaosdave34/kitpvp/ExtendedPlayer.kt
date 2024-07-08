@@ -9,11 +9,13 @@ import io.github.chaosdave34.kitpvp.textdisplays.TextDisplays
 import io.github.chaosdave34.kitpvp.ultimates.Ultimate
 import io.github.chaosdave34.kitpvp.utils.MathUtils
 import net.kyori.adventure.text.Component
+import net.kyori.adventure.text.JoinConfiguration
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
 import org.bukkit.Bukkit
 import org.bukkit.GameMode
 import org.bukkit.Location
+import org.bukkit.attribute.Attribute
 import org.bukkit.entity.*
 import org.bukkit.event.inventory.InventoryCloseEvent
 import org.bukkit.metadata.FixedMetadataValue
@@ -23,6 +25,7 @@ import org.bukkit.scoreboard.Criteria
 import org.bukkit.scoreboard.DisplaySlot
 import org.bukkit.scoreboard.Scoreboard
 import java.util.*
+import kotlin.math.round
 import kotlin.math.roundToInt
 import kotlin.reflect.KClass
 
@@ -172,6 +175,14 @@ class ExtendedPlayer(val uuid: UUID) {
                 gameState = GameState.KITS_SPAWN
                 player.inventory.clear()
                 selectedSetup.apply()
+
+                object : BukkitRunnable() {
+                    override fun run() {
+                        if (gameType != GameType.KITS && getPlayer() == null) this.cancel()
+                        getPlayer()?.sendActionBar(createActionBarMessage())
+                    }
+
+                }.runTaskTimer(KitPvp.INSTANCE, 0, 20)
             }
 
             GameType.ELYTRA -> {
@@ -209,7 +220,7 @@ class ExtendedPlayer(val uuid: UUID) {
         getPlayer()?.scoreboard = scoreboard
     }
 
-    fun updateScoreboardLines() { // Todo: Rework scoreboard for kits gamemode
+    fun updateScoreboardLines() { // Todo: Rework scoreboard for kits game mode
         val objective = scoreboard.getObjective("default") ?: return
 
         scoreboard.entries.forEach { entry -> scoreboard.resetScores(entry) }
@@ -228,6 +239,29 @@ class ExtendedPlayer(val uuid: UUID) {
         objective.getScore("Kill Streak: $killStreak").score = 2
         objective.getScore("  ").score = 1
         objective.getScore("Status: " + (if (combatCooldown > 0) "§cFighting" else gameState.displayName)).score = 0
+    }
+
+    fun createActionBarMessage(): Component {
+        val player = getPlayer() ?: return Component.text("")
+
+        var health = player.health
+        health = round(health * 10) / 10
+        val maxHealth = player.getAttribute(Attribute.GENERIC_MAX_HEALTH)?.value ?: 20.0
+
+        val mana = 100.0 // Dummy values
+        val maxMana = 100.0
+
+        var damageStacks = KitPvp.INSTANCE.ultimateHandler.damageStacksCollected[player.uniqueId] ?: 0.0
+        damageStacks = round(damageStacks * 10) / 10
+        val enoughDamageStacks = damageStacks >= (KitPvp.INSTANCE.ultimateHandler.ultimates[selectedSetup.ultimate]?.damageStackCost ?: 0.0)
+
+        val message = listOf(
+            Component.text("$health/$maxHealth ❤", NamedTextColor.RED),
+            Component.text("$mana/$maxMana ʬ", NamedTextColor.DARK_AQUA),
+            Component.text("$damageStacks ☄", NamedTextColor.DARK_RED).decoration(TextDecoration.BOLD, enoughDamageStacks)
+        )
+
+        return Component.join(JoinConfiguration.separator(Component.text("   ")), message)
     }
 
     fun updatePlayerListFooter() {

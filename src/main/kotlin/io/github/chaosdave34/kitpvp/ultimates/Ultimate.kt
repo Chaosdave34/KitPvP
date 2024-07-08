@@ -31,7 +31,7 @@ abstract class Ultimate(val id: String, val name: String, val damageStackCost: D
         val lore = getDescription() as MutableList
         lore.add(
             Component.text("Damage Stack Cost: ", NamedTextColor.DARK_GRAY)
-                .append(Component.text("$damageStackCost ☄", NamedTextColor.RED))
+                .append(Component.text("$damageStackCost ☄", NamedTextColor.DARK_RED))
                 .decoration(TextDecoration.ITALIC, false)
         )
 
@@ -47,11 +47,12 @@ abstract class Ultimate(val id: String, val name: String, val damageStackCost: D
     fun handleUltimate(player: Player) {
         if (player.gameMode == GameMode.SPECTATOR) return
 
-        if ((KitPvp.INSTANCE.ultimateHandler.damageStacksCollected[player.uniqueId] ?: 0.0) >= damageStackCost) {
+        val currentStack = KitPvp.INSTANCE.ultimateHandler.damageStacksCollected[player.uniqueId] ?: 0.0
+        if (currentStack >= damageStackCost) {
             val success = onAbility(player)
 
             if (success) {
-                KitPvp.INSTANCE.ultimateHandler.damageStacksCollected[player.uniqueId] = 0.0
+                KitPvp.INSTANCE.ultimateHandler.damageStacksCollected[player.uniqueId] = currentStack - damageStackCost
             }
         } else {
             player.playSound(player.location, Sound.BLOCK_NOTE_BLOCK_DIDGERIDOO, 1f, 0.5f)
