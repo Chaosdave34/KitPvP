@@ -32,7 +32,7 @@ object TextDisplays {
             }
 
             // Info
-            world.createTextDisplay(Location(null, -1.5, 121.5, 11.5)) {
+            world.createTextDisplay(Location(null, -1.5, 121.5, 12.5)) {
                 val text = listOf(
                     Component.text("Info:", NamedTextColor.GOLD, TextDecoration.BOLD),
                     Component.text("- Use /spawn to respawn"),
@@ -47,17 +47,17 @@ object TextDisplays {
             }
 
             // Personal Statistics
-            PERSONAL_STATISTICS_KITS = world.createTextDisplay(Location(null, 5.5, 121.5, 11.5)) {
+            PERSONAL_STATISTICS_KITS = world.createTextDisplay(Location(null, 5.5, 121.5, 12.5)) {
                 it.dynamicText = { player -> createPersonalStatisticsText(player, ExtendedPlayer.GameType.KITS) }
             }
 
             // Highest Kill Streaks
-            HIGHEST_KILL_STREAKS_KITS = world.createTextDisplay(Location(null, 4.5, 121.5, -8.5)) {
+            HIGHEST_KILL_STREAKS_KITS = world.createTextDisplay(Location(null, 4.5, 121.5, -9.5)) {
                 it.dynamicText = { _ -> createHighestKillStreaksText(ExtendedPlayer.GameType.KITS) }
             }
 
             // Highest Level
-            HIGHEST_LEVELS_KITS = world.createTextDisplay(Location(null, 0.5, 121.5, -8.5)) {
+            HIGHEST_LEVELS_KITS = world.createTextDisplay(Location(null, 0.5, 121.5, -9.5)) {
                 it.dynamicText = { _ -> createHighestLevelText() }
             }
         }
