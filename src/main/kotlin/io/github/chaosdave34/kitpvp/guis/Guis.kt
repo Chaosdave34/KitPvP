@@ -63,10 +63,10 @@ object Guis {
         }
 
         TRAINER.createDefaultPage(Component.text("Trainer"), 4) { page, player ->
-            val extendedPlayer = ExtendedPlayer.from(player)
+            val selectedSetup = ExtendedPlayer.from(player).selectedSetup
 
-            val selectedAbility1 = KitPvp.INSTANCE.abilityHandler.abilities[extendedPlayer.selectedSetup.abilities[0]]?.name ?: "None"
-            val selectedAbility2 = KitPvp.INSTANCE.abilityHandler.abilities[extendedPlayer.selectedSetup.abilities[1]]?.name ?: "None"
+            val selectedAbility1 = selectedSetup.getAbility1()?.name ?: "None"
+            val selectedAbility2 = selectedSetup.getAbility2()?.name ?: "None"
 
             val abilityButton = ItemStack.of(Material.BREEZE_ROD)
             abilityButton.editMeta {
@@ -84,7 +84,7 @@ object Guis {
                 TRAINER.openPage("abilities", player)
             }
 
-            val selectedUltimate = KitPvp.INSTANCE.ultimateHandler.ultimates[extendedPlayer.selectedSetup.ultimate]?.name ?: "None"
+            val selectedUltimate = selectedSetup.getUltimate()?.name ?: "None"
 
             val ultimateButton = ItemStack.of(Material.BLAZE_ROD)
             ultimateButton.editMeta {
@@ -155,6 +155,222 @@ object Guis {
                 page.createCloseButton(49)
                 page.fillEmpty()
             }
+        }
+
+        INVENTORY.createDefaultPage(Component.text("Shop"), 4) { page, player ->
+            val selectedSetup = ExtendedPlayer.from(player).selectedSetup
+
+            val selectedWeapon1 = selectedSetup.getWeapon1()?.name ?: "None"
+            val selectedWeapon2 = selectedSetup.getWeapon2()?.name ?: "None"
+
+            val weaponsButton = ItemStack.of(Material.IRON_SWORD)
+            weaponsButton.editMeta {
+                it.displayName(Component.text("Weapons", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false))
+                it.lore(
+                    listOf(
+                        Component.text("Selected:", NamedTextColor.DARK_GRAY).decoration(TextDecoration.ITALIC, false),
+                        Component.text(selectedWeapon1, NamedTextColor.YELLOW).decoration(TextDecoration.ITALIC, false),
+                        Component.text(selectedWeapon2, NamedTextColor.YELLOW).decoration(TextDecoration.ITALIC, false)
+                    )
+                )
+                it.addItemFlags(ItemFlag.HIDE_ADDITIONAL_TOOLTIP)
+                it.hideAttributes()
+            }
+            page.createButton(10, weaponsButton) { INVENTORY.openPage("weapons", player) }
+
+            val selectedHelmet = selectedSetup.getHelmet()?.name ?: "None"
+            val selectedChestplate = selectedSetup.getChestplate()?.name ?: "None"
+            val selectedLeggings = selectedSetup.getLeggings()?.name ?: "None"
+            val selectedBoots = selectedSetup.getBoots()?.name ?: "None"
+
+            val armorButton = ItemStack.of(Material.IRON_CHESTPLATE)
+            armorButton.editMeta {
+                it.displayName(Component.text("Armor", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false))
+                it.lore(
+                    listOf(
+                        Component.text("Selected:", NamedTextColor.DARK_GRAY).decoration(TextDecoration.ITALIC, false),
+                        Component.text(selectedHelmet, NamedTextColor.YELLOW).decoration(TextDecoration.ITALIC, false),
+                        Component.text(selectedChestplate, NamedTextColor.YELLOW).decoration(TextDecoration.ITALIC, false),
+                        Component.text(selectedLeggings, NamedTextColor.YELLOW).decoration(TextDecoration.ITALIC, false),
+                        Component.text(selectedBoots, NamedTextColor.YELLOW).decoration(TextDecoration.ITALIC, false)
+                    )
+                )
+                it.addItemFlags(ItemFlag.HIDE_ADDITIONAL_TOOLTIP)
+                it.hideAttributes()
+            }
+            page.createButton(12, armorButton) { INVENTORY.openPage("armor", player) }
+
+            val selectedPassive = selectedSetup.getPassive()?.name ?: "None"
+
+            val passivesButton = ItemStack.of(Material.GLASS_PANE)
+            passivesButton.editMeta {
+                it.displayName(Component.text("Passives", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false))
+                it.lore(
+                    listOf(
+                        Component.text("Selected: ", NamedTextColor.DARK_GRAY).decoration(TextDecoration.ITALIC, false),
+                        Component.text(selectedPassive, NamedTextColor.LIGHT_PURPLE).decoration(TextDecoration.ITALIC, false)
+                    )
+                )
+            }
+            page.createButton(14, passivesButton) { INVENTORY.openPage("passives", player) }
+
+            val potionButton = ItemStack.of(Material.POTION)
+            potionButton.editMeta {
+                it.displayName(Component.text("Potions", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false))
+                it.addItemFlags(ItemFlag.HIDE_ADDITIONAL_TOOLTIP)
+            }
+            page.createButton(16, potionButton) { INVENTORY.openPage("potions", player) }
+
+            page.createCloseButton(31)
+            page.fillEmpty()
+        }
+
+        INVENTORY.createPage("weapons", Component.text("Weapons"), 6) { page, player ->
+            val extendedPlayer = ExtendedPlayer.from(player)
+
+            for ((i, weapon) in KitPvp.INSTANCE.customItemHandler.customItems.values
+                .filter { it.material.equipmentSlot == EquipmentSlot.HAND }.sortedBy { it.name }.withIndex()) {
+                val item = weapon.build()
+
+                item.editMeta {
+                    if (weapon.id in extendedPlayer.selectedSetup.weapons) {
+                        it.setEnchantmentGlintOverride(true)
+                        it.displayName(it.displayName()?.color(NamedTextColor.GREEN))
+                    } else {
+                        it.setEnchantmentGlintOverride(false)
+                        it.displayName(it.displayName()?.color(NamedTextColor.WHITE))
+                    }
+                }
+
+                page.createButton(i, item) {
+                    extendedPlayer.selectedSetup.addWeapon(weapon)
+                    INVENTORY.openPage("weapons", player) // Todo: Improve updating inv
+                }
+            }
+
+            page.createButton(48, Material.ARROW, Component.text("Back").decoration(TextDecoration.ITALIC, false)) { INVENTORY.open(player) }
+            page.createCloseButton(49)
+            page.fillEmpty()
+        }
+
+        INVENTORY.createPage("armor", Component.text("Armor"), 6) { page, player ->
+            val extendedPlayer = ExtendedPlayer.from(player)
+
+            var slot = 0
+
+            val customItems = KitPvp.INSTANCE.customItemHandler.customItems.values
+
+            for (helmet in customItems.filter { it.material.equipmentSlot == EquipmentSlot.HEAD }.sortedBy { it.name }) {
+                val item = helmet.build()
+                item.editMeta {
+                    if (helmet.id == extendedPlayer.selectedSetup.helmet) {
+                        it.setEnchantmentGlintOverride(true)
+                        it.displayName(it.displayName()?.color(NamedTextColor.GREEN))
+                    } else {
+                        it.setEnchantmentGlintOverride(false)
+                        it.displayName(it.displayName()?.color(NamedTextColor.WHITE))
+                    }
+                }
+
+                page.createButton(slot, item) {
+                    extendedPlayer.selectedSetup.setHelmet(helmet)
+                    INVENTORY.openPage("armor", player) // Todo: Improve updating inv
+                }
+
+                slot++
+            }
+
+            for (chestplate in customItems.filter { it.material.equipmentSlot == EquipmentSlot.CHEST }.sortedBy { it.name }) {
+                val item = chestplate.build()
+                item.editMeta {
+                    if (chestplate.id == extendedPlayer.selectedSetup.chestplate) {
+                        it.setEnchantmentGlintOverride(true)
+                        it.displayName(it.displayName()?.color(NamedTextColor.GREEN))
+                    } else {
+                        it.setEnchantmentGlintOverride(false)
+                        it.displayName(it.displayName()?.color(NamedTextColor.WHITE))
+                    }
+                }
+
+                page.createButton(slot, item) {
+                    extendedPlayer.selectedSetup.setChestplate(chestplate)
+                    INVENTORY.openPage("armor", player) // Todo: Improve updating inv
+                }
+
+                slot++
+            }
+
+            for (leggings in customItems.filter { it.material.equipmentSlot == EquipmentSlot.LEGS }.sortedBy { it.name }) {
+                val item = leggings.build()
+                item.editMeta {
+                    if (leggings.id == extendedPlayer.selectedSetup.leggings) {
+                        it.setEnchantmentGlintOverride(true)
+                        it.displayName(it.displayName()?.color(NamedTextColor.GREEN))
+                    } else {
+                        it.setEnchantmentGlintOverride(false)
+                        it.displayName(it.displayName()?.color(NamedTextColor.WHITE))
+                    }
+                }
+
+                page.createButton(slot, item) {
+                    extendedPlayer.selectedSetup.setLeggins(leggings)
+                    INVENTORY.openPage("armor", player) // Todo: Improve updating inv
+                }
+
+                slot++
+            }
+
+            for (boots in customItems.filter { it.material.equipmentSlot == EquipmentSlot.FEET }.sortedBy { it.name }) {
+                val item = boots.build()
+                item.editMeta {
+                    if (boots.id == extendedPlayer.selectedSetup.boots) {
+                        it.setEnchantmentGlintOverride(true)
+                        it.displayName(it.displayName()?.color(NamedTextColor.GREEN))
+                    } else {
+                        it.setEnchantmentGlintOverride(false)
+                        it.displayName(it.displayName()?.color(NamedTextColor.WHITE))
+                    }
+                }
+
+                page.createButton(slot, item) {
+                    extendedPlayer.selectedSetup.setBoots(boots)
+                    INVENTORY.openPage("armor", player) // Todo: Improve updating inv
+                }
+
+                slot++
+            }
+
+            page.createButton(48, Material.ARROW, Component.text("Back").decoration(TextDecoration.ITALIC, false)) { INVENTORY.open(player) }
+            page.createCloseButton(49)
+            page.fillEmpty()
+        }
+
+        INVENTORY.createPage("passives", Component.text("Passives"), 6) { page, player ->
+            val extendedPlayer = ExtendedPlayer.from(player)
+
+            for ((i, passive) in KitPvp.INSTANCE.passiveHandler.passives.values.sortedBy { it.name }.withIndex()) {
+                val item = passive.getItem()
+
+                item.editMeta {
+                    if (passive.id == extendedPlayer.selectedSetup.passive) {
+                        it.setEnchantmentGlintOverride(true)
+                        it.displayName(it.displayName()?.color(NamedTextColor.GREEN))
+                    } else {
+                        it.setEnchantmentGlintOverride(false)
+                        it.displayName(it.displayName()?.color(NamedTextColor.WHITE))
+                    }
+                }
+
+                page.createButton(i, item) {
+                    extendedPlayer.selectedSetup.setPassive(passive)
+                    INVENTORY.openPage("passives", player) // Todo: Improve updating inv
+                }
+            }
+
+
+            page.createButton(48, Material.ARROW, Component.text("Back").decoration(TextDecoration.ITALIC, false)) { INVENTORY.open(player) }
+            page.createCloseButton(49)
+            page.fillEmpty()
         }
 
         ELYTRA_KITS.createDefaultPage(Component.text("Kits"), 5) { page, player ->
@@ -347,224 +563,6 @@ object Guis {
 
                 j++
             }
-        }
-
-        INVENTORY.createDefaultPage(Component.text("Shop"), 4) { page, player ->
-            val extendedPlayer = ExtendedPlayer.from(player)
-
-            val customItems = KitPvp.INSTANCE.customItemHandler.customItems
-
-            val selectedWeapon1 = customItems[extendedPlayer.selectedSetup.weapons[0]]?.name ?: "None"
-            val selectedWeapon2 = customItems[extendedPlayer.selectedSetup.weapons[1]]?.name ?: "None"
-
-            val weaponsButton = ItemStack.of(Material.IRON_SWORD)
-            weaponsButton.editMeta {
-                it.displayName(Component.text("Weapons", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false))
-                it.lore(
-                    listOf(
-                        Component.text("Selected:", NamedTextColor.DARK_GRAY).decoration(TextDecoration.ITALIC, false),
-                        Component.text(selectedWeapon1, NamedTextColor.YELLOW).decoration(TextDecoration.ITALIC, false),
-                        Component.text(selectedWeapon2, NamedTextColor.YELLOW).decoration(TextDecoration.ITALIC, false)
-                    )
-                )
-                it.addItemFlags(ItemFlag.HIDE_ADDITIONAL_TOOLTIP)
-                it.hideAttributes()
-            }
-            page.createButton(10, weaponsButton) { INVENTORY.openPage("weapons", player) }
-
-            val selectedHelmet = customItems[extendedPlayer.selectedSetup.helmet]?.name ?: "None"
-            val selectedChestplate = customItems[extendedPlayer.selectedSetup.chestplate]?.name ?: "None"
-            val selectedLeggings = customItems[extendedPlayer.selectedSetup.leggings]?.name ?: "None"
-            val selectedBoots = customItems[extendedPlayer.selectedSetup.boots]?.name ?: "None"
-
-            val armorButton = ItemStack.of(Material.IRON_CHESTPLATE)
-            armorButton.editMeta {
-                it.displayName(Component.text("Armor", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false))
-                it.lore(
-                    listOf(
-                        Component.text("Selected:", NamedTextColor.DARK_GRAY).decoration(TextDecoration.ITALIC, false),
-                        Component.text(selectedHelmet, NamedTextColor.YELLOW).decoration(TextDecoration.ITALIC, false),
-                        Component.text(selectedChestplate, NamedTextColor.YELLOW).decoration(TextDecoration.ITALIC, false),
-                        Component.text(selectedLeggings, NamedTextColor.YELLOW).decoration(TextDecoration.ITALIC, false),
-                        Component.text(selectedBoots, NamedTextColor.YELLOW).decoration(TextDecoration.ITALIC, false)
-                    )
-                )
-                it.addItemFlags(ItemFlag.HIDE_ADDITIONAL_TOOLTIP)
-                it.hideAttributes()
-            }
-            page.createButton(12, armorButton) { INVENTORY.openPage("armor", player) }
-
-            val selectedPassive = KitPvp.INSTANCE.passiveHandler.passives[extendedPlayer.selectedSetup.passive]?.name ?: "None"
-
-            val passivesButton = ItemStack.of(Material.GLASS_PANE)
-            passivesButton.editMeta {
-                it.displayName(Component.text("Passives", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false))
-                it.lore(
-                    listOf(
-                        Component.text("Selected: ", NamedTextColor.DARK_GRAY).decoration(TextDecoration.ITALIC, false),
-                        Component.text(selectedPassive, NamedTextColor.LIGHT_PURPLE).decoration(TextDecoration.ITALIC, false)
-                    )
-                )
-            }
-            page.createButton(14, passivesButton) { INVENTORY.openPage("passives", player) }
-
-            val potionButton = ItemStack.of(Material.POTION)
-            potionButton.editMeta {
-                it.displayName(Component.text("Potions", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false))
-                it.addItemFlags(ItemFlag.HIDE_ADDITIONAL_TOOLTIP)
-            }
-            page.createButton(16, potionButton) { INVENTORY.openPage("potions", player) }
-
-            page.createCloseButton(31)
-            page.fillEmpty()
-        }
-
-        INVENTORY.createPage("weapons", Component.text("Weapons"), 6) { page, player ->
-            val extendedPlayer = ExtendedPlayer.from(player)
-
-            for ((i, weapon) in KitPvp.INSTANCE.customItemHandler.customItems.values
-                .filter { it.material.equipmentSlot == EquipmentSlot.HAND }.sortedBy { it.name }.withIndex()) {
-                val item = weapon.build()
-
-                item.editMeta {
-                    if (weapon.id in extendedPlayer.selectedSetup.weapons) {
-                        it.setEnchantmentGlintOverride(true)
-                        it.displayName(it.displayName()?.color(NamedTextColor.GREEN))
-                    } else {
-                        it.setEnchantmentGlintOverride(false)
-                        it.displayName(it.displayName()?.color(NamedTextColor.WHITE))
-                    }
-                }
-
-                page.createButton(i, item) {
-                    extendedPlayer.selectedSetup.addWeapon(weapon)
-                    INVENTORY.openPage("weapons", player) // Todo: Improve updating inv
-                }
-            }
-
-            page.createButton(48, Material.ARROW, Component.text("Back").decoration(TextDecoration.ITALIC, false)) { INVENTORY.open(player) }
-            page.createCloseButton(49)
-            page.fillEmpty()
-        }
-
-        INVENTORY.createPage("armor", Component.text("Armor"), 6) { page, player ->
-            val extendedPlayer = ExtendedPlayer.from(player)
-
-            var slot = 0
-
-            val customItems = KitPvp.INSTANCE.customItemHandler.customItems.values
-
-            for (helmet in customItems.filter { it.material.equipmentSlot == EquipmentSlot.HEAD }.sortedBy { it.name }) {
-                val item = helmet.build()
-                item.editMeta {
-                    if (helmet.id == extendedPlayer.selectedSetup.helmet) {
-                        it.setEnchantmentGlintOverride(true)
-                        it.displayName(it.displayName()?.color(NamedTextColor.GREEN))
-                    } else {
-                        it.setEnchantmentGlintOverride(false)
-                        it.displayName(it.displayName()?.color(NamedTextColor.WHITE))
-                    }
-                }
-
-                page.createButton(slot, item) {
-                    extendedPlayer.selectedSetup.setHelmet(helmet)
-                    INVENTORY.openPage("armor", player) // Todo: Improve updating inv
-                }
-
-                slot++
-            }
-
-            for (chestplate in customItems.filter { it.material.equipmentSlot == EquipmentSlot.CHEST }.sortedBy { it.name }) {
-                val item = chestplate.build()
-                item.editMeta {
-                    if (chestplate.id == extendedPlayer.selectedSetup.chestplate) {
-                        it.setEnchantmentGlintOverride(true)
-                        it.displayName(it.displayName()?.color(NamedTextColor.GREEN))
-                    } else {
-                        it.setEnchantmentGlintOverride(false)
-                        it.displayName(it.displayName()?.color(NamedTextColor.WHITE))
-                    }
-                }
-
-                page.createButton(slot, item) {
-                    extendedPlayer.selectedSetup.setChestplate(chestplate)
-                    INVENTORY.openPage("armor", player) // Todo: Improve updating inv
-                }
-
-                slot++
-            }
-
-            for (leggings in customItems.filter { it.material.equipmentSlot == EquipmentSlot.LEGS }.sortedBy { it.name }) {
-                val item = leggings.build()
-                item.editMeta {
-                    if (leggings.id == extendedPlayer.selectedSetup.leggings) {
-                        it.setEnchantmentGlintOverride(true)
-                        it.displayName(it.displayName()?.color(NamedTextColor.GREEN))
-                    } else {
-                        it.setEnchantmentGlintOverride(false)
-                        it.displayName(it.displayName()?.color(NamedTextColor.WHITE))
-                    }
-                }
-
-                page.createButton(slot, item) {
-                    extendedPlayer.selectedSetup.setLeggins(leggings)
-                    INVENTORY.openPage("armor", player) // Todo: Improve updating inv
-                }
-
-                slot++
-            }
-
-            for (boots in customItems.filter { it.material.equipmentSlot == EquipmentSlot.FEET }.sortedBy { it.name }) {
-                val item = boots.build()
-                item.editMeta {
-                    if (boots.id == extendedPlayer.selectedSetup.boots) {
-                        it.setEnchantmentGlintOverride(true)
-                        it.displayName(it.displayName()?.color(NamedTextColor.GREEN))
-                    } else {
-                        it.setEnchantmentGlintOverride(false)
-                        it.displayName(it.displayName()?.color(NamedTextColor.WHITE))
-                    }
-                }
-
-                page.createButton(slot, item) {
-                    extendedPlayer.selectedSetup.setBoots(boots)
-                    INVENTORY.openPage("armor", player) // Todo: Improve updating inv
-                }
-
-                slot++
-            }
-
-            page.createButton(48, Material.ARROW, Component.text("Back").decoration(TextDecoration.ITALIC, false)) { INVENTORY.open(player) }
-            page.createCloseButton(49)
-            page.fillEmpty()
-        }
-
-        INVENTORY.createPage("passives", Component.text("Passives"), 6) {page, player ->
-            val extendedPlayer = ExtendedPlayer.from(player)
-
-            for ((i, passive) in KitPvp.INSTANCE.passiveHandler.passives.values.sortedBy { it.name }.withIndex()) {
-                val item = passive.getItem()
-
-                item.editMeta {
-                    if (passive.id == extendedPlayer.selectedSetup.passive) {
-                        it.setEnchantmentGlintOverride(true)
-                        it.displayName(it.displayName()?.color(NamedTextColor.GREEN))
-                    } else {
-                        it.setEnchantmentGlintOverride(false)
-                        it.displayName(it.displayName()?.color(NamedTextColor.WHITE))
-                    }
-                }
-
-                page.createButton(i, item) {
-                    extendedPlayer.selectedSetup.setPassive(passive)
-                    INVENTORY.openPage("passives", player) // Todo: Improve updating inv
-                }
-            }
-
-
-            page.createButton(48, Material.ARROW, Component.text("Back").decoration(TextDecoration.ITALIC, false)) { INVENTORY.open(player) }
-            page.createCloseButton(49)
-            page.fillEmpty()
         }
     }
 }

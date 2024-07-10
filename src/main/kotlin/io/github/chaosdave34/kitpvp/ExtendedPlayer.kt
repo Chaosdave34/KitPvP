@@ -21,7 +21,6 @@ import org.bukkit.Material
 import org.bukkit.attribute.Attribute
 import org.bukkit.entity.*
 import org.bukkit.event.inventory.InventoryCloseEvent
-import org.bukkit.inventory.Inventory
 import org.bukkit.inventory.ItemStack
 import org.bukkit.metadata.FixedMetadataValue
 import org.bukkit.potion.PotionEffect
@@ -282,7 +281,7 @@ class ExtendedPlayer(val uuid: UUID) {
 
         var damageStacks = attributes.damageStack
         damageStacks = round(damageStacks * 10) / 10
-        val enoughDamageStacks = damageStacks >= (KitPvp.INSTANCE.ultimateHandler.ultimates[selectedSetup.ultimate]?.damageStackCost ?: 0.0)
+        val enoughDamageStacks = damageStacks >= (selectedSetup.getUltimate()?.damageStackCost ?: 0.0)
 
         val message = listOf(
             Component.text("$health/$maxHealth ❤", NamedTextColor.RED),
@@ -634,25 +633,36 @@ class ExtendedPlayer(val uuid: UUID) {
 
         val potions: Array<PotionEffect?> = arrayOfNulls(2)
 
+        fun getHelmet() = KitPvp.INSTANCE.customItemHandler.customItems[helmet]
+
         fun setHelmet(helmet: CustomItem) {
             this.helmet = helmet.id
             extendedPlayer?.getPlayer()?.inventory?.helmet = helmet.build()
         }
+
+        fun getChestplate() = KitPvp.INSTANCE.customItemHandler.customItems[chestplate]
 
         fun setChestplate(chestplate: CustomItem) {
             this.chestplate = chestplate.id
             extendedPlayer?.getPlayer()?.inventory?.chestplate = chestplate.build()
         }
 
+        fun getLeggings() = KitPvp.INSTANCE.customItemHandler.customItems[leggings]
+
         fun setLeggins(leggings: CustomItem) {
             this.leggings = leggings.id
             extendedPlayer?.getPlayer()?.inventory?.leggings = leggings.build()
         }
 
-        fun setBoots(boots:CustomItem) {
+        fun getBoots() = KitPvp.INSTANCE.customItemHandler.customItems[boots]
+
+        fun setBoots(boots: CustomItem) {
             this.boots = boots.id
             extendedPlayer?.getPlayer()?.inventory?.boots = boots.build()
         }
+
+        fun getWeapon1() = KitPvp.INSTANCE.customItemHandler.customItems[weapons[0]]
+        fun getWeapon2() = KitPvp.INSTANCE.customItemHandler.customItems[weapons[1]]
 
         fun addWeapon(weapon: CustomItem) {
             if (weapon.id in weapons) return
@@ -665,13 +675,19 @@ class ExtendedPlayer(val uuid: UUID) {
                 weapons[0] = weapon.id
             }
 
-            applyWeapons(inventory)
+            inventory.setItem(0, getWeapon1()?.build())
+            inventory.setItem(1, getWeapon2()?.build())
         }
+
+        fun getPassive() = KitPvp.INSTANCE.passiveHandler.passives[passive]
 
         fun setPassive(passive: Passive) {
             this.passive = passive.id
             extendedPlayer?.getPlayer()?.inventory?.setItemInOffHand(passive.getItem())
         }
+
+        fun getAbility1() = KitPvp.INSTANCE.abilityHandler.abilities[abilities[0]]
+        fun getAbility2() = KitPvp.INSTANCE.abilityHandler.abilities[abilities[1]]
 
         fun addAbility(ability: Ability) {
             if (ability.id in abilities) return
@@ -684,8 +700,11 @@ class ExtendedPlayer(val uuid: UUID) {
                 abilities[0] = ability.id
             }
 
-            applyAbilities(inventory)
+            inventory.setItem(3, getAbility1()?.getItem())
+            inventory.setItem(4, getAbility2()?.getItem())
         }
+
+        fun getUltimate() = KitPvp.INSTANCE.ultimateHandler.ultimates[ultimate]
 
         fun setUltimate(ultimate: Ultimate) {
             this.ultimate = ultimate.id
@@ -701,41 +720,26 @@ class ExtendedPlayer(val uuid: UUID) {
                 it.displayName(Component.empty())
             }
 
-            val customItems = KitPvp.INSTANCE.customItemHandler.customItems
+            inventory.helmet = getHelmet()?.build()
+            inventory.chestplate = getChestplate()?.build()
+            inventory.leggings = getLeggings()?.build()
+            inventory.boots = getBoots()?.build()
 
-            extendedPlayer?.getPlayer()?.inventory?.helmet = customItems[helmet]?.build()
-            extendedPlayer?.getPlayer()?.inventory?.chestplate = customItems[chestplate]?.build()
-            extendedPlayer?.getPlayer()?.inventory?.leggings = customItems[leggings]?.build()
-            extendedPlayer?.getPlayer()?.inventory?.boots = customItems[boots]?.build()
+            inventory.setItem(0, getWeapon1()?.build())
+            inventory.setItem(1, getWeapon2()?.build())
 
-            applyWeapons(inventory)
-
-            extendedPlayer?.getPlayer()?.inventory?.setItemInOffHand(KitPvp.INSTANCE.passiveHandler.passives[passive]?.getItem())
+            inventory.setItemInOffHand(getPassive()?.getItem())
 
             inventory.setItem(2, blocker)
 
-            applyAbilities(inventory)
+            inventory.setItem(3, getAbility1()?.getItem())
+            inventory.setItem(4, getAbility2()?.getItem())
 
-            val ultimate = KitPvp.INSTANCE.ultimateHandler.ultimates[this.ultimate]
-            if (ultimate != null) inventory.setItem(5, ultimate.getItem())
+            inventory.setItem(5, getUltimate()?.getItem())
 
             inventory.setItem(6, blocker)
 
             inventory.setItem(9, ItemStack.of(Material.ARROW))
-        }
-
-        private fun applyWeapons(inventory: Inventory) {
-            val weapon1 = KitPvp.INSTANCE.customItemHandler.customItems[weapons[0]]
-            val weapon2 = KitPvp.INSTANCE.customItemHandler.customItems[weapons[1]]
-            if (weapon1 != null) inventory.setItem(0, weapon1.build())
-            if (weapon2 != null) inventory.setItem(1, weapon2.build())
-        }
-
-        private fun applyAbilities(inventory: Inventory) {
-            val ability1 = KitPvp.INSTANCE.abilityHandler.abilities[abilities[0]]
-            val ability2 = KitPvp.INSTANCE.abilityHandler.abilities[abilities[1]]
-            if (ability1 != null) inventory.setItem(3, ability1.getItem())
-            if (ability2 != null) inventory.setItem(4, ability2.getItem())
         }
     }
 }

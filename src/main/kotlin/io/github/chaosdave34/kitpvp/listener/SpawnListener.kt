@@ -154,11 +154,18 @@ class SpawnListener : Listener {
     // Game Spawn
 
     @EventHandler
-    fun onModifyArmor(event: InventoryClickEvent) {
-        val player = event.whoClicked as Player
+    fun onModifyInventory(event: InventoryClickEvent) {
+        val player = event.whoClicked
+        if (player is Player && ExtendedPlayer.from(player).gameState == ExtendedPlayer.GameState.KITS_SPAWN) {
+            if (event.clickedInventory is PlayerInventory) event.isCancelled = true
+        }
+    }
+
+    @EventHandler
+    fun onSwapHandItems(event: PlayerSwapHandItemsEvent) {
+        val player = event.player
         if (ExtendedPlayer.from(player).gameState == ExtendedPlayer.GameState.KITS_SPAWN) {
-            if (event.clickedInventory is PlayerInventory && event.slot in 36..39)
-                event.isCancelled = true
+            event.isCancelled = true
         }
     }
 

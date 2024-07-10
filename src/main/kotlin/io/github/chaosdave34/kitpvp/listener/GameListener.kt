@@ -341,8 +341,16 @@ class GameListener : Listener {
     @EventHandler
     fun onModifyInventory(event: InventoryClickEvent) {
         val player = event.whoClicked
-        if (player is Player && ExtendedPlayer.from(player).currentGame == ExtendedPlayer.GameType.KITS) {
+        if (player is Player && ExtendedPlayer.from(player).gameState == ExtendedPlayer.GameState.KITS_IN_GAME) {
             if (event.clickedInventory is PlayerInventory) event.isCancelled = true
+        }
+    }
+
+    @EventHandler
+    fun onSwapHandItems(event: PlayerSwapHandItemsEvent) {
+        val player = event.player
+        if (ExtendedPlayer.from(player).gameState == ExtendedPlayer.GameState.KITS_IN_GAME) {
+            event.isCancelled = true
         }
     }
 
