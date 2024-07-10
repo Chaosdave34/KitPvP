@@ -14,7 +14,7 @@ class Consumable(val id: String, val name: String, private val startAmount: Int,
         items.amount = startAmount
         items.amount = amount
         items.editMeta {
-            it.displayName(Component.text(name, NamedTextColor.GOLD).decoration(TextDecoration.ITALIC, false))
+            it.displayName(Component.text(name, NamedTextColor.AQUA).decoration(TextDecoration.ITALIC, false))
             it.addItemFlags(ItemFlag.HIDE_ADDITIONAL_TOOLTIP)
         }
         return items

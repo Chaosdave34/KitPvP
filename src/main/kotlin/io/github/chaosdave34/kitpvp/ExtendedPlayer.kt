@@ -757,7 +757,7 @@ class ExtendedPlayer(val uuid: UUID) {
 
             inventory.setItemInOffHand(getPassive()?.getItem())
 
-            inventory.setItem(35, ItemStack.of(Material.ARROW))
+            inventory.setItem(17, ItemStack.of(Material.ARROW))
         }
     }
 }

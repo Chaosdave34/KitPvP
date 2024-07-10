@@ -30,7 +30,7 @@ object Guis {
             val amusementParkButton = ItemStack.of(Material.FIREWORK_ROCKET)
             amusementParkButton.editMeta {
                 it.displayName(Component.text("Freizeitpark", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false))
-                it.lore(listOf(Component.text("(whitelisted)", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false)))
+                it.lore(listOf(Component.text("whitelisted", NamedTextColor.DARK_GRAY).decoration(TextDecoration.ITALIC, false)))
                 it.addItemFlags(ItemFlag.HIDE_ADDITIONAL_TOOLTIP)
             }
 
@@ -45,7 +45,7 @@ object Guis {
             val survivalButton = ItemStack.of(Material.IRON_SWORD)
             survivalButton.editMeta {
                 it.displayName(Component.text("Survival", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false))
-                it.lore(listOf(Component.text("(whitelisted)", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false)))
+                it.lore(listOf(Component.text("whitelisted", NamedTextColor.DARK_GRAY).decoration(TextDecoration.ITALIC, false)))
                 it.addItemFlags(ItemFlag.HIDE_ADDITIONAL_TOOLTIP)
                 it.hideAttributes()
             }
@@ -169,8 +169,8 @@ object Guis {
                 it.lore(
                     listOf(
                         Component.text("Selected:", NamedTextColor.DARK_GRAY).decoration(TextDecoration.ITALIC, false),
-                        Component.text(selectedWeapon1, NamedTextColor.YELLOW).decoration(TextDecoration.ITALIC, false),
-                        Component.text(selectedWeapon2, NamedTextColor.YELLOW).decoration(TextDecoration.ITALIC, false)
+                        Component.text(selectedWeapon1, NamedTextColor.GOLD).decoration(TextDecoration.ITALIC, false),
+                        Component.text(selectedWeapon2, NamedTextColor.GOLD).decoration(TextDecoration.ITALIC, false)
                     )
                 )
                 it.addItemFlags(ItemFlag.HIDE_ADDITIONAL_TOOLTIP)
@@ -189,10 +189,10 @@ object Guis {
                 it.lore(
                     listOf(
                         Component.text("Selected:", NamedTextColor.DARK_GRAY).decoration(TextDecoration.ITALIC, false),
-                        Component.text(selectedHelmet, NamedTextColor.YELLOW).decoration(TextDecoration.ITALIC, false),
-                        Component.text(selectedChestplate, NamedTextColor.YELLOW).decoration(TextDecoration.ITALIC, false),
-                        Component.text(selectedLeggings, NamedTextColor.YELLOW).decoration(TextDecoration.ITALIC, false),
-                        Component.text(selectedBoots, NamedTextColor.YELLOW).decoration(TextDecoration.ITALIC, false)
+                        Component.text(selectedHelmet, NamedTextColor.GOLD).decoration(TextDecoration.ITALIC, false),
+                        Component.text(selectedChestplate, NamedTextColor.GOLD).decoration(TextDecoration.ITALIC, false),
+                        Component.text(selectedLeggings, NamedTextColor.GOLD).decoration(TextDecoration.ITALIC, false),
+                        Component.text(selectedBoots, NamedTextColor.GOLD).decoration(TextDecoration.ITALIC, false)
                     )
                 )
                 it.addItemFlags(ItemFlag.HIDE_ADDITIONAL_TOOLTIP)
@@ -510,15 +510,15 @@ object Guis {
 
                 var glint = false
                 if (extendedPlayer.killEffectId == killEffect.id) {
-                    name = name.color(NamedTextColor.GREEN)
+                    name = name.decorate(TextDecoration.BOLD)
                     glint = true
                 }
 
                 val lore: MutableList<Component> = mutableListOf()
                 if (extendedPlayer.getLevel() < killEffect.levelRequirement) {
-                    name = name.color(NamedTextColor.RED)
+                    name = name.decorate(TextDecoration.STRIKETHROUGH)
                     lore.add(
-                        Component.text("Unlocked at level " + killEffect.levelRequirement + ".", NamedTextColor.WHITE)
+                        Component.text("Unlocked at level " + killEffect.levelRequirement + ".", NamedTextColor.RED)
                             .decoration(TextDecoration.ITALIC, false)
                     )
                 }
@@ -567,15 +567,15 @@ object Guis {
 
                 var glint = false
                 if (extendedPlayer.projectileTrailId == projectileTrail.id) {
-                    name = name.color(NamedTextColor.GREEN)
+                    name = name.decorate(TextDecoration.BOLD)
                     glint = true
                 }
 
                 val lore: MutableList<Component> = mutableListOf()
                 if (extendedPlayer.getLevel() < projectileTrail.levelRequirement) {
-                    name = name.color(NamedTextColor.RED)
+                    name = name.decorate(TextDecoration.STRIKETHROUGH)
                     lore.add(
-                        Component.text("Unlocked at level " + projectileTrail.levelRequirement + ".", NamedTextColor.WHITE)
+                        Component.text("Unlocked at level " + projectileTrail.levelRequirement + ".", NamedTextColor.RED)
                             .decoration(TextDecoration.ITALIC, false)
                     )
                 }
