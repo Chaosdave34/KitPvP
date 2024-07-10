@@ -1,6 +1,7 @@
 package io.github.chaosdave34.kitpvp
 
 import io.github.chaosdave34.kitpvp.abilities.Ability
+import io.github.chaosdave34.kitpvp.consumables.Consumable
 import io.github.chaosdave34.kitpvp.customevents.CustomEventHandler
 import io.github.chaosdave34.kitpvp.elytrakits.ElytraKit
 import io.github.chaosdave34.kitpvp.elytrakits.ElytraKitHandler
@@ -615,13 +616,15 @@ class ExtendedPlayer(val uuid: UUID) {
     }
 
     class SelectedSetup(@Transient var extendedPlayer: ExtendedPlayer?) {
-
         var helmet: String? = null
         var chestplate: String? = null
         var leggings: String? = null
         var boots: String? = null
 
         val weapons: Array<String?> = arrayOfNulls(2)
+
+        val consumables: Array<String?> = arrayOfNulls(2)
+
         var passive: String? = null
 
         val abilities: Array<String?> = arrayOfNulls(2)
@@ -673,13 +676,6 @@ class ExtendedPlayer(val uuid: UUID) {
             inventory.setItem(1, getWeapon2()?.build())
         }
 
-        fun getPassive() = KitPvp.INSTANCE.passiveHandler.passives[passive]
-
-        fun setPassive(passive: Passive) {
-            this.passive = passive.id
-            extendedPlayer?.getPlayer()?.inventory?.setItemInOffHand(passive.getItem())
-        }
-
         fun getAbility1() = KitPvp.INSTANCE.abilityHandler.abilities[abilities[0]]
         fun getAbility2() = KitPvp.INSTANCE.abilityHandler.abilities[abilities[1]]
 
@@ -705,6 +701,31 @@ class ExtendedPlayer(val uuid: UUID) {
             extendedPlayer?.getPlayer()?.inventory?.setItem(5, ultimate.getItem())
         }
 
+        fun getConsumable1() = KitPvp.INSTANCE.consumableHandler.consumables[consumables[0]]
+        fun getConsumable2() = KitPvp.INSTANCE.consumableHandler.consumables[consumables[1]]
+
+        fun addConsumable(consumable: Consumable) {
+            if (consumable.id in consumables) return
+            val inventory = extendedPlayer?.getPlayer()?.inventory ?: return
+
+            if (consumables[0] == null) consumables[0] = consumable.id
+            else if (consumables[1] == null) consumables[1] = consumable.id
+            else {
+                consumables[1] = consumables[0]
+                consumables[0] = consumable.id
+            }
+
+            inventory.setItem(7, getConsumable1()?.getStart())
+            inventory.setItem(8, getConsumable2()?.getStart())
+        }
+
+        fun getPassive() = KitPvp.INSTANCE.passiveHandler.passives[passive]
+
+        fun setPassive(passive: Passive) {
+            this.passive = passive.id
+            extendedPlayer?.getPlayer()?.inventory?.setItemInOffHand(passive.getItem())
+        }
+
         fun apply() {
             val inventory = extendedPlayer?.getPlayer()?.inventory ?: return
 
@@ -722,8 +743,6 @@ class ExtendedPlayer(val uuid: UUID) {
             inventory.setItem(0, getWeapon1()?.build())
             inventory.setItem(1, getWeapon2()?.build())
 
-            inventory.setItemInOffHand(getPassive()?.getItem())
-
             inventory.setItem(2, blocker)
 
             inventory.setItem(3, getAbility1()?.getItem())
@@ -733,7 +752,12 @@ class ExtendedPlayer(val uuid: UUID) {
 
             inventory.setItem(6, blocker)
 
-            inventory.setItem(9, ItemStack.of(Material.ARROW))
+            inventory.setItem(7, getConsumable1()?.getStart())
+            inventory.setItem(8, getConsumable2()?.getStart())
+
+            inventory.setItemInOffHand(getPassive()?.getItem())
+
+            inventory.setItem(35, ItemStack.of(Material.ARROW))
         }
     }
 }

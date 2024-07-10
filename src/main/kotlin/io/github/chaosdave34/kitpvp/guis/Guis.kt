@@ -80,7 +80,7 @@ object Guis {
                 )
             }
 
-            page.createButton(11, abilityButton) { event ->
+            page.createButton(11, abilityButton) {
                 TRAINER.openPage("abilities", player)
             }
 
@@ -97,7 +97,7 @@ object Guis {
                 )
             }
 
-            page.createButton(15, ultimateButton) { event ->
+            page.createButton(15, ultimateButton) {
                 TRAINER.openPage("ultimates", player)
             }
 
@@ -114,11 +114,11 @@ object Guis {
                 if (ability.id in extendedPlayer.selectedSetup.abilities) {
                     item.editMeta {
                         it.setEnchantmentGlintOverride(true)
-                        it.displayName(it.displayName()?.color(NamedTextColor.GREEN))
+                        it.displayName(it.displayName()?.decorate(TextDecoration.BOLD))
                     }
                 }
 
-                page.createButton(i, item) { event ->
+                page.createButton(i, item) {
                     extendedPlayer.selectedSetup.addAbility(ability)
                     TRAINER.openPage("abilities", player) // Todo: Improve updating inv
                 }
@@ -140,11 +140,11 @@ object Guis {
                 if (ultimate.id == extendedPlayer.selectedSetup.ultimate) {
                     item.editMeta {
                         it.setEnchantmentGlintOverride(true)
-                        it.displayName(it.displayName()?.color(NamedTextColor.GREEN))
+                        it.displayName(it.displayName()?.decorate(TextDecoration.BOLD))
                     }
                 }
 
-                page.createButton(i, item) { event ->
+                page.createButton(i, item) {
                     extendedPlayer.selectedSetup.setUltimate(ultimate)
                     TRAINER.openPage("ultimates", player) // Todo: Improve updating inv
                 }
@@ -176,7 +176,7 @@ object Guis {
                 it.addItemFlags(ItemFlag.HIDE_ADDITIONAL_TOOLTIP)
                 it.hideAttributes()
             }
-            page.createButton(11, weaponsButton) { INVENTORY.openPage("weapons", player) }
+            page.createButton(10, weaponsButton) { INVENTORY.openPage("weapons", player) }
 
             val selectedHelmet = selectedSetup.getHelmet()?.name ?: "None"
             val selectedChestplate = selectedSetup.getChestplate()?.name ?: "None"
@@ -198,7 +198,23 @@ object Guis {
                 it.addItemFlags(ItemFlag.HIDE_ADDITIONAL_TOOLTIP)
                 it.hideAttributes()
             }
-            page.createButton(13, armorButton) { INVENTORY.openPage("armor", player) }
+            page.createButton(12, armorButton) { INVENTORY.openPage("armor", player) }
+
+            val selectedConsumable1 = selectedSetup.getConsumable1()?.name ?: "None"
+            val selectedConsumable2 = selectedSetup.getConsumable2()?.name ?: "None"
+
+            val consumableButton = ItemStack.of(Material.TOTEM_OF_UNDYING)
+            consumableButton.editMeta {
+                it.displayName(Component.text("Consumables", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false))
+                it.lore(
+                    listOf(
+                        Component.text("Selected:", NamedTextColor.DARK_GRAY).decoration(TextDecoration.ITALIC, false),
+                        Component.text(selectedConsumable1, NamedTextColor.AQUA).decoration(TextDecoration.ITALIC, false),
+                        Component.text(selectedConsumable2, NamedTextColor.AQUA).decoration(TextDecoration.ITALIC, false),
+                    )
+                )
+            }
+            page.createButton(14, consumableButton) { INVENTORY.openPage("consumables", player) }
 
             val selectedPassive = selectedSetup.getPassive()?.name ?: "None"
 
@@ -212,7 +228,7 @@ object Guis {
                     )
                 )
             }
-            page.createButton(15, passivesButton) { INVENTORY.openPage("passives", player) }
+            page.createButton(16, passivesButton) { INVENTORY.openPage("passives", player) }
 
 
             page.createCloseButton(31)
@@ -229,10 +245,9 @@ object Guis {
                 item.editMeta {
                     if (weapon.id in extendedPlayer.selectedSetup.weapons) {
                         it.setEnchantmentGlintOverride(true)
-                        it.displayName(it.displayName()?.color(NamedTextColor.GREEN))
+                        it.displayName(it.displayName()?.decorate(TextDecoration.BOLD))
                     } else {
                         it.setEnchantmentGlintOverride(false)
-                        it.displayName(it.displayName()?.color(NamedTextColor.WHITE))
                     }
                 }
 
@@ -259,10 +274,9 @@ object Guis {
                 item.editMeta {
                     if (helmet.id == extendedPlayer.selectedSetup.helmet) {
                         it.setEnchantmentGlintOverride(true)
-                        it.displayName(it.displayName()?.color(NamedTextColor.GREEN))
+                        it.displayName(it.displayName()?.decorate(TextDecoration.BOLD))
                     } else {
                         it.setEnchantmentGlintOverride(false)
-                        it.displayName(it.displayName()?.color(NamedTextColor.WHITE))
                     }
                 }
 
@@ -279,10 +293,9 @@ object Guis {
                 item.editMeta {
                     if (chestplate.id == extendedPlayer.selectedSetup.chestplate) {
                         it.setEnchantmentGlintOverride(true)
-                        it.displayName(it.displayName()?.color(NamedTextColor.GREEN))
+                        it.displayName(it.displayName()?.decorate(TextDecoration.BOLD))
                     } else {
                         it.setEnchantmentGlintOverride(false)
-                        it.displayName(it.displayName()?.color(NamedTextColor.WHITE))
                     }
                 }
 
@@ -299,10 +312,9 @@ object Guis {
                 item.editMeta {
                     if (leggings.id == extendedPlayer.selectedSetup.leggings) {
                         it.setEnchantmentGlintOverride(true)
-                        it.displayName(it.displayName()?.color(NamedTextColor.GREEN))
+                        it.displayName(it.displayName()?.decorate(TextDecoration.BOLD))
                     } else {
                         it.setEnchantmentGlintOverride(false)
-                        it.displayName(it.displayName()?.color(NamedTextColor.WHITE))
                     }
                 }
 
@@ -319,10 +331,10 @@ object Guis {
                 item.editMeta {
                     if (boots.id == extendedPlayer.selectedSetup.boots) {
                         it.setEnchantmentGlintOverride(true)
-                        it.displayName(it.displayName()?.color(NamedTextColor.GREEN))
+                        it.displayName(it.displayName()?.decorate(TextDecoration.BOLD))
                     } else {
                         it.setEnchantmentGlintOverride(false)
-                        it.displayName(it.displayName()?.color(NamedTextColor.WHITE))
+
                     }
                 }
 
@@ -339,6 +351,32 @@ object Guis {
             page.fillEmpty()
         }
 
+        INVENTORY.createPage("consumables", Component.text("Consumables"), 6) { page, player ->
+            val extendedPlayer = ExtendedPlayer.from(player)
+
+            for ((i, consumable) in KitPvp.INSTANCE.consumableHandler.consumables.values.sortedBy { it.name }.withIndex()) {
+                val item = consumable.getItem()
+
+                item.editMeta {
+                    if (consumable.id in extendedPlayer.selectedSetup.consumables) {
+                        it.setEnchantmentGlintOverride(true)
+                        it.displayName(it.displayName()?.decorate(TextDecoration.BOLD))
+                    } else {
+                        it.setEnchantmentGlintOverride(false)
+                    }
+                }
+
+                page.createButton(i, item) {
+                    extendedPlayer.selectedSetup.addConsumable(consumable)
+                    INVENTORY.openPage("consumables", player) // Todo: Improve updating inv
+                }
+            }
+
+            page.createButton(48, Material.ARROW, Component.text("Back").decoration(TextDecoration.ITALIC, false)) { INVENTORY.open(player) }
+            page.createCloseButton(49)
+            page.fillEmpty()
+        }
+
         INVENTORY.createPage("passives", Component.text("Passives"), 6) { page, player ->
             val extendedPlayer = ExtendedPlayer.from(player)
 
@@ -348,10 +386,9 @@ object Guis {
                 item.editMeta {
                     if (passive.id == extendedPlayer.selectedSetup.passive) {
                         it.setEnchantmentGlintOverride(true)
-                        it.displayName(it.displayName()?.color(NamedTextColor.GREEN))
+                        it.displayName(it.displayName()?.decorate(TextDecoration.BOLD))
                     } else {
                         it.setEnchantmentGlintOverride(false)
-                        it.displayName(it.displayName()?.color(NamedTextColor.WHITE))
                     }
                 }
 

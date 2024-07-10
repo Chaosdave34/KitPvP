@@ -5,6 +5,7 @@ import io.github.chaosdave34.kitpvp.items.CustomItemHandler.Companion.getCustomI
 import io.github.chaosdave34.kitpvp.utils.Describable
 import io.github.chaosdave34.kitpvp.utils.ItemUtilities
 import net.kyori.adventure.text.Component
+import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer
 import org.bukkit.Material
@@ -111,9 +112,8 @@ open class CustomItem(
         }
     }
 
-    private fun createSimpleItemName(name: String): Component {
-        return Component.text(name).decoration(TextDecoration.ITALIC, false)
-    }
+    private fun createSimpleItemName(name: String) = Component.text(name, NamedTextColor.GOLD).decoration(TextDecoration.ITALIC, false)
+
 
     fun ItemStack.isThisCustomItem() = id == this.getCustomItemId()
 }

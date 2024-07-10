@@ -5,6 +5,7 @@ import com.google.gson.reflect.TypeToken
 import com.mojang.datafixers.util.Pair
 import io.github.chaosdave34.kitpvp.abilities.AbilityHandler
 import io.github.chaosdave34.kitpvp.companions.CompanionHandler
+import io.github.chaosdave34.kitpvp.consumables.ConsumableHandler
 import io.github.chaosdave34.kitpvp.cosmetics.CosmeticHandler
 import io.github.chaosdave34.kitpvp.damagetype.DamageTypes
 import io.github.chaosdave34.kitpvp.elytrakits.ElytraKitHandler
@@ -46,11 +47,13 @@ class KitPvp : JavaPlugin() {
     lateinit var elytraKitHandler: ElytraKitHandler
     lateinit var companionHandler: CompanionHandler
     lateinit var cosmeticHandler: CosmeticHandler
-//    lateinit var customEventHandler: CustomEventHandler
+
+    //    lateinit var customEventHandler: CustomEventHandler
 //    lateinit var challengesHandler: ChallengesHandler
     lateinit var ultimateHandler: UltimateHandler
     lateinit var guiHandler: GuiHandler
     lateinit var passiveHandler: PassiveHandler
+    lateinit var consumableHandler: ConsumableHandler
 
     private lateinit var damageTypes: DamageTypes
 
@@ -74,6 +77,7 @@ class KitPvp : JavaPlugin() {
         ultimateHandler = UltimateHandler()
         guiHandler = GuiHandler()
         passiveHandler = PassiveHandler()
+        consumableHandler = ConsumableHandler()
 
         damageTypes = DamageTypes()
 
