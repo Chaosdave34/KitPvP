@@ -9,7 +9,7 @@ import org.bukkit.entity.LivingEntity
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
 
-class DashUltimate : Ultimate("dash", "Dash", 5.0, Material.CHAIN) {
+class DashUltimate : Ultimate("dash", "Dash", 30, 5.0, Material.CHAIN) {
     override fun getDescription() = createSimpleDescriptionAsList("Dash forward damaging enemies.")
 
 

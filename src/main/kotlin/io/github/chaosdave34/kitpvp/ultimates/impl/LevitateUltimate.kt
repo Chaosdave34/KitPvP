@@ -4,7 +4,7 @@ import io.github.chaosdave34.kitpvp.ultimates.Ultimate
 import org.bukkit.Material
 import org.bukkit.entity.Player
 
-class LevitateUltimate: Ultimate("levitate", "Levitate", 10.0, Material.SHULKER_SHELL) {
+class LevitateUltimate: Ultimate("levitate", "Levitate", 30, 10.0, Material.SHULKER_SHELL) {
     override fun getDescription()= createSimpleDescriptionAsList("Let all enemies around you float into air.")
 
     override fun onAbility(player: Player): Boolean {

@@ -10,7 +10,7 @@ import org.bukkit.util.Vector
 import kotlin.math.min
 import kotlin.random.Random
 
-class ArrowRainUltimate : Ultimate("arrow_rain", "Arrow Rain", 10.0, Material.ARROW) {
+class ArrowRainUltimate : Ultimate("arrow_rain", "Arrow Rain", 30, 10.0, Material.ARROW) {
     override fun getDescription() = createSimpleDescriptionAsList("Let arrows rain on your enemies.")
 
     override fun onAbility(player: Player): Boolean {

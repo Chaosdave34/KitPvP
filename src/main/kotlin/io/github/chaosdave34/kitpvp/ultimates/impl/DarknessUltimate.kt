@@ -7,7 +7,7 @@ import org.bukkit.entity.Player
 import org.bukkit.potion.PotionEffect
 import org.bukkit.potion.PotionEffectType
 
-class DarknessUltimate : Ultimate("darkness", "Darkness", 10.0, Material.WARDEN_SPAWN_EGG) {
+class DarknessUltimate : Ultimate("darkness", "Darkness", 30, 0.0, Material.WARDEN_SPAWN_EGG) {
     override fun getDescription() = createSimpleDescriptionAsList("Shrouds all enemies in a 10 block radius in darkness.")
 
     override fun onAbility(player: Player): Boolean {

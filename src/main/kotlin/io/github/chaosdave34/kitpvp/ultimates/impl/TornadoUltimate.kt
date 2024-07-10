@@ -8,7 +8,7 @@ import org.bukkit.Sound
 import org.bukkit.SoundCategory
 import org.bukkit.entity.Player
 
-class TornadoUltimate: Ultimate("tornado", "Tornado", 10.0, Material.WIND_CHARGE) {
+class TornadoUltimate: Ultimate("tornado", "Tornado", 30, 10.0, Material.WIND_CHARGE) {
     override fun getDescription() = createSimpleDescriptionAsList("Create a tornado pulling in enemies towards you for 5s.")
 
     override fun onAbility(player: Player): Boolean {

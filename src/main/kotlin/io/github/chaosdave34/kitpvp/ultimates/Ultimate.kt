@@ -6,17 +6,17 @@ import io.github.chaosdave34.kitpvp.utils.Describable
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
-import org.bukkit.GameMode
-import org.bukkit.Material
-import org.bukkit.NamespacedKey
-import org.bukkit.Sound
+import org.bukkit.*
 import org.bukkit.entity.Entity
 import org.bukkit.entity.Player
 import org.bukkit.event.Listener
 import org.bukkit.inventory.ItemStack
 import org.bukkit.persistence.PersistentDataType
+import java.util.*
 
-abstract class Ultimate(val id: String, val name: String, val damageStackCost: Double, val icon: Material) : Listener, Describable {
+abstract class Ultimate(val id: String, val name: String, val cooldown: Int, val damageStackCost: Double, val icon: Material) : Listener, Describable {
+    private var playerCooldown: MutableList<UUID> = mutableListOf()
+
     abstract fun getDescription(): List<Component>
 
     abstract fun onAbility(player: Player): Boolean
@@ -29,6 +29,11 @@ abstract class Ultimate(val id: String, val name: String, val damageStackCost: D
             .decoration(TextDecoration.ITALIC, false)
 
         val lore = getDescription() as MutableList
+        lore.add(
+            Component.text("Cooldown: ", NamedTextColor.DARK_GRAY)
+                .append(Component.text("${cooldown}s", NamedTextColor.GREEN))
+                .decoration(TextDecoration.ITALIC, false)
+        )
         lore.add(
             Component.text("Damage Stack Cost: ", NamedTextColor.DARK_GRAY)
                 .append(Component.text("$damageStackCost ☄", NamedTextColor.DARK_RED))
@@ -53,6 +58,10 @@ abstract class Ultimate(val id: String, val name: String, val damageStackCost: D
             val success = onAbility(player)
 
             if (success) {
+                player.setCooldown(icon, cooldown * 20)
+                playerCooldown.add(player.uniqueId)
+                Bukkit.getScheduler().runTaskLater(KitPvp.INSTANCE, Runnable { playerCooldown.remove(player.uniqueId) }, cooldown * 20L)
+
                 extendedPlayer.attributes.damageStack = currentStack - damageStackCost
             }
         } else {

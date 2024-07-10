@@ -7,7 +7,7 @@ import org.bukkit.Material
 import org.bukkit.enchantments.Enchantment
 import org.bukkit.entity.Player
 
-class RageUltimate: Ultimate("rage", "Rage", 10.0, Material.RAVAGER_SPAWN_EGG) {
+class RageUltimate: Ultimate("rage", "Rage", 30, 0.0, Material.RAVAGER_SPAWN_EGG) {
     override fun getDescription() = createSimpleDescriptionAsList("Gain thorns 10 for 10s.")
 
     override fun onAbility(player: Player): Boolean {

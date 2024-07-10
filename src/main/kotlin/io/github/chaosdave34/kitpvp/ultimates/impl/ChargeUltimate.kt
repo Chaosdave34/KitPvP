@@ -6,7 +6,7 @@ import org.bukkit.Sound
 import org.bukkit.SoundCategory
 import org.bukkit.entity.Player
 
-class ChargeUltimate : Ultimate("charge", "Charge", 10.0, Material.BLAZE_ROD) {
+class ChargeUltimate : Ultimate("charge", "Charge", 30, 10.0, Material.BLAZE_ROD) {
     override fun getDescription() = createSimpleDescriptionAsList("Charge yourself!")
 
 

@@ -31,7 +31,7 @@ import org.bukkit.potion.PotionEffectType
 import org.bukkit.scoreboard.Team
 import java.util.*
 
-class ShieldUltimate: Ultimate("shield", "Shield", 15.0, Material.GLOWSTONE_DUST) {
+class ShieldUltimate: Ultimate("shield", "Shield", 30, 15.0, Material.GLOWSTONE_DUST) {
     private var activeShield: MutableMap<UUID, Creeper> = mutableMapOf()
     override fun getDescription() = createSimpleDescriptionAsList("Activate your shield for 6s reducing damage by 60%.")
 
