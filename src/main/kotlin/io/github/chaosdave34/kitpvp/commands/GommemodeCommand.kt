@@ -23,6 +23,7 @@ object GommemodeCommand {
         val extendedPlayer = ExtendedPlayer.from(player)
         extendedPlayer.gameState = ExtendedPlayer.GameState.DEBUG
         player.gameMode = GameMode.CREATIVE
+        player.inventory.clear()
 
         return Command.SINGLE_SUCCESS
     }
