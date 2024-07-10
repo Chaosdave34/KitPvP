@@ -25,11 +25,7 @@ import org.bukkit.event.world.WorldLoadEvent
 import org.bukkit.event.world.WorldSaveEvent
 import org.bukkit.generator.ChunkGenerator
 import java.io.File
-import java.time.Instant
-import java.time.LocalDate
-import java.time.ZoneId
 import java.util.*
-import java.util.function.Consumer
 
 
 class UtilityListener : Listener {
@@ -37,7 +33,7 @@ class UtilityListener : Listener {
     fun onJoin(event: PlayerJoinEvent) {
         val player = event.player
 
-        val message: Component = Component.text("${player.name} joined the party!", NamedTextColor.DARK_GRAY)
+        val message: Component = Component.text("→ ${player.name}", NamedTextColor.DARK_GRAY)
         event.joinMessage(message)
 
         val extendedPlayer = KitPvp.INSTANCE.createExtendedPlayer(player.uniqueId)
@@ -80,30 +76,14 @@ class UtilityListener : Listener {
         )
 
         // daily challenges
-        val lastLoginDate = Instant.ofEpochMilli(player.lastLogin).atZone(ZoneId.systemDefault()).toLocalDate()
-        val today = LocalDate.now()
-
-        if (!lastLoginDate.isEqual(today) || extendedPlayer.dailyChallenges.isEmpty()) {
-            extendedPlayer.updateDailyChallenges()
-        }
+//        val lastLoginDate = Instant.ofEpochMilli(player.lastLogin).atZone(ZoneId.systemDefault()).toLocalDate()
+//        val today = LocalDate.now()
+//
+//        if (!lastLoginDate.isEqual(today) || extendedPlayer.dailyChallenges.isEmpty()) {
+//            extendedPlayer.updateDailyChallenges()
+//        }
 
         extendedPlayer.updatePlayerListFooter()
-
-        val messages = listOf<Component>(
-            Component.text("=================================================", NamedTextColor.GREEN),
-            Component.text("KitPvP is currently in closed beta!", NamedTextColor.GREEN),
-            Component.text("- Feel free to report bugs and post feature requests in the #kitpvp channel on the discord server.", NamedTextColor.GREEN),
-            Component.text("- ", NamedTextColor.GREEN)
-                .append(Component.text("Daily Challenges", NamedTextColor.GRAY).decorate(TextDecoration.ITALIC))
-                .append(Component.text(", ", NamedTextColor.GREEN))
-                .append(Component.text("Companions", NamedTextColor.GRAY).decorate(TextDecoration.ITALIC))
-                .append(Component.text(" and ", NamedTextColor.GREEN))
-                .append(Component.text("Bounties", NamedTextColor.GRAY).decorate(TextDecoration.ITALIC))
-                .append(Component.text(" have been enabled. You may experience strange or unexpected behaviour.", NamedTextColor.GREEN)),
-            Component.text("=================================================", NamedTextColor.GREEN)
-        )
-
-        Bukkit.getScheduler().runTaskLater(KitPvp.INSTANCE, Consumer { messages.forEach { message: Component -> player.sendMessage(message) } }, 10)
     }
 
     @EventHandler
@@ -115,7 +95,7 @@ class UtilityListener : Listener {
         extendedPlayer.removeCompanion()
         KitPvp.INSTANCE.removeExtendedPlayer(player.uniqueId)
 
-        val message: Component = Component.text("${player.name} left!", NamedTextColor.DARK_GRAY)
+        val message: Component = Component.text("← ${player.name}", NamedTextColor.DARK_GRAY)
         event.quitMessage(message)
     }
 
