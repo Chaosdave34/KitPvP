@@ -23,7 +23,6 @@ import org.bukkit.entity.*
 import org.bukkit.event.inventory.InventoryCloseEvent
 import org.bukkit.inventory.ItemStack
 import org.bukkit.metadata.FixedMetadataValue
-import org.bukkit.potion.PotionEffect
 import org.bukkit.scheduler.BukkitRunnable
 import org.bukkit.scoreboard.Criteria
 import org.bukkit.scoreboard.DisplaySlot
@@ -627,8 +626,6 @@ class ExtendedPlayer(val uuid: UUID) {
 
         val abilities: Array<String?> = arrayOfNulls(2)
         var ultimate: String? = null
-
-        val potions: Array<PotionEffect?> = arrayOfNulls(2)
 
         fun getHelmet() = KitPvp.INSTANCE.customItemHandler.customItems[helmet]
 
