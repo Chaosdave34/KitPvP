@@ -394,11 +394,19 @@ object Guis {
             }
             page.createButton(12, armorButton) { INVENTORY.openPage("armor", player) }
 
-            val utilityButton = ItemStack.of(Material.TOTEM_OF_UNDYING)
-            utilityButton.editMeta {
-                it.displayName(Component.text("Utility", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false))
+            val selectedPassive = KitPvp.INSTANCE.passiveHandler.passives[extendedPlayer.selectedSetup.passive]?.name ?: "None"
+
+            val passivesButton = ItemStack.of(Material.GLASS_PANE)
+            passivesButton.editMeta {
+                it.displayName(Component.text("Passives", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false))
+                it.lore(
+                    listOf(
+                        Component.text("Selected: ", NamedTextColor.DARK_GRAY).decoration(TextDecoration.ITALIC, false),
+                        Component.text(selectedPassive, NamedTextColor.LIGHT_PURPLE).decoration(TextDecoration.ITALIC, false)
+                    )
+                )
             }
-            page.createButton(14, utilityButton) { INVENTORY.openPage("utility", player) }
+            page.createButton(14, passivesButton) { INVENTORY.openPage("passives", player) }
 
             val potionButton = ItemStack.of(Material.POTION)
             potionButton.editMeta {
@@ -525,6 +533,34 @@ object Guis {
 
                 slot++
             }
+
+            page.createButton(48, Material.ARROW, Component.text("Back").decoration(TextDecoration.ITALIC, false)) { INVENTORY.open(player) }
+            page.createCloseButton(49)
+            page.fillEmpty()
+        }
+
+        INVENTORY.createPage("passives", Component.text("Passives"), 6) {page, player ->
+            val extendedPlayer = ExtendedPlayer.from(player)
+
+            for ((i, passive) in KitPvp.INSTANCE.passiveHandler.passives.values.sortedBy { it.name }.withIndex()) {
+                val item = passive.getItem()
+
+                item.editMeta {
+                    if (passive.id == extendedPlayer.selectedSetup.passive) {
+                        it.setEnchantmentGlintOverride(true)
+                        it.displayName(it.displayName()?.color(NamedTextColor.GREEN))
+                    } else {
+                        it.setEnchantmentGlintOverride(false)
+                        it.displayName(it.displayName()?.color(NamedTextColor.WHITE))
+                    }
+                }
+
+                page.createButton(i, item) {
+                    extendedPlayer.selectedSetup.setPassive(passive)
+                    INVENTORY.openPage("passives", player) // Todo: Improve updating inv
+                }
+            }
+
 
             page.createButton(48, Material.ARROW, Component.text("Back").decoration(TextDecoration.ITALIC, false)) { INVENTORY.open(player) }
             page.createCloseButton(49)

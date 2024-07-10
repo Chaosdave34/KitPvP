@@ -6,6 +6,7 @@ import io.github.chaosdave34.kitpvp.elytrakits.ElytraKit
 import io.github.chaosdave34.kitpvp.elytrakits.ElytraKitHandler
 import io.github.chaosdave34.kitpvp.events.PlayerSpawnEvent
 import io.github.chaosdave34.kitpvp.items.CustomItem
+import io.github.chaosdave34.kitpvp.pasives.Passive
 import io.github.chaosdave34.kitpvp.textdisplays.TextDisplays
 import io.github.chaosdave34.kitpvp.ultimates.Ultimate
 import io.github.chaosdave34.kitpvp.utils.MathUtils
@@ -626,26 +627,12 @@ class ExtendedPlayer(val uuid: UUID) {
         var boots: String? = null
 
         val weapons: Array<String?> = arrayOfNulls(2)
-        var utilityItem: String? = null
+        var passive: String? = null
 
         val abilities: Array<String?> = arrayOfNulls(2)
         var ultimate: String? = null
 
         val potions: Array<PotionEffect?> = arrayOfNulls(2)
-
-        fun addWeapon(weapon: CustomItem) {
-            if (weapon.id in weapons) return
-            val inventory = extendedPlayer?.getPlayer()?.inventory ?: return
-
-            if (weapons[0] == null) weapons[0] = weapon.id
-            else if (weapons[1] == null) weapons[1] = weapon.id
-            else {
-                weapons[1] = weapons[0]
-                weapons[0] = weapon.id
-            }
-
-            applyWeapons(inventory)
-        }
 
         fun setHelmet(helmet: CustomItem) {
             this.helmet = helmet.id
@@ -665,6 +652,25 @@ class ExtendedPlayer(val uuid: UUID) {
         fun setBoots(boots:CustomItem) {
             this.boots = boots.id
             extendedPlayer?.getPlayer()?.inventory?.boots = boots.build()
+        }
+
+        fun addWeapon(weapon: CustomItem) {
+            if (weapon.id in weapons) return
+            val inventory = extendedPlayer?.getPlayer()?.inventory ?: return
+
+            if (weapons[0] == null) weapons[0] = weapon.id
+            else if (weapons[1] == null) weapons[1] = weapon.id
+            else {
+                weapons[1] = weapons[0]
+                weapons[0] = weapon.id
+            }
+
+            applyWeapons(inventory)
+        }
+
+        fun setPassive(passive: Passive) {
+            this.passive = passive.id
+            extendedPlayer?.getPlayer()?.inventory?.setItemInOffHand(passive.getItem())
         }
 
         fun addAbility(ability: Ability) {
@@ -695,14 +701,16 @@ class ExtendedPlayer(val uuid: UUID) {
                 it.displayName(Component.empty())
             }
 
-            applyWeapons(inventory)
-
             val customItems = KitPvp.INSTANCE.customItemHandler.customItems
 
             extendedPlayer?.getPlayer()?.inventory?.helmet = customItems[helmet]?.build()
             extendedPlayer?.getPlayer()?.inventory?.chestplate = customItems[chestplate]?.build()
             extendedPlayer?.getPlayer()?.inventory?.leggings = customItems[leggings]?.build()
             extendedPlayer?.getPlayer()?.inventory?.boots = customItems[boots]?.build()
+
+            applyWeapons(inventory)
+
+            extendedPlayer?.getPlayer()?.inventory?.setItemInOffHand(KitPvp.INSTANCE.passiveHandler.passives[passive]?.getItem())
 
             inventory.setItem(2, blocker)
 

@@ -15,6 +15,7 @@ import io.github.chaosdave34.kitpvp.guis.GuiHandler
 import io.github.chaosdave34.kitpvp.guis.Guis
 import io.github.chaosdave34.kitpvp.items.CustomItemHandler
 import io.github.chaosdave34.kitpvp.listener.*
+import io.github.chaosdave34.kitpvp.pasives.PassiveHandler
 import io.github.chaosdave34.kitpvp.textdisplays.TextDisplayHandler
 import io.github.chaosdave34.kitpvp.textdisplays.TextDisplays
 import io.github.chaosdave34.kitpvp.ultimates.UltimateHandler
@@ -49,6 +50,7 @@ class KitPvp : JavaPlugin() {
 //    lateinit var challengesHandler: ChallengesHandler
     lateinit var ultimateHandler: UltimateHandler
     lateinit var guiHandler: GuiHandler
+    lateinit var passiveHandler: PassiveHandler
 
     private lateinit var damageTypes: DamageTypes
 
@@ -71,6 +73,7 @@ class KitPvp : JavaPlugin() {
 //        challengesHandler = ChallengesHandler()
         ultimateHandler = UltimateHandler()
         guiHandler = GuiHandler()
+        passiveHandler = PassiveHandler()
 
         damageTypes = DamageTypes()
 
