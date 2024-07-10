@@ -7,6 +7,7 @@ import io.github.chaosdave34.kitpvp.ultimates.impl.*
 import org.bukkit.NamespacedKey
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
+import org.bukkit.event.block.BlockPlaceEvent
 import org.bukkit.event.player.PlayerDropItemEvent
 import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.persistence.PersistentDataType
@@ -40,7 +41,10 @@ class UltimateHandler : Listener {
         if (ExtendedPlayer.from(player).gameState != ExtendedPlayer.GameState.KITS_IN_GAME) return
 
         val ultimateId = item.persistentDataContainer.get(NamespacedKey(KitPvp.INSTANCE, "ultimate"), PersistentDataType.STRING)
-        ultimates[ultimateId]?.handleUltimate(player)
+        if (ultimateId != null) {
+            ultimates[ultimateId]?.handleUltimate(player)
+            event.isCancelled = true
+        }
     }
 
     @EventHandler
@@ -52,5 +56,19 @@ class UltimateHandler : Listener {
 
         val ultimateId = item.persistentDataContainer.get(NamespacedKey(KitPvp.INSTANCE, "ultimate"), PersistentDataType.STRING)
         ultimates[ultimateId]?.handleUltimate(player)
+    }
+
+    @EventHandler
+    fun onBlockPlace(event: BlockPlaceEvent) {
+        val player = event.player
+        val item = event.itemInHand
+
+        if (ExtendedPlayer.from(player).gameState != ExtendedPlayer.GameState.KITS_IN_GAME) return
+
+        val ultimateId = item.persistentDataContainer.get(NamespacedKey(KitPvp.INSTANCE, "ultimate"), PersistentDataType.STRING)
+        if (ultimateId != null) {
+            ultimates[ultimateId]?.handleUltimate(player)
+            event.isCancelled = true
+        }
     }
 }

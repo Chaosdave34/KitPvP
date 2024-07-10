@@ -7,6 +7,7 @@ import io.github.chaosdave34.kitpvp.abilities.impl.*
 import org.bukkit.NamespacedKey
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
+import org.bukkit.event.block.BlockPlaceEvent
 import org.bukkit.event.player.PlayerDropItemEvent
 import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.persistence.PersistentDataType
@@ -49,7 +50,10 @@ class AbilityHandler : Listener {
         if (ExtendedPlayer.from(player).gameState != ExtendedPlayer.GameState.KITS_IN_GAME) return
 
         val abilityId = item.persistentDataContainer.get(NamespacedKey(KitPvp.INSTANCE, "ability"), PersistentDataType.STRING)
-        abilities[abilityId]?.handleAbility(player)
+        if (abilityId != null) {
+            abilities[abilityId]?.handleAbility(player)
+            event.isCancelled = true
+        }
     }
 
     @EventHandler
@@ -63,4 +67,16 @@ class AbilityHandler : Listener {
         abilities[abilityId]?.handleAbility(player)
     }
 
+    @EventHandler
+    fun onBlockPlace(event: BlockPlaceEvent) {
+        val player = event.player
+        val item = event.itemInHand
+
+        if (ExtendedPlayer.from(player).gameState != ExtendedPlayer.GameState.KITS_IN_GAME) return
+
+        val abilityId = item.persistentDataContainer.get(NamespacedKey(KitPvp.INSTANCE, "ability"), PersistentDataType.STRING)
+        if (abilityId != null) {
+            event.isCancelled = true
+        }
+    }
 }
