@@ -274,8 +274,6 @@ class ExtendedPlayer(val uuid: UUID) {
         health = round(health * 10) / 10
         val maxHealth = player.getAttribute(Attribute.GENERIC_MAX_HEALTH)?.value ?: 20.0
 
-        val defense = attributes.getDefense()
-
         val mana = attributes.mana
         val maxMana = attributes.getMaxMana()
 
@@ -285,7 +283,6 @@ class ExtendedPlayer(val uuid: UUID) {
 
         val message = listOf(
             Component.text("$health/$maxHealth ❤", NamedTextColor.RED),
-            Component.text("$defense ⛨", NamedTextColor.DARK_GREEN),
             Component.text("$mana/$maxMana ʬ", NamedTextColor.DARK_AQUA),
             Component.text("$damageStacks ☄", NamedTextColor.DARK_RED).decoration(TextDecoration.BOLD, enoughDamageStacks)
         )
