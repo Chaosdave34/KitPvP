@@ -176,7 +176,7 @@ object Guis {
                 it.addItemFlags(ItemFlag.HIDE_ADDITIONAL_TOOLTIP)
                 it.hideAttributes()
             }
-            page.createButton(10, weaponsButton) { INVENTORY.openPage("weapons", player) }
+            page.createButton(11, weaponsButton) { INVENTORY.openPage("weapons", player) }
 
             val selectedHelmet = selectedSetup.getHelmet()?.name ?: "None"
             val selectedChestplate = selectedSetup.getChestplate()?.name ?: "None"
@@ -198,11 +198,11 @@ object Guis {
                 it.addItemFlags(ItemFlag.HIDE_ADDITIONAL_TOOLTIP)
                 it.hideAttributes()
             }
-            page.createButton(12, armorButton) { INVENTORY.openPage("armor", player) }
+            page.createButton(13, armorButton) { INVENTORY.openPage("armor", player) }
 
             val selectedPassive = selectedSetup.getPassive()?.name ?: "None"
 
-            val passivesButton = ItemStack.of(Material.GLASS_PANE)
+            val passivesButton = ItemStack.of(Material.WHITE_DYE)
             passivesButton.editMeta {
                 it.displayName(Component.text("Passives", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false))
                 it.lore(
@@ -212,14 +212,8 @@ object Guis {
                     )
                 )
             }
-            page.createButton(14, passivesButton) { INVENTORY.openPage("passives", player) }
+            page.createButton(15, passivesButton) { INVENTORY.openPage("passives", player) }
 
-            val potionButton = ItemStack.of(Material.POTION)
-            potionButton.editMeta {
-                it.displayName(Component.text("Potions", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false))
-                it.addItemFlags(ItemFlag.HIDE_ADDITIONAL_TOOLTIP)
-            }
-            page.createButton(16, potionButton) { INVENTORY.openPage("potions", player) }
 
             page.createCloseButton(31)
             page.fillEmpty()
@@ -426,7 +420,12 @@ object Guis {
             val projectileTrailButton = ItemStack.of(Material.ARROW)
             projectileTrailButton.editMeta {
                 it.displayName(Component.text("Projectile Trails").decoration(TextDecoration.ITALIC, false))
-                it.lore(listOf(Component.text("Selected: $selectedProjectileTrail", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false)))
+                it.lore(
+                    listOf(
+                        Component.text("Selected:", NamedTextColor.DARK_GRAY).decoration(TextDecoration.ITALIC, false),
+                        Component.text(selectedProjectileTrail, NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false)
+                    )
+                )
                 it.hideAttributes()
             }
 
@@ -439,7 +438,12 @@ object Guis {
             val killEffectButton = ItemStack.of(Material.IRON_SWORD)
             killEffectButton.editMeta {
                 it.displayName(Component.text("Kill Effects").decoration(TextDecoration.ITALIC, false))
-                it.lore(listOf(Component.text("Selected: $selectedKillEffect", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false)))
+                it.lore(
+                    listOf(
+                        Component.text("Selected:", NamedTextColor.DARK_GRAY).decoration(TextDecoration.ITALIC, false),
+                        Component.text(selectedKillEffect, NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false)
+                    )
+                )
                 it.hideAttributes()
             }
 
