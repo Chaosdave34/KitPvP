@@ -11,6 +11,6 @@ fun Player.sendPackets(vararg packets: Packet<*>) {
     packets.forEach { connection.send(it) }
 }
 
-fun Player.openGui(gui: Gui) {
-    gui.open(this)
+fun Player.openGui(gui: Gui, arguments: Any? = null) {
+    gui.open(this, arguments)
 }

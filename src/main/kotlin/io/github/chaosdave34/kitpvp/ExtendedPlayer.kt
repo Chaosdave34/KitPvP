@@ -41,7 +41,8 @@ class ExtendedPlayer(val uuid: UUID) {
     var currentGame: GameType
 
     private var experiencePoints: Int
-    private var coins: Int
+    var coins: Int
+        private set
     private var bounty: Int
 
     private var highestKillStreaks: MutableMap<GameType, Int>

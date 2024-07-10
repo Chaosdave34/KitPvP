@@ -34,9 +34,7 @@ object BountyCommand {
     }
 
     private fun bounty(source: CommandSourceStack, targets: PlayerSelectorArgumentResolver, amount: Int): Int {
-        val resolvedTargets = targets.resolve(source)
-
-        resolvedTargets.forEach { target ->
+        targets.resolve(source).forEach { target ->
             val player = source.sender as Player
 
             if (target == player) {

@@ -16,5 +16,6 @@ object CommandBootstrap {
         AddExperienceCommand.register(commands)
         MsgCommand.register(commands)
         LoopCommand.register(commands)
+        ProfileCommand.registerCommand(commands)
     }
 }

@@ -14,18 +14,20 @@ import org.bukkit.entity.Player
 import org.bukkit.inventory.EquipmentSlot
 import org.bukkit.inventory.ItemFlag
 import org.bukkit.inventory.ItemStack
+import org.bukkit.inventory.meta.SkullMeta
 import kotlin.math.ceil
 import kotlin.math.max
 
 object Guis {
     val SERVER_SELECTOR = Gui("default")
     val TRAINER = Gui("overview")
+    val INVENTORY = Gui("overview")
+    val PROFILE = Gui("default")
     val ELYTRA_KITS = Gui("default")
     val COSMETICS = Gui("overview")
-    val INVENTORY = Gui("overview")
 
     fun create() {
-        SERVER_SELECTOR.createDefaultPage(Component.text("Server Selector"), 4) { page, player ->
+        SERVER_SELECTOR.createDefaultPage(Component.text("Server Selector"), 4) { page, player, _ ->
 
             val amusementParkButton = ItemStack.of(Material.FIREWORK_ROCKET)
             amusementParkButton.editMeta {
@@ -62,7 +64,7 @@ object Guis {
             page.fillEmpty()
         }
 
-        TRAINER.createDefaultPage(Component.text("Trainer"), 4) { page, player ->
+        TRAINER.createDefaultPage(Component.text("Trainer"), 4) { page, player, _ ->
             val selectedSetup = ExtendedPlayer.from(player).selectedSetup
 
             val selectedAbility1 = selectedSetup.getAbility1()?.name ?: "None"
@@ -105,7 +107,7 @@ object Guis {
             page.fillEmpty()
         }
 
-        TRAINER.createPage("abilities", Component.text("Abilities"), 6) { page, player ->
+        TRAINER.createPage("abilities", Component.text("Abilities"), 6) { page, player, _ ->
             val extendedPlayer = ExtendedPlayer.from(player)
 
             for ((i, ability) in KitPvp.INSTANCE.abilityHandler.abilities.values.sortedBy { it.name }.withIndex()) {
@@ -131,7 +133,7 @@ object Guis {
             }
         }
 
-        TRAINER.createPage("ultimates", Component.text("Ultimates"), 6) { page, player ->
+        TRAINER.createPage("ultimates", Component.text("Ultimates"), 6) { page, player, _ ->
             val extendedPlayer = ExtendedPlayer.from(player)
 
             for ((i, ultimate) in KitPvp.INSTANCE.ultimateHandler.ultimates.values.sortedBy { it.name }.withIndex()) {
@@ -157,7 +159,7 @@ object Guis {
             }
         }
 
-        INVENTORY.createDefaultPage(Component.text("Shop"), 4) { page, player ->
+        INVENTORY.createDefaultPage(Component.text("Shop"), 4) { page, player, _ ->
             val selectedSetup = ExtendedPlayer.from(player).selectedSetup
 
             val selectedWeapon1 = selectedSetup.getWeapon1()?.name ?: "None"
@@ -235,7 +237,7 @@ object Guis {
             page.fillEmpty()
         }
 
-        INVENTORY.createPage("weapons", Component.text("Weapons"), 6) { page, player ->
+        INVENTORY.createPage("weapons", Component.text("Weapons"), 6) { page, player, _ ->
             val extendedPlayer = ExtendedPlayer.from(player)
 
             for ((i, weapon) in KitPvp.INSTANCE.customItemHandler.customItems.values
@@ -262,7 +264,7 @@ object Guis {
             page.fillEmpty()
         }
 
-        INVENTORY.createPage("armor", Component.text("Armor"), 6) { page, player ->
+        INVENTORY.createPage("armor", Component.text("Armor"), 6) { page, player, _ ->
             val extendedPlayer = ExtendedPlayer.from(player)
 
             var slot = 0
@@ -351,7 +353,7 @@ object Guis {
             page.fillEmpty()
         }
 
-        INVENTORY.createPage("consumables", Component.text("Consumables"), 6) { page, player ->
+        INVENTORY.createPage("consumables", Component.text("Consumables"), 6) { page, player, _ ->
             val extendedPlayer = ExtendedPlayer.from(player)
 
             for ((i, consumable) in KitPvp.INSTANCE.consumableHandler.consumables.values.sortedBy { it.name }.withIndex()) {
@@ -377,7 +379,7 @@ object Guis {
             page.fillEmpty()
         }
 
-        INVENTORY.createPage("passives", Component.text("Passives"), 6) { page, player ->
+        INVENTORY.createPage("passives", Component.text("Passives"), 6) { page, player, _ ->
             val extendedPlayer = ExtendedPlayer.from(player)
 
             for ((i, passive) in KitPvp.INSTANCE.passiveHandler.passives.values.sortedBy { it.name }.withIndex()) {
@@ -404,7 +406,51 @@ object Guis {
             page.fillEmpty()
         }
 
-        ELYTRA_KITS.createDefaultPage(Component.text("Kits"), 5) { page, player ->
+        PROFILE.createDefaultPage(Component.text("Profile"), 6) { page, _, target ->
+            if (target !is Player) return@createDefaultPage
+
+            val extendedTarget = ExtendedPlayer.from(target)
+
+            page.createEntry(4, Material.PLAYER_HEAD, Component.text(target.name, NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false)) {
+                it.editMeta(SkullMeta::class.java) { meta -> meta.owningPlayer = target }
+                it.lore(
+                    listOf(
+                        Component.text("Level: ${extendedTarget.getLevel()}", NamedTextColor.GRAY).decoration(TextDecoration.ITALIC, false),
+                        Component.text("Coins: ${extendedTarget.coins}", NamedTextColor.GRAY).decoration(TextDecoration.ITALIC, false),
+                        Component.text("Highest Kill Streak: ${extendedTarget.getHighestKillStreak(ExtendedPlayer.GameType.KITS)}", NamedTextColor.GRAY)
+                            .decoration(TextDecoration.ITALIC, false)
+                    )
+                )
+            }
+
+            val noneItem = ItemStack.of(Material.BARRIER)
+            noneItem.editMeta { it.displayName(Component.text("None", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false)) }
+
+            val selectedSetup = extendedTarget.selectedSetup
+
+            page.createEntry(10, selectedSetup.getHelmet()?.build() ?: noneItem)
+            page.createEntry(19, selectedSetup.getChestplate()?.build() ?: noneItem)
+            page.createEntry(28, selectedSetup.getLeggings()?.build() ?: noneItem)
+            page.createEntry(37, selectedSetup.getBoots()?.build() ?: noneItem)
+
+            page.createEntry(12, selectedSetup.getWeapon1()?.build() ?: noneItem)
+            page.createEntry(13, selectedSetup.getWeapon2()?.build() ?: noneItem)
+
+            page.createEntry(15, selectedSetup.getConsumable1()?.getItem() ?: noneItem)
+            page.createEntry(16, selectedSetup.getConsumable2()?.getItem() ?: noneItem)
+
+            page.createEntry(30, selectedSetup.getAbility1()?.getItem() ?: noneItem)
+            page.createEntry(31, selectedSetup.getAbility2()?.getItem() ?: noneItem)
+            page.createEntry(32, selectedSetup.getUltimate()?.getItem() ?: noneItem)
+
+            page.createEntry(34, selectedSetup.getPassive()?.getItem() ?: noneItem)
+
+
+            page.createCloseButton(49)
+            page.fillEmpty()
+        }
+
+        ELYTRA_KITS.createDefaultPage(Component.text("Kits"), 5) { page, player, _ ->
             val setIcon: (slot: Int, kit: ElytraKit) -> Unit = { slot, kit ->
                 val name = Component.text(kit.name, NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false)
 
@@ -449,7 +495,7 @@ object Guis {
             page.fillEmpty()
         }
 
-        COSMETICS.createDefaultPage(Component.text("Cosmetics"), 3) { page, player ->
+        COSMETICS.createDefaultPage(Component.text("Cosmetics"), 3) { page, player, _ ->
             val extendedPlayer: ExtendedPlayer = ExtendedPlayer.from(player)
 
             val selectedProjectileTrail = KitPvp.INSTANCE.cosmeticHandler.projectileTrails[extendedPlayer.projectileTrailId]?.name ?: "None"
@@ -495,7 +541,7 @@ object Guis {
         val killEffects = KitPvp.INSTANCE.cosmeticHandler.killEffects.values.toList()
         val killEffectsRows = max(ceil((killEffects.size + 1) / 9.0), 1.0) + 1
 
-        COSMETICS.createPage("kill_effects", Component.text("Kill Effects"), killEffectsRows.toInt()) { page, player ->
+        COSMETICS.createPage("kill_effects", Component.text("Kill Effects"), killEffectsRows.toInt()) { page, player, _ ->
             val extendedPlayer = ExtendedPlayer.from(player)
 
             // Todo: add glint and color if selected
@@ -552,7 +598,7 @@ object Guis {
         val projectileTrails = KitPvp.INSTANCE.cosmeticHandler.projectileTrails.values.toList()
         val projectileTrailsRows = max(ceil((projectileTrails.size + 1) / 9.0), 1.0) + 1
 
-        COSMETICS.createPage("projectile_trails", Component.text("Projectile Trails"), projectileTrailsRows.toInt()) { page, player ->
+        COSMETICS.createPage("projectile_trails", Component.text("Projectile Trails"), projectileTrailsRows.toInt()) { page, player, _ ->
             val extendedPlayer = ExtendedPlayer.from(player)
 
             // Todo: add glint and color if selected
