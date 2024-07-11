@@ -207,7 +207,7 @@ object Guis {
 
             val consumableButton = ItemStack.of(Material.TOTEM_OF_UNDYING)
             consumableButton.editMeta {
-                it.displayName(Component.text("Consumables", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false))
+                it.displayName(Component.text("ConsumableHandler", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false))
                 it.lore(
                     listOf(
                         Component.text("Selected:", NamedTextColor.DARK_GRAY).decoration(TextDecoration.ITALIC, false),
@@ -353,7 +353,7 @@ object Guis {
             page.fillEmpty()
         }
 
-        INVENTORY.createPage("consumables", Component.text("Consumables"), 6) { page, player, _ ->
+        INVENTORY.createPage("consumables", Component.text("ConsumableHandler"), 6) { page, player, _ ->
             val extendedPlayer = ExtendedPlayer.from(player)
 
             for ((i, consumable) in KitPvp.INSTANCE.consumableHandler.consumables.values.sortedBy { it.name }.withIndex()) {

@@ -308,12 +308,12 @@ class ExtendedPlayer(val uuid: UUID) {
         player.sendPlayerListFooter(footer)
     }
 
-    fun updateDailyChallenges() {
+//    fun updateDailyChallenges() {
 //        dailyChallenges = KitPvp.INSTANCE.challengesHandler.threeRandomChallenges.map { it.id }
 //        Bukkit.getScheduler().runTaskLater(KitPvp.INSTANCE, Consumer { getPlayer()?.sendMessage(Component.text("You have new daily challenges!")) }, 1)
 //
 //        KitPvp.INSTANCE.challengesHandler.resetProgress(getPlayer())
-    }
+//    }
 
     private fun updatePersonalStatisticsDisplay(gameType: GameType) {
         when (gameType) {
@@ -570,8 +570,7 @@ class ExtendedPlayer(val uuid: UUID) {
         player.sendActionBar(info)
 
         when (currentGame) {
-            //GameType.KITS -> player.inventory.addItem(*getSelectedKitsKit().getKillRewards())
-            GameType.KITS -> {} // Todo: update after rework
+            GameType.KITS -> KitPvp.INSTANCE.consumableHandler.rewardOnKill(player)
             GameType.ELYTRA -> player.inventory.addItem(*getSelectedElytraKit().getKillRewards())
         }
 

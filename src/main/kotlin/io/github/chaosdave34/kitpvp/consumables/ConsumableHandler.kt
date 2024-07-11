@@ -1,11 +1,13 @@
 package io.github.chaosdave34.kitpvp.consumables
 
+import io.github.chaosdave34.kitpvp.ExtendedPlayer
 import org.bukkit.Material
+import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.meta.PotionMeta
 import org.bukkit.potion.PotionType
+import kotlin.math.min
 
-// Todo handle kill rewards
 class ConsumableHandler {
     val consumables: MutableMap<String, Consumable> = mutableMapOf()
 
@@ -28,6 +30,28 @@ class ConsumableHandler {
             ItemStack.of(Material.GOLDEN_APPLE)
         }
         registerConsumable(goldenApple)
+    }
+
+    fun rewardOnKill(player: Player) {
+        val extendedPlayer = ExtendedPlayer.from(player)
+        val inventory = player.inventory
+
+        val consumable1 = extendedPlayer.selectedSetup.getConsumable1()
+        val consumable2 = extendedPlayer.selectedSetup.getConsumable2()
+
+        if (consumable1 != null) {
+            val currentAmount = inventory.getItem(7)?.amount ?: 0
+            val newAmount = min(consumable1.maxAmount, currentAmount + consumable1.rewardAmount)
+
+            inventory.getItem(7)?.amount = newAmount
+        }
+
+        if (consumable2 != null) {
+            val currentAmount = inventory.getItem(8)?.amount ?: 0
+            val newAmount = min(consumable2.maxAmount, currentAmount + consumable2.rewardAmount)
+
+            inventory.getItem(8)?.amount = newAmount
+        }
     }
 
     private fun registerConsumable(consumable: Consumable): Consumable {

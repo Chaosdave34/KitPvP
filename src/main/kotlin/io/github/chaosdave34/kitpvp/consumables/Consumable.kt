@@ -16,6 +16,19 @@ class Consumable(val id: String, val name: String, private val startAmount: Int,
         items.editMeta {
             it.displayName(Component.text(name, NamedTextColor.AQUA).decoration(TextDecoration.ITALIC, false))
             it.addItemFlags(ItemFlag.HIDE_ADDITIONAL_TOOLTIP)
+            it.lore(
+                listOf(
+                    Component.text("Start with: ", NamedTextColor.DARK_GRAY)
+                        .append(Component.text(startAmount, NamedTextColor.AQUA))
+                        .decoration(TextDecoration.ITALIC, false),
+                    Component.text("Per kill: ", NamedTextColor.DARK_GRAY)
+                        .append(Component.text(rewardAmount, NamedTextColor.AQUA))
+                        .decoration(TextDecoration.ITALIC, false),
+                    Component.text("Max amount: ", NamedTextColor.DARK_GRAY)
+                        .append(Component.text(maxAmount, NamedTextColor.AQUA))
+                        .decoration(TextDecoration.ITALIC, false)
+                )
+            )
         }
         return items
     }
