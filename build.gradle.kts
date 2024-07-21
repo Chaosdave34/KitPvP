@@ -66,7 +66,7 @@ tasks {
 
     shadowJar {
         // helper function to relocate a package into our package
-        fun reloc(pkg: String) = relocate(pkg, "io.papermc.paperweight.testplugin.dependency.$pkg")
+        fun relocate(pkg: String) = relocate(pkg, "$group.dependency.$pkg")
     }
 }
 
