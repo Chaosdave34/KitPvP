@@ -82,8 +82,6 @@ class UtilityListener : Listener {
 //        if (!lastLoginDate.isEqual(today) || extendedPlayer.dailyChallenges.isEmpty()) {
 //            extendedPlayer.updateDailyChallenges()
 //        }
-
-        extendedPlayer.updatePlayerListFooter()
     }
 
     @EventHandler

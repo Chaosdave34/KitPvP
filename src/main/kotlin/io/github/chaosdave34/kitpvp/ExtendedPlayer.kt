@@ -2,7 +2,6 @@ package io.github.chaosdave34.kitpvp
 
 import io.github.chaosdave34.kitpvp.abilities.Ability
 import io.github.chaosdave34.kitpvp.consumables.Consumable
-import io.github.chaosdave34.kitpvp.customevents.CustomEventHandler
 import io.github.chaosdave34.kitpvp.elytrakits.ElytraKit
 import io.github.chaosdave34.kitpvp.elytrakits.ElytraKitHandler
 import io.github.chaosdave34.kitpvp.events.PlayerSpawnEvent
@@ -11,6 +10,8 @@ import io.github.chaosdave34.kitpvp.pasives.Passive
 import io.github.chaosdave34.kitpvp.textdisplays.TextDisplays
 import io.github.chaosdave34.kitpvp.ultimates.Ultimate
 import io.github.chaosdave34.kitpvp.utils.MathUtils
+import me.lucko.spark.api.SparkProvider
+import me.lucko.spark.api.statistic.StatisticWindow
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.JoinConfiguration
 import net.kyori.adventure.text.format.NamedTextColor
@@ -199,6 +200,9 @@ class ExtendedPlayer(val uuid: UUID) {
                         // Action Bar
                         getPlayer()?.sendActionBar(createActionBarMessage())
 
+                        // Player List Footer
+                        updatePlayerListFooter()
+
                         // Mana Regen
                         if (attributes.mana < attributes.getMaxMana()) {
                             var manaRegen = attributes.getManaRegen()
@@ -268,7 +272,7 @@ class ExtendedPlayer(val uuid: UUID) {
         objective.getScore("Status: " + (if (combatCooldown > 0) "§cFighting" else gameState.displayName)).score = 0
     }
 
-    fun createActionBarMessage(): Component {
+    private fun createActionBarMessage(): Component {
         val player = getPlayer() ?: return Component.text("")
 
         var health = player.health
@@ -291,7 +295,7 @@ class ExtendedPlayer(val uuid: UUID) {
         return Component.join(JoinConfiguration.separator(Component.text("   ")), message)
     }
 
-    fun updatePlayerListFooter() {
+    private fun updatePlayerListFooter() {
         val player = getPlayer() ?: return
 
 //        var footer = Component.newline().append(Component.text("Daily Challenges:", NamedTextColor.GREEN))
@@ -302,7 +306,23 @@ class ExtendedPlayer(val uuid: UUID) {
 //            footer = footer.append(Component.newline()).append(Component.text("${challenge.name} ${challenge.progress[player]}/${challenge.amount}", textColor))
 //        }
 
+        val spark = SparkProvider.get()
+        val sparkInfo =
+            if (player.isOp) {
+                val tps = spark.tps()?.poll(StatisticWindow.TicksPerSecond.SECONDS_5)?.let { round(it * 10) / 10 }
+                val mspt = spark.mspt()?.poll(StatisticWindow.MillisPerTick.SECONDS_10)?.median()?.let { round(it * 10) / 10 }
+                Component.text(
+                    "TPS: ${tps ?: "N/A"} " +
+                            "MSPT: ${mspt ?: "N/A"} " +
+                            "Ping: ${player.ping}ms"
+                )
+            } else {
+                Component.text("Ping: ${player.ping}ms")
+            }
+
         val footer = Component.newline()
+            .append(sparkInfo)
+            .append(Component.newline())
             .append(Component.text("============================", NamedTextColor.YELLOW, TextDecoration.BOLD))
 
         player.sendPlayerListFooter(footer)
@@ -550,9 +570,9 @@ class ExtendedPlayer(val uuid: UUID) {
 
         val extendedVictim = from(victim)
         var xpReward: Int = 10 + (extendedVictim.getLevel() * 0.25).toInt()
-        if (CustomEventHandler.DOUBLE_COINS_AND_EXPERIENCE_EVENT.isActive) {
-            xpReward *= 2
-        }
+//        if (CustomEventHandler.DOUBLE_COINS_AND_EXPERIENCE_EVENT.isActive) {
+//            xpReward *= 2
+//        }
 
         var coinReward: Int = (xpReward * 1.5).roundToInt()
 

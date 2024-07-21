@@ -40,7 +40,7 @@ public abstract class Challenge implements Listener {
         }
 
 
-        extendedPlayer.updatePlayerListFooter();
+//        extendedPlayer.updatePlayerListFooter();
     }
 
     public int getProgress(Player p) {
