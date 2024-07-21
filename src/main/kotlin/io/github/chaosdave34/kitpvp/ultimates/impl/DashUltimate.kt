@@ -34,12 +34,12 @@ class DashUltimate : Ultimate("dash", "Dash", 30, 5.0, Material.CHAIN) {
                         entity.velocity = direction.multiply(2)
                         entity.damage(7.5, player)
                     }
-                }
-                if (i > 1.5 * 20) {
+                }   
+                if (i > 1.5 * 2) {
                     cancel()
                 }
             }
-        }.runTaskTimer(KitPvp.INSTANCE, 1, 1)
+        }.runTaskTimer(KitPvp.INSTANCE, 1, 10)
 
         AbilityRunnable.runTaskLater(KitPvp.INSTANCE, { horse.remove() }, player, 20 * 20)
 
