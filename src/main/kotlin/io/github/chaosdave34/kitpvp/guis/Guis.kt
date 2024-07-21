@@ -353,7 +353,7 @@ object Guis {
             page.fillEmpty()
         }
 
-        INVENTORY.createPage("consumables", Component.text("ConsumableHandler"), 6) { page, player, _ ->
+        INVENTORY.createPage("consumables", Component.text("Consumable"), 6) { page, player, _ ->
             val extendedPlayer = ExtendedPlayer.from(player)
 
             for ((i, consumable) in KitPvp.INSTANCE.consumableHandler.consumables.values.sortedBy { it.name }.withIndex()) {

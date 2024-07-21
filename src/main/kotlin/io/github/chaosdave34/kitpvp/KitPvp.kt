@@ -49,7 +49,7 @@ class KitPvp : JavaPlugin() {
     lateinit var cosmeticHandler: CosmeticHandler
 
     //    lateinit var customEventHandler: CustomEventHandler
-//    lateinit var challengesHandler: ChallengesHandler
+    //    lateinit var challengesHandler: ChallengesHandler
     lateinit var ultimateHandler: UltimateHandler
     lateinit var guiHandler: GuiHandler
     lateinit var passiveHandler: PassiveHandler
@@ -93,7 +93,6 @@ class KitPvp : JavaPlugin() {
             it.setGameRule(GameRule.DO_MOB_SPAWNING, false)
             it.setGameRule(GameRule.DO_FIRE_TICK, false)
         }
-
 
         val worldCreator = WorldCreator("world_elytra")
         worldCreator.generator(object : ChunkGenerator() {})
