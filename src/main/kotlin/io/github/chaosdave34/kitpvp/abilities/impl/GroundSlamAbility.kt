@@ -12,7 +12,6 @@ import org.bukkit.entity.Player
 import org.bukkit.scheduler.BukkitRunnable
 import org.bukkit.util.Vector
 import kotlin.math.pow
-import kotlin.math.sin
 
 class GroundSlamAbility : Ability("ground_slam", "Ground Slam", 10, 50, Material.MACE) {
 
@@ -66,7 +65,7 @@ class GroundSlamAbility : Ability("ground_slam", "Ground Slam", 10, 50, Material
                     val difference = lineNumber * 2
                     if (i in difference..10 + difference) {
                         line.forEach { blockDisplay: Entity ->
-                            val y = sin((i - difference) * Math.PI * 0.2)
+                            val y = kotlin.math.sin((i - difference) * Math.PI * 0.2)
                             blockDisplay.teleport(blockDisplay.location.add(0.0, y * 0.2, 0.0))
 
                             blockDisplay.getNearbyEntities(1.0, 2.0, 1.0).forEach { entity ->

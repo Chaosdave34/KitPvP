@@ -88,7 +88,7 @@ object TextDisplays {
         val totalKills = extendedPlayer.getTotalKills(gameType)
         val totalDeaths = extendedPlayer.getTotalDeaths(gameType)
         val killDeathRatio = if (totalDeaths == 0) totalKills.toDouble() else totalKills.toDouble() / totalDeaths
-        val roundedKillDeathRatio = (Math.round(killDeathRatio * 100).toDouble()) / 100
+        val roundedKillDeathRatio = kotlin.math.round(killDeathRatio * 100) / 100
 
         val text = listOf(
             Component.text("Personal Statistics:", NamedTextColor.GOLD, TextDecoration.BOLD),

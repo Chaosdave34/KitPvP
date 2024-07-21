@@ -7,7 +7,6 @@ import org.bukkit.entity.AbstractArrow
 import org.bukkit.entity.Arrow
 import org.bukkit.entity.Player
 import org.bukkit.util.Vector
-import kotlin.math.min
 import kotlin.random.Random
 
 class ArrowRainUltimate : Ultimate("arrow_rain", "Arrow Rain", 30, 10.0, Material.ARROW) {
@@ -16,7 +15,7 @@ class ArrowRainUltimate : Ultimate("arrow_rain", "Arrow Rain", 30, 10.0, Materia
     override fun onAbility(player: Player): Boolean {
         val location = player.location
         val x = location.x
-        val y = min(110.0, location.y + 20)
+        val y = kotlin.math.min(110.0, location.y + 20)
         val z = location.z
 
         var xOffset = -15.0

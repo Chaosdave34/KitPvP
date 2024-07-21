@@ -10,8 +10,6 @@ import org.bukkit.damage.DamageSource
 import org.bukkit.damage.DamageType
 import org.bukkit.entity.LivingEntity
 import org.bukkit.entity.Player
-import kotlin.math.cos
-import kotlin.math.sin
 
 class FireStormAbility : Ability("fire_storm", "Fire Storm", 20, 50, Material.BLAZE_POWDER) {
     override fun getDescription(): List<Component> = createSimpleDescriptionAsList("Cause a storm of fire damaging nearby enemies.")
@@ -37,7 +35,7 @@ class FireStormAbility : Ability("fire_storm", "Fire Storm", 20, 50, Material.BL
                 for (positionCounter in 0 until 6) {
                     val position = location.clone()
 
-                    position.add(3 * cos(positionCounter.toDouble()), 0.0, 3 * sin(positionCounter.toDouble()))
+                    position.add(3 * kotlin.math.cos(positionCounter.toDouble()), 0.0, 3 * kotlin.math.sin(positionCounter.toDouble()))
 
                     for (yCounter in 0 until 25) {
                         position.add(0.0, yCounter * 0.2, 0.0)

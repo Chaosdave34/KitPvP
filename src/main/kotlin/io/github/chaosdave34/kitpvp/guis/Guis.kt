@@ -15,8 +15,6 @@ import org.bukkit.inventory.EquipmentSlot
 import org.bukkit.inventory.ItemFlag
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.meta.SkullMeta
-import kotlin.math.ceil
-import kotlin.math.max
 
 object Guis {
     val SERVER_SELECTOR = Gui("default")
@@ -539,7 +537,7 @@ object Guis {
         }
 
         val killEffects = KitPvp.INSTANCE.cosmeticHandler.killEffects.values.toList()
-        val killEffectsRows = max(ceil((killEffects.size + 1) / 9.0), 1.0) + 1
+        val killEffectsRows = kotlin.math.max(kotlin.math.ceil((killEffects.size + 1) / 9.0), 1.0) + 1
 
         COSMETICS.createPage("kill_effects", Component.text("Kill Effects"), killEffectsRows.toInt()) { page, player, _ ->
             val extendedPlayer = ExtendedPlayer.from(player)
@@ -596,7 +594,7 @@ object Guis {
         }
 
         val projectileTrails = KitPvp.INSTANCE.cosmeticHandler.projectileTrails.values.toList()
-        val projectileTrailsRows = max(ceil((projectileTrails.size + 1) / 9.0), 1.0) + 1
+        val projectileTrailsRows = kotlin.math.max(kotlin.math.ceil((projectileTrails.size + 1) / 9.0), 1.0) + 1
 
         COSMETICS.createPage("projectile_trails", Component.text("Projectile Trails"), projectileTrailsRows.toInt()) { page, player, _ ->
             val extendedPlayer = ExtendedPlayer.from(player)

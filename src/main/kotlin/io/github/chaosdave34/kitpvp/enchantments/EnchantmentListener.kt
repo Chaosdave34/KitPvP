@@ -11,8 +11,6 @@ import org.bukkit.event.entity.EntityDamageEvent
 import org.bukkit.inventory.ItemStack
 import org.bukkit.potion.PotionEffect
 import org.bukkit.potion.PotionEffectType
-import kotlin.math.abs
-import kotlin.math.min
 
 class EnchantmentListener : Listener {
     // Backstab
@@ -22,7 +20,7 @@ class EnchantmentListener : Listener {
         if (player is Player) {
             val item: ItemStack = player.inventory.itemInMainHand
             if (item.containsEnchantment(CustomEnchantments.BACKSTAB)) {
-                if (abs(player.getLocation().getDirection().angle(event.target.location.direction) * 180 / Math.PI) < 30) {
+                if (kotlin.math.abs(player.getLocation().getDirection().angle(event.target.location.direction) * 180 / Math.PI) < 30) {
                     val level = item.getEnchantmentLevel(CustomEnchantments.BACKSTAB)
                     event.damage *= 1 + (level * 0.25)
                 }
@@ -59,7 +57,7 @@ class EnchantmentListener : Listener {
 
                 val heal = event.damage * item.getEnchantmentLevel(CustomEnchantments.LIFE_STEAL) * 0.1
 
-                player.health = min(currentHealth + heal, maxHealthValue)
+                player.health = kotlin.math.min(currentHealth + heal, maxHealthValue)
             }
         }
     }

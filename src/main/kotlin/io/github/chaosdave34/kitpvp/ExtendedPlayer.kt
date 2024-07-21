@@ -30,7 +30,6 @@ import org.bukkit.scoreboard.Criteria
 import org.bukkit.scoreboard.DisplaySlot
 import org.bukkit.scoreboard.Scoreboard
 import java.util.*
-import kotlin.math.round
 import kotlin.math.roundToInt
 import kotlin.reflect.KClass
 
@@ -276,14 +275,14 @@ class ExtendedPlayer(val uuid: UUID) {
         val player = getPlayer() ?: return Component.text("")
 
         var health = player.health
-        health = round(health * 10) / 10
+        health = kotlin.math.round(health * 10) / 10
         val maxHealth = player.getAttribute(Attribute.GENERIC_MAX_HEALTH)?.value ?: 20.0
 
         val mana = attributes.mana
         val maxMana = attributes.getMaxMana()
 
         var damageStacks = attributes.damageStack
-        damageStacks = round(damageStacks * 10) / 10
+        damageStacks = kotlin.math.round(damageStacks * 10) / 10
         val enoughDamageStacks = damageStacks >= (selectedSetup.getUltimate()?.damageStackCost ?: 0.0)
 
         val message = listOf(
@@ -309,8 +308,8 @@ class ExtendedPlayer(val uuid: UUID) {
         val spark = SparkProvider.get()
         val sparkInfo =
             if (player.isOp) {
-                val tps = spark.tps()?.poll(StatisticWindow.TicksPerSecond.SECONDS_5)?.let { round(it * 10) / 10 }
-                val mspt = spark.mspt()?.poll(StatisticWindow.MillisPerTick.SECONDS_10)?.median()?.let { round(it * 10) / 10 }
+                val tps = spark.tps()?.poll(StatisticWindow.TicksPerSecond.SECONDS_5)?.let { kotlin.math.round(it * 10) / 10 }
+                val mspt = spark.mspt()?.poll(StatisticWindow.MillisPerTick.SECONDS_10)?.median()?.let { kotlin.math.round(it * 10) / 10 }
                 Component.text(
                     "TPS: ${tps ?: "N/A"} " +
                             "MSPT: ${mspt ?: "N/A"} " +

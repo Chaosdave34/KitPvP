@@ -107,7 +107,7 @@ class TurretAbility : Ability("turret", "Turret", 60, 50, Material.SNOW_GOLEM_SP
                 }
 
                 event.damage = 1.0
-                entity.customName(Component.text("Turret " + Math.round(entity.health) + "/10"))
+                entity.customName(Component.text("Turret " + kotlin.math.round(entity.health) + "/10"))
             }
         }
     }
