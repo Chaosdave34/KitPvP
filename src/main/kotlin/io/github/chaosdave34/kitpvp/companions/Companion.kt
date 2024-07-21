@@ -17,7 +17,6 @@ import net.minecraft.world.level.Level
 import org.bukkit.Location
 import org.bukkit.craftbukkit.CraftWorld
 import org.bukkit.craftbukkit.util.CraftVector
-import org.bukkit.entity.Mob
 import org.bukkit.entity.Player
 import org.bukkit.metadata.FixedMetadataValue
 import java.util.*
@@ -27,7 +26,7 @@ abstract class Companion(protected val name: String, private val attackDamage: D
 
     abstract fun createVanillaMob(world: Level): PathfinderMob
 
-    fun createCompanion(owner: Player): Mob {
+    fun createCompanion(owner: Player): org.bukkit.entity.LivingEntity {
         val companion = createVanillaMob((owner.location.world as CraftWorld).handle)
         companion.setPos(CraftVector.toNMS(owner.location.toVector()))
 
@@ -53,7 +52,7 @@ abstract class Companion(protected val name: String, private val attackDamage: D
             { livingEntity: LivingEntity -> checkNearestAttackableTargetGoal(livingEntity, owner.uniqueId) }
         )
 
-        val bukkitMob = companion.bukkitMob
+        val bukkitMob = companion.bukkitLivingEntity
         bukkitMob.setMetadata("companion", FixedMetadataValue(KitPvp.INSTANCE, true))
         bukkitMob.setPDCOwner(owner)
 

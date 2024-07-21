@@ -120,7 +120,7 @@ public class TurretRangedAttackGoal extends Goal {
 
         Vector velocity = new Vector(d1, d2, d3).normalize().multiply(speed);
 
-        Firework firework = mob.getBukkitMob().getWorld().spawn(mob.getBukkitMob().getEyeLocation(), Firework.class);
+        Firework firework = mob.getBukkitLivingEntity().getWorld().spawn(mob.getBukkitLivingEntity().getEyeLocation(), Firework.class);
         fireworkMeta = firework.getFireworkMeta();
         fireworkMeta.setPower(3);
         fireworkMeta.addEffect(FireworkEffect.builder().withColor(Color.BLACK).withColor(Color.RED).with(FireworkEffect.Type.BURST).build());
@@ -128,9 +128,9 @@ public class TurretRangedAttackGoal extends Goal {
 
         firework.setShotAtAngle(true);
         firework.setTicksToDetonate(60);
-        firework.setShooter(mob.getBukkitMob());
+        firework.setShooter(mob.getBukkitLivingEntity());
         firework.setVelocity(velocity);
 
-        mob.getBukkitMob().getWorld().playSound(mob.getBukkitMob().getLocation(), Sound.ENTITY_BREEZE_WIND_BURST, 1.0f, 0.4f);
+        mob.getBukkitLivingEntity().getWorld().playSound(mob.getBukkitLivingEntity().getLocation(), Sound.ENTITY_BREEZE_WIND_BURST, 1.0f, 0.4f);
     }
 }
