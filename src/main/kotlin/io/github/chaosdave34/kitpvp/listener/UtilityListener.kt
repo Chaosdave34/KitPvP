@@ -2,6 +2,7 @@ package io.github.chaosdave34.kitpvp.listener
 
 import io.github.chaosdave34.kitpvp.ExtendedPlayer
 import io.github.chaosdave34.kitpvp.KitPvp
+import io.github.chaosdave34.kitpvp.playerlist.PlayerListHandler
 import io.github.chaosdave34.kitpvp.utils.JsonUtils
 import io.papermc.paper.event.player.AsyncChatEvent
 import io.papermc.paper.event.player.PlayerFlowerPotManipulateEvent
@@ -74,6 +75,8 @@ class UtilityListener : Listener {
             Component.text("==========[ KitPvP ]==========", NamedTextColor.YELLOW, TextDecoration.BOLD)
                 .append(Component.newline())
         )
+
+        PlayerListHandler().sendInitial(player)
 
         // daily challenges
 //        val lastLoginDate = Instant.ofEpochMilli(player.lastLogin).atZone(ZoneId.systemDefault()).toLocalDate()
