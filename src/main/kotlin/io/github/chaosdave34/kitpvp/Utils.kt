@@ -27,7 +27,7 @@ object Utils {
         val sp = cp.handle
         val connection = sp.connection
 
-        val addEntityPacket = ClientboundAddEntityPacket(entity, entity.tracker!!.serverEntity)
+        val addEntityPacket = ClientboundAddEntityPacket(entity, entity.`moonrise$getTrackedEntity`().serverEntity)
         connection.send(addEntityPacket)
 
         val nonDefaultValues = entity.entityData.nonDefaultValues
